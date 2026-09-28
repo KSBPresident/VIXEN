@@ -61,7 +61,7 @@ export default function LaunchPage() {
           <h2>Your next chapter <span>starts here.</span></h2>
           <p>Explore the VIXEN preview and see the product direction.</p>
           <Link className="button button-light" href="/">Enter the VIXEN preview <span aria-hidden="true">↗</span></Link>
-          <p style={{ fontSize: 11, marginTop: 20 }}>Preview content is illustrative. Creator accounts, memberships, and checkout are not active yet.</p>
+          <p style={{ fontSize: 11, marginTop: 20 }}>Explore the VIXEN experience and see how creator communities, memberships, and exclusive content can come together.</p>
         </div>
       </section>
 
