@@ -1,80 +1,139 @@
 import Link from "next/link";
 
-const benefits = [
-  { number: "01", title: "Your access. Your tiers.", body: "Build memberships around the work you make and the community you lead." },
-  { number: "02", title: "Messages with value.", body: "Create direct, paid experiences while keeping your boundaries in your hands." },
-  { number: "03", title: "Drops worth waiting for.", body: "Give your community a reason to come back for the work only you can make." },
-  { number: "04", title: "Your brand, your rules.", body: "Shape your creator presence and grow on your own terms." },
-];
-
-const tiers = [
-  { name: "Bronze", price: "$9.99", detail: "A first look inside" },
-  { name: "Silver", price: "$19.99", detail: "Closer to the creator" },
-  { name: "Gold", price: "$29.99", detail: "More access, more value" },
-  { name: "Elite", price: "$49.99", detail: "The full experience" },
-];
-
 const creators = [
-  { initials: "NL", name: "Nova Luxe", category: "Music · Culture", tone: "portrait-rose" },
-  { initials: "VS", name: "Vee Saint", category: "Style · Behind the scenes", tone: "portrait-silver" },
-  { initials: "KM", name: "Kira Moss", category: "Art · Studio life", tone: "portrait-violet" },
+  { initials: "NL", name: "Nova Luxe", category: "Music · Culture", tone: "draft-rose", tag: "STUDIO NOTES" },
+  { initials: "VS", name: "Vee Saint", category: "Style · Behind the scenes", tone: "draft-silver", tag: "THE PROCESS" },
+  { initials: "KM", name: "Kira Moss", category: "Art · Studio life", tone: "draft-violet", tag: "NEW WORK" },
+];
+
+const features = [
+  { icon: "✦", title: "Creator-first tools", text: "A home for your work, your point of view, and the people who follow it." },
+  { icon: "◈", title: "Access on your terms", text: "Explore tiered memberships and shape experiences around your community." },
+  { icon: "⌁", title: "Closer connections", text: "Make room for direct messages, personal updates, and meaningful moments." },
+  { icon: "◇", title: "Exclusive drops", text: "Give your audience a reason to come back for the work only you can make." },
+];
+
+const galleryTiles = [
+  { symbol: "V", label: "The VIXEN world", tone: "tile-mark" },
+  { symbol: "01", label: "Behind the scenes", tone: "tile-portrait tile-one" },
+  { symbol: "✦", label: "Creator energy", tone: "tile-glow" },
+  { symbol: "V", label: "Your own space", tone: "tile-outline" },
+  { symbol: "02", label: "Made for members", tone: "tile-portrait tile-two" },
+  { symbol: "↗", label: "Build your brand", tone: "tile-neon" },
 ];
 
 export default function HomePage() {
   return (
-    <main>
-      <header className="site-header">
-        <Link className="wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link>
+    <main className="draft-home">
+      <div className="draft-announcement"><span aria-hidden="true">✦</span> VIXEN — THE CREATOR EXPERIENCE <span className="draft-announcement-soft">· PREVIEW LIVE</span> <span aria-hidden="true">✦</span></div>
+
+      <header className="site-header draft-header">
+        <Link className="wordmark draft-wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link>
         <nav className="main-nav" aria-label="Main navigation">
-          <Link href="/creators">Discover</Link>
-          <a href="#experience">The experience</a>
-          <Link href="/pricing">Memberships</Link>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <Link href="/creators">Creators</Link>
+          <a href="#features">Features</a>
         </nav>
-        <div className="header-actions"><Link className="text-link" href="/launch">Launch preview</Link><Link className="button button-small" href="/pricing">Join the Elite <span aria-hidden="true">↗</span></Link></div>
+        <div className="header-actions"><Link className="button button-small" href="/launch">Explore VIXEN <span aria-hidden="true">↗</span></Link></div>
       </header>
 
-      <section className="hero section-wrap">
-        <div className="hero-copy">
-          <p className="eyebrow"><span className="eyebrow-line" /> BUILT FOR CREATORS. DESIGNED FOR FREEDOM.</p>
-          <h1>Your content.<br />Your rules.<br /><span>Your empire.</span></h1>
-          <p className="hero-lede">A creator-first platform for the work you make, the people who believe in it, and the future you build together.</p>
-          <div className="hero-actions"><Link className="button" href="/creators">Discover VIXEN <span aria-hidden="true">↗</span></Link><Link className="button button-outline" href="/pricing">See memberships</Link></div>
-          <p className="hero-note"><span className="live-dot" /> Built for creators. By creators.</p>
+      <section className="draft-hero" id="home">
+        <div className="draft-hero-inner">
+          <div className="draft-side-index" aria-hidden="true"><span>01</span><i /><i /><i /><i /><i /></div>
+          <div className="draft-hero-copy">
+            <p className="eyebrow"><span className="eyebrow-line" /> THE ULTIMATE CREATOR PLATFORM</p>
+            <h1>VIXEN<span className="draft-hero-star">✦</span></h1>
+            <p className="draft-hero-subtitle">BUILT FOR CREATORS. DESIGNED FOR FREEDOM.</p>
+            <p className="draft-coming">A NEW WAY TO BUILD <span>IS COMING.</span></p>
+            <p className="draft-hero-lede">A premium space. Limitless opportunity.<br />Exclusive content. Real connections.<br />Made for the future you’re creating.</p>
+            <div className="hero-actions">
+              <Link className="button" href="/creators">Meet the creators <span aria-hidden="true">↗</span></Link>
+              <Link className="button button-outline" href="/launch">View launch preview</Link>
+            </div>
+            <p className="draft-preview-note"><span className="live-dot" /> PREVIEW AVAILABLE · MEMBERSHIPS AND CHECKOUT ARE NOT LIVE</p>
+          </div>
+
+          <div className="draft-hero-visual" aria-hidden="true">
+            <div className="draft-visual-halo" />
+            <div className="draft-visual-rays" />
+            <div className="draft-silhouette">
+              <div className="draft-hair" />
+              <div className="draft-head"><div className="draft-face" /><div className="draft-neck" /></div>
+              <div className="draft-shoulder" />
+              <div className="draft-shoulder-shine" />
+            </div>
+            <div className="draft-visual-mark">V<span>X</span></div>
+            <div className="draft-visual-caption">OWN YOUR WORLD <span>✦</span> BUILD YOUR EMPIRE</div>
+          </div>
+          <a className="draft-scroll" href="#about"><span aria-hidden="true" /> SCROLL TO DISCOVER</a>
         </div>
-        <div className="hero-art" aria-label="VIXEN creator platform preview">
-          <div className="orbit orbit-one" /><div className="orbit orbit-two" />
-          <div className="hero-v">V<span>X</span></div>
-          <div className="preview-card preview-card-left"><span className="mini-label">CREATOR CONTROL</span><strong>YOUR BRAND<br />YOUR RULES</strong><span className="mini-line" /></div>
-          <div className="preview-card preview-card-right"><span className="mini-label">MEMBERSHIP</span><strong>ELITE<br /><span>$49.99 / MO</span></strong><span className="mini-lock">✦</span></div>
-          <div className="hero-stamp"><span>V</span><small>CREATOR<br />POWER</small></div>
-          <p className="art-caption">THE NEXT EVOLUTION OF CREATOR PLATFORMS</p>
+      </section>
+
+      <section className="draft-principles" aria-label="VIXEN principles">
+        <div><span>01</span> MADE FOR CREATORS</div><div><span>02</span> BUILT AROUND YOUR WORK</div><div><span>03</span> YOUR BRAND. YOUR RULES.</div><div><span>04</span> COMMUNITY FIRST</div>
+      </section>
+
+      <section className="draft-platform section-wrap" id="about">
+        <div className="draft-platform-copy">
+          <p className="eyebrow">THE PLATFORM</p>
+          <h2>Built for creators.<br />Designed for <span>success.</span></h2>
+          <p className="draft-body">VIXEN is a creator platform preview shaped around freedom, direct connection, and the tools to build something of your own.</p>
+          <div className="draft-feature-list">
+            <div><span>✧</span><p><strong>Creator focused</strong><small>Designed around your growth</small></p></div>
+            <div><span>◈</span><p><strong>Flexible access</strong><small>Experiences shaped by creators</small></p></div>
+            <div><span>⌁</span><p><strong>Direct connection</strong><small>Closer to your community</small></p></div>
+            <div><span>◇</span><p><strong>Room to grow</strong><small>Your brand, on your terms</small></p></div>
+          </div>
+          <Link className="button button-outline" href="/launch">Learn about VIXEN <span aria-hidden="true">↗</span></Link>
+        </div>
+
+        <div className="draft-devices" aria-label="Illustrative VIXEN product dashboard">
+          <div className="draft-phone draft-phone-left"><div className="draft-screen"><div className="draft-screen-top"><span>VIXEN</span><span>•••</span></div><div className="draft-avatar draft-avatar-small">NL</div><strong>Nova Luxe</strong><small>CREATOR PREVIEW</small><div className="draft-lock-card">✦<span>EXCLUSIVE<br />DROP</span></div><div className="draft-screen-nav">⌂　◉　♡　◌</div></div></div>
+          <div className="draft-laptop"><div className="draft-laptop-screen"><div className="draft-browser-bar"><i /><i /><i /><span>vixen · your creator space</span></div><div className="draft-dashboard"><div className="draft-dashboard-heading"><div><small>YOUR CREATOR SPACE</small><strong>Welcome to your empire.</strong></div><span className="draft-dashboard-pill">PREVIEW</span></div><div className="draft-dashboard-banner"><span>VIXEN</span><small>YOUR WORK. YOUR WORLD.</small></div><div className="draft-dashboard-label">DISCOVER CREATORS</div><div className="draft-dashboard-creators">{creators.map((creator) => <div className="draft-dashboard-card" key={creator.initials}><span className={`draft-avatar ${creator.tone}`}>{creator.initials}</span><small>{creator.name}</small></div>)}</div><div className="draft-dashboard-bottom"><span>EXCLUSIVE DROPS</span><span>MEMBERSHIPS</span><span>MESSAGES</span></div></div></div><div className="draft-laptop-base" /></div>
+          <div className="draft-phone draft-phone-right"><div className="draft-screen"><div className="draft-screen-top"><span>YOUR STUDIO</span><span>•••</span></div><small>CREATOR TOOLS</small><div className="draft-chart"><i /><i /><i /><i /><i /><i /><i /></div><div className="draft-screen-row"><span>Memberships</span><b>↗</b></div><div className="draft-screen-row"><span>Content drops</span><b>↗</b></div><div className="draft-screen-row"><span>Community</span><b>↗</b></div><div className="draft-screen-nav">⌂　◉　♡　◌</div></div></div>
         </div>
       </section>
 
-      <section className="signal-bar" aria-label="Platform principles"><div><span>01</span> CREATOR FIRST</div><div><span>02</span> YOUR CONTENT</div><div><span>03</span> YOUR RULES</div><div><span>04</span> YOUR EMPIRE</div></section>
-
-      <section className="section-wrap section-block" id="experience">
-        <div className="section-heading"><p className="eyebrow">POWER THAT STAYS YOURS</p><h2>Make every connection <span>count.</span></h2><p>Tools designed to help you build a lasting creator business, with a community at its center.</p></div>
-        <div className="benefit-grid">{benefits.map((item) => <article className="benefit-card" key={item.number}><span className="card-number">{item.number}</span><h3>{item.title}</h3><p>{item.body}</p><span className="card-glow" aria-hidden="true" /></article>)}</div>
-      </section>
-
-      <section className="creator-section">
-        <div className="section-wrap creator-layout">
-          <div className="creator-intro"><p className="eyebrow">THE PEOPLE MAKE THE PLATFORM</p><h2>Find your<br /><span>people.</span></h2><p>Discover artists, voices, and makers building something on their own terms.</p><Link className="arrow-link" href="/creators">Explore creators <span aria-hidden="true">→</span></Link></div>
-          <div className="creator-grid">{creators.map((creator) => <Link className="creator-card" href="/creators" key={creator.name}><div className={`creator-portrait ${creator.tone}`}><span>{creator.initials}</span><i aria-hidden="true">✦</i></div><div className="creator-meta"><strong>{creator.name}</strong><span>{creator.category}</span></div></Link>)}</div>
+      <section className="draft-features" id="features">
+        <div className="section-wrap">
+          <div className="draft-section-heading"><p className="eyebrow">FOR CREATORS</p><h2>Be seen. Be heard.<br /><span>Be rewarded.</span></h2><p>Build a closer connection with your audience and create on your own terms.</p><Link className="button" href="/creators">Explore creator previews <span aria-hidden="true">↗</span></Link></div>
+          <div className="draft-feature-cards">{features.map((feature, index) => <article className="draft-feature-card" key={feature.title}><span className="draft-feature-number">0{index + 1}</span><span className="draft-feature-icon" aria-hidden="true">{feature.icon}</span><h3>{feature.title}</h3><p>{feature.text}</p></article>)}</div>
         </div>
       </section>
 
-      <section className="section-wrap section-block membership-section">
-        <div className="section-heading"><p className="eyebrow">ACCESS ON YOUR TERMS</p><h2>Choose your <span>level.</span></h2><p>Creators set the experience. Members choose how close they want to be.</p></div>
-        <div className="tier-grid">{tiers.map((tier, index) => <article className={`tier-card ${index === 3 ? "tier-featured" : ""}`} key={tier.name}><span className="tier-index">0{index + 1}</span><h3>{tier.name}</h3><p className="tier-detail">{tier.detail}</p><p className="tier-price">{tier.price}<small> / month</small></p><span className="tier-rule" /></article>)}</div>
-        <p className="pricing-note">Illustrative membership examples. Creators set their own offers and prices.</p>
-        <div className="center-action"><Link className="button" href="/pricing">Explore memberships <span aria-hidden="true">↗</span></Link></div>
+      <section className="draft-creators section-wrap">
+        <div className="draft-creator-heading"><p className="eyebrow">THE PEOPLE MAKE THE PLATFORM</p><h2>Find your <span>people.</span></h2><p>Meet the voices and makers imagined for the VIXEN creator experience.</p><Link className="arrow-link" href="/creators">Discover creators <span aria-hidden="true">→</span></Link></div>
+        <div className="draft-creator-grid">{creators.map((creator) => <Link className="draft-creator-card" href={`/creators/${creator.name.toLowerCase().replaceAll(" ", "-")}`} key={creator.initials}><div className={`draft-creator-image ${creator.tone}`}><span>{creator.initials}</span><i aria-hidden="true">✦</i><small>{creator.tag}</small></div><div className="draft-creator-meta"><strong>{creator.name}</strong><span>{creator.category}</span><b aria-hidden="true">↗</b></div></Link>)}</div>
       </section>
 
-      <section className="join-section"><div className="join-inner"><p className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p><h2>Control your <span>power.</span></h2><p>Build your world. Bring your people. Make it yours.</p><Link className="button button-light" href="/creators">Join the Elite <span aria-hidden="true">↗</span></Link></div></section>
+      <section className="draft-toolbelt" aria-label="VIXEN product features">
+        <div><span>✦</span><strong>Creator profiles</strong><small>Showcase your world</small></div><div><span>▣</span><strong>Exclusive content</strong><small>Share what you create</small></div><div><span>♧</span><strong>Community</strong><small>Connect with your people</small></div><div><span>◇</span><strong>Flexible access</strong><small>Build your own offers</small></div>
+      </section>
 
-      <footer className="site-footer"><div className="section-wrap footer-inner"><Link className="wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link><p>Exclusive. Powerful. Profitable.</p><div className="footer-links"><Link href="/creators">Creators</Link><Link href="/pricing">Memberships</Link><a href="mailto:hello@vixen.example">Contact</a></div><small>© {new Date().getFullYear()} VIXEN. Built for creators.</small></div></footer>
+      <section className="draft-vip">
+        <div className="draft-vip-icon" aria-hidden="true">✉</div>
+        <div className="draft-vip-copy"><p className="eyebrow">BE THE FIRST TO KNOW</p><h2>Join the VIXEN <span>VIP list.</span></h2><p>Launch updates and early-access news will appear here when the signup service is connected.</p></div>
+        <Link className="button" href="/launch">View launch updates <span aria-hidden="true">↗</span></Link>
+      </section>
+
+      <section className="draft-gallery">
+        <div className="section-wrap">
+          <div className="draft-gallery-heading"><p className="eyebrow">FOLLOW THE MOVEMENT</p><h2>The VIXEN <span>visual world.</span></h2><p>A first look at the tone, tools, and creative energy behind the platform.</p></div>
+          <div className="draft-gallery-grid">{galleryTiles.map((tile) => <div className={`draft-gallery-tile ${tile.tone}`} key={tile.label} aria-label={tile.label}><span>{tile.symbol}</span><small>{tile.label}</small></div>)}</div>
+          <div className="center-action"><Link className="button button-outline" href="/creators">Explore the creator preview <span aria-hidden="true">↗</span></Link></div>
+        </div>
+      </section>
+
+      <footer className="site-footer draft-footer">
+        <div className="section-wrap draft-footer-main">
+          <div className="draft-footer-brand"><Link className="wordmark draft-wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link><p>POWER. PASSION. PURPOSE.</p><small>This is your time. This is your platform.</small></div>
+          <div className="draft-footer-column"><strong>PLATFORM</strong><Link href="/launch">About VIXEN</Link><Link href="/#features">Features</Link><Link href="/pricing">Memberships</Link></div>
+          <div className="draft-footer-column"><strong>CREATORS</strong><Link href="/creators">Discover</Link><Link href="/launch">Creator preview</Link><Link href="/launch">Launch updates</Link></div>
+          <div className="draft-footer-column"><strong>VIXEN</strong><Link href="/launch">Launch preview</Link><Link href="/#about">About</Link><Link href="/">Home</Link></div>
+        </div>
+        <div className="draft-footer-bottom"><span>© {new Date().getFullYear()} VIXEN. Preview build.</span><span>MEMBERSHIP AND PAYMENT SERVICES ARE NOT LIVE.</span></div>
+      </footer>
     </main>
   );
 }
