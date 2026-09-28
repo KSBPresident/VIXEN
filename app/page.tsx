@@ -7,10 +7,10 @@ const creators = [
 ];
 
 const features = [
-  { icon: "✦", title: "Creator-first tools", text: "A home for your work, your point of view, and the people who follow it." },
-  { icon: "◈", title: "Access on your terms", text: "Set your package price, billing schedule, member perks, and exclusive access around your community." },
-  { icon: "⌁", title: "Closer connections", text: "Make room for direct messages, personal updates, and meaningful moments." },
-  { icon: "◇", title: "Exclusive drops", text: "Give your audience a reason to come back for the work only you can make." },
+  { id: "creator-tools", icon: "✦", title: "Creator-first tools", text: "A home for your work, your point of view, and the people who follow it." },
+  { id: "membership-packages", icon: "◈", title: "Access on your terms", text: "Set your package price, billing schedule, member perks, and exclusive access around your community." },
+  { id: "paid-messages", icon: "⌁", title: "Closer connections", text: "Make room for direct messages, personal updates, and meaningful moments." },
+  { id: "exclusive-drops", icon: "◇", title: "Exclusive drops", text: "Give your audience a reason to come back for the work only you can make." },
 ];
 
 const galleryTiles = [
@@ -47,6 +47,10 @@ export default function HomePage() {
             <p className="draft-hero-subtitle">BUILT FOR CREATORS. DESIGNED FOR FREEDOM.</p>
             <p className="draft-coming">A NEW WAY TO BUILD <span>IS COMING.</span></p>
             <p className="draft-hero-lede">A premium space. Limitless opportunity.<br />Exclusive content. Real connections.<br />Made for the future you’re creating.</p>
+            <form className="draft-search" action="/creators" role="search" aria-label="Find VIXEN creators">
+              <input type="search" name="q" placeholder="Search creators, styles, and interests..." aria-label="Search creators, styles, and interests" />
+              <button type="submit">Find creators <span aria-hidden="true">↗</span></button>
+            </form>
             <div className="hero-actions">
               <Link className="button" href="/creators">Meet the creators <span aria-hidden="true">↗</span></Link>
               <Link className="button button-outline" href="/launch">View launch preview</Link>
@@ -70,8 +74,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="draft-principles" aria-label="VIXEN principles">
-        <div><span>01</span> MADE FOR CREATORS</div><div><span>02</span> BUILT AROUND YOUR WORK</div><div><span>03</span> YOUR BRAND. YOUR RULES.</div><div><span>04</span> COMMUNITY FIRST</div>
+      <section className="draft-shortcuts" aria-label="Explore VIXEN">
+        <Link className="draft-shortcut" href="/creators"><span aria-hidden="true">♙</span><b>Creators</b><small>Find your people</small></Link>
+        <Link className="draft-shortcut" href="/pricing"><span aria-hidden="true">◈</span><b>Packages</b><small>Choose your level</small></Link>
+        <a className="draft-shortcut" href="#creator-tools"><span aria-hidden="true">✦</span><b>Creator tools</b><small>Build your space</small></a>
+        <a className="draft-shortcut" href="#paid-messages"><span aria-hidden="true">⌁</span><b>Paid messages</b><small>Connect directly</small></a>
+        <a className="draft-shortcut" href="#exclusive-drops"><span aria-hidden="true">◇</span><b>Exclusive drops</b><small>Share what you make</small></a>
+        <Link className="draft-shortcut" href="/launch"><span aria-hidden="true">↗</span><b>Launch preview</b><small>See the VIXEN vision</small></Link>
       </section>
 
       <section className="draft-platform section-wrap" id="about">
@@ -98,7 +107,7 @@ export default function HomePage() {
       <section className="draft-features" id="features">
         <div className="section-wrap">
           <div className="draft-section-heading"><p className="eyebrow">FOR CREATORS</p><h2>Be seen. Be heard.<br /><span>Be rewarded.</span></h2><p>Build a closer connection with your audience and create on your own terms.</p><Link className="button" href="/creators">Meet the creators <span aria-hidden="true">↗</span></Link></div>
-          <div className="draft-feature-cards">{features.map((feature, index) => <article className="draft-feature-card" key={feature.title}><span className="draft-feature-number">0{index + 1}</span><span className="draft-feature-icon" aria-hidden="true">{feature.icon}</span><h3>{feature.title}</h3><p>{feature.text}</p></article>)}</div>
+          <div className="draft-feature-cards">{features.map((feature, index) => <article className="draft-feature-card" id={feature.id} key={feature.title}><span className="draft-feature-number">0{index + 1}</span><span className="draft-feature-icon" aria-hidden="true">{feature.icon}</span><h3>{feature.title}</h3><p>{feature.text}</p></article>)}</div>
         </div>
       </section>
 
