@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { signOut } from "./actions";
 import { createClient } from "@/lib/supabase/server";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Your account", robots: { index: false, follow: false } };
 
 export default async function AccountPage() {
