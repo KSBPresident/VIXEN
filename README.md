@@ -1,17 +1,23 @@
 # VIXEN
 
-VIXEN is a creator-first platform built with the Next.js App Router and TypeScript.
+A creator-first platform built with the Next.js App Router and TypeScript. The public experience follows the supplied VIXEN brand direction: black, neon pink, and silver, with discovery, tiered access, paid messages, and creator control.
 
-## Project record
+## Canonical implementation plan
 
-See `docs/PRODUCT_REQUIREMENTS_TIMELINE.md` for the chronologically ordered requirements and delivery gates captured for this project.
+See docs/PRODUCT_REQUIREMENTS_TIMELINE.md for the authoritative implementation sequence and acceptance gates.
 
-## Development
+## Run locally
 
 - Node.js 22 or newer
-- `npm install`
-- `npm run dev`
+- npm install
+- npm run dev
 
-Production checks: `npm run lint`, `npm run typecheck`, and `npm run build`.
+Open http://localhost:3000.
 
-External services such as payments, authentication, AI, and n8n workflows must not be represented as live until their credentials and integrations are configured and verified.
+## Production checks
+
+- npm run lint
+- npm run typecheck
+- npm run build
+
+Integrations that need credentials are not presented as active until configured and verified.

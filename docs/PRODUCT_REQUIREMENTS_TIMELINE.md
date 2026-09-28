@@ -1,53 +1,78 @@
-# VIXEN requirements in chronological order
+# VIXEN canonical implementation sequence
 
-This record preserves the requested product and delivery decisions in the order they were given. The latest instruction authorizes a fresh Next.js implementation. Earlier source-preservation instructions are superseded for this rebuild, but existing source material should still be consulted if it becomes accessible.
+This is the authoritative order for building VIXEN 1.0. Every accepted requirement discussed for the project belongs in this sequence; this is not a conversation log. The current direction is a fresh Next.js implementation in the empty VIXEN repository. Do not claim a feature is live until its implementation and checks pass.
 
-## 1. Production website and deployment
+## 1. Application and delivery foundation
 
-- Prepare the VIXEN site for production quality, remove deployment-unneeded material, and publish the source to the VIXEN GitHub repository and Vercel project.
-- Make the deployment build and launch successfully. Do not claim production readiness until the build and deployed site are verified.
-- Keep the website viewable in a preview so the owner can review its appearance.
+- Establish the Next.js App Router, TypeScript, design tokens, responsive layout, accessibility baseline, metadata, and health endpoint.
+- Keep production quality gates aligned: ESLint, TypeScript, relevant automated tests, and the production build.
+- Run CI on pull requests and pushes to the production branch. Use Vercel preview deployments for review and production delivery only from the approved branch after required checks pass.
+- Any automated file committer must write to an isolated branch and create a reviewable pull request; never write generated changes directly to production/main.
+- Use a finite error-recovery loop: capture diagnostics, make one focused correction, rerun relevant gates, and stop after a small retry limit or on credentials, service outage, migration, security-sensitive changes, or unclear requirements. Do not loop indefinitely.
 
-## 2. Initial business and chatbot capabilities
+## 2. Brand and public website
 
-- Research account-based marketing (ABM) platforms and SDR teams relevant to VIXEN.
-- Provide an on-site chatbot that can answer questions about CRM integrations for the site.
+- Implement the supplied flyer direction: black background, neon pink and silver accents, VIXEN wordmark, creator-first positioning, tiered access, paid messages, exclusive drops, creator control, and a clear “Join the Elite” action.
+- Use OnlyFans as a product-experience benchmark for creator profiles, discovery, subscriptions, messaging, purchases, and monetization. Keep VIXEN's own brand and product identity.
+- Make the public landing page responsive and accessible, with clear navigation and working links.
 
-## 3. Quality gates, outcomes, and automation
+## 3. Creator discovery and profiles
 
-- Align lint, type, test, and production-build gates with the actual deployment pipeline.
-- Define a real-world ROI framework with measurable inputs, outputs, attribution, and reporting; do not make unsupported ROI promises.
-- Keep user-facing buttons, backend endpoints, automation triggers, and resulting actions/feedback aligned.
-- Document the bot/workflow manifest, trigger names, payloads, and expected effects.
+- Build discover/creators listings and creator profile routes.
+- Place rapper/creator profiles in intended listings and routes; each card and profile link must open the matching creator page.
+- Treat any sample creators as clearly labeled preview content until real, authorized creator records are connected.
 
-## 4. n8n webhook behavior
+## 4. Identity and protected member experiences
 
-- Website webhook events must map to the correct n8n workflow and trigger.
-- Verify each button/action → API endpoint → webhook/workflow mapping and its expected response.
+- Add authentication and authorization before protected dashboard, profile, wallet, subscription, purchase, message, notification, reward, and security routes.
+- Enforce authorization on server/API routes as well as in the interface.
+- Use Supabase schema, migrations, and policies as the source of truth when configuring data and access.
 
-## 5. VIXEN 1.0 architecture and product scope
+## 5. Creator studio and content operations
 
-- Use a Next.js App Router and TypeScript architecture with public routes, protected user routes, admin routes, API routes, shared components, business logic, Supabase schema/migrations, tests, and product/security/database documentation.
-- The requested product areas include discovery, events, creators, viewing, store, checkout, profiles, rewards, launch, dashboard, wallet, subscriptions, purchases, messages, notifications, security, and admin functions.
+- Add creator/studio workflows for managing profiles, content, tiers, exclusive drops, and paid-message offerings.
+- Align every visible button with a real route or API operation and an honest success/error state; do not leave dead controls.
 
-## 6. Product benchmark and creator placement
+## 6. Checkout, subscriptions, purchases, and wallet
 
-- Use OnlyFans as a product-experience benchmark for creator profiles, discovery, subscriptions, messaging, purchases, and monetization while retaining VIXEN branding and product identity.
-- Place rapper/creator profiles in intended discovery/listing routes and ensure each profile opens its matching creator page.
+- Integrate Stripe server-side for checkout and subscription operations, with signature-verified webhook handling, idempotency, and explicit error recovery.
+- Use the database ledger and tested money rules for balances and purchases; do not treat client-side values as authoritative.
+- Do not expose secret keys or mark commerce live until test-mode and production configuration are verified.
 
-## 7. Code-level integrations, AI, CI/CD, and recovery
+## 7. Rewards and journey
 
-- Implement integrations in application and backend code, not as disconnected buttons or documentation-only references.
-- Implement LLM/AI functionality in the code, including the CRM chatbot. Keep provider credentials server-side and provide safe unavailable-service behavior.
-- Configure CI on pushes and pull requests with lint, type, test, and build checks; use Vercel preview deployments for review and production deployments only from the approved branch after checks pass.
-- Any automated file committer must work on an isolated branch and produce reviewable changes. Do not commit generated changes straight to production/main without protections and successful checks.
-- Use a finite error-recovery loop: capture failing output, make a focused correction, rerun relevant checks, and stop for secrets, service outages, migrations, security-sensitive changes, ambiguous requirements, or repeated failure. No infinite retries.
+- Implement journey and rewards behavior against the existing business rules and database model.
+- Keep journey, money, and rewards behavior covered by relevant tests before enabling rewards or financial effects.
 
-## 8. Visual direction
+## 8. Administration, moderation, and security
 
-- Use the supplied VIXEN flyer as the visual reference: black background, neon pink and silver accents, strong VIXEN wordmark, creator-first messaging, tiered access, paid messages, exclusive drops, creator control, and a clear “Join the Elite” action.
+- Add role-protected admin routes for dashboard, users, creators, finance, moderation, rewards, and security.
+- Add auditability for sensitive actions and validate access controls, input handling, privacy, and data retention.
 
-## 9. Current build priority
+## 9. LLM/AI and CRM assistance
 
-- Start a clean Next.js application in this repository, establish a working public website and preview first, then add and verify backend services and platform features in the sequence above.
-- Do not present payments, authentication, wallet operations, AI answers, or n8n actions as functional until each is integrated and verified against its real service.
+- Implement LLM/AI functionality in application code, including an on-site chatbot that answers CRM-integration questions.
+- Keep provider credentials server-side, make the provider/model configurable, rate-limit and validate requests, and return safe unavailable-service states.
+- Research relevant ABM platforms and SDR team workflows; ground recommendations in verifiable sources and do not claim a CRM integration exists unless it is connected and verified.
+
+## 10. n8n and website automation
+
+- Define a workflow manifest with trigger names, endpoint, payload schema, authentication, expected effects, and response/error handling.
+- Map every related website button/action to the backend route and corresponding n8n webhook/workflow trigger.
+- Verify the full path from UI action through API to n8n and back. Never put webhook secrets in browser code.
+
+## 11. ROI and product measurement
+
+- Define a real-world ROI framework with measurable inputs, outcomes, costs, attribution windows, and reporting.
+- Track conversion, retention, creator earnings, payout timing, support load, and platform costs only where data collection is disclosed and appropriately protected.
+- Do not publish unsupported ROI promises.
+
+## 12. Production release and review
+
+- Confirm all configured integrations, required environment-variable names, database migrations, security controls, and rollback steps.
+- Verify CI passes and the Vercel preview renders all implemented flows before promoting the approved commit to production.
+- Give the owner a working preview and distinguish live capabilities from preview/sample content.
+
+## Current first milestone
+
+A clean, accessible, responsive public VIXEN website in Next.js with the supplied visual direction, creator discovery/profile routes, a truthful preview state, CI checks, and a Vercel preview. Then continue through the canonical phases above.
