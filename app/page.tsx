@@ -1,147 +1,57 @@
+import Image from "next/image";
 import Link from "next/link";
+import { SocialSignUp } from "@/components/auth/social-sign-up";
 
-const creators = [
-  { initials: "NL", name: "Nova Luxe", category: "Music · Culture", tone: "draft-rose", tag: "STUDIO NOTES" },
-  { initials: "VS", name: "Vee Saint", category: "Style · Behind the scenes", tone: "draft-silver", tag: "THE PROCESS" },
-  { initials: "KM", name: "Kira Moss", category: "Art · Studio life", tone: "draft-violet", tag: "NEW WORK" },
-];
-
-const features = [
-  { id: "creator-tools", icon: "✦", title: "Creator-first tools", text: "A home for your work, your point of view, and the people who follow it." },
-  { id: "membership-packages", icon: "◈", title: "Access on your terms", text: "Set your package price, billing schedule, member perks, and exclusive access around your community." },
-  { id: "paid-messages", icon: "⌁", title: "Closer connections", text: "Make room for direct messages, personal updates, and meaningful moments." },
-  { id: "exclusive-drops", icon: "◇", title: "Exclusive drops", text: "Give your audience a reason to come back for the work only you can make." },
-];
-
-const galleryTiles = [
-  { symbol: "V", label: "The VIXEN world", tone: "tile-mark" },
-  { symbol: "01", label: "Behind the scenes", tone: "tile-portrait tile-one" },
-  { symbol: "✦", label: "Creator energy", tone: "tile-glow" },
-  { symbol: "V", label: "Your own space", tone: "tile-outline" },
-  { symbol: "02", label: "Made for members", tone: "tile-portrait tile-two" },
-  { symbol: "↗", label: "Build your brand", tone: "tile-neon" },
-];
+const supabaseConfigured = Boolean(
+  process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+);
 
 export default function HomePage() {
   return (
-    <main className="draft-home">
-      <div className="draft-announcement"><span aria-hidden="true">✦</span> VIXEN — THE CREATOR EXPERIENCE <span className="draft-announcement-soft">· PREVIEW LIVE</span> <span aria-hidden="true">✦</span></div>
-
-      <header className="site-header draft-header">
-        <Link className="wordmark draft-wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link>
-        <nav className="main-nav" aria-label="Main navigation">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <Link href="/creators">Creators</Link>
-          <a href="#features">Features</a>
+    <main className="vixen-home">
+      <header className="vixen-topbar">
+        <Link className="vixen-header-brand" href="/" aria-label="VIXEN home">
+          <Image src="/assets/vixen-logo-3d.png" alt="VIXEN" width={240} height={273} priority />
+        </Link>
+        <nav className="vixen-nav" aria-label="Main navigation">
+          <Link href="/creators">Discover</Link>
+          <Link href="/pricing">Memberships</Link>
         </nav>
-        <div className="header-actions"><Link className="button button-small" href="/launch">Explore VIXEN <span aria-hidden="true">↗</span></Link></div>
+        <Link className="vixen-header-cta" href="/sign-up">Create account <span aria-hidden="true">↗</span></Link>
       </header>
 
-      <section className="draft-hero" id="home">
-        <div className="draft-hero-inner">
-          <div className="draft-side-index" aria-hidden="true"><span>01</span><i /><i /><i /><i /><i /></div>
-          <div className="draft-hero-copy">
-            <p className="eyebrow"><span className="eyebrow-line" /> THE ULTIMATE CREATOR PLATFORM</p>
-            <h1>VIXEN<span className="draft-hero-star">✦</span></h1>
-            <p className="draft-hero-subtitle">BUILT FOR CREATORS. DESIGNED FOR FREEDOM.</p>
-            <p className="draft-coming">A NEW WAY TO BUILD <span>IS COMING.</span></p>
-            <p className="draft-hero-lede">A premium space. Limitless opportunity.<br />Exclusive content. Real connections.<br />Made for the future you’re creating.</p>
-            <form className="draft-search" action="/creators" role="search" aria-label="Find VIXEN creators">
-              <input type="search" name="q" placeholder="Search creators, styles, and interests..." aria-label="Search creators, styles, and interests" />
-              <button type="submit">Find creators <span aria-hidden="true">↗</span></button>
-            </form>
-            <div className="hero-actions">
-              <Link className="button" href="/creators">Meet the creators <span aria-hidden="true">↗</span></Link>
-              <Link className="button button-outline" href="/launch">View launch preview</Link>
-            </div>
-            <p className="draft-preview-note"><span className="live-dot" /> YOUR CREATOR EXPERIENCE STARTS HERE</p>
+      <section className="vixen-entry">
+        <div className="vixen-entry-copy">
+          <p className="vixen-kicker"><span aria-hidden="true" /> THE CREATOR PLATFORM</p>
+          <Image className="vixen-hero-logo" src="/assets/vixen-logo-3d.png" alt="VIXEN" width={640} height={728} priority />
+          <h1 className="visually-hidden">VIXEN — your creative world, your rules</h1>
+          <p className="vixen-entry-tagline">Your audience. Your content.<br /><span>Your terms.</span></p>
+          <p className="vixen-entry-description">A home for creators to share their work, connect with their community, and build on their own terms.</p>
+          <Link className="vixen-discover-link" href="/creators">Explore the creator preview <span aria-hidden="true">→</span></Link>
+        </div>
+
+        <section className="vixen-auth-card" aria-labelledby="vixen-auth-heading">
+          <div className="vixen-auth-card-heading">
+            <p className="vixen-kicker">JOIN VIXEN</p>
+            <h2 id="vixen-auth-heading">Create your account</h2>
+            <p>Sign up securely with your preferred account.</p>
           </div>
-
-          <div className="draft-hero-visual" aria-hidden="true">
-            <div className="draft-visual-halo" />
-            <div className="draft-visual-rays" />
-            <div className="draft-silhouette">
-              <div className="draft-hair" />
-              <div className="draft-head"><div className="draft-face" /><div className="draft-neck" /></div>
-              <div className="draft-shoulder" />
-              <div className="draft-shoulder-shine" />
-            </div>
-            <div className="draft-visual-mark">V<span>X</span></div>
-            <div className="draft-visual-caption">OWN YOUR WORLD <span>✦</span> BUILD YOUR EMPIRE</div>
-          </div>
-          <a className="draft-scroll" href="#about"><span aria-hidden="true" /> SCROLL TO DISCOVER</a>
-        </div>
+          <SocialSignUp configured={supabaseConfigured} />
+          <p className="vixen-auth-caption">Your sign-in stays with the provider you choose.</p>
+        </section>
       </section>
 
-      <section className="draft-shortcuts" aria-label="Explore VIXEN">
-        <Link className="draft-shortcut" href="/creators"><span aria-hidden="true">♙</span><b>Creators</b><small>Find your people</small></Link>
-        <Link className="draft-shortcut" href="/pricing"><span aria-hidden="true">◈</span><b>Packages</b><small>Choose your level</small></Link>
-        <a className="draft-shortcut" href="#creator-tools"><span aria-hidden="true">✦</span><b>Creator tools</b><small>Build your space</small></a>
-        <a className="draft-shortcut" href="#paid-messages"><span aria-hidden="true">⌁</span><b>Paid messages</b><small>Connect directly</small></a>
-        <a className="draft-shortcut" href="#exclusive-drops"><span aria-hidden="true">◇</span><b>Exclusive drops</b><small>Share what you make</small></a>
-        <Link className="draft-shortcut" href="/launch"><span aria-hidden="true">↗</span><b>Launch preview</b><small>See the VIXEN vision</small></Link>
+      <section className="vixen-value-strip" aria-label="The VIXEN experience">
+        <div><span aria-hidden="true">✦</span><strong>Creator-led</strong></div>
+        <div><span aria-hidden="true">◈</span><strong>Made for community</strong></div>
+        <div><span aria-hidden="true">⌁</span><strong>Built around your voice</strong></div>
       </section>
 
-      <section className="draft-platform section-wrap" id="about">
-        <div className="draft-platform-copy">
-          <p className="eyebrow">THE PLATFORM</p>
-          <h2>Built for creators.<br />Designed for <span>success.</span></h2>
-          <p className="draft-body">VIXEN is being built to give creators more control over how they package their work, reward their community, and grow their brand.</p>
-          <div className="draft-feature-list">
-            <div><span>✧</span><p><strong>Creator focused</strong><small>Designed around your growth</small></p></div>
-            <div><span>◈</span><p><strong>Creator-set packages</strong><small>Set pricing, billing, perks, and access</small></p></div>
-            <div><span>⌁</span><p><strong>Direct connection</strong><small>Closer to your community</small></p></div>
-            <div><span>◇</span><p><strong>Room to grow</strong><small>Your brand, on your terms</small></p></div>
-          </div>
-          <Link className="button button-outline" href="/launch">Learn about VIXEN <span aria-hidden="true">↗</span></Link>
-        </div>
-
-        <div className="draft-devices" aria-label="VIXEN creator dashboard concept">
-          <div className="draft-phone draft-phone-left"><div className="draft-screen"><div className="draft-screen-top"><span>VIXEN</span><span>•••</span></div><div className="draft-avatar draft-avatar-small">NL</div><strong>Nova Luxe</strong><small>CREATOR PREVIEW</small><div className="draft-lock-card">✦<span>EXCLUSIVE<br />DROP</span></div><div className="draft-screen-nav">⌂　◉　♡　◌</div></div></div>
-          <div className="draft-laptop"><div className="draft-laptop-screen"><div className="draft-browser-bar"><i /><i /><i /><span>vixen · your creator space</span></div><div className="draft-dashboard"><div className="draft-dashboard-heading"><div><small>YOUR CREATOR SPACE</small><strong>Welcome to your empire.</strong></div><span className="draft-dashboard-pill">PREVIEW</span></div><div className="draft-dashboard-banner"><span>VIXEN</span><small>YOUR WORK. YOUR WORLD.</small></div><div className="draft-dashboard-label">DISCOVER CREATORS</div><div className="draft-dashboard-creators">{creators.map((creator) => <div className="draft-dashboard-card" key={creator.initials}><span className={`draft-avatar ${creator.tone}`}>{creator.initials}</span><small>{creator.name}</small></div>)}</div><div className="draft-dashboard-bottom"><span>EXCLUSIVE DROPS</span><span>MEMBERSHIPS</span><span>MESSAGES</span></div></div></div><div className="draft-laptop-base" /></div>
-          <div className="draft-phone draft-phone-right"><div className="draft-screen"><div className="draft-screen-top"><span>YOUR STUDIO</span><span>•••</span></div><small>CREATOR TOOLS</small><div className="draft-chart"><i /><i /><i /><i /><i /><i /><i /></div><div className="draft-screen-row"><span>Memberships</span><b>↗</b></div><div className="draft-screen-row"><span>Content drops</span><b>↗</b></div><div className="draft-screen-row"><span>Community</span><b>↗</b></div><div className="draft-screen-nav">⌂　◉　♡　◌</div></div></div>
-        </div>
-      </section>
-
-      <section className="draft-features" id="features">
-        <div className="section-wrap">
-          <div className="draft-section-heading"><p className="eyebrow">FOR CREATORS</p><h2>Be seen. Be heard.<br /><span>Be rewarded.</span></h2><p>Build a closer connection with your audience and create on your own terms.</p><Link className="button" href="/creators">Meet the creators <span aria-hidden="true">↗</span></Link></div>
-          <div className="draft-feature-cards">{features.map((feature, index) => <article className="draft-feature-card" id={feature.id} key={feature.title}><span className="draft-feature-number">0{index + 1}</span><span className="draft-feature-icon" aria-hidden="true">{feature.icon}</span><h3>{feature.title}</h3><p>{feature.text}</p></article>)}</div>
-        </div>
-      </section>
-
-      <section className="draft-creators section-wrap">
-        <div className="draft-creator-heading"><p className="eyebrow">THE PEOPLE MAKE THE PLATFORM</p><h2>Find your <span>people.</span></h2><p>Explore sample profiles across music, style, art, and the stories behind the work.</p><Link className="arrow-link" href="/creators">Discover creators <span aria-hidden="true">→</span></Link></div>
-        <div className="draft-creator-grid">{creators.map((creator) => <Link className="draft-creator-card" href={`/creators/${creator.name.toLowerCase().replaceAll(" ", "-")}`} key={creator.initials}><div className={`draft-creator-image ${creator.tone}`}><span>{creator.initials}</span><i aria-hidden="true">✦</i><small>{creator.tag}</small></div><div className="draft-creator-meta"><strong>{creator.name}</strong><span>{creator.category}</span><b aria-hidden="true">↗</b></div></Link>)}</div>
-      </section>
-
-      <section className="draft-toolbelt" aria-label="VIXEN product features">
-        <div><span>✦</span><strong>Creator profiles</strong><small>Showcase your world</small></div><div><span>▣</span><strong>Exclusive content</strong><small>Share what you create</small></div><div><span>♧</span><strong>Community</strong><small>Connect with your people</small></div><div><span>◇</span><strong>Flexible access</strong><small>Build your own offers</small></div>
-      </section>
-
-      <section className="draft-vip">
-        <div className="draft-vip-icon" aria-hidden="true">✉</div>
-        <div className="draft-vip-copy"><p className="eyebrow">BE THE FIRST TO KNOW</p><h2>Join the VIXEN <span>VIP list.</span></h2><p>Discover creator stories, package ideas, and the experiences taking shape across VIXEN.</p></div>
-        <Link className="button" href="/launch">Explore VIXEN <span aria-hidden="true">↗</span></Link>
-      </section>
-
-      <section className="draft-gallery">
-        <div className="section-wrap">
-          <div className="draft-gallery-heading"><p className="eyebrow">FOLLOW THE MOVEMENT</p><h2>The VIXEN <span>visual world.</span></h2><p>A first look at the tone, tools, and creative energy behind the platform.</p></div>
-          <div className="draft-gallery-grid">{galleryTiles.map((tile) => <div className={`draft-gallery-tile ${tile.tone}`} key={tile.label} aria-label={tile.label}><span>{tile.symbol}</span><small>{tile.label}</small></div>)}</div>
-          <div className="center-action"><Link className="button button-outline" href="/creators">Explore the creator preview <span aria-hidden="true">↗</span></Link></div>
-        </div>
-      </section>
-
-      <footer className="site-footer draft-footer">
-        <div className="section-wrap draft-footer-main">
-          <div className="draft-footer-brand"><Link className="wordmark draft-wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link><p>POWER. PASSION. PURPOSE.</p><small>This is your time. This is your platform.</small></div>
-          <div className="draft-footer-column"><strong>PLATFORM</strong><Link href="/launch">About VIXEN</Link><Link href="/#features">Features</Link><Link href="/pricing">Memberships</Link></div>
-          <div className="draft-footer-column"><strong>CREATORS</strong><Link href="/creators">Discover</Link><Link href="/launch">Creator preview</Link><Link href="/launch">Launch updates</Link></div>
-          <div className="draft-footer-column"><strong>VIXEN</strong><Link href="/launch">Launch preview</Link><Link href="/#about">About</Link><Link href="/">Home</Link></div>
-        </div>
-        <div className="draft-footer-bottom"><span>© {new Date().getFullYear()} VIXEN.</span><span>CREATOR CONTROL · CONTENT · COMMUNITY</span></div>
+      <footer className="vixen-footer">
+        <Link href="/" className="vixen-footer-brand"><Image src="/assets/vixen-logo-3d.png" alt="" width={160} height={182} /> <span>Creator-first. Always.</span></Link>
+        <div className="vixen-footer-links"><Link href="/creators">Discover</Link><Link href="/pricing">Memberships</Link><Link href="/launch">About VIXEN</Link></div>
+        <small>© {new Date().getFullYear()} VIXEN</small>
       </footer>
     </main>
   );
