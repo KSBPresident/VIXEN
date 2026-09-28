@@ -30,7 +30,7 @@ export default function HomePage() {
           <a href="#experience">The experience</a>
           <Link href="/pricing">Memberships</Link>
         </nav>
-        <div className="header-actions"><Link className="text-link" href="/creators">Explore</Link><Link className="button button-small" href="/pricing">Join the Elite <span aria-hidden="true">↗</span></Link></div>
+        <div className="header-actions"><Link className="text-link" href="/launch">Launch preview</Link><Link className="button button-small" href="/pricing">Join the Elite <span aria-hidden="true">↗</span></Link></div>
       </header>
 
       <section className="hero section-wrap">
