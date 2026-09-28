@@ -8,7 +8,7 @@ const creators = [
 
 const features = [
   { icon: "✦", title: "Creator-first tools", text: "A home for your work, your point of view, and the people who follow it." },
-  { icon: "◈", title: "Access on your terms", text: "Explore tiered memberships and shape experiences around your community." },
+  { icon: "◈", title: "Access on your terms", text: "Set your package price, billing schedule, member perks, and exclusive access around your community." },
   { icon: "⌁", title: "Closer connections", text: "Make room for direct messages, personal updates, and meaningful moments." },
   { icon: "◇", title: "Exclusive drops", text: "Give your audience a reason to come back for the work only you can make." },
 ];
@@ -51,7 +51,7 @@ export default function HomePage() {
               <Link className="button" href="/creators">Meet the creators <span aria-hidden="true">↗</span></Link>
               <Link className="button button-outline" href="/launch">View launch preview</Link>
             </div>
-            <p className="draft-preview-note"><span className="live-dot" /> PREVIEW AVAILABLE · MEMBERSHIPS AND CHECKOUT ARE NOT LIVE</p>
+            <p className="draft-preview-note"><span className="live-dot" /> YOUR CREATOR EXPERIENCE STARTS HERE</p>
           </div>
 
           <div className="draft-hero-visual" aria-hidden="true">
@@ -78,17 +78,17 @@ export default function HomePage() {
         <div className="draft-platform-copy">
           <p className="eyebrow">THE PLATFORM</p>
           <h2>Built for creators.<br />Designed for <span>success.</span></h2>
-          <p className="draft-body">VIXEN is a creator platform preview shaped around freedom, direct connection, and the tools to build something of your own.</p>
+          <p className="draft-body">VIXEN is being built to give creators more control over how they package their work, reward their community, and grow their brand.</p>
           <div className="draft-feature-list">
             <div><span>✧</span><p><strong>Creator focused</strong><small>Designed around your growth</small></p></div>
-            <div><span>◈</span><p><strong>Flexible access</strong><small>Experiences shaped by creators</small></p></div>
+            <div><span>◈</span><p><strong>Creator-set packages</strong><small>Set pricing, billing, perks, and access</small></p></div>
             <div><span>⌁</span><p><strong>Direct connection</strong><small>Closer to your community</small></p></div>
             <div><span>◇</span><p><strong>Room to grow</strong><small>Your brand, on your terms</small></p></div>
           </div>
           <Link className="button button-outline" href="/launch">Learn about VIXEN <span aria-hidden="true">↗</span></Link>
         </div>
 
-        <div className="draft-devices" aria-label="Illustrative VIXEN product dashboard">
+        <div className="draft-devices" aria-label="VIXEN creator dashboard concept">
           <div className="draft-phone draft-phone-left"><div className="draft-screen"><div className="draft-screen-top"><span>VIXEN</span><span>•••</span></div><div className="draft-avatar draft-avatar-small">NL</div><strong>Nova Luxe</strong><small>CREATOR PREVIEW</small><div className="draft-lock-card">✦<span>EXCLUSIVE<br />DROP</span></div><div className="draft-screen-nav">⌂　◉　♡　◌</div></div></div>
           <div className="draft-laptop"><div className="draft-laptop-screen"><div className="draft-browser-bar"><i /><i /><i /><span>vixen · your creator space</span></div><div className="draft-dashboard"><div className="draft-dashboard-heading"><div><small>YOUR CREATOR SPACE</small><strong>Welcome to your empire.</strong></div><span className="draft-dashboard-pill">PREVIEW</span></div><div className="draft-dashboard-banner"><span>VIXEN</span><small>YOUR WORK. YOUR WORLD.</small></div><div className="draft-dashboard-label">DISCOVER CREATORS</div><div className="draft-dashboard-creators">{creators.map((creator) => <div className="draft-dashboard-card" key={creator.initials}><span className={`draft-avatar ${creator.tone}`}>{creator.initials}</span><small>{creator.name}</small></div>)}</div><div className="draft-dashboard-bottom"><span>EXCLUSIVE DROPS</span><span>MEMBERSHIPS</span><span>MESSAGES</span></div></div></div><div className="draft-laptop-base" /></div>
           <div className="draft-phone draft-phone-right"><div className="draft-screen"><div className="draft-screen-top"><span>YOUR STUDIO</span><span>•••</span></div><small>CREATOR TOOLS</small><div className="draft-chart"><i /><i /><i /><i /><i /><i /><i /></div><div className="draft-screen-row"><span>Memberships</span><b>↗</b></div><div className="draft-screen-row"><span>Content drops</span><b>↗</b></div><div className="draft-screen-row"><span>Community</span><b>↗</b></div><div className="draft-screen-nav">⌂　◉　♡　◌</div></div></div>
@@ -97,13 +97,13 @@ export default function HomePage() {
 
       <section className="draft-features" id="features">
         <div className="section-wrap">
-          <div className="draft-section-heading"><p className="eyebrow">FOR CREATORS</p><h2>Be seen. Be heard.<br /><span>Be rewarded.</span></h2><p>Build a closer connection with your audience and create on your own terms.</p><Link className="button" href="/creators">Explore creator previews <span aria-hidden="true">↗</span></Link></div>
+          <div className="draft-section-heading"><p className="eyebrow">FOR CREATORS</p><h2>Be seen. Be heard.<br /><span>Be rewarded.</span></h2><p>Build a closer connection with your audience and create on your own terms.</p><Link className="button" href="/creators">Meet the creators <span aria-hidden="true">↗</span></Link></div>
           <div className="draft-feature-cards">{features.map((feature, index) => <article className="draft-feature-card" key={feature.title}><span className="draft-feature-number">0{index + 1}</span><span className="draft-feature-icon" aria-hidden="true">{feature.icon}</span><h3>{feature.title}</h3><p>{feature.text}</p></article>)}</div>
         </div>
       </section>
 
       <section className="draft-creators section-wrap">
-        <div className="draft-creator-heading"><p className="eyebrow">THE PEOPLE MAKE THE PLATFORM</p><h2>Find your <span>people.</span></h2><p>Meet the voices and makers imagined for the VIXEN creator experience.</p><Link className="arrow-link" href="/creators">Discover creators <span aria-hidden="true">→</span></Link></div>
+        <div className="draft-creator-heading"><p className="eyebrow">THE PEOPLE MAKE THE PLATFORM</p><h2>Find your <span>people.</span></h2><p>Explore sample profiles across music, style, art, and the stories behind the work.</p><Link className="arrow-link" href="/creators">Discover creators <span aria-hidden="true">→</span></Link></div>
         <div className="draft-creator-grid">{creators.map((creator) => <Link className="draft-creator-card" href={`/creators/${creator.name.toLowerCase().replaceAll(" ", "-")}`} key={creator.initials}><div className={`draft-creator-image ${creator.tone}`}><span>{creator.initials}</span><i aria-hidden="true">✦</i><small>{creator.tag}</small></div><div className="draft-creator-meta"><strong>{creator.name}</strong><span>{creator.category}</span><b aria-hidden="true">↗</b></div></Link>)}</div>
       </section>
 
@@ -113,8 +113,8 @@ export default function HomePage() {
 
       <section className="draft-vip">
         <div className="draft-vip-icon" aria-hidden="true">✉</div>
-        <div className="draft-vip-copy"><p className="eyebrow">BE THE FIRST TO KNOW</p><h2>Join the VIXEN <span>VIP list.</span></h2><p>Launch updates and early-access news will appear here when the signup service is connected.</p></div>
-        <Link className="button" href="/launch">View launch updates <span aria-hidden="true">↗</span></Link>
+        <div className="draft-vip-copy"><p className="eyebrow">BE THE FIRST TO KNOW</p><h2>Join the VIXEN <span>VIP list.</span></h2><p>Discover creator stories, package ideas, and the experiences taking shape across VIXEN.</p></div>
+        <Link className="button" href="/launch">Explore VIXEN <span aria-hidden="true">↗</span></Link>
       </section>
 
       <section className="draft-gallery">
@@ -132,7 +132,7 @@ export default function HomePage() {
           <div className="draft-footer-column"><strong>CREATORS</strong><Link href="/creators">Discover</Link><Link href="/launch">Creator preview</Link><Link href="/launch">Launch updates</Link></div>
           <div className="draft-footer-column"><strong>VIXEN</strong><Link href="/launch">Launch preview</Link><Link href="/#about">About</Link><Link href="/">Home</Link></div>
         </div>
-        <div className="draft-footer-bottom"><span>© {new Date().getFullYear()} VIXEN. Preview build.</span><span>MEMBERSHIP AND PAYMENT SERVICES ARE NOT LIVE.</span></div>
+        <div className="draft-footer-bottom"><span>© {new Date().getFullYear()} VIXEN.</span><span>CREATOR CONTROL · CONTENT · COMMUNITY</span></div>
       </footer>
     </main>
   );
