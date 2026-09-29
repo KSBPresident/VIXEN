@@ -3,13 +3,13 @@
 Audit date: 2026-09-29  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `ff7ab1c25127f75763bafd0c29adb3c796fae52d`
+Latest inspected main commit: `84a3473a3d9dbb82020af4f4d9bcc42376206c09`
 
 ## Verified
 
-- GitHub Actions passed lint, the kernel and private-video workflow tests, TypeScript, and `next build` for PR #26 head `f91a81fab007caf971b7221bfca7846ca6ef1fbb`, which was merged into the inspected main commit.
+- GitHub Actions passed lint, kernel tests, TypeScript, and `next build` for PR #29 head `cc0a6b10c4e53552b2a1fcbdb4c86872cdbc58b4`, merged into the inspected main commit. PR #26's private-video join workflow also passed the same CI gates before its merge.
 - GitHub Actions defines a `main` push and pull request quality job with ESLint, TypeScript, kernel tests, and `next build`.
-- The repository has a public landing page, creator discovery page with sample-profile search, a launch preview, illustrative membership pricing, a health endpoint, and member message/private-video previews.
+- The repository has a public landing page, a linked About page with the Nine Tail Fox asset, creator discovery with sample-profile search, a launch preview, illustrative membership pricing, a health endpoint, and member message/private-video previews.
 - Sample profiles, example prices, and private-session controls are labelled as preview/illustrative content in their public surfaces.
 - The private-video kernel policy and Middle OS join workflow fail closed on identity, payment, creator acceptance, booking, audit, and short-lived credential checks. No provider or payment adapter is connected.
 
