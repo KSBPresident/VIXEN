@@ -301,3 +301,38 @@
 .vixen-subpage-logo img{width:100%;height:100%;object-fit:contain;mix-blend-mode:screen}
 .footer-inner>.vixen-subpage-logo{width:52px;height:52px;flex-basis:52px}
 @media(max-width:700px){.site-header .vixen-subpage-logo{width:52px;height:52px;flex-basis:52px}}
+
+
+/* Clear account and creator-membership access comparison */
+.plan-section{padding:36px 0 18px}
+.plan-section-heading{max-width:700px;margin:0 auto 28px;text-align:center}
+.plan-section-heading .eyebrow{margin:0 0 10px;color:var(--pink-bright);font-size:10px;letter-spacing:.2em}
+.plan-section-heading h2{margin:0 0 9px;color:#f7f3f8;font:600 clamp(27px,4vw,38px)/1.15 var(--display)}
+.plan-section-heading>p:last-child{margin:0;color:#aaa2ad;font-size:12px;line-height:1.7}
+.member-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+.member-plan-card{min-width:0;display:flex;flex-direction:column;padding:22px 20px;background:linear-gradient(155deg,#171119,#0c090e 75%);border:1px solid rgba(255,255,255,.12);border-radius:7px}
+.member-plan-card.member-plan-free{border-color:rgba(255,90,165,.62);box-shadow:0 0 26px rgba(255,22,136,.09)}
+.member-plan-header{min-height:180px}
+.member-plan-kind{margin:0 0 8px;color:#ff7db7;font-size:8px;font-weight:700;letter-spacing:.18em}
+.member-plan-header h3{margin:0;color:#fff;font:600 23px/1.15 var(--display)}
+.member-plan-header>p:not(.member-plan-kind){color:#aaa2ad;font-size:11px;line-height:1.65}
+.member-plan-price{display:flex;align-items:baseline;gap:8px;margin:12px 0 0}
+.member-plan-price strong{color:var(--pink-bright);font:700 27px/1 var(--display);white-space:nowrap}
+.member-plan-price span{color:#99909b;font-size:9px;line-height:1.5}
+.member-plan-includes,.member-plan-boundary{padding-top:15px;border-top:1px solid rgba(255,255,255,.1)}
+.member-plan-includes h4,.member-plan-boundary h4{margin:0 0 10px;color:#e8e1ea;font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+.member-plan-includes ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.member-plan-includes li{position:relative;padding-left:16px;color:#c6bec9;font-size:10px;line-height:1.55}
+.member-plan-includes li:before{content:"✓";position:absolute;left:0;color:#ff65ab;font-weight:700}
+.member-plan-boundary{margin-top:16px}
+.member-plan-boundary h4{color:#ff9ac7}
+.member-plan-boundary p{margin:0;color:#a9a1ad;font-size:10px;line-height:1.65}
+.member-plan-cta{min-height:42px;margin-top:auto;padding:0 10px;font-size:9px}
+.plan-terms{max-width:880px;padding-top:45px;padding-bottom:80px}
+.plan-terms h2{margin:0 0 12px;color:#f7f3f8;font:600 23px/1.2 var(--display)}
+.plan-terms ul{margin:0;padding-left:19px;color:#bbb3bf;font-size:11px;line-height:1.8}
+.plan-terms li{padding-left:3px;margin:5px 0}
+.pricing-preview-notice{margin:20px 0 14px;padding:14px 16px;border:1px solid rgba(255,110,174,.35);border-radius:5px;background:rgba(255,22,136,.06);color:#cec5d0;font-size:10px;line-height:1.7}
+.pricing-preview-notice strong{color:#ff9ac7}
+@media(max-width:900px){.member-plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.member-plan-header{min-height:165px}}
+@media(max-width:650px){.plan-section{padding-top:24px}.plan-section-heading{margin-bottom:20px}.member-plan-grid{grid-template-columns:1fr;gap:11px}.member-plan-card{padding:19px 17px}.member-plan-header{min-height:auto;padding-bottom:15px}.member-plan-header h3{font-size:21px}.member-plan-price strong{font-size:25px}.plan-terms{padding-top:32px;padding-bottom:58px}}

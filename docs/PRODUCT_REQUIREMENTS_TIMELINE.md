@@ -25,12 +25,16 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 ## 4. Identity and protected member experiences
 
 - Add authentication and authorization before protected dashboard, profile, wallet, subscription, purchase, message, notification, reward, and security routes.
+- Separate a no-cost member account from paid creator memberships: free accounts browse public creator profiles and previews only, and do not inherit creator, payout, management, or paid-content privileges.
+- Publish a clear entitlement matrix for each membership tier. A membership applies to one creator; exact included content, exclusions, renewal, cancellation, and refund terms must be disclosed before checkout.
+- Jo-Lene Kennedy is the Head Girl / Creator Manager responsible for managing all creator profiles. Link this role only to her verified account, enforce it server-side, and audit management actions; it does not grant platform-wide finance or administrator privileges by default.
 - Enforce authorization on server/API routes as well as in the interface.
 - Use Supabase schema, migrations, and policies as the source of truth when configuring data and access.
 
 ## 5. Creator studio and content operations
 
 - Add creator/studio workflows for managing profiles, content, tiers, exclusive drops, and paid-message offerings.
+- Provide the verified Head Girl / Creator Manager role with roster-wide creator-management privileges and the least access needed to perform that work.
 - Align every visible button with a real route or API operation and an honest success/error state; do not leave dead controls.
 
 ## 6. Checkout, subscriptions, purchases, and wallet
