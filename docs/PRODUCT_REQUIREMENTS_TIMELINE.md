@@ -13,7 +13,8 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 ## 2. Brand and public website
 
 - The company name is Verified Interactive Xperience & Entertainment Network. Keep VIXEN as the product/brand name and show the full company name in public-facing attribution.
-- VIXEN's official mascot is a fox. The nine-tail fox is also a symbol of the parent company, Nebula Interstellar Networking Economy Limited. Use the supplied mascot artwork on the About VIXEN page and adapt its on-page treatment to VIXEN's design palette while preserving the parent-company relationship in brand copy.\n- Implement the supplied flyer direction: black background, neon pink and silver accents, VIXEN wordmark, creator-first positioning, tiered access, paid messages, exclusive drops, creator control, and a clear “Join the Elite” action.
+- VIXEN's official mascot is a fox. The nine-tail fox is also a symbol of the parent company, Nebula Interstellar Networking Economy Limited. Use the supplied mascot artwork on the About VIXEN page and adapt its on-page treatment to VIXEN's design palette while preserving the parent-company relationship in brand copy.
+- Implement the supplied flyer direction: black background, neon pink and silver accents, VIXEN wordmark, creator-first positioning, tiered access, paid messages, exclusive drops, creator control, and a clear “Join the Elite” action.
 - Use OnlyFans as a product-experience benchmark for creator profiles, discovery, subscriptions, messaging, purchases, and monetization. Keep VIXEN's own brand and product identity.
 - Make the public landing page responsive and accessible, with clear navigation and working links.
 
