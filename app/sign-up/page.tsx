@@ -39,7 +39,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
         </Link>
         <h1 className="vixen-signup-title">Join VIXEN</h1>
         <p className="vixen-signup-subtitle">Choose the account that matches what you want to do.</p>
-        <div className="signup-account-switch" aria-label="Choose an account type">
+        <div className="signup-account-switch" role="group" aria-label="Choose an account type">
           <Link className={`signup-account-option${accountType === "member" ? " is-selected" : ""}`} href={accountHref("member")} aria-current={accountType === "member" ? "page" : undefined}>
             <span className="vixen-kicker">MEMBER · 18+</span>
             <strong>Watch and subscribe</strong>
@@ -57,7 +57,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
             <div className="vixen-auth-card-heading">
               <p className="vixen-kicker">MEMBER ACCOUNT</p>
               <h2>Create a free account to watch</h2>
-              <p>Member accounts are for adults 18 and over. Memberships and paid content are optional and checkout is not active yet.</p>
+              <p>Member accounts are for adults 18 and over of any gender. Adult-content access, memberships, and checkout are not active yet.</p>
             </div>
             <EmailAccountAccess configured={supabaseConfigured} nextPath={nextPath} />
             <div className="vixen-auth-divider"><span>OR USE A CONNECTED ACCOUNT</span></div>
@@ -69,7 +69,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
             <div className="vixen-auth-card-heading">
               <p className="vixen-kicker">CREATOR ACCOUNT PREVIEW</p>
               <h2>For adult women creators</h2>
-              <p>Creator accounts are separate from member accounts. They are intended for women aged 18 and over who want to publish adult content, set memberships, and earn from their audience.</p>
+              <p>Creator accounts are separate from member accounts. They are intended for women aged 18 and over who want to publish adult content, including women/women content, set memberships, and earn from their audience.</p>
             </div>
             <p className="creator-account-status">Creator onboarding, age and identity verification, publishing, and payouts are not active yet. This preview will not create or grant a creator account.</p>
             <Link className="vixen-email-submit creator-member-link" href={accountHref("member")}>Create a free member account</Link>
