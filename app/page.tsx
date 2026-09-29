@@ -55,7 +55,7 @@ export default function HomePage() {
       <footer className="vixen-footer">
         <Link href="/" className="vixen-footer-brand"><Image src="/assets/vixen-mark-3d.png" alt="" width={160} height={160} /> <span>Creator-first. Always.</span></Link>
         <div className="vixen-footer-links"><Link href="/creators">Discover</Link><Link href="/store">Store</Link><Link href="/pricing">Memberships</Link><Link href="/launch">About VIXEN</Link></div>
-        <small>© {new Date().getFullYear()} VIXEN</small>
+        <small>© {new Date().getFullYear()} VIXEN <span className="company-name">Verified Interactive Xperience &amp; Entertainment Network</span></small>
       </footer>
     </main>
   );
