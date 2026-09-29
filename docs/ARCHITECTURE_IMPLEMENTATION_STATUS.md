@@ -8,7 +8,7 @@ The requested TOP / EXECUTIVE OS, MIDDLE OS, BACK OS, VIXEN KERNEL, and FRONT OS
 - **MIDDLE OS** — `lib/application/` contains pricing and an audited creator-content access workflow. Other member, creator publishing, moderation, messaging, and commerce workflows remain to be implemented.
 - **BACK OS** — `lib/adapters/service-contracts.ts` defines server-side service boundaries. No Supabase, payments, storage, n8n, email, or LLM adapter is connected in this website-first phase.
 - **VIXEN KERNEL** — `lib/kernel/` owns illustrative membership prices, verified role types, creator content access decisions, and audit-event contracts. Ledger, rewards, journey, and further domain rules remain to be built and tested before activation.
-- **FRONT OS** — the existing Next.js App Router under `app/` renders VIXEN pages. The pricing page now reads its plan examples through MIDDLE OS and KERNEL instead of maintaining duplicate prices in the UI.
+- **FRONT OS** — the existing Next.js App Router under `app/` renders VIXEN pages. `/member-preview` now links to visual message and private-video session previews, and creator profiles link into those flows. All profiles, conversations, and session cards remain sample UI; messaging, bookings, and video rooms are not live.
 
 ## Dependency rules
 
