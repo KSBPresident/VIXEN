@@ -64,6 +64,7 @@ export default function PricingPage() {
         </Link>
         <nav className="main-nav" aria-label="Main navigation">
           <Link href="/creators">Discover</Link>
+          <Link href="/store">Store</Link>
           <Link href="/pricing" aria-current="page">Memberships</Link>
         </nav>
         <div className="header-actions">
@@ -129,7 +130,7 @@ export default function PricingPage() {
         <div className="section-wrap footer-inner">
           <Link className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={120} height={120} /></Link>
           <p>Exclusive. Powerful. Profitable.</p>
-          <div className="footer-links"><Link href="/">Home</Link><Link href="/creators">Creators</Link><Link href="/sign-up">Join free</Link></div>
+          <div className="footer-links"><Link href="/">Home</Link><Link href="/creators">Creators</Link><Link href="/store">Store</Link><Link href="/sign-up">Join free</Link></div>
           <small>© {new Date().getFullYear()} VIXEN. Prices and packages shown are illustrative.</small>
         </div>
       </footer>

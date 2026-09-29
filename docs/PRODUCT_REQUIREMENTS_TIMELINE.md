@@ -40,6 +40,8 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 
 ## 6. Checkout, subscriptions, purchases, and wallet
 
+- Add an 18+ intimate wellness storefront for adult products, lingerie, personal care, and accessories. Provide clear categories, searchable catalog cards, material/product details, and a usable shopping-bag preview.
+- Mark sample listings and prices as illustrative, and keep order placement, payment, shipping, and returns inactive until their policies and commerce integrations are ready. Do not claim inventory or delivery availability before it is verified.
 - Integrate Stripe server-side for checkout and subscription operations, with signature-verified webhook handling, idempotency, and explicit error recovery.
 - Use the database ledger and tested money rules for balances and purchases; do not treat client-side values as authoritative.
 - Do not expose secret keys or mark commerce live until test-mode and production configuration are verified.
