@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SocialSignUp } from "@/components/auth/social-sign-up";
+import { EmailAccountAccess } from "@/components/auth/email-account-access";
 
-export const metadata = { title: "Create your account", description: "Join VIXEN with Google, Apple, or Microsoft." };
+export const metadata = { title: "Create your account", description: "Create a free VIXEN account with email or a connected sign-in." };
 
 type SignUpProps = { searchParams: Promise<{ next?: string | string[]; error?: string | string[] }> };
 
@@ -39,10 +40,12 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
           <div className="vixen-auth-card-heading">
             <p className="vixen-kicker">CREATE ACCOUNT</p>
             <h2>Choose how to continue</h2>
-            <p>Use your Google, Apple, or Microsoft account.</p>
+            <p>Create an account directly with VIXEN, including with a Proton Mail address.</p>
           </div>
+          <EmailAccountAccess configured={supabaseConfigured} nextPath={nextPath} />
+          <div className="vixen-auth-divider"><span>OR USE A CONNECTED ACCOUNT</span></div>
           <SocialSignUp configured={supabaseConfigured} nextPath={nextPath} />
-          <p className="vixen-auth-caption">Your sign-in stays with the provider you choose.</p>
+          <p className="vixen-auth-caption">Proton Mail is your email address here, not a Proton single-sign-on provider.</p>
         </section>
         <Link className="vixen-signup-back" href="/">← Back to VIXEN</Link>
       </div>

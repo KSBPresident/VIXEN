@@ -35,3 +35,11 @@ Provider sign-up stays visibly unavailable until the Supabase URL and publishabl
 ## Protected account
 
 OAuth returns to `/auth/callback`, exchanges the one-time code for a cookie-backed session, and redirects to `/account`. The account page calls Supabase Auth `getUser()` server-side and redirects unauthenticated requests back to sign-up. The root `proxy.ts` refreshes Supabase session cookies for the protected account route.
+
+## Direct VIXEN accounts and Proton Mail
+
+The email form supports VIXEN-managed registration and sign-in. A Proton Mail address can be used as the email address; the member creates a separate VIXEN password. The app must never request a Proton password. This is email/password authentication, not Proton OAuth or “Sign in with Proton.”
+
+Before activating this flow, provision and verify a VIXEN-specific Supabase Auth project. Do not reuse a Supabase project belonging to another product. Configure its email confirmation and production SMTP, set the VIXEN Site URL and callback redirect above, then add only that project's URL and publishable key to Vercel Preview and Production as `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. The sign-up form remains disabled while these VIXEN-owned values are absent, and displays that account service is not connected. Never expose a service-role key in the browser.
+
+The registration form uses Supabase `signUp` with an email confirmation redirect to `/auth/callback`. Sign-in uses `signInWithPassword`. The existing callback exchanges the confirmation code for a session and redirects to the validated local `next` path.
