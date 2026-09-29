@@ -2,13 +2,17 @@
   "name": "vixen-web",
   "version": "1.0.0",
   "private": true,
-  "engines": { "node": ">=20.9.0" },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:kernel",
+    "test:kernel": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --rootDir . --outDir .test-build lib/kernel/identity.ts lib/kernel/content-access.ts lib/executive/platform-readiness.ts && node --test tests/kernel-access.test.cjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
