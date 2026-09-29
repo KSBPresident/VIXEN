@@ -29,9 +29,9 @@ export default function HomePage() {
           <div className="vixen-auth-card-heading">
             <p className="vixen-kicker">18+ · CHOOSE YOUR ACCOUNT</p>
             <h2 id="vixen-auth-heading">Here to watch or create?</h2>
-            <p>Member accounts are for adult viewers. Creator accounts are separate and intended for adult women creators.</p>
+            <p>Member accounts are for adult viewers of any gender. Creator accounts are separate and intended for adult women creators.</p>
           </div>
-          <div className="account-path-grid">
+          <div className="account-path-grid" role="group" aria-label="Choose an account type">
             <Link className="account-path-card" href="/sign-up?type=member">
               <span className="vixen-kicker">MEMBER</span>
               <strong>Join to watch</strong>
