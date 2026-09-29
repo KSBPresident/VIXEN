@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const products = [
@@ -54,11 +56,11 @@ export function Storefront() {
   return (
     <main className="store-app">
       <header className="site-header store-header">
-        <a className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><img src="/assets/vixen-mark-3d.png" alt="" width="120" height="120" /></a>
+        <Link className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={120} height={120} /></Link>
         <nav className="main-nav" aria-label="Main navigation">
-          <a href="/creators">Discover</a>
-          <a href="/store" aria-current="page">Store</a>
-          <a href="/pricing">Memberships</a>
+          <Link href="/creators">Discover</Link>
+          <Link href="/store" aria-current="page">Store</Link>
+          <Link href="/pricing">Memberships</Link>
         </nav>
         <div className="header-actions">
           <button className="button button-small store-bag-button" type="button" onClick={() => setBagOpen((open) => !open)} aria-expanded={bagOpen} aria-controls="store-bag">
@@ -132,7 +134,7 @@ export function Storefront() {
         <p>Every item in this preview is described with its materials and intended use. Product details, availability, shipping, returns, and final prices will be confirmed before checkout is enabled.</p>
       </section>
 
-      <footer className="site-footer"><div className="section-wrap footer-inner"><a className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><img src="/assets/vixen-mark-3d.png" alt="" width="120" height="120" /></a><p>Intimate wellness, on your terms.</p><div className="footer-links"><a href="/creators">Discover</a><a href="/pricing">Memberships</a><a href="/sign-up">Join VIXEN</a></div><small>© {new Date().getFullYear()} VIXEN. 18+ only. Store catalog preview.</small></div></footer>
+      <footer className="site-footer"><div className="section-wrap footer-inner"><a className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><img src="/assets/vixen-mark-3d.png" alt="" width="120" height="120" /></a><p>Intimate wellness, on your terms.</p><div className="footer-links"><Link href="/creators">Discover</Link><Link href="/pricing">Memberships</Link><Link href="/sign-up">Join VIXEN</Link></div><small>© {new Date().getFullYear()} VIXEN. 18+ only. Store catalog preview.</small></div></footer>
 
       {bagOpen && (
         <div className="store-bag-backdrop" onClick={() => setBagOpen(false)}>
