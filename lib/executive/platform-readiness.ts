@@ -11,6 +11,7 @@ type CapabilityId =
   | "paidMemberships"
   | "creatorPayouts"
   | "contentAccess"
+  | "privateVideoSessions"
   | "creatorManagement"
   | "auditTrail"
   | "supabase"
@@ -32,6 +33,16 @@ export const platformReadiness: Record<CapabilityId, CapabilityReadiness> = {
   creatorPayouts: {
     state: "planned",
     requiredEvidence: ["approved creator terms", "payout provider", "reconciliation and operational controls"],
+  },
+  privateVideoSessions: {
+    state: "planned",
+    requiredEvidence: [
+      "verified payment confirmation and refund handling",
+      "authenticated signaling with short-lived room credentials",
+      "durable creator opt-in and booking records",
+      "device QA on iOS Safari, Android browsers, and Windows browsers",
+      "consent, moderation, privacy, and incident workflows",
+    ],
   },
   contentAccess: {
     state: "planned",
