@@ -57,6 +57,18 @@ export default function LaunchPage() {
         </div>
       </section>
 
+      <section className="section-wrap mascot-story" aria-labelledby="mascot-story-title">
+        <div className="mascot-story-art">
+          <Image src="/assets/nine-tail-fox.png" alt="The official black and gold nine-tail fox mascot" width={520} height={520} />
+        </div>
+        <div className="mascot-story-copy">
+          <p className="eyebrow">THE VIXEN MASCOT</p>
+          <h2 id="mascot-story-title">The fox is part of our <span>identity.</span></h2>
+          <p>VIXEN’s official mascot is a fox. The nine-tail fox shown here is also a symbol of our parent company, Nebula Interstellar Networking Economy Limited.</p>
+          <p className="mascot-story-company">VIXEN · Verified Interactive Xperience &amp; Entertainment Network</p>
+        </div>
+      </section>
+
       <section className="join-section">
         <div className="join-inner">
           <p className="eyebrow">BUILT FOR CREATORS. DESIGNED FOR FREEDOM.</p>
