@@ -486,3 +486,17 @@
 .mascot-story-copy>p:not(.eyebrow){color:#b9b0bc;font-size:14px;line-height:1.8}
 .mascot-story-copy .mascot-story-company{margin-top:20px;color:var(--pink-bright);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
 @media(max-width:680px){.mascot-story{grid-template-columns:1fr;gap:25px;padding-top:45px;padding-bottom:55px}.mascot-story-art{width:min(78vw,330px)}.mascot-story-copy h2{font-size:clamp(32px,9vw,45px)}}
+
+
+/* Separate sign-up routes for adult members and women creators */
+.account-path-grid,.signup-account-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.account-path-card,.signup-account-option{display:grid;align-content:start;gap:9px;padding:17px;border:1px solid rgba(255,255,255,.13);border-radius:7px;background:linear-gradient(145deg,#171219,#0e0b10);transition:border-color .2s,transform .2s,background .2s}
+.account-path-card:hover,.signup-account-option:hover{border-color:rgba(255,22,136,.68);transform:translateY(-2px)}
+.account-path-card .vixen-kicker,.signup-account-option .vixen-kicker{margin:0;font-size:8px}
+.account-path-card strong,.signup-account-option strong{color:#fff;font:600 17px/1.3 var(--display)}
+.account-path-card>span:not(.vixen-kicker),.signup-account-option>span:not(.vixen-kicker){color:#aaa2ad;font-size:10px;line-height:1.65}
+.account-path-card>b{margin-top:3px;color:var(--pink-bright);font-size:9px;letter-spacing:.07em;text-transform:uppercase}
+.signup-account-option.is-selected{border-color:var(--pink);background:linear-gradient(145deg,rgba(255,22,136,.13),#100d12);box-shadow:0 0 22px rgba(255,22,136,.1)}
+.creator-account-preview .creator-account-status{margin:16px 0 3px;padding:13px;border:1px solid rgba(255,22,136,.27);border-radius:5px;background:rgba(255,22,136,.06);color:#ffbad7;font-size:10px;line-height:1.7}
+.creator-member-link{display:flex;align-items:center;justify-content:center;width:100%;text-decoration:none}
+@media(max-width:520px){.account-path-grid,.signup-account-switch{grid-template-columns:1fr}.account-path-card,.signup-account-option{padding:14px}}
