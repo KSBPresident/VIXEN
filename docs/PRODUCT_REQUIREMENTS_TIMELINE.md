@@ -42,7 +42,7 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 
 - Add an 18+ intimate wellness storefront for adult products, lingerie, personal care, and accessories. Provide clear categories, searchable catalog cards, material/product details, and a usable shopping-bag preview.
 - Mark sample listings and prices as illustrative, and keep order placement, payment, shipping, and returns inactive until their policies and commerce integrations are ready. Do not claim inventory or delivery availability before it is verified.
-- Integrate Stripe server-side for checkout and subscription operations, with signature-verified webhook handling, idempotency, and explicit error recovery.
+- Plan a NINE Coin benefit: 50% off any VIXEN creator subscription paid with NINE. Keep it clearly marked as upcoming and nonredeemable until the NINE website/token, supported networks, purchase sources, payment verification, and end-to-end checkout are confirmed. The NINE site is in development; do not imply NINE payments or exchange availability are live. The benefit applies to creator subscriptions only, not store purchases, unless scope is explicitly expanded later.\n- Integrate Stripe server-side for checkout and subscription operations, with signature-verified webhook handling, idempotency, and explicit error recovery.
 - Use the database ledger and tested money rules for balances and purchases; do not treat client-side values as authoritative.
 - Do not expose secret keys or mark commerce live until test-mode and production configuration are verified.
 
