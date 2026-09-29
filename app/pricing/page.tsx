@@ -147,7 +147,8 @@ export default function PricingPage() {
           <h2 id="private-club-heading">A more personal VIXEN experience.</h2>
           <p>VIXEN is planning a private, members-only social experience where eligible members may meet participating creators at scheduled events. Entry is for members aged 21 and over, with age verification required. Active VIP or VVIP membership card must be presented at check-in; no card means no entry. The experience is separate from creator subscriptions and online content. Membership access does not guarantee an event booking, a meeting with a specific creator, or any personal interaction.</p>
         </div>
-        <div className="member-plan-grid">
+<div className="private-events-preview-link"><Link className="vixen-discover-link" href="/events">Open the private experiences preview <span aria-hidden="true">→</span></Link></div>
+                <div className="member-plan-grid">
           <article className="member-plan-card member-plan-free" aria-labelledby="private-standard">
             <header className="member-plan-header">
               <p className="member-plan-kind">PLATFORM MEMBERSHIP</p>
