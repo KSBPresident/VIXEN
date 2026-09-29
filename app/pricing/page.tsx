@@ -158,7 +158,7 @@ export default function PricingPage() {
           <Link className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={120} height={120} /></Link>
           <p>Exclusive. Powerful. Profitable.</p>
           <div className="footer-links"><Link href="/">Home</Link><Link href="/creators">Creators</Link><Link href="/store">Store</Link><Link href="/sign-up">Join free</Link></div>
-          <small>© {new Date().getFullYear()} VIXEN. Prices and packages shown are illustrative.</small>
+          <small>© {new Date().getFullYear()} VIXEN. Prices and packages shown are illustrative. <span className="company-name">Verified Interactive Xperience &amp; Entertainment Network</span></small>
         </div>
       </footer>
     </main>
