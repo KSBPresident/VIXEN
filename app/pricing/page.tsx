@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import "./pricing-upgrade.css";
 
 const plans = [
   {
@@ -15,36 +16,36 @@ const plans = [
   {
     id: "bronze",
     name: "Bronze",
-    price: "$9.99",
+    price: "$3.99",
     billing: "example / month / creator",
-    summary: "A first step into one creator’s membership.",
+    summary: "The lowest-cost paid way into one creator’s member space.",
     included: ["Everything in Free", "Bronze-only member posts and updates from that creator"],
     excluded: "Silver, Gold, and Elite content; paid messages, tips, and one-off purchases unless the creator explicitly includes them.",
   },
   {
     id: "silver",
     name: "Silver",
-    price: "$19.99",
+    price: "$8.99",
     billing: "example / month / creator",
-    summary: "More exclusive access from one creator.",
+    summary: "A deeper look at one creator’s member posts and drops.",
     included: ["Everything in Bronze", "Silver-only posts and creator-listed exclusive drops"],
     excluded: "Gold and Elite content; paid messages, tips, and one-off purchases unless the creator explicitly includes them.",
   },
   {
     id: "gold",
     name: "Gold",
-    price: "$29.99",
+    price: "$14.99",
     billing: "example / month / creator",
-    summary: "Expanded membership access.",
+    summary: "More of that creator’s listed member content.",
     included: ["Everything in Silver", "Gold-only posts and drops", "Early access when listed by the creator"],
     excluded: "Elite-only content; paid messages, tips, and one-off purchases unless the creator explicitly includes them.",
   },
   {
     id: "elite",
     name: "Elite",
-    price: "$49.99",
+    price: "$24.99",
     billing: "example / month / creator",
-    summary: "The highest membership level offered in this example.",
+    summary: "The most inclusive example tier, with perks the creator names.",
     included: ["Everything in Gold", "Elite-only posts, drops, and perks explicitly listed by the creator"],
     excluded: "Unlisted services, paid messages, tips, custom work, or one-off purchases. Elite does not mean unlimited access or guaranteed replies.",
   },
@@ -84,7 +85,7 @@ export default function PricingPage() {
         <div className="plan-section-heading">
           <p className="eyebrow">COMPARE ACCESS</p>
           <h2 id="plan-heading">Choose what works for you.</h2>
-          <p>Paid prices below are examples. Creators set their own prices and listed perks. Member accounts are for adult viewers 18+; creator accounts are a separate path for adult women.</p>
+          <p>These are proposed VIXEN examples, shown per creator each month. The $3.99 entry is designed to keep the first paid step approachable. Creators set their own price and list the exact perks. Members are adults 18+; creator accounts are a separate path for adult women.</p>
           <Link className="vixen-discover-link" href="/sign-up?type=creator">Creator account information <span aria-hidden="true">→</span></Link>
         </div>
 
@@ -112,6 +113,21 @@ export default function PricingPage() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="section-wrap pricing-edge" aria-labelledby="pricing-edge-title">
+        <div className="pricing-edge-heading">
+          <p className="eyebrow">THE VIXEN DIFFERENCE</p>
+          <h2 id="pricing-edge-title">Familiar creator access.<br /><span>Clearer value from the start.</span></h2>
+          <p>OnlyFans is the baseline for familiar creator profiles, memberships, exclusive posts, paid messages, and tips. VIXEN is being designed to add a lower-cost entry example, plain-language access boundaries, and payment options planned with Caribbean members in mind.</p>
+        </div>
+        <div className="pricing-edge-grid">
+          <article><span className="pricing-edge-number">01</span><h3>Start free</h3><p>Make a free member account and explore public profiles before choosing a paid creator membership.</p></article>
+          <article><span className="pricing-edge-number">02</span><h3>Step in from $3.99</h3><p>Our proposed Bronze example is $3.99 per month for one creator. Prices shown are illustrative; creators choose their actual prices.</p></article>
+          <article><span className="pricing-edge-number">03</span><h3>Know every boundary</h3><p>Each creator tier should show its price, included posts and drops, paid extras, renewal, and cancellation terms before checkout.</p></article>
+          <article><span className="pricing-edge-number">04</span><h3>Plan for the Caribbean</h3><p>Card, bank transfer, WiPay, PayPal, Wise, and crypto are planned. Only payment options actually enabled for your location will appear at checkout.</p></article>
+        </div>
+        <p className="pricing-edge-note"><strong>Preview:</strong> VIXEN accounts, paid creator features, checkout, and payment methods are not active yet. These are product goals, not a claim that they are live.</p>
       </section>
 
       <section className="section-wrap nine-offer" aria-labelledby="nine-offer-title">
