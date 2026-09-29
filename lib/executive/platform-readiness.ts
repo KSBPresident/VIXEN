@@ -2,49 +2,72 @@ export type CapabilityState = "preview" | "planned" | "active";
 
 export interface CapabilityReadiness {
   state: CapabilityState;
-  evidenceRequired: string;
+  requiredEvidence: readonly string[];
 }
 
-/**
- * TOP / Executive OS release registry. A capability may be shown as active
- * only after its evidence requirements are met; current records are honest
- * about integrations deliberately deferred from the website-first phase.
- */
 type CapabilityId =
   | "memberExperience"
   | "creatorStudio"
   | "paidMemberships"
   | "creatorPayouts"
+  | "contentAccess"
+  | "creatorManagement"
+  | "auditTrail"
   | "supabase"
   | "n8n";
 
 export const platformReadiness: Record<CapabilityId, CapabilityReadiness> = {
   memberExperience: {
     state: "preview",
-    evidenceRequired: "Production authentication and a verified end-to-end member journey",
+    requiredEvidence: ["production authentication", "verified end-to-end member journey"],
   },
   creatorStudio: {
     state: "planned",
-    evidenceRequired: "Verified creator onboarding, role enforcement, and publishing checks",
+    requiredEvidence: ["verified creator onboarding", "server-enforced creator role", "publishing checks"],
   },
   paidMemberships: {
     state: "preview",
-    evidenceRequired: "Configured payment processing, entitlement enforcement, and tested cancellation/refund handling",
+    requiredEvidence: ["configured payment processing", "Kernel entitlement enforcement", "tested cancellation and refund handling"],
   },
   creatorPayouts: {
     state: "planned",
-    evidenceRequired: "Approved creator terms, payout provider, reconciliation, and operational controls",
+    requiredEvidence: ["approved creator terms", "payout provider", "reconciliation and operational controls"],
+  },
+  contentAccess: {
+    state: "planned",
+    requiredEvidence: ["trusted identity and adult-verification source", "active entitlement store", "server route enforcement"],
+  },
+  creatorManagement: {
+    state: "planned",
+    requiredEvidence: ["verified manager identity", "scoped roster permissions", "durable audit records"],
+  },
+  auditTrail: {
+    state: "planned",
+    requiredEvidence: ["durable append-only audit adapter", "retention policy", "admin review workflow"],
   },
   supabase: {
     state: "planned",
-    evidenceRequired: "Approved schema, migrations, row-level security, and production configuration",
+    requiredEvidence: ["approved schema and migrations", "row-level security", "production configuration"],
   },
   n8n: {
     state: "planned",
-    evidenceRequired: "Approved workflow manifest, authenticated triggers, and end-to-end verification",
+    requiredEvidence: ["approved workflow manifest", "authenticated triggers", "end-to-end verification"],
   },
-} as const satisfies Record<string, CapabilityReadiness>;
+};
 
-export function isCapabilityActive(capability: CapabilityId): boolean {
+export type CapabilityIdKey = keyof typeof platformReadiness;
+
+export function evaluateCapabilityActivation(
+  capability: CapabilityIdKey,
+  verifiedEvidence: readonly string[],
+): { eligible: boolean; missingEvidence: readonly string[] } {
+  const missingEvidence = platformReadiness[capability].requiredEvidence.filter(
+    (item) => !verifiedEvidence.includes(item),
+  );
+
+  return { eligible: missingEvidence.length === 0, missingEvidence };
+}
+
+export function isCapabilityActive(capability: CapabilityIdKey): boolean {
   return platformReadiness[capability].state === "active";
 }
