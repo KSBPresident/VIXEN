@@ -44,9 +44,11 @@ export default function MemberSessionsPreviewPage() {
           <header>
             <p className="member-eyebrow"><span /> MEMBER APP · PREVIEW</p>
             <h1 className="interaction-page-title" id="sessions-heading">Private video</h1>
-            <p className="interaction-page-intro">Meet one-to-one with a creator in a private VIXEN browser session when they choose to offer it.</p>
+            <p className="interaction-page-intro">Book exclusive one-to-one video time with the creator of your choice, then meet in VIXEN on a supported iPhone, Android phone, or Windows PC browser.</p>
           </header>
           <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Booking isn’t active yet.</strong> These are sample profiles. No times can be reserved and no payment or video call will start from this preview.</span></div>
+          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">▣</span><span><strong>Browser-based on your devices.</strong> The planned call works inside VIXEN on supported iPhone, Android, and Windows browsers over HTTPS; no App Store or Play Store download is needed.</span></div>
+          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">◉</span><span><strong>Your camera and microphone stay under your control.</strong> After VIXEN confirms payment, you tap to enter and your browser asks permission. The call starts only if you allow access; you can keep devices off or leave.</span></div>
 
           <div className="session-preview-grid">
             {creators.map((creator) => (
@@ -59,9 +61,10 @@ export default function MemberSessionsPreviewPage() {
                 <p>{creator.intro}</p>
                 <div className="session-preview-details" aria-label="What a live booking will disclose">
                   <span><strong>Length</strong> Set by creator</span>
-                  <span><strong>Price</strong> Shown before booking</span>
+                  <span><strong>Price</strong> Shown and paid in VIXEN before the call</span>
                   <span><strong>Availability</strong> Creator-controlled</span>
-                  <span><strong>Location</strong> Inside VIXEN</span>
+                  <span><strong>Devices</strong> Supported iPhone, Android, and Windows browsers</span>
+                  <span><strong>Camera and mic</strong> Requested only when you enter the booked call</span>
                 </div>
                 <button className="session-request-button" type="button" disabled aria-disabled="true">Booking opens when sessions are ready</button>
                 <Link className="member-post-open" href={`/creators/${creator.slug}`}>View creator profile <span aria-hidden="true">↗</span></Link>
@@ -72,7 +75,7 @@ export default function MemberSessionsPreviewPage() {
 
         <aside className="member-right-rail" aria-label="Session information">
           <section className="member-rail-card"><p className="member-eyebrow">CREATOR CONTROL</p><h2>Clear terms before you book.</h2><p>Each session must show the creator, length, price, availability, cancellation terms, and interaction boundaries before payment.</p></section>
-          <section className="member-rail-card member-tier-card"><p className="member-eyebrow">PRIVATE BY DESIGN</p><h2>Meet on VIXEN.</h2><p>Session access should use authenticated bookings and a private browser room. A subscription or VVIP status alone does not guarantee a session.</p></section>
+          <section className="member-rail-card member-tier-card"><p className="member-eyebrow">PRIVATE BY DESIGN</p><h2>Meet on VIXEN.</h2><p>A confirmed in-app payment unlocks only that booked session. A creator subscription or VVIP status alone does not unlock a call. Browser camera and microphone permission is requested only when a member chooses to enter the room.</p></section>
           <p className="member-rail-foot">Sample profiles only. Real creator sessions, calendar availability, payments, and video rooms are not connected.</p>
         </aside>
       </div>
