@@ -72,6 +72,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
               <p>Creator accounts are separate from member accounts. They are intended for women aged 18 and over who want to publish adult content, including women/women content, set memberships, and earn from their audience.</p>
             </div>
             <p className="creator-account-status">Creator onboarding, age and identity verification, publishing, and payouts are not active yet. This preview will not create or grant a creator account.</p>
+            <Link className="vixen-email-submit creator-member-link" href="/creator/studio">Preview the creator workspace</Link>
             <Link className="vixen-email-submit creator-member-link" href={accountHref("member")}>Create a free member account</Link>
           </section>
         )}
