@@ -22,7 +22,7 @@ export default function HomePage() {
           <h1 className="visually-hidden">VIXEN — your creative world, your rules</h1>
           <p className="vixen-entry-tagline">Your audience. Your content.<br /><span>Your terms.</span></p>
           <p className="vixen-entry-description">A Caribbean-first home where adult women creators share content and earn from memberships, exclusive drops, and paid messages—with an easy way for adult fans to join and watch.</p>
-          <Link className="vixen-discover-link" href="/creators">Explore the creator preview <span aria-hidden="true">→</span></Link>
+          <div className="vixen-entry-actions"><Link className="vixen-discover-link" href="/member-preview">See the member app preview <span aria-hidden="true">→</span></Link><Link className="vixen-entry-secondary" href="/creators">Browse creator previews</Link></div>
         </div>
 
         <section className="vixen-auth-card" aria-labelledby="vixen-auth-heading">
