@@ -143,7 +143,7 @@ export function Storefront() {
         <p className="payment-method-note">Checkout is not active in this preview. No orders or payments are processed.</p>
       </section>
 
-      <footer className="site-footer"><div className="section-wrap footer-inner"><a className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><img src="/assets/vixen-mark-3d.png" alt="" width="120" height="120" /></a><p>Intimate wellness, on your terms.</p><div className="footer-links"><Link href="/creators">Discover</Link><Link href="/pricing">Memberships</Link><Link href="/sign-up">Join VIXEN</Link></div><small>© {new Date().getFullYear()} VIXEN. 18+ only. Store catalog preview.</small></div></footer>
+      <footer className="site-footer"><div className="section-wrap footer-inner"><a className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><img src="/assets/vixen-mark-3d.png" alt="" width="120" height="120" /></a><p>Intimate wellness, on your terms.</p><div className="footer-links"><Link href="/creators">Discover</Link><Link href="/pricing">Memberships</Link><Link href="/sign-up">Join VIXEN</Link></div><small>© {new Date().getFullYear()} VIXEN. 18+ only. Store catalog preview. <span className="company-name">Verified Interactive Xperience &amp; Entertainment Network</span></small></div></footer>
 
       {bagOpen && (
         <div className="store-bag-backdrop" onClick={() => setBagOpen(false)}>
