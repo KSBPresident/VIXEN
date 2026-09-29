@@ -189,7 +189,7 @@ export default function PricingPage() {
             </header>
             <div className="member-plan-includes">
               <h4>Before enrollment</h4>
-              <ul><li>Exact privileges and eligibility will be listed before signup</li><li>Event capacity, booking terms, and any additional charges will be disclosed</li><li>Creators choose whether to attend each event</li></ul>
+              <ul><li>Redeem a VVIP ID from a signed-in account to unlock complimentary Elite membership status across VIXEN</li><li>VVIP ID is verified before status is applied; it can’t be reused across accounts</li><li>Event capacity, booking terms, and any additional charges will be disclosed</li><li>Creators choose whether to attend each event</li></ul>
             </div>
             <div className="member-plan-boundary">
               <h4>Consent and safety</h4>
@@ -197,7 +197,7 @@ export default function PricingPage() {
             </div>
           </article>
         </div>
-        <p className="cost-clarity-notice"><strong>Planned, not active:</strong> the private experience, VIP/VVIP enrollment, age verification, event booking, and entry controls are not live. No club membership can currently be purchased. Final prices, benefits, eligibility, location, and operating rules must be published before launch.</p>
+        <p className="cost-clarity-notice"><strong>Planned, not active:</strong> VVIP members will be able to enter their ID while signed in; after server-side verification, VIXEN will apply complimentary Elite membership status to that account. IDs must be securely issued, verified, and protected against reuse. The redemption flow, private experience, VIP/VVIP enrollment, age verification, event booking, and entry controls are not live. Final prices, benefits, eligibility, location, and operating rules must be published before launch.</p>
       </section>
 
       <section className="section-wrap plan-terms" aria-labelledby="payment-terms-heading">
