@@ -3,19 +3,19 @@
 Audit date: 2026-09-29  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `84a3473a3d9dbb82020af4f4d9bcc42376206c09`
+Latest inspected main commit: `0830f28f8d07f7bd735de8d3cadbc3d7d78d07e7`
 
 ## Verified
 
-- GitHub Actions passed lint, kernel tests, TypeScript, and `next build` for PR #29 head `cc0a6b10c4e53552b2a1fcbdb4c86872cdbc58b4`, merged into the inspected main commit. PR #26's private-video join workflow also passed the same CI gates before its merge.
+- GitHub Actions passed lint, kernel policy tests, TypeScript, and `next build` for PR #31 head `ff7f915fa9f0850d27d82d4dbcade024007bfc83`; the merged main commit `0830f28f8d07f7bd735de8d3cadbc3d7d78d07e7` also passed the main-branch quality workflow.
 - GitHub Actions defines a `main` push and pull request quality job with ESLint, TypeScript, kernel tests, and `next build`.
-- The repository has a public landing page, a linked About page with the Nine Tail Fox asset, creator discovery with sample-profile search, a launch preview, illustrative membership pricing, a health endpoint, and member message/private-video previews.
+- The repository has a public landing page, a linked About page with the Nine Tail Fox asset, creator discovery with sample-profile search, a launch preview, illustrative membership pricing, a health endpoint, and member message/private-video previews. The member preview has GET search across sample creator updates, an empty state, and sign-up links for follow actions.
 - Sample profiles, example prices, and private-session controls are labelled as preview/illustrative content in their public surfaces.
 - The private-video kernel policy and Middle OS join workflow fail closed on identity, payment, creator acceptance, booking, audit, and short-lived credential checks. No provider or payment adapter is connected.
 
 ## Not yet production-ready
 
-The latest code commit is in GitHub, but Vercel has not verified a new production deployment for it. The latest Vercel status reports the daily build-quota failure (`upgradeToPro/build-rate-limit`) and a pending deployment status. This means the last successful deployment may still be serving older code.
+Vercel reports the production deployment for main commit `0830f28f8d07f7bd735de8d3cadbc3d7d78d07e7` as successful. I could not independently render the public site with the available browser fetch/control tools, so page appearance and unauthenticated route access are still unverified here.
 
 The repository still lacks live implementation and verification for:
 
@@ -26,7 +26,7 @@ The repository still lacks live implementation and verification for:
 - Wallet, purchases, messaging, notifications, rewards, journey rules, moderation, or audited administration.
 - LLM/CRM/ABM assistance or end-to-end workflow checks.
 - n8n automation manifest and trigger mapping. This remains deferred until the website experience is complete.
-- Verification that public production URLs are accessible to unauthenticated visitors. Vercel URL fetching previously redirected to Vercel SSO; public access needs a live browser verification.
+- Independent verification that public production URLs render for unauthenticated visitors. A successful Vercel status confirms deployment completion, not a visual or route-level browser check.
 
 No payment, account, CRM, AI, automation, or video capability should be represented as live until it is implemented, configured, and verified.
 
