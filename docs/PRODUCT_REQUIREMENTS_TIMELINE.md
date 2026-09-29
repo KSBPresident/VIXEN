@@ -25,6 +25,7 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 ## 4. Identity and protected member experiences
 
 - Add authentication and authorization before protected dashboard, profile, wallet, subscription, purchase, message, notification, reward, and security routes.
+- Offer VIXEN-managed email/password registration and sign-in; accept Proton email addresses as login addresses while users create a separate VIXEN password. Never ask for or collect Proton account credentials. Add Proton OAuth only if Proton exposes and enables a standards-compatible identity-provider flow.
 - Separate a no-cost member account from paid creator memberships: free accounts browse public creator profiles and previews only, and do not inherit creator, payout, management, or paid-content privileges.
 - Publish a clear entitlement matrix for each membership tier. A membership applies to one creator; exact included content, exclusions, renewal, cancellation, and refund terms must be disclosed before checkout.
 - Jo-Lene Kennedy is the Head Girl / Creator Manager responsible for managing all creator profiles. Link this role only to her verified account, enforce it server-side, and audit management actions; it does not grant platform-wide finance or administrator privileges by default.
