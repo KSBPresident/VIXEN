@@ -12,7 +12,7 @@ export default function HomePage() {
     <main className="vixen-home">
       <header className="vixen-topbar">
         <Link className="vixen-header-brand" href="/" aria-label="VIXEN home">
-          <Image src="/assets/vixen-logo-3d.png" alt="VIXEN" width={240} height={273} priority />
+          <Image src="/assets/vixen-mark-3d.png" alt="VIXEN emblem" width={240} height={240} priority />
         </Link>
         <nav className="vixen-nav" aria-label="Main navigation">
           <Link href="/creators">Discover</Link>
@@ -49,7 +49,7 @@ export default function HomePage() {
       </section>
 
       <footer className="vixen-footer">
-        <Link href="/" className="vixen-footer-brand"><Image src="/assets/vixen-logo-3d.png" alt="" width={160} height={182} /> <span>Creator-first. Always.</span></Link>
+        <Link href="/" className="vixen-footer-brand"><Image src="/assets/vixen-mark-3d.png" alt="" width={160} height={160} /> <span>Creator-first. Always.</span></Link>
         <div className="vixen-footer-links"><Link href="/creators">Discover</Link><Link href="/pricing">Memberships</Link><Link href="/launch">About VIXEN</Link></div>
         <small>© {new Date().getFullYear()} VIXEN</small>
       </footer>

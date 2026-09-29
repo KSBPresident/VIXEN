@@ -30,7 +30,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
     <main className="vixen-signup-page">
       <div className="vixen-signup-wrap">
         <Link className="vixen-signup-brand" href="/" aria-label="Back to VIXEN home">
-          <Image src="/assets/vixen-logo-3d.png" alt="VIXEN" width={240} height={273} priority />
+          <Image src="/assets/vixen-mark-3d.png" alt="VIXEN emblem" width={240} height={240} priority />
         </Link>
         <h1 className="vixen-signup-title">Join VIXEN</h1>
         <p className="vixen-signup-subtitle">Your creative world starts here.</p>
