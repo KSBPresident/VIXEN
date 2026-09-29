@@ -143,9 +143,9 @@ export default function PricingPage() {
 
       <section className="section-wrap plan-section private-club-section" aria-labelledby="private-club-heading">
         <div className="plan-section-heading">
-          <p className="eyebrow">PRIVATE MEMBER EXPERIENCE · 18+</p>
+          <p className="eyebrow">PRIVATE MEMBER EXPERIENCE · 21+</p>
           <h2 id="private-club-heading">A more personal VIXEN experience.</h2>
-          <p>VIXEN is planning a private, members-only social experience where eligible members may meet participating creators at scheduled events. It is separate from creator subscriptions and online content. Membership access does not guarantee an event booking, a meeting with a specific creator, or any personal interaction.</p>
+          <p>VIXEN is planning a private, members-only social experience where eligible members may meet participating creators at scheduled events. Entry is for members aged 21 and over, with age verification required. Active VIP or VVIP membership card must be presented at check-in; no card means no entry. The experience is separate from creator subscriptions and online content. Membership access does not guarantee an event booking, a meeting with a specific creator, or any personal interaction.</p>
         </div>
         <div className="member-plan-grid">
           <article className="member-plan-card member-plan-free" aria-labelledby="private-standard">
@@ -173,7 +173,7 @@ export default function PricingPage() {
             </header>
             <div className="member-plan-includes">
               <h4>Planned access</h4>
-              <ul><li>Eligibility to request entry to designated events</li><li>Event details, capacity, and any ticket price shown in advance</li><li>Participation by creators is opt-in for each event</li></ul>
+              <ul><li>Members must be 21 or older and pass age verification</li><li>Present an active VIP membership card at check-in; no card means no entry</li><li>Eligibility to request entry to designated events</li><li>Event details, capacity, and any ticket price shown in advance</li><li>Participation by creators is opt-in for each event</li></ul>
             </div>
             <div className="member-plan-boundary">
               <h4>Access boundaries</h4>
@@ -189,15 +189,15 @@ export default function PricingPage() {
             </header>
             <div className="member-plan-includes">
               <h4>Before enrollment</h4>
-              <ul><li>Redeem a VVIP ID from a signed-in account to unlock complimentary Elite membership status across VIXEN</li><li>VVIP ID is verified before status is applied; it can’t be reused across accounts</li><li>Event capacity, booking terms, and any additional charges will be disclosed</li><li>Creators choose whether to attend each event</li></ul>
+              <ul><li>Members must be 21 or older and pass age verification</li><li>Present an active VVIP membership card at check-in; no card means no entry</li><li>Redeem a VVIP ID from a signed-in account to unlock complimentary Elite membership status across VIXEN</li><li>VVIP ID is verified before status is applied; it can’t be reused across accounts</li><li>Event capacity, booking terms, and any additional charges will be disclosed</li><li>Creators choose whether to attend each event</li></ul>
             </div>
             <div className="member-plan-boundary">
               <h4>Consent and safety</h4>
-              <p>Everyone must be 18+ and follow event consent, privacy, and safety rules. Membership never implies consent to contact or physical interaction.</p>
+              <p>Everyone attending must be 21+ and follow event consent, privacy, and safety rules. Membership never implies consent to contact or physical interaction.</p>
             </div>
           </article>
         </div>
-        <p className="cost-clarity-notice"><strong>Planned, not active:</strong> VVIP members will be able to enter their ID while signed in; after server-side verification, VIXEN will apply complimentary Elite membership status to that account. IDs must be securely issued, verified, and protected against reuse. The redemption flow, private experience, VIP/VVIP enrollment, age verification, event booking, and entry controls are not live. Final prices, benefits, eligibility, location, and operating rules must be published before launch.</p>
+        <p className="cost-clarity-notice"><strong>Planned, not active:</strong> VVIP members will be able to enter their ID while signed in; after server-side verification, VIXEN will apply complimentary Elite membership status to that account. IDs must be securely issued, verified, and protected against reuse. The redemption flow, physical or digital card issuance, private experience, VIP/VVIP enrollment, age verification, event booking, and entry controls are not live. Final prices, benefits, eligibility, location, and operating rules must be published before launch.</p>
       </section>
 
       <section className="section-wrap plan-terms" aria-labelledby="payment-terms-heading">
