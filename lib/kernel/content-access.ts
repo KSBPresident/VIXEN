@@ -18,7 +18,10 @@ export type AccessDenialReason =
   | "creator_scope_mismatch"
   | "membership_required"
   | "higher_tier_required"
-  | "manager_audit_required";
+  | "manager_audit_required"
+  | "identity_unavailable"
+  | "entitlement_unavailable"
+  | "audit_unavailable";
 
 export type ContentAccessDecision =
   | { allowed: true; reason: "creator_owner" | "member_entitlement" | "creator_manager_audited" }
