@@ -1,6 +1,7 @@
-import type { AuditEvent } from "@/lib/kernel/audit";
-import type { MembershipTier } from "@/lib/kernel/content-access";
-import type { VerifiedPrincipal } from "@/lib/kernel/identity";
+import type { AuditEvent } from "../kernel/audit";
+import type { MembershipTier } from "../kernel/content-access";
+import type { VerifiedPrincipal } from "../kernel/identity";
+import type { PrivateVideoBooking } from "../kernel/private-video-session";
 
 export type AdapterResult<T> =
   | { ok: true; value: T }
@@ -28,6 +29,20 @@ export interface PaymentAdapter {
     currency: string;
     idempotencyKey: string;
   }): Promise<AdapterResult<{ checkoutUrl: string }>>;
+}
+
+export interface PrivateVideoBookingRepository {
+  findBooking(input: { bookingId: string }): Promise<AdapterResult<{ booking: PrivateVideoBooking | null }>>;
+}
+
+/** Issues participant-bound, short-lived credentials only; never expose provider admin keys. */
+export interface PrivateVideoRoomAdapter {
+  issueJoinCredential(input: {
+    sessionId: string;
+    creatorId: string;
+    participantId: string;
+    participant: "member" | "creator";
+  }): Promise<AdapterResult<{ credential: string; expiresAt: number }>>;
 }
 
 export interface AutomationAdapter {
