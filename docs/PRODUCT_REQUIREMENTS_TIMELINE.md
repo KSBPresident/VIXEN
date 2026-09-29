@@ -89,4 +89,6 @@ Select a processor/acquirer only after written approval for VIXEN's adult creato
 
 ## Current first milestone
 
-A clean, accessible, responsive public VIXEN website in Next.js with the supplied visual direction, creator discovery/profile routes, a truthful preview state, CI checks, and a Vercel preview. Then continue through the canonical phases above.
+A clean, accessible, responsive public VIXEN web app in Next.js with the supplied visual direction, creator discovery/profile routes, clear member and creator account paths, member browsing, transparent membership boundaries, store, messaging and paid private-video user flows, responsive and accessible states, CI checks, and a reviewable Vercel preview. Keep all sample data and inactive services clearly labelled.
+
+Only after this website-first milestone is complete, notify the owner that it is time to configure Supabase and n8n. At that point, let the owner connect the specific accounts they choose. Do not request account access or connect either service before the milestone is complete.
