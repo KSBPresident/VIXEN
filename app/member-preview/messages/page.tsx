@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "../member-preview.css";
 import "../member-interactions.css";
+import "../member-search.css";
 
 export const metadata = {
   title: "Messages preview",
@@ -17,7 +18,7 @@ export default function MemberMessagesPreviewPage() {
           <Image src="/assets/vixen-mark-3d.png" alt="" width={62} height={62} priority />
           <span>VIXEN</span>
         </Link>
-        <div className="member-search"><span aria-hidden="true">⌕</span><span>Search creators and interests</span></div>
+        <form className="member-search" action="/creators" role="search" aria-label="Search creators"><span aria-hidden="true">⌕</span><label className="visually-hidden" htmlFor="member-creator-search">Search creators and interests</label><input id="member-creator-search" type="search" name="q" placeholder="Search creators and interests" /><button type="submit" aria-label="Search creators">↵</button></form>
         <div className="member-top-actions"><span className="member-preview-pill"><i /> PREVIEW</span><Link href="/sign-up?type=member">Create free account <b aria-hidden="true">↗</b></Link></div>
       </header>
 
