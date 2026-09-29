@@ -117,10 +117,27 @@ export default function PricingPage() {
         <div className="nine-offer-mark" aria-hidden="true">NINE</div>
         <div className="nine-offer-copy">
           <p className="eyebrow">PLANNED PAYMENT BENEFIT</p>
-          <h2 id="nine-offer-title">Pay with NINE. <span>Save 50%.</span></h2>
-          <p>When NINE Coin payments are supported, get 50% off any VIXEN creator subscription paid with NINE.</p>
+          <h2 id="nine-offer-title">Pay with NINE. <span>Save 33⅓%.</span></h2>
+          <p>When NINE Coin payments are supported, get 33⅓% off any VIXEN creator subscription paid with NINE.</p>
           <p className="nine-offer-status">Coming later · This offer is not redeemable today. VIXEN does not currently accept NINE Coin. Supported networks, payment verification, and purchase sources will be confirmed before launch.</p>
         </div>
+      </section>
+
+      <section className="section-wrap payment-methods" aria-labelledby="payment-methods-title">
+        <div>
+          <p className="eyebrow">FLEXIBLE WAYS TO PAY</p>
+          <h2 id="payment-methods-title">Payment options are being prepared.</h2>
+          <p>VIXEN plans to support the methods below. The options available will depend on your location and what you’re buying, and will be confirmed before checkout.</p>
+        </div>
+        <ul className="payment-method-list" aria-label="Planned payment methods">
+          <li>Card payments</li>
+          <li>Bank transfer</li>
+          <li>Cryptocurrency</li>
+          <li>WiPay</li>
+          <li>PayPal</li>
+          <li>Wise</li>
+        </ul>
+        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. Supported crypto coins and networks, including NINE Coin, will be confirmed before any crypto checkout opens.</p>
       </section>
 
       <section className="section-wrap plan-terms" aria-labelledby="payment-terms-heading">

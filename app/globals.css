@@ -456,3 +456,18 @@
 .nine-offer-copy>p:not(.eyebrow){max-width:700px;margin:0;color:#c3bac7;font-size:12px;line-height:1.7}
 .nine-offer-copy .nine-offer-status{margin-top:10px!important;color:#ffb8d5!important;font-size:9px!important}
 @media(max-width:620px){.nine-offer{grid-template-columns:1fr;gap:13px;margin-top:30px;margin-bottom:28px;padding:20px}.nine-offer-mark{width:58px;height:58px;font-size:15px}.nine-offer-copy h2{font-size:25px}}
+
+
+/* Planned payment methods: presentation only until checkout integrations are active */
+.payment-methods{margin-top:12px;margin-bottom:54px;padding:28px 30px;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:linear-gradient(110deg,#120f14,#0c0a0d)}
+.payment-methods>div:first-child{max-width:740px}
+.payment-methods .eyebrow,.store-payment-options .eyebrow{margin-bottom:7px}
+.payment-methods h2,.store-payment-options h2{margin:0 0 8px;font:600 clamp(24px,3vw,34px)/1.2 var(--display);letter-spacing:-.035em}
+.payment-methods>div>p:last-child,.store-payment-options>div>p:last-child{margin:0;color:#b9b0bc;font-size:12px;line-height:1.7}
+.payment-method-list{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 10px;padding:0;list-style:none}
+.payment-method-list li{padding:8px 13px;border:1px solid rgba(255,22,136,.4);border-radius:999px;background:rgba(255,22,136,.07);color:#f4eaf2;font-size:10px;letter-spacing:.04em}
+.payment-method-note{margin:12px 0 0;color:#ffb8d5;font-size:9px;line-height:1.65}
+.store-payment-options{display:flex;align-items:end;justify-content:space-between;gap:32px;padding-top:27px;padding-bottom:50px;border-top:1px solid rgba(255,255,255,.1)}
+.store-payment-options>div{max-width:700px}
+.store-payment-options .payment-method-note{max-width:250px;flex:none}
+@media(max-width:650px){.payment-methods{margin-bottom:34px;padding:20px}.payment-method-list{gap:7px}.payment-method-list li{font-size:9px;padding:7px 10px}.store-payment-options{align-items:start;flex-direction:column;gap:7px;padding-top:22px;padding-bottom:37px}.store-payment-options .payment-method-note{max-width:100%}}

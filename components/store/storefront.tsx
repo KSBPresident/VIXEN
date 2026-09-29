@@ -134,6 +134,15 @@ export function Storefront() {
         <p>Every item in this preview is described with its materials and intended use. Product details, availability, shipping, returns, and final prices will be confirmed before checkout is enabled.</p>
       </section>
 
+      <section className="section-wrap store-payment-options" aria-labelledby="store-payment-title">
+        <div>
+          <p className="eyebrow">PAY YOUR WAY</p>
+          <h2 id="store-payment-title">More ways to pay are planned.</h2>
+          <p>Card, bank transfer, cryptocurrency, WiPay, PayPal, and Wise are planned options. What’s available may vary by country and order type; we’ll confirm options before checkout.</p>
+        </div>
+        <p className="payment-method-note">Checkout is not active in this preview. No orders or payments are processed.</p>
+      </section>
+
       <footer className="site-footer"><div className="section-wrap footer-inner"><a className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><img src="/assets/vixen-mark-3d.png" alt="" width="120" height="120" /></a><p>Intimate wellness, on your terms.</p><div className="footer-links"><Link href="/creators">Discover</Link><Link href="/pricing">Memberships</Link><Link href="/sign-up">Join VIXEN</Link></div><small>© {new Date().getFullYear()} VIXEN. 18+ only. Store catalog preview.</small></div></footer>
 
       {bagOpen && (
