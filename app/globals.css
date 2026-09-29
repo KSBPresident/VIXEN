@@ -336,3 +336,23 @@
 .pricing-preview-notice strong{color:#ff9ac7}
 @media(max-width:900px){.member-plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.member-plan-header{min-height:165px}}
 @media(max-width:650px){.plan-section{padding-top:24px}.plan-section-heading{margin-bottom:20px}.member-plan-grid{grid-template-columns:1fr;gap:11px}.member-plan-card{padding:19px 17px}.member-plan-header{min-height:auto;padding-bottom:15px}.member-plan-header h3{font-size:21px}.member-plan-price strong{font-size:25px}.plan-terms{padding-top:32px;padding-bottom:58px}}
+
+
+/* Direct, VIXEN-managed email account flow. */
+.vixen-email-access{margin-top:16px}
+.vixen-email-mode{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px;border:1px solid rgba(255,255,255,.12);border-radius:6px;background:rgba(0,0,0,.25)}
+.vixen-email-mode button{min-height:36px;border:0;border-radius:4px;background:transparent;color:#aaa0ad;font:600 10px var(--sans);cursor:pointer}
+.vixen-email-mode button[aria-pressed="true"]{background:rgba(255,22,136,.16);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,22,136,.5)}
+.vixen-email-form{display:grid;gap:8px;margin-top:14px}
+.vixen-email-form label{margin-top:3px;color:#e9e3eb;font-size:10px;font-weight:600}
+.vixen-email-form input{width:100%;min-height:43px;padding:0 12px;border:1px solid rgba(255,255,255,.2);border-radius:4px;background:#0a080c;color:#fff;font:12px var(--sans)}
+.vixen-email-form input:focus-visible{outline:2px solid #ff75b3;outline-offset:2px;border-color:#ff75b3}
+.vixen-email-form input::placeholder{color:#817985}
+.vixen-proton-note{margin:0 0 3px;color:#a9a1aa;font-size:9px;line-height:1.55}
+.vixen-email-submit{min-height:45px;border:1px solid #ff1688;border-radius:4px;background:linear-gradient(135deg,#ff1688,#cf0872);color:#fff;font:700 10px var(--sans);letter-spacing:.09em;text-transform:uppercase;cursor:pointer}
+.vixen-email-submit:disabled{opacity:.48;cursor:not-allowed}
+.vixen-email-submit:focus-visible,.vixen-email-mode button:focus-visible{outline:2px solid #ff75b3;outline-offset:3px}
+.vixen-email-feedback{min-height:18px;margin:0;color:#bdb2c0;font-size:9px;line-height:1.5}
+.vixen-email-feedback.is-error{color:#ffc1d9}
+.vixen-auth-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px;color:#857c88;font-size:8px;letter-spacing:.14em}
+.vixen-auth-divider:before,.vixen-auth-divider:after{content:"";height:1px;flex:1;background:rgba(255,255,255,.1)}
