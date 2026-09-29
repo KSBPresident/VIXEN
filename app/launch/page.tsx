@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const launchPrinciples = [
@@ -16,7 +17,7 @@ export default function LaunchPage() {
   return (
     <main>
       <header className="site-header">
-        <Link className="wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link>
+        <Link className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={120} height={120} /></Link>
         <nav className="main-nav" aria-label="Main navigation">
           <Link href="/">Home</Link>
           <Link href="/creators">Discover</Link>
@@ -67,7 +68,7 @@ export default function LaunchPage() {
 
       <footer className="site-footer">
         <div className="section-wrap footer-inner">
-          <Link className="wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link>
+          <Link className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={120} height={120} /></Link>
           <p>Exclusive. Powerful. Profitable.</p>
           <div className="footer-links"><Link href="/creators">Creators</Link><Link href="/pricing">Memberships</Link><Link href="/">Home</Link></div>
           <small>© {new Date().getFullYear()} VIXEN. Launch preview.</small>
