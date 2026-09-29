@@ -27,6 +27,8 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Lint
         run: npm run lint
+      - name: Kernel policy tests
+        run: npm test
       - name: Type check
         run: npm run typecheck
       - name: Production build

@@ -4,10 +4,10 @@ The requested TOP / EXECUTIVE OS, MIDDLE OS, BACK OS, VIXEN KERNEL, and FRONT OS
 
 ## Current code foundation
 
-- **TOP / EXECUTIVE OS** — `lib/executive/platform-readiness.ts` records evidence gates and current capability state. It does not yet provide admin, moderation, finance, or audit dashboards.
-- **MIDDLE OS** — `lib/application/` contains the first use case: the pricing-page read model. Other member, creator, moderation, messaging, and commerce workflows remain to be implemented.
+- **TOP / EXECUTIVE OS** — `lib/executive/platform-readiness.ts` records evidence gates and evaluates whether a capability has the proof needed for release. Admin, moderation, finance, and audit dashboards remain to be built.
+- **MIDDLE OS** — `lib/application/` contains pricing and an audited creator-content access workflow. Other member, creator publishing, moderation, messaging, and commerce workflows remain to be implemented.
 - **BACK OS** — `lib/adapters/service-contracts.ts` defines server-side service boundaries. No Supabase, payments, storage, n8n, email, or LLM adapter is connected in this website-first phase.
-- **VIXEN KERNEL** — `lib/kernel/membership-pricing.ts` owns the current illustrative membership prices and formatting in integer minor units. Access enforcement, roles, ledger, rewards, and other domain rules remain to be built and tested before activation.
+- **VIXEN KERNEL** — `lib/kernel/` owns illustrative membership prices, verified role types, creator content access decisions, and audit-event contracts. Ledger, rewards, journey, and further domain rules remain to be built and tested before activation.
 - **FRONT OS** — the existing Next.js App Router under `app/` renders VIXEN pages. The pricing page now reads its plan examples through MIDDLE OS and KERNEL instead of maintaining duplicate prices in the UI.
 
 ## Dependency rules
