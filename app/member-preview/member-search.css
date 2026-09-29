@@ -13,4 +13,4 @@
 .member-search-empty a{margin-top:4px;color:#ff80bc;font-size:9px}
 .member-post-footer>a:first-child{margin-left:0;color:inherit}
 .member-post-footer>a:first-child small{margin-left:4px;font-size:8px}
-@media(max-width:760px){.member-search{display:none}}
+@media(max-width:760px){.member-topbar{height:auto;min-height:62px;grid-template-rows:62px 42px;grid-template-columns:1fr auto;gap:0 10px;padding:0 14px 8px}.member-search{display:flex;grid-column:1/-1;grid-row:2;width:100%}}
