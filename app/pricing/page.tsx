@@ -141,6 +141,65 @@ export default function PricingPage() {
         <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. Supported crypto coins and networks, including NINE Coin, will be confirmed before any crypto checkout opens.</p>
       </section>
 
+      <section className="section-wrap plan-section private-club-section" aria-labelledby="private-club-heading">
+        <div className="plan-section-heading">
+          <p className="eyebrow">PRIVATE MEMBER EXPERIENCE · 18+</p>
+          <h2 id="private-club-heading">A more personal VIXEN experience.</h2>
+          <p>VIXEN is planning a private, members-only social experience where eligible members may meet participating creators at scheduled events. It is separate from creator subscriptions and online content. Membership access does not guarantee an event booking, a meeting with a specific creator, or any personal interaction.</p>
+        </div>
+        <div className="member-plan-grid">
+          <article className="member-plan-card member-plan-free" aria-labelledby="private-standard">
+            <header className="member-plan-header">
+              <p className="member-plan-kind">PLATFORM MEMBERSHIP</p>
+              <h3 id="private-standard">Standard</h3>
+              <p>Join VIXEN and explore public creator profiles and previews.</p>
+              <p className="member-plan-price"><strong>Free</strong><span>account</span></p>
+            </header>
+            <div className="member-plan-includes">
+              <h4>Included</h4>
+              <ul><li>Free member account</li><li>Public creator profiles and previews</li><li>Choose online memberships separately</li></ul>
+            </div>
+            <div className="member-plan-boundary">
+              <h4>Private events</h4>
+              <p>Does not include eligibility for private member events.</p>
+            </div>
+          </article>
+          <article className="member-plan-card" aria-labelledby="private-vip">
+            <header className="member-plan-header">
+              <p className="member-plan-kind">PRIVATE MEMBERSHIP · PLANNED</p>
+              <h3 id="private-vip">VIP</h3>
+              <p>A planned membership level for eligible private VIXEN events.</p>
+              <p className="member-plan-price"><strong>Coming later</strong><span>price not set</span></p>
+            </header>
+            <div className="member-plan-includes">
+              <h4>Planned access</h4>
+              <ul><li>Eligibility to request entry to designated events</li><li>Event details, capacity, and any ticket price shown in advance</li><li>Participation by creators is opt-in for each event</li></ul>
+            </div>
+            <div className="member-plan-boundary">
+              <h4>Access boundaries</h4>
+              <p>Membership does not guarantee admission, creator availability, or personal interaction. Event-specific rules apply.</p>
+            </div>
+          </article>
+          <article className="member-plan-card" aria-labelledby="private-vvip">
+            <header className="member-plan-header">
+              <p className="member-plan-kind">PRIVATE MEMBERSHIP · PLANNED</p>
+              <h3 id="private-vvip">VVIP</h3>
+              <p>A higher private membership level; final benefits are still being defined.</p>
+              <p className="member-plan-price"><strong>Coming later</strong><span>price not set</span></p>
+            </header>
+            <div className="member-plan-includes">
+              <h4>Before enrollment</h4>
+              <ul><li>Exact privileges and eligibility will be listed before signup</li><li>Event capacity, booking terms, and any additional charges will be disclosed</li><li>Creators choose whether to attend each event</li></ul>
+            </div>
+            <div className="member-plan-boundary">
+              <h4>Consent and safety</h4>
+              <p>Everyone must be 18+ and follow event consent, privacy, and safety rules. Membership never implies consent to contact or physical interaction.</p>
+            </div>
+          </article>
+        </div>
+        <p className="cost-clarity-notice"><strong>Planned, not active:</strong> the private experience, VIP/VVIP enrollment, age verification, event booking, and entry controls are not live. No club membership can currently be purchased. Final prices, benefits, eligibility, location, and operating rules must be published before launch.</p>
+      </section>
+
       <section className="section-wrap plan-terms" aria-labelledby="payment-terms-heading">
         <h2 id="payment-terms-heading">Before you pay</h2>
         <ul>
