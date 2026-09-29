@@ -1,56 +1,8 @@
 import Image from "next/image";
+import { getMembershipPricingPreview } from "@/lib/application/pricing/get-membership-pricing-preview";
 import Link from "next/link";
 import "./pricing-upgrade.css";
 import "./cost-clarity.css";
-
-const plans = [
-  {
-    id: "free",
-    name: "Free account",
-    price: "$0",
-    billing: "No payment or renewal",
-    summary: "A free adult member account to explore public creator previews.",
-    included: ["Browse creator profiles", "View public posts and previews", "No card and no recurring charge"],
-    excluded: "Member-only posts and drops, paid messages, tips, creator publishing, payouts, and management tools.",
-    free: true,
-  },
-  {
-    id: "bronze",
-    name: "Bronze",
-    price: "$3.99",
-    billing: "example / month / creator",
-    summary: "The lowest-cost paid way into one creator’s member space.",
-    included: ["Everything in Free", "Bronze-only member posts and updates from that creator"],
-    excluded: "Silver, Gold, and Elite content; paid messages, tips, and one-off purchases unless the creator explicitly includes them.",
-  },
-  {
-    id: "silver",
-    name: "Silver",
-    price: "$8.99",
-    billing: "example / month / creator",
-    summary: "A deeper look at one creator’s member posts and drops.",
-    included: ["Everything in Bronze", "Silver-only posts and creator-listed exclusive drops"],
-    excluded: "Gold and Elite content; paid messages, tips, and one-off purchases unless the creator explicitly includes them.",
-  },
-  {
-    id: "gold",
-    name: "Gold",
-    price: "$14.99",
-    billing: "example / month / creator",
-    summary: "More of that creator’s listed member content.",
-    included: ["Everything in Silver", "Gold-only posts and drops", "Early access when listed by the creator"],
-    excluded: "Elite-only content; paid messages, tips, and one-off purchases unless the creator explicitly includes them.",
-  },
-  {
-    id: "elite",
-    name: "Elite",
-    price: "$24.99",
-    billing: "example / month / creator",
-    summary: "The most inclusive example tier, with perks the creator names.",
-    included: ["Everything in Gold", "Elite-only posts, drops, and perks explicitly listed by the creator"],
-    excluded: "Unlisted services, paid messages, tips, custom work, or one-off purchases. Elite does not mean unlimited access or guaranteed replies.",
-  },
-];
 
 export const metadata = {
   title: "Free accounts and memberships",
@@ -58,6 +10,8 @@ export const metadata = {
 };
 
 export default function PricingPage() {
+  const plans = getMembershipPricingPreview();
+
   return (
     <main>
       <header className="site-header">
@@ -92,9 +46,9 @@ export default function PricingPage() {
 
         <div className="member-plan-grid">
           {plans.map((plan) => (
-            <article className={`member-plan-card${plan.free ? " member-plan-free" : ""}`} key={plan.id} aria-labelledby={`plan-${plan.id}`}>
+            <article className={`member-plan-card${plan.id === "free" ? " member-plan-free" : ""}`} key={plan.id} aria-labelledby={`plan-${plan.id}`}>
               <header className="member-plan-header">
-                <p className="member-plan-kind">{plan.free ? "MEMBER ACCOUNT" : "CREATOR MEMBERSHIP"}</p>
+                <p className="member-plan-kind">{plan.id === "free" ? "MEMBER ACCOUNT" : "CREATOR MEMBERSHIP"}</p>
                 <h3 id={`plan-${plan.id}`}>{plan.name}</h3>
                 <p>{plan.summary}</p>
                 <p className="member-plan-price"><strong>{plan.price}</strong><span>{plan.billing}</span></p>
@@ -110,7 +64,7 @@ export default function PricingPage() {
                 <p>{plan.excluded}</p>
               </div>
 
-              {plan.free && <Link className="button member-plan-cta" href="/sign-up">Create a free account <span aria-hidden="true">↗</span></Link>}
+              {plan.id === "free" && <Link className="button member-plan-cta" href="/sign-up">Create a free account <span aria-hidden="true">↗</span></Link>}
             </article>
           ))}
         </div>
