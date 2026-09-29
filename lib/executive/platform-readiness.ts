@@ -10,7 +10,15 @@ export interface CapabilityReadiness {
  * only after its evidence requirements are met; current records are honest
  * about integrations deliberately deferred from the website-first phase.
  */
-export const platformReadiness = {
+type CapabilityId =
+  | "memberExperience"
+  | "creatorStudio"
+  | "paidMemberships"
+  | "creatorPayouts"
+  | "supabase"
+  | "n8n";
+
+export const platformReadiness: Record<CapabilityId, CapabilityReadiness> = {
   memberExperience: {
     state: "preview",
     evidenceRequired: "Production authentication and a verified end-to-end member journey",
@@ -37,6 +45,6 @@ export const platformReadiness = {
   },
 } as const satisfies Record<string, CapabilityReadiness>;
 
-export function isCapabilityActive(capability: keyof typeof platformReadiness): boolean {
+export function isCapabilityActive(capability: CapabilityId): boolean {
   return platformReadiness[capability].state === "active";
 }
