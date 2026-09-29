@@ -21,7 +21,7 @@ The repository still lacks live implementation and verification for:
 
 - Supabase authentication, user/creator/admin roles, protected member routes, database schema/migrations, or row-level security. This remains deferred until the website experience is complete.
 - Creator studio workflows or server-side package ownership and entitlement enforcement.
-- Checkout, signed payment webhooks, idempotency, payout/ledger rules, refunds, or end-to-end payment verification.
+- Checkout, signed payment webhooks, idempotency, payout/ledger rules, refunds, or end-to-end payment verification. VIXEN must first obtain explicit written approval from a processor/acquirer for its adult content, adult live-video services, storefront, company, and target markets; Stripe's current rules prohibit adult content and adult live-chat services.
 - Private video provider implementation, booking persistence, signaling, browser camera/microphone consent flow, and iPhone/Android/Windows device verification.
 - Wallet, purchases, messaging, notifications, rewards, journey rules, moderation, or audited administration.
 - LLM/CRM/ABM assistance or end-to-end workflow checks.
@@ -41,7 +41,7 @@ After the website-first experience is complete, production readiness also requir
 1. Complete each system boundary described in `ARCHITECTURE.md` with explicit ownership and typed contracts.
 2. Connect account, booking, payment, and protected content storage with row-level security and migrations.
 3. Test authorization and financial rules at the server/API boundary.
-4. Verify payment and automation integrations with signed/idempotent events and safe failure paths.
+4. After the website-first milestone and the user's approval, connect only a processor that has explicitly accepted the adult business model and target markets. Verify signed/idempotent events and safe failure paths. Defer Supabase and n8n until the website experience is complete.
 5. Run lint, type check, automated tests, and production build successfully in CI.
 6. Confirm required environment variables are set without exposing secrets.
 7. Confirm public routes are publicly reachable and protected routes remain protected.
