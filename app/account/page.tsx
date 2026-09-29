@@ -15,7 +15,7 @@ export default async function AccountPage() {
   return (
     <main className="vixen-home">
       <header className="vixen-account-topbar">
-        <Link href="/" aria-label="VIXEN home"><Image src="/assets/vixen-logo-3d.png" alt="VIXEN" width={200} height={227} priority /></Link>
+        <Link href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="VIXEN emblem" width={200} height={200} priority /></Link>
         <form action={signOut}><button type="submit">Sign out</button></form>
       </header>
       <section className="vixen-account-content">
