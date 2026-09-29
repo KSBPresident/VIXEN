@@ -51,6 +51,7 @@ Keep the current Next.js App Router and evolve it incrementally:
 - `app/admin` plus audited admin use cases implement TOP / EXECUTIVE OS; never rely on hidden UI controls as authorization.
 - `supabase/migrations` and policy SQL define persisted state and database-enforced access. They must agree with Kernel contracts.
 - `docs` records architecture, contracts, threat model, operational runbooks, and release evidence.
+- `docs/ARCHITECTURE_IMPLEMENTATION_STATUS.md` distinguishes the implemented five-layer foundation from features and integrations still pending.
 
 These are intended boundaries. Do not claim a boundary or feature is implemented until its code, migrations, and checks exist.
 
