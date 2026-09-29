@@ -20,11 +20,12 @@ export default async function AccountPage() {
       </header>
       <section className="vixen-account-content">
         <div className="vixen-account-panel">
-          <p className="vixen-kicker">YOUR ACCOUNT</p>
+          <p className="vixen-kicker">YOUR MEMBER ACCOUNT</p>
           <h1>Welcome to VIXEN.</h1>
-          <p>Your account is connected. Start by exploring the creator preview.</p>
+          <p>You’re signed in. Open the member app preview to explore creator profiles and see how VIXEN’s feed and membership choices are designed.</p>
           <span className="vixen-account-email">{user.email ?? "VIXEN member"}</span>
-          <p><Link className="vixen-discover-link" href="/creators">Discover creators <span aria-hidden="true">→</span></Link></p>
+          <p><Link className="vixen-discover-link" href="/member-preview">Open your member app <span aria-hidden="true">→</span></Link></p>
+          <p className="vixen-auth-caption">Creator profiles and posts are samples. Real creator content, memberships, messages, and checkout are not active yet.</p>
         </div>
       </section>
     </main>
