@@ -10,7 +10,9 @@ The requested TOP / EXECUTIVE OS, MIDDLE OS, BACK OS, VIXEN KERNEL, and FRONT OS
 - **VIXEN KERNEL** — `lib/kernel/` owns illustrative membership prices, verified role types, creator content access decisions, a tested private-video join policy, and audit-event contracts. The private-video policy fails closed unless an active adult-verified member or the booked creator joins the matching creator-accepted, paid booking inside its scheduled window. Ledger, rewards, journey, and further domain rules remain to be built and tested before activation.
 - **FRONT OS** — the existing Next.js App Router under `app/` renders VIXEN pages. `/member-preview` now links to visual message and private-video session previews, and creator profiles link into those flows. All profiles, conversations, and session cards remain sample UI; messaging, checkout, bookings, and video rooms are not live. Device camera/microphone access must happen only after the participant chooses to join and the browser grants permission.
 
-The join workflow does not access camera or microphone devices. Only the browser can request device permission, after the member explicitly continues from a successfully authorized session screen. Provider credentials are participant-bound, short-lived (at most three minutes), and must never be logged or exposed before authorization.\n\n## Dependency rules
+The join workflow does not access camera or microphone devices. Only the browser can request device permission, after the member explicitly continues from a successfully authorized session screen. Provider credentials are participant-bound, short-lived (at most three minutes), and must never be logged or exposed before authorization.
+
+## Dependency rules
 
 1. Front OS pages call Middle OS use cases; they do not own business prices or entitlement rules.
 2. Middle OS workflows call Kernel rules and Back OS interfaces.
