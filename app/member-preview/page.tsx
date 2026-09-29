@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "./member-preview.css";
 import "./member-interactions.css";
+import "./member-search.css";
 
 export const metadata = {
   title: "Member app preview",
@@ -15,7 +16,16 @@ const creators = [
   { initials: "KM", name: "Kira Moss", handle: "@kira.moss", category: "Art · Studio life", slug: "kira-moss", tone: "violet", title: "Making something new", detail: "A sample creator update from the VIXEN preview." },
 ];
 
-export default function MemberPreviewPage() {
+type MemberPreviewPageProps = { searchParams: Promise<{ q?: string | string[] }> };
+
+export default async function MemberPreviewPage({ searchParams }: MemberPreviewPageProps) {
+  const params = await searchParams;
+  const query = (Array.isArray(params.q) ? params.q[0] : params.q)?.trim() ?? "";
+  const normalizedQuery = query.toLocaleLowerCase();
+  const visibleCreators = normalizedQuery
+    ? creators.filter((creator) => [creator.name, creator.handle, creator.category, creator.title, creator.detail].some((value) => value.toLocaleLowerCase().includes(normalizedQuery)))
+    : creators;
+
   return (
     <main className="member-app">
       <header className="member-topbar">
@@ -23,7 +33,7 @@ export default function MemberPreviewPage() {
           <Image src="/assets/vixen-mark-3d.png" alt="" width={62} height={62} priority />
           <span>VIXEN</span>
         </Link>
-        <div className="member-search"><span aria-hidden="true">⌕</span><span>Search creators and interests</span><kbd>⌘ K</kbd></div>
+        <form className="member-search" action="/member-preview" role="search" aria-label="Search creator updates"><span aria-hidden="true">⌕</span><label className="visually-hidden" htmlFor="member-creator-search">Search creators and interests</label><input id="member-creator-search" type="search" name="q" defaultValue={query} placeholder="Search creators and interests" /><button type="submit" aria-label="Search updates">↵</button></form>
         <div className="member-top-actions"><span className="member-preview-pill"><i /> PREVIEW</span><Link href="/sign-up?type=member">Create free account <b aria-hidden="true">↗</b></Link></div>
       </header>
 
@@ -51,16 +61,21 @@ export default function MemberPreviewPage() {
 
           <div className="member-feed-heading"><div><p className="member-eyebrow">A FIRST LOOK</p><h2>Creator updates</h2></div><Link href="/creators">Discover all <span aria-hidden="true">→</span></Link></div>
 
+          <p className="member-results-count" aria-live="polite">{query ? `${visibleCreators.length} sample update${visibleCreators.length === 1 ? "" : "s"} for “${query}”` : "Sample creator updates"}</p>
+          {visibleCreators.length > 0 ? (
           <div className="member-post-list">
-            {creators.map((creator, index) => (
+            {visibleCreators.map((creator, index) => (
               <article className="member-post" key={creator.slug}>
                 <div className="member-post-header"><div className={`member-avatar ${creator.tone}`}>{creator.initials}</div><div className="member-post-author"><Link href={`/creators/${creator.slug}`}>{creator.name} <span className="member-verified" aria-label="Sample profile">✦</span></Link><small>{creator.handle} · Sample profile</small></div><Link className="member-more" href={`/creators/${creator.slug}`} aria-label={`View ${creator.name} profile`}>•••</Link></div>
                 <Link className={`member-post-art member-art-${creator.tone}`} href={`/creators/${creator.slug}`} aria-label={`Open ${creator.name} sample post`}><span className="member-art-number">0{index + 1}</span><span className="member-art-orbit" /><span className="member-art-monogram">{creator.initials}</span><span className="member-art-caption">VIXEN CREATOR PREVIEW</span>{index === 1 && <span className="member-lock">◇ <small>MEMBERS ONLY PREVIEW</small></span>}</Link>
                 <div className="member-post-body"><div><p className="member-post-category">{creator.category}</p><h3>{creator.title}</h3><p>{creator.detail}</p></div><Link className="member-post-open" href={`/creators/${creator.slug}`}>View profile <span aria-hidden="true">↗</span></Link></div>
-                <div className="member-post-footer"><span>♡ <small>Follow</small></span><span>◌ <small>Creator preview</small></span><Link href="/pricing">See membership options <span aria-hidden="true">→</span></Link></div>
+                <div className="member-post-footer"><Link href="/sign-up?type=member" aria-label={`Create a free account to follow ${creator.name}`}>♡ <small>Join to follow</small></Link><span>◌ <small>Creator preview</small></span><Link href="/pricing">See membership options <span aria-hidden="true">→</span></Link></div>
               </article>
             ))}
           </div>
+          ) : (
+            <div className="member-search-empty"><span aria-hidden="true">⌕</span><h3>No sample updates found</h3><p>Try a creator name or interest such as music, style, or art.</p><Link href="/member-preview">Clear search</Link></div>
+          )}
 
           <div className="member-bottom-cta"><div><p className="member-eyebrow">READY WHEN YOU ARE</p><h2>Start with a free member account.</h2><p>Members are adults 18+ of any gender. Creator accounts are separate and intended for adult women creators.</p></div><Link className="member-primary-button" href="/sign-up?type=member">Create a free account <span aria-hidden="true">↗</span></Link></div>
         </section>
