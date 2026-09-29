@@ -1,4 +1,4 @@
-import type { AdapterResult, AuditWriter, IdentityAdapter, PrivateVideoBookingRepository, PrivateVideoRoomAdapter } from "../../adapters/service-contracts";
+import type { AuditWriter, IdentityAdapter, PrivateVideoBookingRepository, PrivateVideoRoomAdapter } from "../../adapters/service-contracts";
 import { authorizePrivateVideoJoin } from "../../kernel/private-video-session";
 
 export type PrivateVideoJoinWorkflowResult =
@@ -14,10 +14,6 @@ export interface PrivateVideoJoinDependencies {
   rooms: PrivateVideoRoomAdapter;
   audit: AuditWriter;
   now?: () => number;
-}
-
-function fail<T>(code: string, message: string, retryable = false): AdapterResult<T> {
-  return { ok: false, code, message, retryable };
 }
 
 /**
