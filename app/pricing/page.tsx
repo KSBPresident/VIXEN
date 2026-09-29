@@ -46,9 +46,9 @@ export default function PricingPage() {
 
         <div className="member-plan-grid">
           {plans.map((plan) => (
-            <article className={`member-plan-card${plan.free ? " member-plan-free" : ""}`} key={plan.id} aria-labelledby={`plan-${plan.id}`}>
+            <article className={`member-plan-card${plan.id === "free" ? " member-plan-free" : ""}`} key={plan.id} aria-labelledby={`plan-${plan.id}`}>
               <header className="member-plan-header">
-                <p className="member-plan-kind">{plan.free ? "MEMBER ACCOUNT" : "CREATOR MEMBERSHIP"}</p>
+                <p className="member-plan-kind">{plan.id === "free" ? "MEMBER ACCOUNT" : "CREATOR MEMBERSHIP"}</p>
                 <h3 id={`plan-${plan.id}`}>{plan.name}</h3>
                 <p>{plan.summary}</p>
                 <p className="member-plan-price"><strong>{plan.price}</strong><span>{plan.billing}</span></p>
@@ -64,7 +64,7 @@ export default function PricingPage() {
                 <p>{plan.excluded}</p>
               </div>
 
-              {plan.free && <Link className="button member-plan-cta" href="/sign-up">Create a free account <span aria-hidden="true">↗</span></Link>}
+              {plan.id === "free" && <Link className="button member-plan-cta" href="/sign-up">Create a free account <span aria-hidden="true">↗</span></Link>}
             </article>
           ))}
         </div>
