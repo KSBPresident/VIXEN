@@ -11,6 +11,7 @@ export default function HomePage() {
           <Link href="/creators">Discover</Link>
           <Link href="/store" aria-label="Shop intimate wellness">Store</Link>
           <Link href="/pricing">Memberships</Link>
+          <Link href="/about">About</Link>
         </nav>
         <Link className="vixen-header-cta" href="/sign-up">Create account <span aria-hidden="true">↗</span></Link>
       </header>
@@ -57,7 +58,7 @@ export default function HomePage() {
 
       <footer className="vixen-footer">
         <Link href="/" className="vixen-footer-brand"><Image src="/assets/vixen-mark-3d.png" alt="" width={160} height={160} /> <span>Creator-first. Always.</span></Link>
-        <div className="vixen-footer-links"><Link href="/creators">Discover</Link><Link href="/store">Store</Link><Link href="/pricing">Memberships</Link><Link href="/launch">About VIXEN</Link></div>
+        <div className="vixen-footer-links"><Link href="/creators">Discover</Link><Link href="/store">Store</Link><Link href="/pricing">Memberships</Link><Link href="/about">About VIXEN</Link></div>
         <small>© {new Date().getFullYear()} VIXEN <span className="company-name">Verified Interactive Xperience &amp; Entertainment Network</span></small>
       </footer>
     </main>
