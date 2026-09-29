@@ -64,6 +64,8 @@ export const membershipPricingExamples = [
 ] as const satisfies readonly MembershipPricingExample[];
 
 export function formatExamplePrice(minorUnits: number): string {
+  if (minorUnits === 0) return "$0";
+
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
