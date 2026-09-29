@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "npm run test:kernel",
-    "test:kernel": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --rootDir . --outDir .test-build lib/kernel/identity.ts lib/kernel/content-access.ts lib/executive/platform-readiness.ts && node --test tests/kernel-access.test.mjs"
+    "test:kernel": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --rootDir . --outDir .test-build lib/kernel/identity.ts lib/kernel/content-access.ts lib/kernel/private-video-session.ts lib/executive/platform-readiness.ts && node --test tests/kernel-access.test.mjs tests/private-video-session.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
