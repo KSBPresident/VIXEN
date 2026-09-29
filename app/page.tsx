@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SocialSignUp } from "@/components/auth/social-sign-up";
+import { EmailAccountAccess } from "@/components/auth/email-account-access";
 
 const supabaseConfigured = Boolean(
   process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -35,10 +36,12 @@ export default function HomePage() {
           <div className="vixen-auth-card-heading">
             <p className="vixen-kicker">JOIN VIXEN</p>
             <h2 id="vixen-auth-heading">Create your account</h2>
-            <p>Sign up securely with your preferred account.</p>
+            <p>Join free with a VIXEN account or a connected sign-in.</p>
           </div>
+          <EmailAccountAccess configured={supabaseConfigured} />
+          <div className="vixen-auth-divider"><span>OR USE A CONNECTED ACCOUNT</span></div>
           <SocialSignUp configured={supabaseConfigured} />
-          <p className="vixen-auth-caption">Your sign-in stays with the provider you choose.</p>
+          <p className="vixen-auth-caption">Free to join. Paid creator memberships are optional.</p>
         </section>
       </section>
 
