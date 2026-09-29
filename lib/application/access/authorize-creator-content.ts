@@ -3,9 +3,7 @@ import {
   type ContentAccessDecision,
   type MembershipTier,
 } from "@/lib/kernel/content-access";
-import type { VerifiedPrincipal } from "@/lib/kernel/identity";
 import type {
-  AdapterResult,
   AuditWriter,
   IdentityAdapter,
   MembershipRepository,
@@ -17,11 +15,9 @@ export interface CreatorContentAccessDependencies {
   audit: AuditWriter;
 }
 
-/**
- * MIDDLE OS access workflow. Identity, creator role, age verification, and
- * membership level come only from trusted Back OS adapters. Manager access is
- * denied unless its audit event has been durably recorded.
- */
+/** MIDDLE OS access workflow. Manager access fails closed unless its audit
+ * event is durably recorded. Identity, age status, and entitlements only come
+ * from trusted server-side Back OS adapters. */
 export async function authorizeCreatorContentRequest(
   input: { request: Request; creatorId: string; requiredTier: MembershipTier },
   dependencies: CreatorContentAccessDependencies,
@@ -29,7 +25,7 @@ export async function authorizeCreatorContentRequest(
   const identity = await dependencies.identity.verifyRequestIdentity(input.request);
   if (!identity.ok) return { allowed: false, reason: "sign_in_required" };
 
-  const principal = identity.value.principal as VerifiedPrincipal | null;
+  const principal = identity.value.principal;
   let memberTier: MembershipTier | null = null;
 
   if (principal?.role === "member" && input.requiredTier !== "free") {
@@ -61,5 +57,3 @@ export async function authorizeCreatorContentRequest(
   if (!audit.ok) return { allowed: false, reason: "manager_audit_required" };
   return { allowed: true, reason: "creator_manager_audited" };
 }
-
-export type AccessAdapterFailure = AdapterResult<never>;
