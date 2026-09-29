@@ -113,6 +113,16 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <section className="section-wrap nine-offer" aria-labelledby="nine-offer-title">
+        <div className="nine-offer-mark" aria-hidden="true">NINE</div>
+        <div className="nine-offer-copy">
+          <p className="eyebrow">PLANNED PAYMENT BENEFIT</p>
+          <h2 id="nine-offer-title">Pay with NINE. <span>Save 50%.</span></h2>
+          <p>When NINE Coin payments are supported, get 50% off any VIXEN creator subscription paid with NINE.</p>
+          <p className="nine-offer-status">Coming later · This offer is not redeemable today. VIXEN does not currently accept NINE Coin. Supported networks, payment verification, and purchase sources will be confirmed before launch.</p>
+        </div>
+      </section>
+
       <section className="section-wrap plan-terms" aria-labelledby="payment-terms-heading">
         <h2 id="payment-terms-heading">Before you pay</h2>
         <ul>
