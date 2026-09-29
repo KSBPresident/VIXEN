@@ -23,7 +23,7 @@ export async function authorizeCreatorContentRequest(
   dependencies: CreatorContentAccessDependencies,
 ): Promise<ContentAccessDecision> {
   const identity = await dependencies.identity.verifyRequestIdentity(input.request);
-  if (!identity.ok) return { allowed: false, reason: "sign_in_required" };
+  if (!identity.ok) return { allowed: false, reason: "identity_unavailable" };
 
   const principal = identity.value.principal;
   let memberTier: MembershipTier | null = null;
@@ -33,7 +33,7 @@ export async function authorizeCreatorContentRequest(
       memberId: principal.userId,
       creatorId: input.creatorId,
     });
-    if (!membership.ok) return { allowed: false, reason: "membership_required" };
+    if (!membership.ok) return { allowed: false, reason: "entitlement_unavailable" };
     memberTier = membership.value.tier;
   }
 
@@ -54,6 +54,6 @@ export async function authorizeCreatorContentRequest(
     details: { requiredTier: input.requiredTier },
   });
 
-  if (!audit.ok) return { allowed: false, reason: "manager_audit_required" };
+  if (!audit.ok) return { allowed: false, reason: "audit_unavailable" };
   return { allowed: true, reason: "creator_manager_audited" };
 }
