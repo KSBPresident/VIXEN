@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import "./pricing-upgrade.css";
+import "./cost-clarity.css";
 
 const plans = [
   {
@@ -113,6 +114,35 @@ export default function PricingPage() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="section-wrap cost-clarity" aria-labelledby="cost-clarity-title">
+        <div className="cost-clarity-heading">
+          <p className="eyebrow">WHO PAYS — AND WHEN?</p>
+          <h2 id="cost-clarity-title">Members choose access.<br /><span>Creators shouldn’t pay to get started.</span></h2>
+          <p>The prices above are examples of what a member might pay to subscribe to one creator. They are not creator signup fees.</p>
+        </div>
+        <div className="cost-clarity-grid">
+          <article>
+            <p className="cost-clarity-label">FOR MEMBERS · 18+</p>
+            <h3>Browse free. Pay only for what you choose.</h3>
+            <ul>
+              <li>Creating a member account and browsing public creator profiles is free.</li>
+              <li>Paid memberships are optional and apply to one creator at a time; the creator’s actual price and included access must be shown before payment.</li>
+              <li>Paid messages, tips, individual posts, and store purchases are separate unless clearly listed as included.</li>
+            </ul>
+          </article>
+          <article>
+            <p className="cost-clarity-label">FOR CREATORS · ADULT WOMEN</p>
+            <h3>No pay-to-join fee is planned.</h3>
+            <ul>
+              <li>The membership prices above are paid by members to access a creator’s offerings; creators do not buy those plans.</li>
+              <li>Creators should be able to set up a creator account without paying upfront before they can earn.</li>
+              <li>VIXEN’s commission, payout costs, and final creator terms have not been set. They must be disclosed before creator onboarding or monetization opens.</li>
+            </ul>
+          </article>
+        </div>
+        <p className="cost-clarity-notice"><strong>Still a preview:</strong> account signup, creator onboarding, subscriptions, payouts, and checkout are not active. No one can be charged through this page.</p>
       </section>
 
       <section className="section-wrap pricing-edge" aria-labelledby="pricing-edge-title">
