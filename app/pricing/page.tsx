@@ -123,6 +123,23 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <section className="section-wrap payment-methods" aria-labelledby="payment-methods-title">
+        <div>
+          <p className="eyebrow">FLEXIBLE WAYS TO PAY</p>
+          <h2 id="payment-methods-title">Payment options are being prepared.</h2>
+          <p>VIXEN plans to support the methods below. The options available will depend on your location and what you’re buying, and will be confirmed before checkout.</p>
+        </div>
+        <ul className="payment-method-list" aria-label="Planned payment methods">
+          <li>Card payments</li>
+          <li>Bank transfer</li>
+          <li>Cryptocurrency</li>
+          <li>WiPay</li>
+          <li>PayPal</li>
+          <li>Wise</li>
+        </ul>
+        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. Supported crypto coins and networks, including NINE Coin, will be confirmed before any crypto checkout opens.</p>
+      </section>
+
       <section className="section-wrap plan-terms" aria-labelledby="payment-terms-heading">
         <h2 id="payment-terms-heading">Before you pay</h2>
         <ul>
