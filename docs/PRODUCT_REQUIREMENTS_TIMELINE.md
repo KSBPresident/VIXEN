@@ -13,7 +13,8 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 ## 2. Brand and public website
 
 - The company name is Verified Interactive Xperience & Entertainment Network. Keep VIXEN as the product/brand name and show the full company name in public-facing attribution.
-- VIXEN's official mascot is a fox. The nine-tail fox is also a symbol of the parent company, Nebula Interstellar Networking Economy Limited. Use the official black-and-gold mascot artwork on the About VIXEN page and preserve this company relationship in brand copy.\n- Implement the supplied flyer direction: black background, neon pink and silver accents, VIXEN wordmark, creator-first positioning, tiered access, paid messages, exclusive drops, creator control, and a clear “Join the Elite” action.
+- VIXEN's official mascot is a fox. The nine-tail fox is also a symbol of the parent company, Nebula Interstellar Networking Economy Limited. Use the supplied mascot artwork on the About VIXEN page and adapt its on-page treatment to VIXEN's design palette while preserving the parent-company relationship in brand copy.
+- Implement the supplied flyer direction: black background, neon pink and silver accents, VIXEN wordmark, creator-first positioning, tiered access, paid messages, exclusive drops, creator control, and a clear “Join the Elite” action.
 - Use OnlyFans as a product-experience benchmark for creator profiles, discovery, subscriptions, messaging, purchases, and monetization. Keep VIXEN's own brand and product identity.
 - Make the public landing page responsive and accessible, with clear navigation and working links.
 
@@ -27,7 +28,7 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 
 - Add authentication and authorization before protected dashboard, profile, wallet, subscription, purchase, message, notification, reward, and security routes.
 - Offer VIXEN-managed email/password registration and sign-in; accept Proton email addresses as login addresses while users create a separate VIXEN password. Never ask for or collect Proton account credentials. Add Proton OAuth only if Proton exposes and enables a standards-compatible identity-provider flow.
-- Separate a no-cost member account from paid creator memberships: free accounts browse public creator profiles and previews only, and do not inherit creator, payout, management, or paid-content privileges.
+- Provide two distinct account paths: Member accounts are for adults 18+ of any gender who browse, follow, subscribe to, and pay to view creator content. Creator accounts are separate and intended for adult women (18+) who publish adult content and manage their own memberships, messages, and earnings. Women/women content is in scope; male creator accounts and men/men content are outside the product scope. Keep role assignment and access privileges enforced server-side; never grant creator privileges from a client-selected form alone. Until authentication, creator verification, and access controls are implemented, clearly mark both account paths as preview and do not claim accounts or payments are active.
 - Publish a clear entitlement matrix for each membership tier. A membership applies to one creator; exact included content, exclusions, renewal, cancellation, and refund terms must be disclosed before checkout.
 - Jo-Lene Kennedy is the Head Girl / Creator Manager responsible for managing all creator profiles. Link this role only to her verified account, enforce it server-side, and audit management actions; it does not grant platform-wide finance or administrator privileges by default.
 - Enforce authorization on server/API routes as well as in the interface.

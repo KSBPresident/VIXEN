@@ -7,7 +7,7 @@ const plans = [
     name: "Free account",
     price: "$0",
     billing: "No payment or renewal",
-    summary: "Join VIXEN and explore public creator pages.",
+    summary: "A free adult member account to explore public creator previews.",
     included: ["Browse creator profiles", "View public posts and previews", "No card and no recurring charge"],
     excluded: "Member-only posts and drops, paid messages, tips, creator publishing, payouts, and management tools.",
     free: true,
@@ -76,7 +76,7 @@ export default function PricingPage() {
         <div className="section-wrap">
           <p className="eyebrow">ACCESS ON YOUR TERMS</p>
           <h1>Free to join.<br /><span>Clear what unlocks.</span></h1>
-          <p>Start with a free member account. If you choose to pay for a creator membership, the tier should say exactly which creator’s content and perks it includes.</p>
+          <p>Start with a free member account to follow adult women creators. Choose and pay for memberships or content only when you want access; every tier should say exactly what it includes. Creator accounts are separate.</p>
         </div>
       </section>
 
@@ -84,7 +84,8 @@ export default function PricingPage() {
         <div className="plan-section-heading">
           <p className="eyebrow">COMPARE ACCESS</p>
           <h2 id="plan-heading">Choose what works for you.</h2>
-          <p>Paid prices below are examples. Creators set their own prices and listed perks.</p>
+          <p>Paid prices below are examples. Creators set their own prices and listed perks. Member accounts are for adult viewers 18+; creator accounts are a separate path for adult women.</p>
+          <Link className="vixen-discover-link" href="/sign-up?type=creator">Creator account information <span aria-hidden="true">→</span></Link>
         </div>
 
         <div className="member-plan-grid">

@@ -1,13 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SocialSignUp } from "@/components/auth/social-sign-up";
-import { EmailAccountAccess } from "@/components/auth/email-account-access";
-
-const supabaseConfigured = Boolean(
-  process.env.NEXT_PUBLIC_SUPABASE_URL &&
-    (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
-);
-
 export default function HomePage() {
   return (
     <main className="vixen-home">
@@ -25,24 +17,35 @@ export default function HomePage() {
 
       <section className="vixen-entry">
         <div className="vixen-entry-copy">
-          <p className="vixen-kicker"><span aria-hidden="true" /> THE CREATOR PLATFORM</p>
+          <p className="vixen-kicker"><span aria-hidden="true" /> CARIBBEAN ADULT CREATOR PLATFORM · 18+</p>
           <Image className="vixen-hero-logo" src="/assets/vixen-logo-3d.png" alt="VIXEN" width={640} height={728} priority />
           <h1 className="visually-hidden">VIXEN — your creative world, your rules</h1>
           <p className="vixen-entry-tagline">Your audience. Your content.<br /><span>Your terms.</span></p>
-          <p className="vixen-entry-description">A home for creators to share their work, connect with their community, and build on their own terms.</p>
+          <p className="vixen-entry-description">A Caribbean-first home where adult women creators share content and earn from memberships, exclusive drops, and paid messages—with an easy way for adult fans to join and watch.</p>
           <Link className="vixen-discover-link" href="/creators">Explore the creator preview <span aria-hidden="true">→</span></Link>
         </div>
 
         <section className="vixen-auth-card" aria-labelledby="vixen-auth-heading">
           <div className="vixen-auth-card-heading">
-            <p className="vixen-kicker">JOIN VIXEN</p>
-            <h2 id="vixen-auth-heading">Create your account</h2>
-            <p>Join free with a VIXEN account or a connected sign-in.</p>
+            <p className="vixen-kicker">18+ · CHOOSE YOUR ACCOUNT</p>
+            <h2 id="vixen-auth-heading">Here to watch or create?</h2>
+            <p>Member accounts are for adult viewers of any gender. Creator accounts are separate and intended for adult women creators.</p>
           </div>
-          <EmailAccountAccess configured={supabaseConfigured} />
-          <div className="vixen-auth-divider"><span>OR USE A CONNECTED ACCOUNT</span></div>
-          <SocialSignUp configured={supabaseConfigured} />
-          <p className="vixen-auth-caption">Free to join. Paid creator memberships are optional.</p>
+          <div className="account-path-grid" role="group" aria-label="Choose an account type">
+            <Link className="account-path-card" href="/sign-up?type=member">
+              <span className="vixen-kicker">MEMBER</span>
+              <strong>Join to watch</strong>
+              <span>Follow creators and choose memberships or paid content.</span>
+              <b>Create a free account <span aria-hidden="true">↗</span></b>
+            </Link>
+            <Link className="account-path-card" href="/sign-up?type=creator">
+              <span className="vixen-kicker">CREATOR</span>
+              <strong>Publish and earn</strong>
+              <span>Build an audience, offer memberships, and share exclusive content.</span>
+              <b>Creator account info <span aria-hidden="true">↗</span></b>
+            </Link>
+          </div>
+          <p className="vixen-auth-caption">Adults 18+ only. Member sign-up is a preview; creator onboarding is not active yet.</p>
         </section>
       </section>
 
