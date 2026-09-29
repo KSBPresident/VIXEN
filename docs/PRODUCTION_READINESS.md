@@ -32,7 +32,7 @@ No payment, account, CRM, AI, automation, or video capability should be represen
 
 ## Website-first release gates
 
-Before wiring deferred back-end services, finish and verify the browser-based product surfaces: clear member and creator entry points, discoverable sample-to-live boundaries, pricing and privilege explanations, member browsing, creator profile, store, messaging and private-video booking/join user flows, responsive layouts, accessibility, and error/recovery states. Keep unavailable actions visibly disabled or labelled as previews.
+Before wiring deferred back-end services, finish and verify the browser-based product surfaces: clear member and creator entry points, discoverable sample-to-live boundaries, pricing and privilege explanations, member browsing, creator profile, store, messaging and private-video booking/join user flows, responsive layouts, accessibility, and error/recovery states. Keep unavailable actions visibly disabled or labelled as previews. When this gate passes, notify the owner that it is time to connect the specific Supabase and n8n accounts they choose; do not request or connect them earlier.
 
 ## Full production release gates
 
