@@ -59,7 +59,7 @@ export default function AboutPage() {
         <div>
           <p className="about-kicker">THE COMPANY FAMILY</p>
           <h2 id="about-family-title">VIXEN is a brand of <em>Nebula Interstellar Networking Economy Limited.</em></h2>
-          <p>The Nine Tail Fox represents the parent company. Its original gold artwork sits within VIXEN's dark visual world, accented with the platform's neon-pink identity.</p>
+          <p>The Nine Tail Fox represents the parent company. Its original gold artwork sits within VIXEN&apos;s dark visual world, accented with the platform&apos;s neon-pink identity.</p>
         </div>
       </section>
 
