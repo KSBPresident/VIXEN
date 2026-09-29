@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   description:
     "A creator-first platform built around your content, your rules, and your empire.",
   applicationName: "VIXEN",
+  authors: [{ name: "Verified Interactive Xperience & Entertainment Network" }],
   icons: { icon: "/assets/vixen-mark-3d.png", apple: "/assets/vixen-mark-3d.png" },
   openGraph: {
     title: "VIXEN — Control Your Power",

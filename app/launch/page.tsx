@@ -72,7 +72,7 @@ export default function LaunchPage() {
           <Link className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={120} height={120} /></Link>
           <p>Exclusive. Powerful. Profitable.</p>
           <div className="footer-links"><Link href="/creators">Creators</Link><Link href="/store">Store</Link><Link href="/pricing">Memberships</Link><Link href="/">Home</Link></div>
-          <small>© {new Date().getFullYear()} VIXEN. Launch preview.</small>
+          <small>© {new Date().getFullYear()} VIXEN. Launch preview. <span className="company-name">Verified Interactive Xperience &amp; Entertainment Network</span></small>
         </div>
       </footer>
     </main>

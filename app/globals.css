@@ -471,3 +471,5 @@
 .store-payment-options>div{max-width:700px}
 .store-payment-options .payment-method-note{max-width:250px;flex:none}
 @media(max-width:650px){.payment-methods{margin-bottom:34px;padding:20px}.payment-method-list{gap:7px}.payment-method-list li{font-size:9px;padding:7px 10px}.store-payment-options{align-items:start;flex-direction:column;gap:7px;padding-top:22px;padding-bottom:37px}.store-payment-options .payment-method-note{max-width:100%}}
+
+.company-name{display:block;margin-top:4px;color:#918794;font-size:8px;letter-spacing:.045em;line-height:1.5;text-transform:none}
