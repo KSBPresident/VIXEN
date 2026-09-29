@@ -1,0 +1,42 @@
+.interaction-workspace{display:grid;gap:18px;margin-top:18px}
+.interaction-page-title{margin:8px 0 4px;font:600 clamp(27px,3vw,38px)/1.06 var(--display,Arial,sans-serif);letter-spacing:-.04em}
+.interaction-page-intro{margin:0;color:#b7aeba;font-size:11px;line-height:1.7}
+.interaction-status{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;border:1px solid rgba(255,190,123,.2);border-radius:6px;background:rgba(255,190,123,.05);color:#d5cad5;font-size:10px;line-height:1.6}
+.interaction-status strong{color:#fff}
+.interaction-status-mark{color:#ffd19f;font-size:15px}
+.message-preview-grid{display:grid;grid-template-columns:minmax(190px,.8fr) minmax(0,1.3fr);overflow:hidden;min-height:410px;border:1px solid var(--member-line);border-radius:7px;background:#100d12}
+.message-preview-contacts{padding:16px 12px;border-right:1px solid var(--member-line)}
+.message-preview-contacts h2,.message-preview-conversation h2{margin:0 0 13px;font:600 14px var(--display,Arial,sans-serif)}
+.message-preview-contact{display:flex;align-items:center;gap:9px;padding:11px 7px;border-radius:5px;border-bottom:1px solid rgba(255,255,255,.06)}
+.message-preview-contact.is-selected{background:rgba(255,61,156,.09)}
+.message-preview-contact>span:last-child{display:grid;gap:3px;min-width:0}
+.message-preview-contact strong{font-size:9px}
+.message-preview-contact small{color:#8e8491;font-size:8px}
+.message-preview-conversation{display:flex;flex-direction:column;padding:17px}
+.message-preview-conversation header{display:flex;align-items:center;gap:9px;padding-bottom:13px;border-bottom:1px solid rgba(255,255,255,.07)}
+.message-preview-conversation header>div{display:grid;gap:3px}
+.message-preview-conversation header small{color:#8e8491;font-size:8px}
+.message-preview-bubbles{display:grid;align-content:center;gap:12px;flex:1;padding:18px 0}
+.message-preview-bubble{max-width:84%;padding:11px 13px;border:1px solid rgba(255,255,255,.08);border-radius:10px;background:#1a151d;color:#e8e0e9;font-size:10px;line-height:1.6}
+.message-preview-bubble.member{justify-self:end;border-color:rgba(255,61,156,.24);background:rgba(255,61,156,.1)}
+.message-preview-bubble small{display:block;margin-top:5px;color:#9c909f;font-size:7px}
+.message-preview-composer{display:grid;grid-template-columns:1fr auto;gap:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
+.message-preview-composer input{min-width:0;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:5px;background:#0d0a0f;color:#9e94a1;font-size:9px}
+.message-preview-composer button,.session-request-button{padding:10px 13px;border:0;border-radius:5px;background:#4d3947;color:#c8bdc8;font-size:9px}
+.message-preview-composer button:disabled,.session-request-button:disabled{cursor:not-allowed;opacity:.7}
+.session-preview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.session-preview-card{display:grid;align-content:start;gap:13px;padding:17px;border:1px solid var(--member-line);border-radius:7px;background:#100d12}
+.session-preview-creator{display:flex;align-items:center;gap:10px}
+.session-preview-creator>div:last-child{display:grid;gap:4px}
+.session-preview-creator strong{font-size:11px}
+.session-preview-creator small{color:#958a98;font-size:8px}
+.session-preview-card h2{margin:0;font:600 15px var(--display,Arial,sans-serif)}
+.session-preview-card p{margin:0;color:#a69ca9;font-size:9px;line-height:1.65}
+.session-preview-details{display:grid;gap:7px;padding:11px;border-radius:5px;background:#171218;color:#cfc5d0;font-size:8px}
+.session-preview-details span{display:flex;justify-content:space-between;gap:12px}
+.session-preview-details strong{color:#fff;font-weight:600}
+.session-preview-card .session-request-button{width:100%}
+.interaction-sidebar-link{display:flex;align-items:center;gap:11px;min-height:43px;padding:0 12px;border-radius:5px;color:#bdb4c0;font-size:11px}
+.interaction-sidebar-link:hover,.interaction-sidebar-link[aria-current=page]{background:linear-gradient(90deg,rgba(255,61,156,.16),transparent);color:white}
+.interaction-sidebar-link[aria-current=page]{border-left:2px solid var(--member-pink)}
+@media(max-width:760px){.message-preview-grid{grid-template-columns:1fr}.message-preview-contacts{border-right:0;border-bottom:1px solid var(--member-line)}.message-preview-conversation{min-height:340px}.session-preview-grid{grid-template-columns:1fr}}

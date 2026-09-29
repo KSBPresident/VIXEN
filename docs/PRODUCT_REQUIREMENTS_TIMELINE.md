@@ -5,6 +5,7 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 ## 1. Application and delivery foundation
 
 - Establish the Next.js App Router, TypeScript, design tokens, responsive layout, accessibility baseline, metadata, and health endpoint.
+- Deliver VIXEN as a browser-based web app. Do not plan native iOS or Android app releases; members and creators use VIXEN through the web app.
 - Keep production quality gates aligned: ESLint, TypeScript, relevant automated tests, and the production build.
 - Run CI on pull requests and pushes to the production branch. Use Vercel preview deployments for review and production delivery only from the approved branch after required checks pass.
 - Any automated file committer must write to an isolated branch and create a reviewable pull request; never write generated changes directly to production/main.
@@ -29,6 +30,7 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 - Add authentication and authorization before protected dashboard, profile, wallet, subscription, purchase, message, notification, reward, and security routes.
 - Offer VIXEN-managed email/password registration and sign-in; accept Proton email addresses as login addresses while users create a separate VIXEN password. Never ask for or collect Proton account credentials. Add Proton OAuth only if Proton exposes and enables a standards-compatible identity-provider flow.
 - Provide two distinct account paths: Member accounts are for adults 18+ of any gender who browse, follow, subscribe to, and pay to view creator content. Creator accounts are separate and intended for adult women (18+) who publish adult content and manage their own memberships, messages, and earnings. Women/women content is in scope; male creator accounts and men/men content are outside the product scope. Keep role assignment and access privileges enforced server-side; never grant creator privileges from a client-selected form alone. Until authentication, creator verification, and access controls are implemented, clearly mark both account paths as preview and do not claim accounts or payments are active.
+- Keep member discovery, creator messaging, and creator-offered private video sessions inside the browser web app. Sessions must disclose availability, duration, price, cancellation terms, and boundaries before booking; creator participation is opt-in, adult verification is required, and no membership implies a booking or personal interaction.
 - Publish a clear entitlement matrix for each membership tier. A membership applies to one creator; exact included content, exclusions, renewal, cancellation, and refund terms must be disclosed before checkout.
 - Jo-Lene Kennedy is the Head Girl / Creator Manager responsible for managing all creator profiles. Link this role only to her verified account, enforce it server-side, and audit management actions; it does not grant platform-wide finance or administrator privileges by default.
 - Enforce authorization on server/API routes as well as in the interface.

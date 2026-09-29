@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import "./member-preview.css";
+import "./member-interactions.css";
 
 export const metadata = {
   title: "Member app preview",
@@ -33,7 +34,8 @@ export default function MemberPreviewPage() {
           <Link className="member-nav-item" href="/creators"><span>⌕</span> Discover creators</Link>
           <Link className="member-nav-item" href="/pricing"><span>◇</span> Memberships</Link>
           <Link className="member-nav-item" href="/store"><span>⌑</span> Store</Link>
-          <div className="member-nav-disabled"><span>✉</span> Messages <small>Coming soon</small></div>
+          <Link className="member-nav-item" href="/member-preview/messages"><span>✉</span> Messages <small>Preview</small></Link>
+          <Link className="member-nav-item" href="/member-preview/sessions"><span>◉</span> Private video <small>Preview</small></Link>
           <div className="member-nav-disabled"><span>▣</span> My library <small>Coming soon</small></div>
           <div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Your VIXEN account</strong><p>Follow creators and choose a membership when you’re ready.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div>
           <div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div>
@@ -67,6 +69,7 @@ export default function MemberPreviewPage() {
           <section className="member-rail-card member-join-card"><p className="member-eyebrow">MEMBER ACCESS</p><h2>Join for free.<br /><em>Choose what’s next.</em></h2><p>Browse creator previews first. Decide on a creator membership only when its price and access are clear.</p><Link href="/sign-up?type=member">Create your account <span aria-hidden="true">→</span></Link></section>
           <section className="member-rail-section"><div className="member-rail-heading"><h2>Explore creators</h2><Link href="/creators">All <span aria-hidden="true">→</span></Link></div>{creators.map((creator) => <Link className="member-creator-mini" href={`/creators/${creator.slug}`} key={creator.slug}><span className={`member-avatar ${creator.tone}`}>{creator.initials}</span><span><strong>{creator.name}</strong><small>{creator.category}</small></span><b aria-hidden="true">↗</b></Link>)}</section>
           <section className="member-rail-card member-tier-card"><p className="member-eyebrow">CLEAR MEMBERSHIPS</p><h2>Know what’s included.</h2><p>Creator memberships are priced per creator. Review the access and limits before subscribing.</p><Link href="/pricing">See packages and boundaries <span aria-hidden="true">→</span></Link></section>
+          <section className="member-rail-card member-tier-card"><p className="member-eyebrow">MEMBER TOOLS</p><h2>Talk or meet.</h2><p>Preview the planned in-app messages and private video sessions. Sample screens only; these services are not active.</p><Link href="/member-preview/messages">Messages preview <span aria-hidden="true">→</span></Link><br /><Link href="/member-preview/sessions">Private video preview <span aria-hidden="true">→</span></Link></section>
           <section className="member-rail-card member-nine-card"><span className="member-nine-mark">9</span><div><p className="member-eyebrow">NINE COIN · UPCOMING</p><h2>33⅓% subscription benefit</h2><p>Planned for eligible creator subscriptions. Not redeemable yet.</p><Link href="/pricing">Offer details <span aria-hidden="true">→</span></Link></div></section>
           <p className="member-rail-foot">VIXEN is designed for adult audiences (18+) and adult women creators. Sample profiles are not real creator accounts.</p>
         </aside>
