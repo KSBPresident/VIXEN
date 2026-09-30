@@ -12,9 +12,9 @@ export const metadata = {
 };
 
 const creators = [
-  { slug: "nova-luxe", name: "Nova Luxe", initials: "NL", category: "Music · Culture", tone: "rose", intro: "A private one-to-one video session, if offered by the creator.", sampleLength: "15 minutes", samplePrice: "24.00" },
-  { slug: "vee-saint", name: "Vee Saint", initials: "VS", category: "Style · Behind the scenes", tone: "silver", intro: "Creator-controlled availability, session length, price, and boundaries.", sampleLength: "20 minutes", samplePrice: "32.00" },
-  { slug: "kira-moss", name: "Kira Moss", initials: "KM", category: "Art · Studio life", tone: "violet", intro: "Meet in a browser-based VIXEN session when the creator chooses to offer one.", sampleLength: "15 minutes", samplePrice: "18.00" },
+  { slug: "nova-luxe", name: "Nova Luxe", initials: "NL", category: "Music · Culture", tone: "rose", intro: "A private one-to-one video session, if offered by the creator.", sampleLength: "15 minutes", samplePrice: "$24.00" },
+  { slug: "vee-saint", name: "Vee Saint", initials: "VS", category: "Style · Behind the scenes", tone: "silver", intro: "Creator-controlled availability, session length, price, and boundaries.", sampleLength: "20 minutes", samplePrice: "$32.00" },
+  { slug: "kira-moss", name: "Kira Moss", initials: "KM", category: "Art · Studio life", tone: "violet", intro: "Meet in a browser-based VIXEN session when the creator chooses to offer one.", sampleLength: "15 minutes", samplePrice: "$18.00" },
 ];
 
 export default function MemberSessionsPreviewPage() {
