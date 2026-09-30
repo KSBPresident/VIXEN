@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type SessionCreator = {
   slug: string;
@@ -20,8 +20,14 @@ type SessionBookingPreviewProps = {
 
 export function SessionBookingPreview({ creators }: SessionBookingPreviewProps) {
   const [activeCreatorSlug, setActiveCreatorSlug] = useState<string | null>(null);
+  const flowRef = useRef<HTMLElement | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const [step, setStep] = useState<"details" | "checkout">("details");
   const activeCreator = creators.find((creator) => creator.slug === activeCreatorSlug);
+
+  useEffect(() => {
+    if (activeCreator && flowRef.current) flowRef.current.focus();
+  }, [activeCreator, step]);
 
   function closePreview() {
     setActiveCreatorSlug(null);
@@ -62,7 +68,7 @@ export function SessionBookingPreview({ creators }: SessionBookingPreviewProps) 
       </div>
 
       {activeCreator && (
-        <section className="session-flow-preview" aria-labelledby="session-flow-title">
+        <section ref={flowRef} className="session-flow-preview" tabIndex={-1} aria-labelledby="session-flow-title">
           <div className="session-flow-heading">
             <div>
               <p className="member-eyebrow"><span /> BOOKING FLOW · PREVIEW · STEP {step === "details" ? "1" : "2"} OF 2</p>
@@ -97,7 +103,7 @@ export function SessionBookingPreview({ creators }: SessionBookingPreviewProps) 
                 <p className="session-flow-checkout-label">ORDER SUMMARY · SAMPLE</p>
                 <div><span>{activeCreator.name} · {activeCreator.sampleLength}</span><strong>{activeCreator.samplePrice} USD</strong></div>
                 <div><span>Taxes, fees, and final total</span><strong>Not calculated</strong></div>
-                <div><span>Payment method</span><strong>Not connected</strong></div>
+                <div><span>Payment method</span><strong>Not connected</strong></div>\n                <div><span>NINE discount</span><strong>Creator subscriptions only</strong></div>
                 <div><span>Cancellation policy</span><strong>Not set</strong></div>
               </div>
               <div className="interaction-status session-flow-notice" role="note">
