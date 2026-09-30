@@ -3,6 +3,7 @@ import Link from "next/link";
 import "../member-preview.css";
 import "../member-interactions.css";
 import "../member-search.css";
+import { SessionBookingPreview } from "@/components/member/session-booking-preview";
 
 export const metadata = {
   title: "Private video preview",
@@ -11,9 +12,9 @@ export const metadata = {
 };
 
 const creators = [
-  { slug: "nova-luxe", name: "Nova Luxe", initials: "NL", category: "Music · Culture", tone: "rose", intro: "A private one-to-one video session, if offered by the creator." },
-  { slug: "vee-saint", name: "Vee Saint", initials: "VS", category: "Style · Behind the scenes", tone: "silver", intro: "Creator-controlled availability, session length, price, and boundaries." },
-  { slug: "kira-moss", name: "Kira Moss", initials: "KM", category: "Art · Studio life", tone: "violet", intro: "Meet in a browser-based VIXEN session when the creator chooses to offer one." },
+  { slug: "nova-luxe", name: "Nova Luxe", initials: "NL", category: "Music · Culture", tone: "rose", intro: "A private one-to-one video session, if offered by the creator.", sampleLength: "15 minutes", samplePrice: "24.00" },
+  { slug: "vee-saint", name: "Vee Saint", initials: "VS", category: "Style · Behind the scenes", tone: "silver", intro: "Creator-controlled availability, session length, price, and boundaries.", sampleLength: "20 minutes", samplePrice: "32.00" },
+  { slug: "kira-moss", name: "Kira Moss", initials: "KM", category: "Art · Studio life", tone: "violet", intro: "Meet in a browser-based VIXEN session when the creator chooses to offer one.", sampleLength: "15 minutes", samplePrice: "18.00" },
 ];
 
 export default function MemberSessionsPreviewPage() {
@@ -51,27 +52,7 @@ export default function MemberSessionsPreviewPage() {
           <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">▣</span><span><strong>Browser-based on your devices.</strong> The planned call works inside VIXEN on supported iPhone, Android, and Windows browsers over HTTPS; no App Store or Play Store download is needed.</span></div>
           <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">◉</span><span><strong>Your camera and microphone stay under your control.</strong> After VIXEN confirms payment, you tap to enter and your browser asks permission. The call starts only if you allow access; you can keep devices off or leave.</span></div>
 
-          <div className="session-preview-grid">
-            {creators.map((creator) => (
-              <article className="session-preview-card" key={creator.slug}>
-                <div className="session-preview-creator">
-                  <span className={`member-avatar ${creator.tone}`}>{creator.initials}</span>
-                  <div><strong>{creator.name}</strong><small>{creator.category} · sample profile</small></div>
-                </div>
-                <h2>Private one-to-one session</h2>
-                <p>{creator.intro}</p>
-                <div className="session-preview-details" aria-label="What a live booking will disclose">
-                  <span><strong>Length</strong> Set by creator</span>
-                  <span><strong>Price</strong> Shown and paid in VIXEN before the call</span>
-                  <span><strong>Availability</strong> Creator-controlled</span>
-                  <span><strong>Devices</strong> Supported iPhone, Android, and Windows browsers</span>
-                  <span><strong>Camera and mic</strong> Requested only when you enter the booked call</span>
-                </div>
-                <button className="session-request-button" type="button" disabled aria-disabled="true">Booking opens when sessions are ready</button>
-                <Link className="member-post-open" href={`/creators/${creator.slug}`}>View creator profile <span aria-hidden="true">↗</span></Link>
-              </article>
-            ))}
-          </div>
+          <SessionBookingPreview creators={creators} />
         </section>
 
         <aside className="member-right-rail" aria-label="Session information">
