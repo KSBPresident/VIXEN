@@ -7,7 +7,7 @@ Latest inspected main commit: `7bce6e46146142f8aa9db5b2b063bb4a4b39dfc6`
 
 ## Verified
 
-- GitHub Actions passed lint, kernel policy tests, TypeScript, and `next build` for PRs #31, #33, #34, #36, #37, and PR #38 run 96 (session booking walkthrough).
+- GitHub Actions passed lint, kernel policy tests, TypeScript, and `next build` for PRs #31, #33, #34, #36, #37, and PR #38 run 99 (session booking walkthrough).
 - GitHub Actions defines a `main` push and pull request quality job with ESLint, TypeScript, kernel tests, and `next build`.
 - The repository has a public landing page, an About page with the Nine Tail Fox asset, creator discovery, illustrative membership pricing, a health endpoint, member feed/message/private-video previews, a creator workspace preview at `/creator/studio`, and a private-events preview at `/events`. Search controls route to sample creator results. The private video page includes a two-step, interactive booking/checkout walkthrough. The events page explains VIP/VVIP 21+ eligibility, required active card, creator opt-in, consent limits, and that no events or requests are active.
 - Sample profiles, example prices, and private-session controls are labelled as preview/illustrative content in their public surfaces.
