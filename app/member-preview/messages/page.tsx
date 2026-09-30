@@ -3,6 +3,7 @@ import Link from "next/link";
 import "../member-preview.css";
 import "../member-interactions.css";
 import "../member-search.css";
+import { MessageConversationPreview } from "@/components/member/message-conversation-preview";
 
 export const metadata = {
   title: "Messages preview",
@@ -56,19 +57,7 @@ export default function MemberMessagesPreviewPage() {
                 <span className="member-avatar violet">KM</span><span><strong>Kira Moss</strong><small>Sample profile · Preview</small></span>
               </Link>
             </div>
-            <div className="message-preview-conversation">
-              <header><span className="member-avatar rose">NL</span><div><strong>Nova Luxe</strong><small>Example conversation · not a real message</small></div></header>
-              <div className="message-preview-bubbles">
-                <p className="message-preview-bubble member">I enjoyed your latest studio update.<small>Example member message</small></p>
-                <p className="message-preview-bubble">Thanks for checking it out ✨<small>Example creator reply</small></p>
-                <p className="message-preview-bubble member">I’d love to hear about the creative process.<small>Example member message</small></p>
-              </div>
-              <form className="message-preview-composer" aria-label="Message composer preview">
-                <label className="visually-hidden" htmlFor="message-preview-input">Write a message</label>
-                <input id="message-preview-input" type="text" placeholder="Messaging will open when accounts are connected" disabled />
-                <button type="button" disabled aria-disabled="true">Send</button>
-              </form>
-            </div>
+            <MessageConversationPreview />
           </section>
         </section>
 
