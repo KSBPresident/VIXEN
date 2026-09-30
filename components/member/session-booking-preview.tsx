@@ -27,7 +27,7 @@ export function SessionBookingPreview({ creators }: SessionBookingPreviewProps) 
 
   useEffect(() => {
     if (activeCreator && flowRef.current) flowRef.current.focus();
-  }, [activeCreator, step]);
+  }, [activeCreatorSlug, step]);
 
   function closePreview() {
     setActiveCreatorSlug(null);
