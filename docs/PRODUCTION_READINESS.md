@@ -1,21 +1,21 @@
 # Production Readiness Audit
 
-Audit date: 2026-09-29  
+Audit date: 2026-09-30  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `d1b4e088c7278d61ff4a28bedb496de13d8a6288`
+Latest inspected main commit: `7bce6e46146142f8aa9db5b2b063bb4a4b39dfc6`
 
 ## Verified
 
-- GitHub Actions passed lint, kernel policy tests, TypeScript, and `next build` for PR #31 (member feed search), PR #33 (messages/session search), PR #34 (creator studio preview), and PR #36 (private member experiences preview).
+- GitHub Actions passed lint, kernel policy tests, TypeScript, and `next build` for PRs #31, #33, #34, #36, #37, and PR #38 run 99 (session booking walkthrough).
 - GitHub Actions defines a `main` push and pull request quality job with ESLint, TypeScript, kernel tests, and `next build`.
-- The repository has a public landing page, a linked About page with the Nine Tail Fox asset, creator discovery with sample-profile search, a launch preview, illustrative membership pricing, a health endpoint, member feed/messages/private-video previews, a creator workspace preview at `/creator/studio`, and a private-event preview at `/events`. Search controls route to sample creator results. The events page explains VIP/VVIP 21+ eligibility, required active card, creator opt-in, consent limits, and that no events or requests are active.
+- The repository has a public landing page, an About page with the Nine Tail Fox asset, creator discovery, illustrative membership pricing, a health endpoint, member feed/message/private-video previews, a creator workspace preview at `/creator/studio`, and a private-events preview at `/events`. Search controls route to sample creator results. The private video page includes a two-step, interactive booking/checkout walkthrough. The events page explains VIP/VVIP 21+ eligibility, required active card, creator opt-in, consent limits, and that no events or requests are active.
 - Sample profiles, example prices, and private-session controls are labelled as preview/illustrative content in their public surfaces.
 - The private-video kernel policy and Middle OS join workflow fail closed on identity, payment, creator acceptance, booking, audit, and short-lived credential checks. No provider or payment adapter is connected.
 
 ## Not yet production-ready
 
-Vercel reports the production deployment for main commit `ef4398a8baeb178804aae517ed5defa9d037b40d` as successful. The current main commit `d1b4e088c7278d61ff4a28bedb496de13d8a6288` has a daily build-quota failure, so `/events` is in GitHub but not yet in the latest deployed app. I could not independently render the public site with the available browser fetch/control tools, so page appearance and unauthenticated route access remain unverified here.
+Vercel reports production deployment `dpl_DXZbsianTQqpuuRkh6VeF8gZjqVU` for main commit `7bce6e46146142f8aa9db5b2b063bb4a4b39dfc6` as READY, with both GitHub Vercel statuses passing. The production browser returned the VIXEN home, pricing, store, `/events`, `/member-preview`, `/member-preview/sessions`, and `/creator/studio` pages. The store bag added a sample item and showed a preview subtotal while checkout remained disabled. On PR #38's Vercel preview, the private-video walkthrough was exercised through the session-details and checkout-summary steps; no booking, charge, or call was created. These checks were a desktop browser/accessible-tree review, not a cross-device visual or full accessibility audit.
 
 The repository still lacks live implementation and verification for:
 
@@ -26,7 +26,7 @@ The repository still lacks live implementation and verification for:
 - Wallet, purchases, messaging, notifications, rewards, journey rules, moderation, or audited administration.
 - LLM/CRM/ABM assistance or end-to-end workflow checks.
 - n8n automation manifest and trigger mapping. This remains deferred until the website experience is complete.
-- Independent verification that public production URLs render for unauthenticated visitors, plus supported-device visual and accessibility review. A successful Vercel status confirms deployment completion, not a visual or route-level browser check. The latest code commit also needs a successful deployment after the quota reset.
+- Cross-device visual checks and a full keyboard, contrast, and screen-reader review remain outstanding. Only desktop browser route and interaction checks have been recorded; a successful CI/deployment does not prove that all device layouts or assistive-technology paths are ready.
 
 No payment, account, CRM, AI, automation, or video capability should be represented as live until it is implemented, configured, and verified.
 
