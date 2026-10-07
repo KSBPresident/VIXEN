@@ -63,7 +63,7 @@ export default function MemberMessagesPreviewPage() {
 
         <aside className="member-right-rail" aria-label="Messaging and sessions">
           <section className="member-rail-card"><p className="member-eyebrow">PRIVATE VIDEO</p><h2>Meet face to face.</h2><p>Creators will be able to offer private browser-based video sessions with clear availability, length, price, and boundaries.</p><Link href="/member-preview/sessions">Preview private sessions <span aria-hidden="true">→</span></Link></section>
-          <section className="member-rail-card member-tier-card"><p className="member-eyebrow">YOUR CONTROL</p><h2>Choose your conversations.</h2><p>Creator reply expectations, paid-message prices, privacy, and reporting tools must be clear before messaging opens.</p><Link href="/pricing">Review membership details <span aria-hidden="true">→</span></section>
+          <section className="member-rail-card member-tier-card"><p className="member-eyebrow">YOUR CONTROL</p><h2>Choose your conversations.</h2><p>Creator reply expectations, paid-message prices, privacy, and reporting tools must be clear before messaging opens.</p><Link href="/pricing">Review membership details <span aria-hidden="true">→</span></Link></section>
           <p className="member-rail-foot">All profiles and example messages on this preview are illustrative, not real creator communications.</p>
         </aside>
       </div>
