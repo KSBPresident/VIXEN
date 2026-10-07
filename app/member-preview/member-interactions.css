@@ -74,3 +74,22 @@
 .message-preview-local-draft .message-preview-bubble{border-style:dashed;border-color:rgba(255,61,156,.6)}
 .message-preview-remove{padding:6px 9px;border:1px solid rgba(255,255,255,.15);border-radius:4px;background:transparent;color:#cfc5d0;font-size:9px;cursor:pointer}
 .message-preview-composer button:not(:disabled):focus-visible{outline-color:#ff9ccb}
+
+
+/* Creator-style direct message preview */
+.message-preview-conversation header{min-width:0}
+.message-conversation-menu{margin-left:auto;border:1px solid rgba(255,255,255,.12);border-radius:5px;background:transparent;color:#b9aeba;padding:5px 8px;font-size:12px}
+.message-preview-bubbles{align-content:start}
+.message-paid-preview{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;max-width:94%;padding:12px;border:1px solid rgba(255,61,156,.32);border-radius:8px;background:linear-gradient(135deg,rgba(255,61,156,.09),rgba(255,255,255,.025))}
+.message-paid-preview-lock{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(255,61,156,.35);border-radius:50%;color:#ff79b6;font-size:16px}
+.message-paid-preview-copy strong{font-size:11px;color:#fff}
+.message-paid-preview-copy p{margin:4px 0;color:#c8becb;font-size:10px;line-height:1.5}
+.message-paid-preview-copy small{color:#a397a6;font-size:8px}
+.message-paid-preview>button{grid-column:2;justify-self:start;padding:7px 10px;border:1px solid rgba(255,61,156,.5);border-radius:5px;background:rgba(255,61,156,.14);color:#ffd4e6;font-size:9px;cursor:pointer}
+.message-paid-preview>button:focus-visible,.message-conversation-menu:focus-visible{outline:2px solid #ff9ccb;outline-offset:3px}
+.message-preview-actions{display:flex;gap:8px;padding:0 0 10px}
+.message-preview-actions button{display:flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid rgba(255,255,255,.12);border-radius:5px;background:#141016;color:#d4cad6;font-size:9px}
+.message-preview-actions button:disabled{cursor:not-allowed;opacity:.62}
+.message-preview-actions span{color:#a89ba9;font-size:8px}
+.message-preview-notice{grid-column:1/-1;margin:0;color:#ffd0e3;font-size:10px;line-height:1.5}
+@media(max-width:760px){.message-paid-preview{max-width:100%}.message-preview-actions{flex-wrap:wrap}.message-preview-actions button{min-height:40px}}
