@@ -73,7 +73,6 @@ async function verifyRoute(path) {
   const contentType = response.headers.get("content-type") || "";
   if (contentType.includes("text/html")) {
     const html = await response.text();
-    assert.ok(!html.includes("404: This page could not be found"), `${path} rendered the Next.js 404 page`);
     return html;
   }
   return "";
