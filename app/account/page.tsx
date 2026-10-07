@@ -8,7 +8,32 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Your account", robots: { index: false, follow: false } };
 
 export default async function AccountPage() {
-  const supabase = await createClient();
+  const supabaseConfigured = Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+  );
+
+  if (!supabaseConfigured) {
+    return (
+      <main className="vixen-home">
+        <header className="vixen-account-topbar">
+          <Link href="/" aria-label="VIXEN home">
+            <Image src="/assets/vixen-mark-3d.png" alt="VIXEN emblem" width={200} height={200} priority />
+          </Link>
+        </header>
+        <section className="vixen-account-content">
+          <div className="vixen-account-panel">
+            <p className="vixen-kicker">MEMBER ACCOUNT</p>
+            <h1>Sign-in is being connected.</h1>
+            <p>VIXEN account access will be available as soon as its dedicated authentication service is configured.</p>
+            <p className="vixen-auth-caption">Your account and password have not been created. Please come back after VIXEN authentication setup is complete.</p>
+            <p><Link className="vixen-discover-link" href="/sign-up?type=member">View member sign-up <span aria-hidden="true">→</span></Link></p>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) redirect("/sign-up?next=%2Faccount");
 
