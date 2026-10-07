@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "npm run test:kernel",
-    "test:kernel": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --rootDir . --outDir .test-build lib/kernel/identity.ts lib/kernel/content-access.ts lib/kernel/private-video-session.ts lib/kernel/audit.ts lib/adapters/service-contracts.ts lib/application/private-video/create-join-credential.ts lib/executive/platform-readiness.ts && node --test tests/kernel-access.test.mjs tests/private-video-session.test.mjs tests/private-video-join-workflow.test.mjs"
+    "test:kernel": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --rootDir . --outDir .test-build lib/kernel/identity.ts lib/kernel/content-access.ts lib/kernel/private-video-session.ts lib/kernel/nine-subscription-discount.ts lib/kernel/audit.ts lib/adapters/service-contracts.ts lib/application/private-video/create-join-credential.ts lib/executive/platform-readiness.ts && node --test tests/kernel-access.test.mjs tests/private-video-session.test.mjs tests/private-video-join-workflow.test.mjs tests/nine-subscription-discount.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
