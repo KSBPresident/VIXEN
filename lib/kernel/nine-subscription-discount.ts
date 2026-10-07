@@ -8,8 +8,9 @@ export function calculateNineSubscriptionPreview(amountMinorUnits: number) {
     throw new RangeError("Subscription example must be a non-negative safe integer.");
   }
 
-  const amount = BigInt(amountMinorUnits);
-  const discountedMinorUnits = Number((amount * 2n + 1n) / 3n);
+  const quotient = Math.floor(amountMinorUnits / 3);
+  const remainder = amountMinorUnits % 3;
+  const discountedMinorUnits = quotient * 2 + (remainder > 0 ? 1 : 0);
 
   return {
     originalMinorUnits: amountMinorUnits,
