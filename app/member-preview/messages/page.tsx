@@ -6,8 +6,8 @@ import "../member-search.css";
 import { MessageConversationPreview } from "@/components/member/message-conversation-preview";
 
 export const metadata = {
-  title: "Messages preview",
-  description: "Preview the planned browser-based VIXEN member messaging experience.",
+  title: "Creator messages preview",
+  description: "Preview VIXEN direct creator messaging, paid media unlocks, and member conversation controls.",
   robots: { index: false, follow: false },
 };
 
@@ -40,9 +40,9 @@ export default function MemberMessagesPreviewPage() {
           <header>
             <p className="member-eyebrow"><span /> MEMBER APP · PREVIEW</p>
             <h1 className="interaction-page-title" id="messages-heading">Messages</h1>
-            <p className="interaction-page-intro">A private place for members and creators to talk inside VIXEN.</p>
+            <p className="interaction-page-intro">Private one-to-one conversations, with optional creator-set paid media and clear member choice.</p>
           </header>
-          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Preview only.</strong> The conversation shown is fictional sample content. Messaging, delivery, paid messages, and notifications are not connected.</span></div>
+          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Preview only.</strong> The conversation is fictional sample content. Message delivery, paid unlocks, tips, media uploads, and notifications are not connected.</span></div>
 
           <section className="message-preview-grid" aria-label="Illustrative messaging interface">
             <div className="message-preview-contacts">
