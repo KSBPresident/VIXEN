@@ -1,0 +1,20 @@
+.membership-checkout-preview{max-width:900px;margin:0 auto;padding:56px 20px 80px;color:#f5f1f5}
+.checkout-preview-back{display:inline-flex;margin-bottom:28px;color:#f05aa8;text-decoration:none;font-size:13px}
+.checkout-preview-card{padding:clamp(22px,5vw,42px);border:1px solid rgba(255,65,158,.34);background:linear-gradient(145deg,#171117,#0b090c);box-shadow:0 18px 60px rgba(255,20,130,.08)}
+.checkout-preview-card h1{font:600 clamp(32px,6vw,54px)/1.08 var(--display);letter-spacing:-.04em;margin:8px 0 12px}
+.checkout-preview-card h1 span{color:var(--pink)}
+.checkout-preview-intro{max-width:650px;color:#bdb5bf;font-size:14px;line-height:1.75}
+.checkout-preview-label{margin:0;color:var(--pink);font-size:10px;font-weight:700;letter-spacing:.2em}
+.checkout-preview-summary{display:grid;grid-template-columns:1fr auto;gap:8px 20px;margin:28px 0 0;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px}
+.checkout-preview-summary span{color:#aaa2ad}
+.checkout-preview-summary strong{font-weight:600;text-align:right}
+.checkout-preview-summary .checkout-preview-total{color:#fff;font-size:17px}
+.checkout-preview-scope{margin:22px 0;padding:16px;border-left:2px solid var(--pink);background:rgba(255,22,136,.06)}
+.checkout-preview-scope h2,.checkout-preview-boundaries h2{margin:0 0 10px;font:600 17px var(--display)}
+.checkout-preview-scope ul,.checkout-preview-boundaries ul{margin:0;padding-left:18px;color:#c6bec8;font-size:12px;line-height:1.8}
+.checkout-preview-boundaries{margin-top:24px}
+.checkout-preview-notice{margin:26px 0 0;padding:15px;border:1px solid rgba(255,196,93,.3);background:rgba(255,196,93,.06);color:#d9d1c9;font-size:12px;line-height:1.75}
+.checkout-preview-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.checkout-preview-actions .button{min-height:44px}
+.checkout-preview-label-inline{display:inline-flex;align-items:center;gap:7px}
+@media(max-width:520px){.membership-checkout-preview{padding:36px 16px 64px}.checkout-preview-card{padding:22px 18px}.checkout-preview-summary{gap:9px 10px;font-size:12px}.checkout-preview-actions{flex-direction:column}.checkout-preview-actions .button{width:100%;justify-content:center}}
