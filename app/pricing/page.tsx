@@ -9,7 +9,15 @@ export const metadata = {
   description: "Compare free VIXEN accounts with creator-specific membership access.",
 };
 
-export default function PricingPage() {
+type PricingSearchParams = { creator?: string };
+
+export default async function PricingPage({
+  searchParams,
+}: {
+  searchParams: Promise<PricingSearchParams>;
+}) {
+  const params = await searchParams;
+  const creatorName = typeof params.creator === "string" ? params.creator.trim().slice(0, 80) : "";
   const plans = getMembershipPricingPreview();
 
   return (
@@ -64,7 +72,16 @@ export default function PricingPage() {
                 <p>{plan.excluded}</p>
               </div>
 
-              {plan.id === "free" && <Link className="button member-plan-cta" href="/sign-up">Create a free account <span aria-hidden="true">↗</span></Link>}
+              {plan.id === "free" ? (
+                <Link className="button member-plan-cta" href="/sign-up?type=member">Create a free account <span aria-hidden="true">↗</span></Link>
+              ) : (
+                <Link
+                  className="button button-outline member-plan-cta"
+                  href={`/membership-preview/checkout?plan=${plan.id}${creatorName ? `&creator=${encodeURIComponent(creatorName)}` : ""}`}
+                >
+                  Review example checkout <span aria-hidden="true">→</span>
+                </Link>
+              )}
             </article>
           ))}
         </div>
