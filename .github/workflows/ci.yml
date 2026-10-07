@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   quality:
-    name: Lint, typecheck, and build
+    name: Lint, spelling, typecheck, and build
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
@@ -27,6 +27,8 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Lint
         run: npm run lint
+      - name: Spell check user-facing React copy
+        run: npx --yes cspell@8.17.5 --no-progress "app/**/*.tsx" "components/**/*.tsx"
       - name: Kernel policy tests
         run: npm test
       - name: Type check
