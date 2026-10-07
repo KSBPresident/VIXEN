@@ -31,7 +31,7 @@ export default function LaunchPage() {
         <div className="section-wrap">
           <p className="eyebrow">VIXEN IS LIVE · PUBLIC WEB APP PREVIEW</p>
           <h1>Control your <span>power.</span></h1>
-          <p>Explore VIXEN's public web app preview. Browse sample creator profiles and example membership tiers, and see the member experience taking shape.</p>
+          <p>Explore VIXEN&apos;s public web app preview. Browse sample creator profiles and example membership tiers, and see the member experience taking shape.</p>
           <div className="hero-actions" style={{ justifyContent: "center", marginTop: 28 }}>
             <Link className="button" href="/creators">Browse sample creators <span aria-hidden="true">↗</span></Link>
             <Link className="button button-outline" href="/#experience">See the experience</Link>
