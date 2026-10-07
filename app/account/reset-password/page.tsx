@@ -10,12 +10,21 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+function hasSupabaseConfiguration() {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+  );
+}
+
 type ResetPasswordPageProps = {
   searchParams: Promise<{ error?: string; updated?: string }>;
 };
 
 async function updatePassword(formData: FormData) {
   "use server";
+
+  if (!hasSupabaseConfiguration()) redirect("/account/reset-password?error=unavailable");
 
   const password = String(formData.get("password") ?? "");
   const confirmPassword = String(formData.get("confirmPassword") ?? "");
@@ -33,6 +42,26 @@ async function updatePassword(formData: FormData) {
 
 export default async function ResetPasswordPage({ searchParams }: ResetPasswordPageProps) {
   const params = await searchParams;
+  if (!hasSupabaseConfiguration()) {
+    return (
+      <main className="vixen-home">
+        <header className="vixen-account-topbar">
+          <Link href="/" aria-label="VIXEN home">
+            <Image src="/assets/vixen-mark-3d.png" alt="VIXEN emblem" width={200} height={200} priority />
+          </Link>
+        </header>
+        <section className="vixen-account-content">
+          <div className="vixen-account-panel">
+            <p className="vixen-kicker">SECURE ACCOUNT ACCESS</p>
+            <h1>Password recovery is unavailable.</h1>
+            <p role="status">VIXEN account service is not configured in this environment. Your password has not been changed.</p>
+            <p><Link className="vixen-discover-link" href="/sign-up?type=member">Return to member sign-in <span aria-hidden="true">→</span></Link></p>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
   const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) redirect("/sign-up?type=member&next=%2Faccount%2Freset-password");
