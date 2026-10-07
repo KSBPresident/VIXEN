@@ -9,8 +9,8 @@ const launchPrinciples = [
 ];
 
 export const metadata = {
-  title: "Launch preview",
-  description: "A first look at VIXEN, a creator-first platform built for access, ownership, and creative freedom.",
+  title: "VIXEN preview is live",
+  description: "Explore VIXEN's public web app preview. Paid content, creator publishing, memberships, and messaging are not active yet.",
 };
 
 export default function LaunchPage() {
@@ -29,11 +29,11 @@ export default function LaunchPage() {
 
       <section className="subpage-hero">
         <div className="section-wrap">
-          <p className="eyebrow">THE VIXEN LAUNCH PREVIEW</p>
+          <p className="eyebrow">VIXEN IS LIVE · PUBLIC WEB APP PREVIEW</p>
           <h1>Control your <span>power.</span></h1>
-          <p>A creator-first platform is taking shape—built around your content, your community, and the freedom to build on your own terms.</p>
+          <p>Explore VIXEN&apos;s public web app preview. Browse sample creator profiles and example membership tiers, and see the member experience taking shape.</p>
           <div className="hero-actions" style={{ justifyContent: "center", marginTop: 28 }}>
-            <Link className="button" href="/creators">Discover creators <span aria-hidden="true">↗</span></Link>
+            <Link className="button" href="/creators">Browse sample creators <span aria-hidden="true">↗</span></Link>
             <Link className="button button-outline" href="/#experience">See the experience</Link>
           </div>
         </div>
@@ -73,8 +73,8 @@ export default function LaunchPage() {
         <div className="join-inner">
           <p className="eyebrow">BUILT FOR CREATORS. DESIGNED FOR FREEDOM.</p>
           <h2>Your next chapter <span>starts here.</span></h2>
-          <p>Explore the VIXEN preview and see the product direction.</p>
-          <Link className="button button-light" href="/">Enter the VIXEN preview <span aria-hidden="true">↗</span></Link>
+          <p>The VIXEN web app preview is open to explore. Sample profiles, paid content, memberships, creator publishing, and messaging are not live services.</p>
+          <Link className="button button-light" href="/creators">Explore sample creators <span aria-hidden="true">↗</span></Link>
           <p style={{ fontSize: 11, marginTop: 20 }}>Explore the VIXEN experience and see how creator communities, memberships, and exclusive content can come together.</p>
         </div>
       </section>
@@ -84,7 +84,7 @@ export default function LaunchPage() {
           <Link className="vixen-subpage-logo" href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={120} height={120} /></Link>
           <p>Exclusive. Powerful. Profitable.</p>
           <div className="footer-links"><Link href="/creators">Creators</Link><Link href="/store">Store</Link><Link href="/pricing">Memberships</Link><Link href="/">Home</Link></div>
-          <small>© {new Date().getFullYear()} VIXEN. Launch preview. <span className="company-name">Verified Interactive Xperience &amp; Entertainment Network</span></small>
+          <small>© {new Date().getFullYear()} VIXEN. Public web app preview. <span className="company-name">Verified Interactive Xperience &amp; Entertainment Network</span></small>
         </div>
       </footer>
     </main>
