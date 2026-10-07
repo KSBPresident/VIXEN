@@ -1,21 +1,21 @@
 # Production Readiness Audit
 
-Audit date: 2026-09-30  
+Audit date: 2026-10-07  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `16d0195f3b226a74f620f6b6023bf8c500fd7513`
+Latest inspected main commit: `eb0d0ca43979c16764ca4843cdcfba13073d44b0`
 
 ## Verified
 
-- GitHub Actions passed lint, kernel policy tests, TypeScript, and `next build` for PRs #31, #33, #34, #36, #37, and PR #38 (session booking walkthrough) and PR #39 run 102 (local message draft preview).
+- GitHub Actions passed lint, kernel policy tests, TypeScript, and `next build` for PRs #31, #33, #34, #36, #37, and PR #38 (session booking walkthrough) and PR #39 (local message draft preview) and PR #40 run 106 (membership checkout preview and NINE cent-rounding rules). PR #40 passed lint, Kernel tests, TypeScript, and production build.
 - GitHub Actions defines a `main` push and pull request quality job with ESLint, TypeScript, kernel tests, and `next build`.
 - The repository has a public landing page, an About page with the Nine Tail Fox asset, creator discovery, illustrative membership pricing, a health endpoint, member feed and message previews, including a local draft-only composer, plus the private-video preview, a creator workspace preview at `/creator/studio`, and a private-events preview at `/events`. Search controls route to sample creator results. The private video page includes a two-step, interactive booking/checkout walkthrough. The events page explains VIP/VVIP 21+ eligibility, required active card, creator opt-in, consent limits, and that no events or requests are active.
-- Sample profiles, example prices, and private-session controls are labelled as preview/illustrative content in their public surfaces.
+- Sample profiles, example prices, private-session controls, and membership checkout calculations are labelled as preview/illustrative content in their public surfaces. The NINE example is restricted to creator subscriptions and rounds to cents; no payment can be initiated.
 - The private-video kernel policy and Middle OS join workflow fail closed on identity, payment, creator acceptance, booking, audit, and short-lived credential checks. No provider or payment adapter is connected.
 
 ## Not yet production-ready
 
-Vercel reports production deployment `dpl_9jpJZ13fWUgMjKrTd5g7EJ4CNdzC` for main commit `16d0195f3b226a74f620f6b6023bf8c500fd7513` as READY, with both GitHub Vercel statuses passing. The production browser returned the VIXEN home, pricing, store, `/events`, `/member-preview`, `/member-preview/sessions`, and `/creator/studio` pages. The production session walkthrough was exercised through its terms and checkout-summary steps; no booking, charge, or call was created. The store bag added a sample item and showed a preview subtotal while checkout remained disabled. PR #39's Vercel preview rendered the local message draft, updated its character count, and removed the draft; its text stayed on the page and was not delivered. These checks were a desktop browser/accessible-tree review, not a cross-device visual or full accessibility audit.
+Vercel reports production deployment `dpl_GzCRQMh5HU7L8uuBEWY8jXc7F2UB` for main commit `eb0d0ca43979c16764ca4843cdcfba13073d44b0` as READY, with the Vercel production check passing. The production alias returned HTTP 200 for `/creators/nova-luxe`, `/pricing?creator=Nova%20Luxe`, and `/membership-preview/checkout?plan=bronze&creator=Nova%20Luxe`. The returned checkout HTML showed Nova Luxe, the illustrative $3.99 Bronze price, $1.33 planned NINE savings, $2.66 example total, tier inclusions/exclusions, and a clear no-payment notice. The production session walkthrough and store bag were previously checked as previews; neither creates bookings, charges, or orders. PR #39's preview composer was verified as a local, removable draft. These checks establish route responses and displayed content, not a fresh visual browser session, mobile rendering, or a full accessibility audit.
 
 The repository still lacks live implementation and verification for:
 
