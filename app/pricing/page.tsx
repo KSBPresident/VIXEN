@@ -18,7 +18,6 @@ export default async function PricingPage({
 }) {
   const params = await searchParams;
   const creatorName = typeof params.creator === "string" ? params.creator.trim().slice(0, 80) : "";
-  const creatorLabel = creatorName || "a creator you choose";
   const plans = getMembershipPricingPreview();
 
   return (
