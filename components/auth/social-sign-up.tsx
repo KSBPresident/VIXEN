@@ -1,7 +1,7 @@
 "use client";
 
 type OAuthProvider = "google" | "apple" | "azure";
-type SocialSignUpProps = { configured: boolean };
+type SocialSignUpProps = { configured: boolean; nextPath?: string };
 
 const providers: { id: OAuthProvider; label: string }[] = [
   { id: "google", label: "Google" },
