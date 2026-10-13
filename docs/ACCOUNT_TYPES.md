@@ -16,6 +16,10 @@ When active, creators are the administrators of their own creator content. They 
 
 The current public signup records an age affirmation only. That is not identity or age verification. Adult media, creator publishing, paid messaging, payments, payouts, and video calls remain unavailable until their separate server-side boundaries and end-to-end checks are complete.
 
+## Creator pricing and platform commission
+
+Creators set their own prices and describe the access or service included before a member pays. VIXEN plans an 18% platform commission on paid creator transactions. Payment processor fees, taxes, refunds, and chargebacks are separate and may change a creator’s final payout; the 18% figure is not a promise of an 82% net payout. Checkout and payout processing are not active, and the complete fee schedule must be disclosed before monetization opens.
+
 ## Entitlements and staff access
 
 - VIP and VVIP are optional membership levels attached to a member login, not separate public signup roles. Payment, active card validation, and event entry are not live.
