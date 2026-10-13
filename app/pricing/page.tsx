@@ -109,7 +109,7 @@ export default async function PricingPage({
             <ul>
               <li>The membership prices above are paid by members to access a creator’s offerings; creators do not buy those plans.</li>
               <li>Creators should be able to set up a creator account without paying upfront before they can earn.</li>
-              <li>VIXEN’s commission, payout costs, and final creator terms have not been set. They must be disclosed before creator onboarding or monetization opens.</li>
+              <li>VIXEN’s planned platform commission is 18% of creator transactions. Payment-processor fees, taxes, refunds, and chargebacks are separate and can affect the final payout; the complete fee schedule will be shown before monetization opens.</li>
             </ul>
           </article>
         </div>

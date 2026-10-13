@@ -14,7 +14,7 @@ const workspaceAreas = [
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
   { icon: "◉", title: "Private video", copy: "Preview creator-controlled, paid browser-session flows.", href: "/member-preview/sessions", action: "Open session preview" },
-  { icon: "↗", title: "Earnings & payouts", copy: "Revenue, fees, payout timing, and statements are not available yet.", href: "/pricing", action: "See what is still planned" },
+  { icon: "↗", title: "Earnings & payouts", copy: "Planned platform commission: 18% of creator transactions. Processor fees, taxes, refunds, and chargebacks are separate; earnings and payouts are not available yet.", href: "/pricing", action: "See what is still planned" },
 ];
 
 export default function CreatorStudioPreviewPage() {
