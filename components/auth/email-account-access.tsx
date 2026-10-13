@@ -6,14 +6,20 @@ import { createClient } from "@/lib/supabase/client";
 type EmailAccountAccessProps = {
   configured: boolean;
   nextPath?: string;
+  accountType?: "member" | "creator";
 };
 
 type AccessMode = "create" | "sign-in" | "reset";
 
-export function EmailAccountAccess({ configured, nextPath = "/account" }: EmailAccountAccessProps) {
+export function EmailAccountAccess({
+  configured,
+  nextPath = "/account",
+  accountType = "member",
+}: EmailAccountAccessProps) {
   const [mode, setMode] = useState<AccessMode>("create");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [adultConfirmed, setAdultConfirmed] = useState(false);
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
@@ -43,19 +49,29 @@ export function EmailAccountAccess({ configured, nextPath = "/account" }: EmailA
       }
 
       if (mode === "create") {
+        if (!adultConfirmed) {
+          setError(true);
+          setMessage("Confirm that you are 18 or older to create a VIXEN account.");
+          return;
+        }
         const callback = new URL("/auth/callback", window.location.origin);
         callback.searchParams.set("next", nextPath);
         const { data, error: authError } = await supabase.auth.signUp({
           email: email.trim(),
           password,
-          options: { emailRedirectTo: callback.toString() },
+          options: {
+            emailRedirectTo: callback.toString(),
+            data: { vixen_account_type: accountType },
+          },
         });
         if (authError) throw authError;
         if (data.session) {
           window.location.assign(nextPath);
           return;
         }
-        setMessage("Check your inbox to confirm your VIXEN account, then sign in.");
+        setMessage(accountType === "creator"
+          ? "Check your inbox to confirm your login. Your creator application will then appear in your account as pending review."
+          : "Check your inbox to confirm your VIXEN account, then sign in.");
       } else {
         const { error: authError } = await supabase.auth.signInWithPassword({
           email: email.trim(),
@@ -102,6 +118,12 @@ export function EmailAccountAccess({ configured, nextPath = "/account" }: EmailA
           <>
             <label htmlFor="vixen-password">{mode === "create" ? "Create a VIXEN password" : "VIXEN password"}</label>
             <input id="vixen-password" name="password" type="password" autoComplete={mode === "create" ? "new-password" : "current-password"} minLength={8} required value={password} onChange={(event) => setPassword(event.target.value)} />
+            {mode === "create" && (
+              <label className="vixen-age-confirmation" htmlFor="vixen-age-confirmed">
+                <input id="vixen-age-confirmed" name="age-confirmed" type="checkbox" required checked={adultConfirmed} onChange={(event) => setAdultConfirmed(event.target.checked)} />
+                <span>I confirm that I am 18 or older.</span>
+              </label>
+            )}
             <p className="vixen-proton-note">Proton Mail addresses are welcome. Create a separate VIXEN password; never enter your Proton password.</p>
           </>
         )}
@@ -115,7 +137,7 @@ export function EmailAccountAccess({ configured, nextPath = "/account" }: EmailA
           </button>
         )}
         <button className="vixen-email-submit" type="submit" disabled={!configured || pending}>
-          {pending ? "Please wait…" : mode === "create" ? "Create free account" : mode === "reset" ? "Send reset link" : "Sign in to VIXEN"}
+          {pending ? "Please wait…" : mode === "create" ? (accountType === "creator" ? "Create creator applicant account" : "Create free account") : mode === "reset" ? "Send reset link" : "Sign in to VIXEN"}
         </button>
         <p className={`vixen-email-feedback${error ? " is-error" : ""}`} role={error ? "alert" : "status"} aria-live="polite">
           {message || (!configured ? "Sign-up and sign-in will activate when VIXEN’s own Supabase Auth project is connected." : "")}
