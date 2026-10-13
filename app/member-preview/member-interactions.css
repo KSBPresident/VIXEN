@@ -113,3 +113,7 @@
 .creator-profile-action-buttons a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 13px;text-decoration:none}
 .creator-profile-feed-empty>a{color:#ff85bd;font-size:10px}
 @media(max-width:560px){.creator-profile-banner{height:142px}.creator-profile-heading{align-items:flex-start;flex-direction:column}.creator-profile-primary{width:100%;justify-content:center}.creator-profile-action-buttons{flex-direction:column}.creator-profile-action-buttons a{width:100%}}
+
+.creator-profile-toolbar{display:flex;gap:18px;padding:0 0 4px;border-bottom:1px solid var(--member-line)}
+.creator-profile-toolbar a{color:#c8becb;font-size:9px}
+.creator-profile-toolbar a:hover{color:#ff85bd}
