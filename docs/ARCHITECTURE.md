@@ -28,16 +28,18 @@ Owns the user-facing Next.js pages, layouts, components, interaction states, acc
 ## Dependency direction
 
 ```text
-TOP / EXECUTIVE OS
-          |
-       MIDDLE OS
-    /     |     |      \
- BACK   WEB3   STORE   KERNEL
-    \     |     |      /
-        FRONT OS
+TOP / EXECUTIVE OS (governance gates)
+                  |
+FRONT OS -> MIDDLE OS
+             /    |     \
+   STORE OS    WEB3 OS   VIXEN KERNEL
+       \         |         /
+          BACK OS adapters
+                 |
+           External services
 ```
 
-The diagram shows responsibility, not permission for direct coupling. Front OS requests enter Middle OS. Middle OS coordinates domain capabilities and external effects. Web3 OS verifies chain evidence, Store OS applies order rules, and Kernel owns shared policy. Back OS adapters cannot grant privileges or independently confirm financial effects.
+Front OS requests enter Middle OS. Middle OS coordinates domain capabilities and external effects. Web3 OS verifies chain evidence, Store OS applies order rules, and Kernel owns shared policy. Back OS adapters cannot grant privileges or independently confirm financial effects.
 
 ## Repository mapping
 

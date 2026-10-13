@@ -22,7 +22,7 @@ export default function HomePage() {
       <aside className="app-sidebar" aria-label="VIXEN app navigation">
         <Link className="app-brand" href="/" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={64} height={64} priority /><span>VIXEN<small>CREATOR + MEMBER APP</small></span></Link>
         <p className="app-sidebar-label">WORKSPACE</p>
-        <nav className="app-nav">{nav.map(([icon,label,href,preview]) => <Link key={label} href={href} className={href === "/" ? "app-nav-link is-current" : "app-nav-link"} aria-current={href === "/" ? "page" : undefined}><i aria-hidden="true">{icon}</i><span>{label}</span>{preview && <small>Preview</small>}</Link>)}</nav>
+        <nav className="app-nav" aria-label="Main navigation">{nav.map(([icon,label,href,preview]) => <Link key={label} href={href} className={href === "/" ? "app-nav-link is-current" : "app-nav-link"} aria-current={href === "/" ? "page" : undefined}><i aria-hidden="true">{icon}</i><span>{label}</span>{preview && <small>Preview</small>}</Link>)}</nav>
         <div className="app-sidebar-bottom"><p><b>18+</b> For adults only. Respect consent and creator boundaries.</p><Link href="/about">About VIXEN <span>↗</span></Link><small>Verified Interactive Xperience &amp; Entertainment Network</small></div>
       </aside>
 
