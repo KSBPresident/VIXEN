@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import "../member-preview/member-preview.css";
-import "../member-preview/member-interactions.css";
-import "../member-preview/member-search.css";
+import "../../member-preview/member-preview.css";
+import "../../member-preview/member-interactions.css";
+import "../../member-preview/member-search.css";
 
 const creators = {
   "nova-luxe": { initials: "NL", name: "Nova Luxe", category: "Music · Culture", tone: "portrait-rose", bio: "Independent sound, studio notes, and the stories behind the work.", message: "Preview creator profile. Membership and paid-message actions are not live until payment and account services are configured." },
