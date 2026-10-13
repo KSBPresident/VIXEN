@@ -1,6 +1,5 @@
 -- Public signup may request a creator application, but never grants creator privileges.
 -- Active creator access remains a separate review and verification decision.
-begin;
 
 create table if not exists public.creator_applications (
   user_id uuid primary key references auth.users(id) on delete cascade,
@@ -32,8 +31,8 @@ begin
   values (new.id)
   on conflict (id) do nothing;
 
-  -- raw_user_meta_data is only used to create a pending application.
-  -- It is never used to set profiles.is_creator or any authorization role.
+  -- User-editable metadata creates only a pending application. It is not
+  -- consulted by policies and never sets profiles.is_creator or another role.
   if new.raw_user_meta_data ->> 'vixen_account_type' = 'creator' then
     insert into public.creator_applications (user_id)
     values (new.id)
@@ -44,4 +43,24 @@ begin
 end;
 $function$;
 
-commit;
+create or replace function public.prevent_unprivileged_creator_role_change()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $function$
+begin
+  if new.is_creator is distinct from old.is_creator
+     and coalesce(auth.role(), '') in ('anon', 'authenticated') then
+    raise exception 'Creator access must be granted through the trusted review process'
+      using errcode = '42501';
+  end if;
+
+  return new;
+end;
+$function$;
+
+drop trigger if exists protect_creator_role_changes on public.profiles;
+create trigger protect_creator_role_changes
+  before update of is_creator on public.profiles
+  for each row execute function public.prevent_unprivileged_creator_role_change();
