@@ -38,6 +38,13 @@ export default async function AccountPage() {
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) redirect("/sign-up?next=%2Faccount");
 
+  const [{ data: profile }, { data: creatorApplication }] = await Promise.all([
+    supabase.from("profiles").select("is_creator").eq("id", user.id).maybeSingle(),
+    supabase.from("creator_applications").select("status").eq("user_id", user.id).maybeSingle(),
+  ]);
+  const isCreator = profile?.is_creator === true;
+  const applicationStatus = creatorApplication?.status;
+
   return (
     <main className="vixen-home">
       <header className="vixen-account-topbar">
@@ -46,12 +53,21 @@ export default async function AccountPage() {
       </header>
       <section className="vixen-account-content">
         <div className="vixen-account-panel">
-          <p className="vixen-kicker">YOUR MEMBER ACCOUNT</p>
-          <h1>Welcome to VIXEN.</h1>
-          <p>You’re signed in. Open the member app preview to explore creator profiles and see how VIXEN’s feed and membership choices are designed.</p>
+          <p className="vixen-kicker">{isCreator ? "APPROVED CREATOR ACCOUNT" : applicationStatus ? "CREATOR APPLICATION" : "FREE MEMBER ACCOUNT"}</p>
+          <h1>{applicationStatus === "pending" ? "Your application is in review." : applicationStatus === "rejected" ? "Your member account is ready." : "Welcome to VIXEN."}</h1>
+          <p>{applicationStatus === "pending"
+            ? "Your creator application was received. Creator publishing and earnings stay locked until VIXEN completes age and identity verification and approves the application."
+            : applicationStatus === "rejected"
+              ? "Your creator application was not approved. You can keep using your free member account."
+              : isCreator
+                ? "Your creator access has been approved. The creator workspace shown below is still a product preview; publishing and payouts are not active."
+                : "Your free member login is active. You can explore the member app preview and choose access levels as they become available."}</p>
           <span className="vixen-account-email">{user.email ?? "VIXEN member"}</span>
-          <p><Link className="vixen-discover-link" href="/member-preview">Open your member app <span aria-hidden="true">→</span></Link></p>
-          <p className="vixen-auth-caption">Creator profiles and posts are samples. Real creator content, memberships, messages, and checkout are not active yet.</p>
+          {applicationStatus === "pending" && <p className="creator-account-status" role="status">Application status: Pending review</p>}
+          {applicationStatus === "rejected" && <p className="creator-account-status" role="status">Application status: Not approved</p>}
+          {isCreator && <p><Link className="vixen-discover-link" href="/creator/studio">Open creator workspace preview <span aria-hidden="true">→</span></Link></p>}
+          <p><Link className="vixen-discover-link" href="/member-preview">Open member app preview <span aria-hidden="true">→</span></Link></p>
+          <p className="vixen-auth-caption">Real creator posts, paid memberships, messages, checkout, bookings, video rooms, and payouts are not active yet. VIP/VVIP upgrades and staff access use separate approval and entitlement checks.</p>
         </div>
       </section>
     </main>
