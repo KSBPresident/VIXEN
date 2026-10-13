@@ -7,11 +7,11 @@ const siteUrl = new URL("https://vixen-production-package.vercel.app");
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
-    default: "VIXEN — Control Your Power",
+    default: "VIXEN — Creator & Member App",
     template: "%s | VIXEN",
   },
   description:
-    "Explore the public VIXEN web app preview. Browse sample creator profiles and example memberships. Paid content, creator publishing, messages, and checkout are not active.",
+    "VIXEN is a Caribbean-first creator and member web app. Free account access is live; paid memberships, publishing, messaging, and paid video sessions remain in preview.",
   applicationName: "VIXEN",
   authors: [{ name: "Verified Interactive Xperience & Entertainment Network" }],
   icons: { icon: "/assets/vixen-mark-3d.png", apple: "/assets/vixen-mark-3d.png" },
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "VIXEN — Public Web App Preview",
+    title: "VIXEN — Creator & Member App",
     description:
-      "Explore sample creator profiles and example memberships. Paid content, creator publishing, messages, and checkout are not active.",
+      "Explore the VIXEN member and creator app. Account signup is live; paid creator services are still in preview.",
   },
   robots: { index: true, follow: true },
 };
