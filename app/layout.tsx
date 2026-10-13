@@ -16,9 +16,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Verified Interactive Xperience & Entertainment Network" }],
   icons: { icon: "/assets/vixen-mark-3d.png", apple: "/assets/vixen-mark-3d.png" },
   openGraph: {
-    title: "VIXEN — Public Web App Preview",
+    title: "VIXEN — Creator & Member App",
     description:
-      "Browse VIXEN sample creator profiles and example memberships. Paid content, creator publishing, messages, and checkout are not active.",
+      "Explore the VIXEN member and creator app. Account signup is live; paid creator services are still in preview.",
     siteName: "VIXEN",
     type: "website",
     url: siteUrl,
