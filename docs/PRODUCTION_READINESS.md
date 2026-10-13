@@ -19,7 +19,7 @@ Vercel reports production deployment `dpl_GzCRQMh5HU7L8uuBEWY8jXc7F2UB` for main
 
 The repository still lacks live implementation and verification for:
 
-- Supabase authentication, user/creator/admin roles, protected member routes, database schema/migrations, or row-level security. This remains deferred until the website experience is complete.
+- Supabase email/password authentication and protected account access are configured. The free member signup is live; the creator signup now creates a pending application and does not grant creator privileges. The connected VIXEN database has RLS on its current tables. Still incomplete: reviewed creator/admin/manager role assignment, production verification of signup confirmation and password recovery emails, adult identity checks, and the wider Supabase application-data layer. n8n remains deferred.
 - Creator studio profile editing, publishing, management workflows, or server-side package ownership and entitlement enforcement. `/creator/studio` is a visual preview with disabled/inactive product behavior.
 - Checkout, signed payment webhooks, idempotency, payout/ledger rules, refunds, or end-to-end payment verification. VIXEN must first obtain explicit written approval from a processor/acquirer for its adult content, adult live-video services, storefront, company, and target markets; Stripe's current rules prohibit adult content and adult live-chat services.
 - Private video provider implementation, booking persistence, signaling, browser camera/microphone consent flow, and iPhone/Android/Windows device verification.
