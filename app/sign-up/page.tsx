@@ -3,7 +3,10 @@ import Link from "next/link";
 import { SocialSignUp } from "@/components/auth/social-sign-up";
 import { EmailAccountAccess } from "@/components/auth/email-account-access";
 
-export const metadata = { title: "Choose your VIXEN account", description: "Choose a member account to watch women creators or a separate creator account path." };
+export const metadata = {
+  title: "Choose your VIXEN account",
+  description: "Create a free member login or apply for a separate creator account.",
+};
 
 type SignUpProps = { searchParams: Promise<{ next?: string | string[]; error?: string | string[]; type?: string | string[] }> };
 
@@ -41,41 +44,52 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
         <p className="vixen-signup-subtitle">Choose the account that matches what you want to do.</p>
         <div className="signup-account-switch" role="group" aria-label="Choose an account type">
           <Link className={`signup-account-option${accountType === "member" ? " is-selected" : ""}`} href={accountHref("member")} aria-current={accountType === "member" ? "page" : undefined}>
-            <span className="vixen-kicker">MEMBER · 18+</span>
+            <span className="vixen-kicker">MEMBER · FREE · 18+</span>
             <strong>Watch and subscribe</strong>
-            <span>Follow women creators and choose memberships or paid content.</span>
+            <span>Start with a free login. Follow women creators and choose paid access only when you want it.</span>
           </Link>
           <Link className={`signup-account-option${accountType === "creator" ? " is-selected" : ""}`} href={accountHref("creator")} aria-current={accountType === "creator" ? "page" : undefined}>
-            <span className="vixen-kicker">CREATOR · WOMEN 18+</span>
-            <strong>Publish and earn</strong>
-            <span>Create adult content and build a paid community.</span>
+            <span className="vixen-kicker">CREATOR · APPLICATION</span>
+            <strong>Apply to publish and earn</strong>
+            <span>For adult women creators. Creator tools unlock only after review and verification.</span>
           </Link>
         </div>
         {accountType === "member" ? (
           <section className="vixen-auth-card" aria-label="Create a member account">
             {callbackFailed && <p className="vixen-auth-alert" role="alert">We couldn’t complete sign-up. Please try your provider again.</p>}
             <div className="vixen-auth-card-heading">
-              <p className="vixen-kicker">MEMBER ACCOUNT</p>
+              <p className="vixen-kicker">FREE MEMBER ACCOUNT</p>
               <h2>Create a free account to watch</h2>
-              <p>Member accounts are for adults 18 and over of any gender. Adult-content access, memberships, and checkout are not active yet.</p>
+              <p>Member accounts are for adults 18 and over of any gender. Creating an account is free; subscriptions, paid content, messages, and checkout are separate features and are not active yet.</p>
             </div>
-            <EmailAccountAccess configured={supabaseConfigured} nextPath={nextPath} />
+            <EmailAccountAccess configured={supabaseConfigured} nextPath={nextPath} accountType="member" />
             <div className="vixen-auth-divider"><span>OR USE A CONNECTED ACCOUNT</span></div>
             <SocialSignUp configured={supabaseConfigured} nextPath={nextPath} />
-            <p className="vixen-auth-caption">Proton Mail addresses are welcome. Use a separate VIXEN password; Proton sign-in is not connected.</p>
+            <p className="vixen-auth-caption">Proton Mail addresses are welcome. Use a separate VIXEN password; Proton OAuth is not connected.</p>
           </section>
         ) : (
-          <section className="vixen-auth-card creator-account-preview" aria-label="Creator account information">
+          <section className="vixen-auth-card creator-account-preview" aria-label="Create a creator applicant account">
+            {callbackFailed && <p className="vixen-auth-alert" role="alert">We couldn’t complete sign-up. Please try again.</p>}
             <div className="vixen-auth-card-heading">
-              <p className="vixen-kicker">CREATOR ACCOUNT PREVIEW</p>
-              <h2>For adult women creators</h2>
-              <p>Creator accounts are separate from member accounts. They are intended for women aged 18 and over who want to publish adult content, including women/women content, set memberships, and earn from their audience.</p>
+              <p className="vixen-kicker">CREATOR APPLICATION</p>
+              <h2>Start your creator application</h2>
+              <p>Creator applications are for women aged 18 and over who want to publish adult content, set memberships, and earn from their audience. Use this separate signup path to create your VIXEN login and begin the application process.</p>
             </div>
-            <p className="creator-account-status">Creator onboarding, age and identity verification, publishing, and payouts are not active yet. This preview will not create or grant a creator account.</p>
-            <Link className="vixen-email-submit creator-member-link" href="/creator/studio">Preview the creator workspace</Link>
-            <Link className="vixen-email-submit creator-member-link" href={accountHref("member")}>Create a free member account</Link>
+            <p className="creator-account-status">Your application will be marked pending review. This does not grant publishing, messaging, paid-call, or payout privileges. Those require verified age and identity, consent and safety review, and approval by VIXEN. Do not upload identity documents here; verification is not connected yet.</p>
+            <EmailAccountAccess configured={supabaseConfigured} nextPath="/account" accountType="creator" />
           </section>
         )}
+
+        <section className="vixen-auth-card" aria-label="Membership and staff access">
+          <div className="vixen-auth-card-heading">
+            <p className="vixen-kicker">ACCESS LEVELS</p>
+            <h2>One member login. Optional membership levels.</h2>
+            <p>VIP and VVIP are membership levels attached to a member account, not separate logins. Their purchase, card validation, and event entry are not active until payments and verification are connected.</p>
+          </div>
+          <div className="vixen-auth-caption">
+            <strong>VIXEN staff and creator managers</strong> use invitation-only accounts. There is no public admin or manager signup.
+          </div>
+        </section>
         <Link className="vixen-signup-back" href="/">← Back to VIXEN</Link>
       </div>
     </main>
