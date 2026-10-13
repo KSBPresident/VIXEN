@@ -14,4 +14,4 @@ The current vMessage screen is a UI preview. Sample drafts remain in the visitor
 - Keep paid unlocks and purchase records separate from message plaintext. A payment state must never grant broad conversation or device-key access.
 - Verify encryption/decryption, multi-device behavior, key changes, and access controls before removing preview-only labels.
 
-vMessage describes the VIXEN product feature, not Apple Messages or iMessage.
+vMessage is the VIXEN name for its planned private messaging feature.

@@ -1,5 +1,6 @@
 -- Public discovery exposes only approved creator rows and public-profile columns.
--- The existing signed-in profile policy and all write policies remain unchanged.
+-- Existing signed-in profile access and all write policies remain unchanged.
+revoke select on table public.profiles from anon;
 grant select (username, display_name, avatar_url, is_creator)
   on table public.profiles to anon;
 
