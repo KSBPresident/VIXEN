@@ -10,7 +10,7 @@ export const metadata = {
 
 const workspaceAreas = [
   { icon: "◈", title: "Profile", copy: "Shape your public creator page and tell members what you make.", href: "/sign-up?type=creator", action: "Creator account information" },
-  { icon: "▧", title: "Content & audience", copy: "Choose whether each post or drop is public, or which membership tier unlocks it.", href: "/sign-up?type=creator", action: "Creator access preview" },
+  { icon: "▧", title: "Cover photo & feed", copy: "Set a profile cover and share feed posts separately from private messages. Choose public or membership-tier access for each post.", href: "/creators/nova-luxe#creator-feed", action: "See the profile feed preview" },
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
   { icon: "◉", title: "Private video", copy: "Preview creator-controlled, paid browser-session flows.", href: "/member-preview/sessions", action: "Open session preview" },

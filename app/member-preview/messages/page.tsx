@@ -34,7 +34,7 @@ export default function MemberMessagesPreviewPage() {
           <Link className="interaction-sidebar-link" href="/member-preview/messages" aria-current="page"><span>✉</span> Messages</Link>
           <Link className="member-nav-item" href="/store"><span>⌑</span> Store</Link>
           </nav>
-          <div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Your VIXEN account</strong><p>Real messaging will be available after member accounts are connected.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div>
+          <div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Your VIXEN account</strong><p>Real messaging will be available after secure device-to-device encryption and member accounts are connected.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div>
           <div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div>
         </aside>
 
@@ -44,7 +44,7 @@ export default function MemberMessagesPreviewPage() {
             <h1 className="interaction-page-title" id="messages-heading">Messages</h1>
             <p className="interaction-page-intro">Private one-to-one conversations, with optional creator-set paid media and clear member choice.</p>
           </header>
-          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Preview only.</strong> The conversation is fictional sample content. Message delivery, paid unlocks, tips, media uploads, and notifications are not connected.</span></div>
+          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Preview only; not encrypted.</strong> These fictional sample messages are not private or end-to-end encrypted. Real chat must encrypt message text and attachments on participants’ devices, with keys VIXEN cannot use to read them, before messaging opens.</span></div>
 
           <section className="message-preview-grid" aria-label="Illustrative messaging interface">
             <div className="message-preview-contacts">
