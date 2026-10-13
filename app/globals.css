@@ -347,6 +347,10 @@
 .vixen-email-form label{margin-top:3px;color:#e9e3eb;font-size:10px;font-weight:600}
 .vixen-email-form input{width:100%;min-height:43px;padding:0 12px;border:1px solid rgba(255,255,255,.2);border-radius:4px;background:#0a080c;color:#fff;font:12px var(--sans)}
 .vixen-email-form input:focus-visible{outline:2px solid #ff75b3;outline-offset:2px;border-color:#ff75b3}
+.vixen-email-form .vixen-age-confirmation{display:flex;align-items:flex-start;gap:9px;margin:5px 0;color:#d8cfda;font-size:10px;line-height:1.5;cursor:pointer}
+.vixen-email-form .vixen-age-confirmation input[type=checkbox]{appearance:none;flex:0 0 18px;width:18px;min-height:18px;height:18px;margin:0;padding:0;border:1px solid rgba(255,255,255,.45);border-radius:3px;background:#0a080c;accent-color:#ff1688;cursor:pointer}
+.vixen-email-form .vixen-age-confirmation input[type=checkbox]:checked{border-color:#ff1688;background:#ff1688;box-shadow:inset 0 0 0 4px #0a080c}
+.vixen-email-form .vixen-age-confirmation input[type=checkbox]:focus-visible{outline:2px solid #ff75b3;outline-offset:2px}
 .vixen-email-form input::placeholder{color:#817985}
 .vixen-proton-note{margin:0 0 3px;color:#a9a1aa;font-size:9px;line-height:1.55}
 .vixen-email-submit{min-height:45px;border:1px solid #ff1688;border-radius:4px;background:linear-gradient(135deg,#ff1688,#cf0872);color:#fff;font:700 10px var(--sans);letter-spacing:.09em;text-transform:uppercase;cursor:pointer}
