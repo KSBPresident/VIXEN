@@ -504,3 +504,28 @@
 .creator-account-preview .creator-account-status{margin:16px 0 3px;padding:13px;border:1px solid rgba(255,22,136,.27);border-radius:5px;background:rgba(255,22,136,.06);color:#ffbad7;font-size:10px;line-height:1.7}
 .creator-member-link{display:flex;align-items:center;justify-content:center;width:100%;text-decoration:none}
 @media(max-width:520px){.account-path-grid,.signup-account-switch{grid-template-columns:1fr}.account-path-card,.signup-account-option{padding:14px}}
+
+
+/* Account profile editor */
+.vixen-profile-editor{margin-top:28px;padding:24px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:linear-gradient(145deg,rgba(28,20,30,.94),rgba(14,11,16,.96));box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.vixen-profile-editor-heading{max-width:620px}
+.vixen-profile-editor-heading h2{margin:4px 0 8px;color:#fbf6fb;font:650 24px/1.2 var(--display);letter-spacing:-.04em}
+.vixen-profile-editor-heading>p:last-child{margin:0;color:#aaa1ad;font-size:12px;line-height:1.7}
+.vixen-profile-form{display:grid;grid-template-columns:1fr;gap:9px;margin-top:19px}
+.vixen-profile-form label{margin-top:5px;color:#e9e1eb;font-size:11px;font-weight:600}
+.vixen-profile-form input{width:100%;min-height:44px;padding:0 13px;border:1px solid rgba(255,255,255,.15);border-radius:7px;background:#0b090d;color:#fff;font:inherit;font-size:13px;outline:none;transition:border-color .18s,box-shadow .18s}
+.vixen-profile-form input:focus{border-color:#ff55a7;box-shadow:0 0 0 3px rgba(255,61,156,.14)}
+.vixen-profile-form input::placeholder{color:#776e7b}
+.vixen-profile-username-field{display:flex;align-items:center;gap:8px;padding-left:12px;border:1px solid rgba(255,255,255,.15);border-radius:7px;background:#0b090d;color:#ff72b6}
+.vixen-profile-username-field:focus-within{border-color:#ff55a7;box-shadow:0 0 0 3px rgba(255,61,156,.14)}
+.vixen-profile-username-field input{border:0;background:transparent;box-shadow:none!important}
+.vixen-profile-form>small{margin-top:-6px;color:#8f8592;font-size:10px}
+.vixen-profile-form-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.vixen-profile-form-footer p{margin:0;color:#9d929f;font-size:11px}
+.vixen-profile-form-footer p.is-error{color:#ff8a9b}
+.vixen-profile-form-footer p.is-success{color:#85e1ac}
+.vixen-profile-form-footer button{min-height:42px;padding:0 17px;border:1px solid rgba(255,65,157,.55);border-radius:7px;background:linear-gradient(120deg,#f72b91,#9f155f);color:#fff;font:600 11px var(--sans);cursor:pointer;box-shadow:0 6px 20px rgba(255,22,136,.16)}
+.vixen-profile-form-footer button:hover:not(:disabled){filter:brightness(1.12)}
+.vixen-profile-form-footer button:focus-visible{outline:2px solid #ff69b0;outline-offset:3px}
+.vixen-profile-form-footer button:disabled{opacity:.6;cursor:wait}
+@media(max-width:520px){.vixen-profile-editor{margin-top:21px;padding:18px 15px}.vixen-profile-form-footer{align-items:stretch;flex-direction:column}.vixen-profile-form-footer button{width:100%}}
