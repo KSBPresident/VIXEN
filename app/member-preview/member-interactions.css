@@ -117,3 +117,5 @@
 .creator-profile-toolbar{display:flex;gap:18px;padding:0 0 4px;border-bottom:1px solid var(--member-line)}
 .creator-profile-toolbar a{color:#c8becb;font-size:9px}
 .creator-profile-toolbar a:hover{color:#ff85bd}
+
+.creator-profile-cover-placeholder{position:absolute;top:14px;left:50%;z-index:1;transform:translateX(-50%);padding:6px 10px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(9,7,10,.64);color:#d5cbd7;font-size:8px;letter-spacing:.14em;white-space:nowrap}.creator-profile-preview-note{padding:10px;border:1px solid rgba(255,61,156,.16);border-radius:5px;background:rgba(255,61,156,.04)}
