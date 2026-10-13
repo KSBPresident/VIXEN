@@ -19,7 +19,6 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
   if (!(slug in creators)) notFound();
   const creator = creators[slug as CreatorSlug];
   const pricingHref = "/pricing?creator=" + encodeURIComponent(creator.name);
-  const callPreviewHref = "/member-preview/sessions?creator=" + encodeURIComponent(slug);
 
   return (
     <main className="member-app">
