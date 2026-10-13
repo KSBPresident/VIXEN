@@ -36,7 +36,7 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
           <div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div>
         </aside>
         <section className="member-main interaction-workspace creator-app-profile" aria-labelledby="creator-name">
-          <nav className="creator-profile-toolbar" aria-label="Creator profile navigation"><Link href="#creator-feed">Feed</Link><Link href={pricingHref}>Memberships</Link><Link href="/member-preview/sessions">Private video</Link></nav>
+          <nav className="creator-profile-toolbar" aria-label="Main navigation"><Link href="#creator-feed">Feed</Link><Link href={pricingHref}>Memberships</Link><Link href="/member-preview/sessions">Private video</Link></nav>
           <div className="creator-profile-banner" aria-label={`${creator.name} cover photo preview`}><span className="creator-profile-cover-placeholder">COVER PHOTO · CREATOR PROFILE</span><span className={`member-avatar ${creator.tone}`}>{creator.initials}</span><span className="creator-profile-banner-label">COVER PHOTO · PREVIEW</span></div>
           <div className="creator-profile-heading"><div><p className="member-eyebrow"><span /> CREATOR PREVIEW</p><h1 id="creator-name">{creator.name}</h1><p className="creator-profile-category">{creator.category}</p></div><Link className="session-request-button session-preview-open creator-profile-primary" href={"/member-preview/sessions?creator=" + encodeURIComponent(slug)}>Book a private call <span aria-hidden="true">→</span></Link></div>
           <p className="creator-profile-bio">{creator.bio}</p>
