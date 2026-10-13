@@ -7,17 +7,23 @@ import { SessionBookingPreview } from "@/components/member/session-booking-previ
 
 export const metadata = {
   title: "Private video preview",
-  description: "Preview planned private browser-based video sessions with VIXEN creators.",
+  description: "Preview private browser-based video calls with VIXEN creators.",
   robots: { index: false, follow: false },
 };
 
 const creators = [
-  { slug: "nova-luxe", name: "Nova Luxe", initials: "NL", category: "Music · Culture", tone: "rose", intro: "A private one-to-one video session, if offered by the creator.", sampleLength: "15 minutes", samplePrice: "$24.00" },
-  { slug: "vee-saint", name: "Vee Saint", initials: "VS", category: "Style · Behind the scenes", tone: "silver", intro: "Creator-controlled availability, session length, price, and boundaries.", sampleLength: "20 minutes", samplePrice: "$32.00" },
-  { slug: "kira-moss", name: "Kira Moss", initials: "KM", category: "Art · Studio life", tone: "violet", intro: "Meet in a browser-based VIXEN session when the creator chooses to offer one.", sampleLength: "15 minutes", samplePrice: "$18.00" },
+  { slug: "nova-luxe", name: "Nova Luxe", initials: "NL", category: "Music · Culture", tone: "rose", intro: "Book a private one-to-one video call, if offered by the creator.", sampleLength: "15 minutes", samplePrice: "$24.00" },
+  { slug: "vee-saint", name: "Vee Saint", initials: "VS", category: "Style · Behind the scenes", tone: "silver", intro: "The creator sets call availability, session length, price, and boundaries.", sampleLength: "20 minutes", samplePrice: "$32.00" },
+  { slug: "kira-moss", name: "Kira Moss", initials: "KM", category: "Art · Studio life", tone: "violet", intro: "Meet in a browser-based VIXEN call when the creator chooses to offer one.", sampleLength: "15 minutes", samplePrice: "$18.00" },
 ];
 
-export default function MemberSessionsPreviewPage() {
+type MemberSessionsPageProps = { searchParams: Promise<{ creator?: string | string[] }> };
+
+export default async function MemberSessionsPreviewPage({ searchParams }: MemberSessionsPageProps) {
+  const params = await searchParams;
+  const creatorParam = Array.isArray(params.creator) ? params.creator[0] : params.creator;
+  const initialCreatorSlug = creators.some((creator) => creator.slug === creatorParam) ? creatorParam : undefined;
+
   return (
     <main className="member-app">
       <header className="member-topbar">
@@ -33,14 +39,14 @@ export default function MemberSessionsPreviewPage() {
         <aside className="member-sidebar">
           <p className="member-sidebar-label">YOUR VIXEN</p>
           <nav className="member-sidebar-navigation" aria-label="Member app navigation">
-          <Link className="member-nav-item" href="/member-preview"><span>▦</span> For you</Link>
-          <Link className="member-nav-item" href="/creators"><span>⌕</span> Discover creators</Link>
-          <Link className="member-nav-item" href="/pricing"><span>◇</span> Memberships</Link>
-          <Link className="interaction-sidebar-link" href="/member-preview/sessions" aria-current="page"><span>◉</span> Private video</Link>
-          <Link className="member-nav-item" href="/member-preview/messages"><span>✉</span> Messages</Link>
-          <Link className="member-nav-item" href="/store"><span>⌑</span> Store</Link>
+            <Link className="member-nav-item" href="/member-preview"><span>▦</span> For you</Link>
+            <Link className="member-nav-item" href="/creators"><span>⌕</span> Discover creators</Link>
+            <Link className="member-nav-item" href="/pricing"><span>◇</span> Memberships</Link>
+            <Link className="interaction-sidebar-link" href="/member-preview/sessions" aria-current="page"><span>◉</span> Private video</Link>
+            <Link className="member-nav-item" href="/member-preview/messages"><span>✉</span> Messages</Link>
+            <Link className="member-nav-item" href="/store"><span>⌑</span> Store</Link>
           </nav>
-          <div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Your VIXEN account</strong><p>Private video booking will open after accounts and session services are connected.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div>
+          <div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Your VIXEN account</strong><p>Private calls open after accounts, payments, calendars, and video services are connected.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div>
           <div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div>
         </aside>
 
@@ -48,19 +54,19 @@ export default function MemberSessionsPreviewPage() {
           <header>
             <p className="member-eyebrow"><span /> MEMBER APP · PREVIEW</p>
             <h1 className="interaction-page-title" id="sessions-heading">Private video</h1>
-            <p className="interaction-page-intro">Book exclusive one-to-one video time with the creator of your choice, then meet in VIXEN on a supported iPhone, Android phone, or Windows PC browser.</p>
+            <p className="interaction-page-intro">Choose a creator, review the one-time call price and terms, then book and meet in VIXEN on a supported phone or computer browser.</p>
           </header>
-          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Booking isn’t active yet.</strong> These are sample profiles. No times can be reserved and no payment or video call will start from this preview.</span></div>
-          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">▣</span><span><strong>Browser-based on your devices.</strong> The planned call works inside VIXEN on supported iPhone, Android, and Windows browsers over HTTPS; no App Store or Play Store download is needed.</span></div>
-          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">◉</span><span><strong>Your camera and microphone stay under your control.</strong> After VIXEN confirms payment, you tap to enter and your browser asks permission. The call starts only if you allow access; you can keep devices off or leave.</span></div>
+          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Paid bookings aren’t active yet.</strong> The profiles and prices below are illustrative. No time can be reserved and no payment or call will start.</span></div>
+          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">▣</span><span><strong>Pay per confirmed call.</strong> The displayed example is a one-time session price, separate from creator subscriptions. Taxes, fees, final terms, and the total must be shown before real payment.</span></div>
+          <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">◉</span><span><strong>You control device access.</strong> Your camera and microphone stay off until you choose to enter an authorized live call and grant permission in your browser.</span></div>
 
-          <SessionBookingPreview creators={creators} />
+          <SessionBookingPreview creators={creators} initialCreatorSlug={initialCreatorSlug} />
         </section>
 
         <aside className="member-right-rail" aria-label="Session information">
-          <section className="member-rail-card"><p className="member-eyebrow">CREATOR CONTROL</p><h2>Clear terms before you book.</h2><p>Each session must show the creator, length, price, availability, cancellation terms, and interaction boundaries before payment.</p></section>
-          <section className="member-rail-card member-tier-card"><p className="member-eyebrow">PRIVATE BY DESIGN</p><h2>Meet on VIXEN.</h2><p>A confirmed in-app payment unlocks only that booked session. A creator subscription or VVIP status alone does not unlock a call. Browser camera and microphone permission is requested only when a member chooses to enter the room.</p></section>
-          <p className="member-rail-foot">Sample profiles only. Real creator sessions, calendar availability, payments, and video rooms are not connected.</p>
+          <section className="member-rail-card"><p className="member-eyebrow">CREATOR CONTROL</p><h2>Clear terms before you book.</h2><p>Each call must show the creator, duration, one-time price, local availability, cancellation terms, and boundaries before payment.</p></section>
+          <section className="member-rail-card member-tier-card"><p className="member-eyebrow">PRIVATE BY DESIGN</p><h2>Meet on VIXEN.</h2><p>A confirmed in-app payment unlocks only that booked call. Membership or VVIP status alone does not unlock a call. Camera and microphone permission is requested only when you choose to enter.</p></section>
+          <p className="member-rail-foot">Sample profiles only. Real creator calendars, payments, and video rooms are not connected.</p>
         </aside>
       </div>
 
