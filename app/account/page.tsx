@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOut } from "./actions";
 import { createClient } from "@/lib/supabase/server";
+import { isConfiguredPlatformOwner } from "@/lib/kernel/identity";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Your account", robots: { index: false, follow: false } };
@@ -38,6 +39,11 @@ export default async function AccountPage() {
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) redirect("/sign-up?next=%2Faccount");
 
+  const isPlatformOwner = isConfiguredPlatformOwner({
+    email: user.email,
+    emailConfirmedAt: user.email_confirmed_at ?? null,
+  }, process.env.VIXEN_PLATFORM_ADMIN_EMAIL);
+
   const [{ data: profile }, { data: creatorApplication }] = await Promise.all([
     supabase.from("profiles").select("is_creator").eq("id", user.id).maybeSingle(),
     supabase.from("creator_applications").select("status").eq("user_id", user.id).maybeSingle(),
@@ -53,15 +59,17 @@ export default async function AccountPage() {
       </header>
       <section className="vixen-account-content">
         <div className="vixen-account-panel">
-          <p className="vixen-kicker">{isCreator ? "APPROVED CREATOR ACCOUNT" : applicationStatus ? "CREATOR APPLICATION" : "FREE MEMBER ACCOUNT"}</p>
-          <h1>{applicationStatus === "pending" ? "Your application is in review." : applicationStatus === "rejected" ? "Your member account is ready." : "Welcome to VIXEN."}</h1>
-          <p>{applicationStatus === "pending"
-            ? "Your creator application was received. Creator publishing and earnings stay locked until VIXEN completes age and identity verification and approves the application."
-            : applicationStatus === "rejected"
-              ? "Your creator application was not approved. You can keep using your free member account."
-              : isCreator
-                ? "Your creator access has been approved. The creator workspace shown below is still a product preview; publishing and payouts are not active."
-                : "Your free member login is active. You can explore the member app preview and choose access levels as they become available."}</p>
+          <p className="vixen-kicker">{isPlatformOwner ? "VIXEN PLATFORM OWNER" : isCreator ? "APPROVED CREATOR ACCOUNT" : applicationStatus ? "CREATOR APPLICATION" : "FREE MEMBER ACCOUNT"}</p>
+          <h1>{isPlatformOwner ? "Welcome, VIXEN administrator." : applicationStatus === "pending" ? "Your application is in review." : applicationStatus === "rejected" ? "Your member account is ready." : "Welcome to VIXEN."}</h1>
+          <p>{isPlatformOwner
+            ? "This confirmed platform-owner account has free, tier-independent access to creator content. Content review access is tied to this email only."
+            : applicationStatus === "pending"
+              ? "Your creator application was received. Creator publishing and earnings stay locked until VIXEN completes age and identity verification and approves the application."
+              : applicationStatus === "rejected"
+                ? "Your creator application was not approved. You can keep using your free member account."
+                : isCreator
+                  ? "Your creator access has been approved. The creator workspace shown below is still a product preview; publishing and payouts are not active."
+                  : "Your free member login is active. You can explore the member app preview and choose access levels as they become available."}</p>
           <span className="vixen-account-email">{user.email ?? "VIXEN member"}</span>
           {applicationStatus === "pending" && <p className="creator-account-status" role="status">Application status: Pending review</p>}
           {applicationStatus === "rejected" && <p className="creator-account-status" role="status">Application status: Not approved</p>}

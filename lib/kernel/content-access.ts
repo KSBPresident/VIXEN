@@ -24,7 +24,7 @@ export type AccessDenialReason =
   | "audit_unavailable";
 
 export type ContentAccessDecision =
-  | { allowed: true; reason: "creator_owner" | "member_entitlement" | "creator_manager_audited" }
+  | { allowed: true; reason: "creator_owner" | "member_entitlement" | "creator_manager_audited" | "platform_admin_content_access" }
   | { allowed: false; reason: AccessDenialReason };
 
 export interface CreatorContentAccessRequest {
@@ -43,6 +43,12 @@ export function authorizeCreatorContent({
   if (!principal) return { allowed: false, reason: "sign_in_required" };
   if (principal.accountState !== "active") return { allowed: false, reason: "account_unavailable" };
   if (!principal.adultVerified) return { allowed: false, reason: "adult_verification_required" };
+
+  // Tier-independent access belongs only to a platform_admin principal created
+  // by a trusted server identity adapter, never to public signup metadata.
+  if (principal.role === "platform_admin") {
+    return { allowed: true, reason: "platform_admin_content_access" };
+  }
 
   if (principal.role === "creator" && principal.creatorId === creatorId) {
     return { allowed: true, reason: "creator_owner" };

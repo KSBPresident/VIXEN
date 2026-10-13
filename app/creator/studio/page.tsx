@@ -10,7 +10,7 @@ export const metadata = {
 
 const workspaceAreas = [
   { icon: "◈", title: "Profile", copy: "Shape your public creator page and tell members what you make.", href: "/sign-up?type=creator", action: "Creator account information" },
-  { icon: "▧", title: "Content & drops", copy: "Plan posts and exclusive drops with clear access boundaries.", href: "/sign-up?type=creator", action: "Onboarding preview" },
+  { icon: "▧", title: "Content & audience", copy: "Choose whether each post or drop is public, or which membership tier unlocks it.", href: "/sign-up?type=creator", action: "Creator access preview" },
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
   { icon: "◉", title: "Private video", copy: "Preview creator-controlled, paid browser-session flows.", href: "/member-preview/sessions", action: "Open session preview" },
@@ -38,11 +38,11 @@ export default function CreatorStudioPreviewPage() {
           <p className="studio-nav-label">CREATOR SPACE</p>
           <Link className="studio-nav-link is-active" href="/creator/studio"><span aria-hidden="true">▦</span> Overview</Link>
           <Link className="studio-nav-link" href="/sign-up?type=creator"><span aria-hidden="true">◉</span> My profile</Link>
-          <Link className="studio-nav-link" href="/sign-up?type=creator"><span aria-hidden="true">▧</span> Content &amp; drops</Link>
+          <Link className="studio-nav-link" href="/sign-up?type=creator"><span aria-hidden="true">▧</span> Content &amp; audience</Link>
           <Link className="studio-nav-link" href="/pricing"><span aria-hidden="true">◇</span> Memberships</Link>
           <Link className="studio-nav-link" href="/member-preview/messages"><span aria-hidden="true">✉</span> Messages <small>Preview</small></Link>
           <Link className="studio-nav-link" href="/member-preview/sessions"><span aria-hidden="true">◉</span> Private video <small>Preview</small></Link>
-          <div className="studio-sidebar-note"><span aria-hidden="true">✦</span><strong>Your work. Your terms.</strong><p>Creators choose what to publish, what to charge, and which sessions to offer.</p></div>
+          <div className="studio-sidebar-note"><span aria-hidden="true">✦</span><strong>Your work. Your terms.</strong><p>You control your content and choose whether each post is public or requires a membership tier.</p></div>
           <div className="studio-sidebar-foot"><span>Adult women creators · 18+</span><span>VIXEN creator workspace preview</span></div>
         </aside>
 
@@ -50,7 +50,7 @@ export default function CreatorStudioPreviewPage() {
           <div className="studio-welcome">
             <div>
               <p className="studio-eyebrow"><i /> CREATOR WORKSPACE · PREVIEW</p>
-              <h1 id="studio-heading">Create on<br /><em>your terms.</em></h1>
+              <h1>Create on<br /><em>your terms.</em></h1>
               <p>A first look at the tools planned for adult women creators: your profile, your content, your memberships, and your audience.</p>
               <Link className="studio-primary-link" href="/sign-up?type=creator">Creator account details <span aria-hidden="true">↗</span></Link>
             </div>
@@ -94,8 +94,8 @@ export default function CreatorStudioPreviewPage() {
 
           <section className="studio-rail-card">
             <p className="studio-eyebrow">CREATOR CONTROL</p>
-            <h2>Your account. Your permissions.</h2>
-            <p>Creator access must be verified and enforced by VIXEN. A sample screen or sign-up choice does not grant publishing, manager, or payout privileges.</p>
+            <h2>You set the access boundary.</h2>
+            <p>Creators choose what each post contains, whether it is public, and which membership tier unlocks it. VIXEN enforces those choices for members.</p>
           </section>
 
           <section className="studio-rail-card studio-support-card">

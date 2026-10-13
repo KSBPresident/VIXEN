@@ -15,9 +15,9 @@ export interface CreatorContentAccessDependencies {
   audit: AuditWriter;
 }
 
-/** MIDDLE OS access workflow. Manager access fails closed unless its audit
- * event is durably recorded. Identity, age status, and entitlements only come
- * from trusted server-side Back OS adapters. */
+/** MIDDLE OS access workflow. Manager and platform-owner access fails closed
+ * unless its audit event is durably recorded. Identity, age status, and
+ * entitlements only come from trusted server-side Back OS adapters. */
 export async function authorizeCreatorContentRequest(
   input: { request: Request; creatorId: string; requiredTier: MembershipTier },
   dependencies: CreatorContentAccessDependencies,
@@ -44,16 +44,32 @@ export async function authorizeCreatorContentRequest(
     memberTier,
   });
 
-  if (decision.reason !== "manager_audit_required" || !principal) return decision;
+  if (!principal) return decision;
 
-  const audit = await dependencies.audit.record({
-    eventName: "creator.content.viewed_by_manager",
-    actorId: principal.userId,
-    targetType: "creator",
-    targetId: input.creatorId,
-    details: { requiredTier: input.requiredTier },
-  });
+  if (decision.reason === "manager_audit_required") {
+    const audit = await dependencies.audit.record({
+      eventName: "creator.content.viewed_by_manager",
+      actorId: principal.userId,
+      targetType: "creator",
+      targetId: input.creatorId,
+      details: { requiredTier: input.requiredTier },
+    });
 
-  if (!audit.ok) return { allowed: false, reason: "audit_unavailable" };
-  return { allowed: true, reason: "creator_manager_audited" };
+    if (!audit.ok) return { allowed: false, reason: "audit_unavailable" };
+    return { allowed: true, reason: "creator_manager_audited" };
+  }
+
+  if (decision.reason === "platform_admin_content_access") {
+    const audit = await dependencies.audit.record({
+      eventName: "platform_admin.creator_content.accessed",
+      actorId: principal.userId,
+      targetType: "creator",
+      targetId: input.creatorId,
+      details: { requiredTier: input.requiredTier },
+    });
+
+    if (!audit.ok) return { allowed: false, reason: "audit_unavailable" };
+  }
+
+  return decision;
 }

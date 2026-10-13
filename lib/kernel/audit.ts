@@ -2,6 +2,7 @@ export type AuditEventName =
   | "creator.content.viewed_by_manager"
   | "creator.profile.updated"
   | "creator.content.published"
+  | "platform_admin.creator_content.accessed"
   | "platform.capability.activated"
   | "private_video.join_denied"
   | "private_video.join_authorized";
