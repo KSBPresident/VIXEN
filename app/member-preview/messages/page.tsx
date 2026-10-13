@@ -6,8 +6,8 @@ import "../member-search.css";
 import { MessageConversationPreview } from "@/components/member/message-conversation-preview";
 
 export const metadata = {
-  title: "Creator messages preview",
-  description: "Preview VIXEN direct creator messaging, paid media unlocks, and member conversation controls.",
+  title: "vMessage preview",
+  description: "Preview vMessage, VIXEN’s planned creator messaging experience.",
   robots: { index: false, follow: false },
 };
 
@@ -31,7 +31,7 @@ export default function MemberMessagesPreviewPage() {
           <Link className="member-nav-item" href="/creators"><span>⌕</span> Discover creators</Link>
           <Link className="member-nav-item" href="/pricing"><span>◇</span> Memberships</Link>
           <Link className="member-nav-item" href="/member-preview/sessions"><span>◉</span> Private video</Link>
-          <Link className="interaction-sidebar-link" href="/member-preview/messages" aria-current="page"><span>✉</span> Messages</Link>
+          <Link className="interaction-sidebar-link" href="/member-preview/messages" aria-current="page"><span>✉</span> vMessage</Link>
           <Link className="member-nav-item" href="/store"><span>⌑</span> Store</Link>
           </nav>
           <div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Your VIXEN account</strong><p>Real messaging will be available after member accounts are connected.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div>
@@ -41,12 +41,12 @@ export default function MemberMessagesPreviewPage() {
         <section className="member-main interaction-workspace" aria-labelledby="messages-heading">
           <header>
             <p className="member-eyebrow"><span /> MEMBER APP · PREVIEW</p>
-            <h1 className="interaction-page-title" id="messages-heading">Messages</h1>
-            <p className="interaction-page-intro">Private one-to-one conversations, with optional creator-set paid media and clear member choice.</p>
+            <h1 className="interaction-page-title" id="messages-heading">vMessage</h1>
+            <p className="interaction-page-intro">vMessage is VIXEN’s planned private creator messaging space, with optional creator-set paid media and clear member choice.</p>
           </header>
           <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Preview only.</strong> The conversation is fictional sample content. Message delivery, paid unlocks, tips, media uploads, and notifications are not connected.</span></div>
 
-          <section className="message-preview-grid" aria-label="Illustrative messaging interface">
+          <section className="message-preview-grid" aria-label="Illustrative vMessage interface">
             <div className="message-preview-contacts">
               <h2>Creator conversations</h2>
               <Link className="message-preview-contact is-selected" href="/creators/nova-luxe">
@@ -70,7 +70,7 @@ export default function MemberMessagesPreviewPage() {
         </aside>
       </div>
 
-      <nav className="member-mobile-nav" aria-label="Member app navigation"><Link href="/member-preview"><span>▦</span>Home</Link><Link href="/creators"><span>⌕</span>Discover</Link><Link href="/member-preview/messages" aria-current="page"><span>✉</span>Messages</Link><Link href="/member-preview/sessions"><span>◉</span>Video</Link></nav>
+      <nav className="member-mobile-nav" aria-label="Member app navigation"><Link href="/member-preview"><span>▦</span>Home</Link><Link href="/creators"><span>⌕</span>Discover</Link><Link href="/member-preview/messages" aria-current="page"><span>✉</span>vMessage</Link><Link href="/member-preview/sessions"><span>◉</span>Video</Link></nav>
     </main>
   );
 }
