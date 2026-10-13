@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { signOut } from "./actions";
+import { ProfileEditor } from "@/components/account/profile-editor";
 import { createClient } from "@/lib/supabase/server";
 import { isConfiguredPlatformOwner } from "@/lib/kernel/identity";
+import { signOut } from "./actions";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Your account", robots: { index: false, follow: false } };
@@ -45,7 +46,7 @@ export default async function AccountPage() {
   }, process.env.VIXEN_PLATFORM_ADMIN_EMAIL);
 
   const [{ data: profile }, { data: creatorApplication }] = await Promise.all([
-    supabase.from("profiles").select("is_creator").eq("id", user.id).maybeSingle(),
+    supabase.from("profiles").select("is_creator, username, display_name").eq("id", user.id).maybeSingle(),
     supabase.from("creator_applications").select("status").eq("user_id", user.id).maybeSingle(),
   ]);
   const isCreator = profile?.is_creator === true;
@@ -73,6 +74,7 @@ export default async function AccountPage() {
           <span className="vixen-account-email">{user.email ?? "VIXEN member"}</span>
           {applicationStatus === "pending" && <p className="creator-account-status" role="status">Application status: Pending review</p>}
           {applicationStatus === "rejected" && <p className="creator-account-status" role="status">Application status: Not approved</p>}
+          <ProfileEditor username={profile?.username ?? ""} displayName={profile?.display_name ?? ""} />
           {isCreator && <p><Link className="vixen-discover-link" href="/creator/studio">Open creator workspace preview <span aria-hidden="true">→</span></Link></p>}
           <p><Link className="vixen-discover-link" href="/member-preview">Open member app preview <span aria-hidden="true">→</span></Link></p>
           <p className="vixen-auth-caption">Real creator posts, paid memberships, messages, checkout, bookings, video rooms, and payouts are not active yet. VIP/VVIP upgrades and staff access use separate approval and entitlement checks.</p>
