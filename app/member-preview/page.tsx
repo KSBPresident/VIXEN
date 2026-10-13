@@ -33,7 +33,7 @@ export default async function MemberPreviewPage({ searchParams }: MemberPreviewP
           <Image src="/assets/vixen-mark-3d.png" alt="" width={62} height={62} priority />
           <span>VIXEN</span>
         </Link>
-        <form className="member-search" action="/member-preview" role="search" aria-label="Search creator updates"><span aria-hidden="true">⌕</span><label className="visually-hidden" htmlFor="member-creator-search">Search creators and interests</label><input id="member-creator-search" type="search" name="q" defaultValue={query} placeholder="Search creators and interests" /><button type="submit" aria-label="Search updates">↵</button></form>
+        <form className="member-search" action="/creators" role="search" aria-label="Search creator profiles"><span aria-hidden="true">⌕</span><label className="visually-hidden" htmlFor="member-creator-search">Search creators by username</label><input id="member-creator-search" type="search" name="q" defaultValue={query} placeholder="Search by @username or creator name" /><button type="submit" aria-label="Search creators">↵</button></form>
         <div className="member-top-actions"><span className="member-preview-pill"><i /> PREVIEW</span><Link href="/sign-up?type=member">Create free account <b aria-hidden="true">↗</b></Link></div>
       </header>
 
