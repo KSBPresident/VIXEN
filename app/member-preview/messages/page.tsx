@@ -24,14 +24,16 @@ export default function MemberMessagesPreviewPage() {
       </header>
 
       <div className="member-shell">
-        <aside className="member-sidebar" aria-label="Member app navigation">
+        <aside className="member-sidebar">
           <p className="member-sidebar-label">YOUR VIXEN</p>
+          <nav className="member-sidebar-navigation" aria-label="Member app navigation">
           <Link className="member-nav-item" href="/member-preview"><span>▦</span> For you</Link>
           <Link className="member-nav-item" href="/creators"><span>⌕</span> Discover creators</Link>
           <Link className="member-nav-item" href="/pricing"><span>◇</span> Memberships</Link>
           <Link className="member-nav-item" href="/member-preview/sessions"><span>◉</span> Private video</Link>
           <Link className="interaction-sidebar-link" href="/member-preview/messages" aria-current="page"><span>✉</span> Messages</Link>
           <Link className="member-nav-item" href="/store"><span>⌑</span> Store</Link>
+          </nav>
           <div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Your VIXEN account</strong><p>Real messaging will be available after member accounts are connected.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div>
           <div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div>
         </aside>

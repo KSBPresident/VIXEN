@@ -38,8 +38,9 @@ export default async function MemberPreviewPage({ searchParams }: MemberPreviewP
       </header>
 
       <div className="member-shell">
-        <aside className="member-sidebar" aria-label="Member app navigation">
+        <aside className="member-sidebar">
           <p className="member-sidebar-label">YOUR VIXEN</p>
+          <nav className="member-sidebar-navigation" aria-label="Member app navigation">
           <Link className="member-nav-item is-active" href="/member-preview"><span>▦</span> For you</Link>
           <Link className="member-nav-item" href="/creators"><span>⌕</span> Discover creators</Link>
           <Link className="member-nav-item" href="/pricing"><span>◇</span> Memberships</Link>
@@ -47,6 +48,7 @@ export default async function MemberPreviewPage({ searchParams }: MemberPreviewP
           <Link className="member-nav-item" href="/member-preview/messages"><span>✉</span> Messages <small>Preview</small></Link>
           <Link className="member-nav-item" href="/member-preview/sessions"><span>◉</span> Private video <small>Preview</small></Link>
           <div className="member-nav-disabled"><span>▣</span> My library <small>Coming soon</small></div>
+          </nav>
           <div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Your VIXEN account</strong><p>Follow creators and choose a membership when you’re ready.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div>
           <div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div>
         </aside>

@@ -66,6 +66,23 @@ async function waitForServer() {
   throw new Error(`Timed out waiting for the production server.\n${logs}`);
 }
 
+const toolbarContracts = [
+  { matches: (path) => path === "/" || path === "/creators" || path.startsWith("/creators/") || path === "/discover", labels: [{ label: "Main navigation", minimum: 1 }] },
+  { matches: (path) => path === "/member-preview", labels: [{ label: "Member app navigation", minimum: 1 }, { label: "Mobile app navigation", minimum: 1 }] },
+  { matches: (path) => path.startsWith("/member-preview"), labels: [{ label: "Member app navigation", minimum: 2 }] },
+  { matches: (path) => path === "/creator/studio", labels: [{ label: "Creator workspace navigation", minimum: 2 }] },
+];
+
+function verifyToolbar(path, html) {
+  const contract = toolbarContracts.find((item) => item.matches(path));
+  if (!contract) return;
+  for (const { label, minimum } of contract.labels) {
+    const pattern = new RegExp("aria-label=[\\\"']" + label + "[\\\"']", "g");
+    const landmarks = [...html.matchAll(pattern)];
+    assert.ok(landmarks.length >= minimum, path + " is missing its " + label + " toolbar landmark");
+  }
+}
+
 async function verifyRoute(path) {
   const url = new URL(path, origin);
   const response = await fetch(url, { signal: AbortSignal.timeout(10_000) });
@@ -91,6 +108,7 @@ try {
     checked.add(key);
 
     const html = await verifyRoute(path);
+    verifyToolbar(url.pathname, html);
     if (checked.size > 120) throw new Error("Internal-link crawl exceeded 120 routes.");
     for (const match of html.matchAll(/href=["']([^"'#]+)["']/g)) {
       const href = match[1].replaceAll("&amp;", "&");
