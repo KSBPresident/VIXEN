@@ -18,12 +18,12 @@ export function generateStaticParams() { return Object.keys(creators).map((slug)
 export default async function CreatorProfile({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const sampleCreator = Object.hasOwn(creators, slug) ? creators[slug as CreatorSlug] : null;
-  let liveCreator: { username: string; display_name: string | null; avatar_url: string | null } | null = null;
+  let liveCreator: { username: string; display_name: string | null; avatar_url: string | null; cover_url: string | null; bio: string | null } | null = null;
   if (!sampleCreator && /^[a-z0-9._]{1,30}$/i.test(slug)) {
     try {
       const supabase = await createClient();
       const { data } = await supabase.from("profiles")
-        .select("username, display_name, avatar_url")
+        .select("username, display_name, avatar_url, cover_url, bio")
         .eq("is_creator", true)
         .ilike("username", slug)
         .maybeSingle();
@@ -37,6 +37,7 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
   if (liveCreator && !sampleCreator) {
     const name = liveCreator.display_name?.trim() || liveCreator.username;
     const avatar = liveCreator.avatar_url && /^https:\/\//i.test(liveCreator.avatar_url) ? liveCreator.avatar_url : null;
+    const cover = liveCreator.cover_url && /^https:\/\//i.test(liveCreator.cover_url) ? liveCreator.cover_url : null;
     return (
       <main className="member-app">
         <header className="member-topbar">
@@ -50,9 +51,10 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
           </nav><div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Explore on VIXEN</strong><p>Review a creator’s available membership details before joining.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div><div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div></aside>
           <section className="member-main interaction-workspace creator-app-profile" aria-labelledby="creator-name">
             <nav className="creator-profile-toolbar" aria-label="Main navigation"><Link href="/creators">Discover</Link><Link href="/pricing">Memberships</Link><Link href="/member-preview/sessions">Private video</Link></nav>
-            <div className="creator-profile-banner">{avatar ? <Image className="member-avatar" src={avatar} alt="" width={96} height={96} unoptimized /> : <span className="member-avatar portrait-rose">{name.slice(0, 2).toLocaleUpperCase()}</span>}<span className="creator-profile-banner-label">VIXEN CREATOR PROFILE</span></div>
+            <div className={`creator-profile-banner${cover ? " has-cover" : ""}`}>{cover && <Image className="creator-profile-cover" src={cover} alt="" fill sizes="(max-width: 760px) 100vw, 760px" unoptimized />}{avatar ? <Image className="member-avatar" src={avatar} alt="" width={96} height={96} unoptimized /> : <span className="member-avatar portrait-rose">{name.slice(0, 2).toLocaleUpperCase()}</span>}<span className="creator-profile-banner-label">VIXEN CREATOR PROFILE</span></div>
             <div className="creator-profile-heading"><div><p className="member-eyebrow"><span /> CREATOR PROFILE</p><h1 id="creator-name">{name}</h1><p className="creator-profile-category">@{liveCreator.username}</p></div><Link className="session-request-button session-preview-open creator-profile-primary" href="/pricing">View membership options <span aria-hidden="true">→</span></Link></div>
-            <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Creator profile.</strong> Only the creator’s approved public username, display name, and profile image are shown here. No private account information is exposed.</span></div>
+            {liveCreator.bio?.trim() && <p className="creator-profile-bio">{liveCreator.bio}</p>}
+            <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Creator profile.</strong> This page shows approved public profile details only. No private account information is exposed.</span></div>
             <section className="creator-profile-feed-empty"><p className="member-eyebrow">CREATOR FEED</p><h2>Updates will appear here.</h2><p>This creator has not published a public feed post yet.</p><Link href="/member-preview">Explore the VIXEN member experience <span aria-hidden="true">→</span></Link></section>
           </section>
           <aside className="member-right-rail" aria-label="Creator membership"><section className="member-rail-card member-join-card"><p className="member-eyebrow">MEMBER ACCESS</p><h2>Get to know<br /><em>@{liveCreator.username}</em></h2><p>Check the listed price, access, and limits before choosing any creator membership.</p><Link href="/pricing">Review membership options <span aria-hidden="true">→</span></Link></section><section className="member-rail-card member-tier-card"><p className="member-eyebrow">vMESSAGE</p><h2>Creator messaging.</h2><p>Private messaging is a planned VIXEN feature; this preview does not send or save messages.</p><Link href="/member-preview/messages">Explore vMessage <span aria-hidden="true">→</span></Link></section><p className="member-rail-foot">Public profile fields only. Membership and messaging actions are preview links.</p></aside>
