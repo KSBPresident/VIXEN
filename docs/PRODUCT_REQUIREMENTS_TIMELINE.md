@@ -1,6 +1,6 @@
 # VIXEN canonical implementation sequence
 
-This is the authoritative order for building VIXEN 1.0. Every accepted requirement discussed for the project belongs in this sequence; this is not a conversation log. The current direction is a fresh Next.js implementation in the empty VIXEN repository. Do not claim a feature is live until its implementation and checks pass.
+This is the authoritative order for building VIXEN 1.0. Every accepted requirement discussed for the project belongs in this sequence; this is not a conversation log. Continue the existing VIXEN Next.js App Router codebase and preserve its architecture, documentation, tests, and design system. Do not claim a feature is live until its implementation and checks pass.
 
 ## 1. Application and delivery foundation
 
@@ -35,7 +35,7 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 - Publish a clear entitlement matrix for each membership tier. A membership applies to one creator; exact included content, exclusions, renewal, cancellation, and refund terms must be disclosed before checkout.
 - Jo-Lene Kennedy is the Head Girl / Creator Manager responsible for managing all creator profiles. Link this role only to her verified account, enforce it server-side, and audit management actions; it does not grant platform-wide finance or administrator privileges by default.
 - Enforce authorization on server/API routes as well as in the interface.
-- Use Supabase schema, migrations, and policies as the source of truth when configuring data and access.
+- Use Supabase schema, migrations, and policies as the source of truth when configuring data and access. Supabase Auth is already connected for email/password access; do not imply the wider application-data layer is complete.\n- Creator signup has three stages: (1) email/password account and public profile, (2) adult age/identity verification with legal name, date of birth, residential address, a valid government photo ID (front and back), a selfie with the ID, and a live face-to-face check, and (3) payout details plus tax identification information required by the creator's country. An account/application alone never grants publishing, monetization, or payout privileges.\n- Do not collect or store raw ID documents, selfie/biometric captures, bank details, or tax IDs in VIXEN until vetted identity and payout providers and their privacy, security, and retention controls are selected. Keep publishing and earning locked until identity review and platform approval; withdrawals also require payout/tax setup. See `docs/CREATOR_ONBOARDING.md`.
 
 ## 5. Creator studio and content operations
 
@@ -91,4 +91,4 @@ Select a processor/acquirer only after written approval for VIXEN's adult creato
 
 A clean, accessible, responsive public VIXEN web app in Next.js with the supplied visual direction, creator discovery/profile routes, clear member and creator account paths, member browsing, transparent membership boundaries, store, messaging and paid private-video user flows, responsive and accessible states, CI checks, and a reviewable Vercel preview. Keep all sample data and inactive services clearly labelled.
 
-Only after this website-first milestone is complete, notify the owner that it is time to configure Supabase and n8n. At that point, let the owner connect the specific accounts they choose. Do not request account access or connect either service before the milestone is complete.
+Supabase Auth is already connected to VIXEN. Keep additional Supabase application-data services and n8n deferred until the website-first milestone is complete; coordinate any further setup with the owner and do not represent deferred services as live.
