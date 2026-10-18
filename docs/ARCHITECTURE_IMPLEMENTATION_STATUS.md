@@ -2,6 +2,10 @@
 
 The requested TOP / EXECUTIVE OS, MIDDLE OS, BACK OS, WEB3 OS, VIXEN STORE OS, VIXEN KERNEL, and FRONT OS model is the internal architecture for this VIXEN project. It is not visitor-facing navigation.
 
+## Creator public profile editor (feature branch)
+
+The feature branch now adds an approved-creator-only profile editor for username, display name, 500-character bio, profile image, and cover image. Images upload directly from the browser to the public Supabase Storage bucket, capped at 45 MiB and restricted to JPEG, PNG, and WebP. Storage insert/delete policies require an authenticated approved creator and a path under that creator's user ID; profile column grants prevent changing creator status. Public creator pages render only the approved public fields. This capability is not active until the additive migration is applied, CI passes, and a deployment is verified. Feed posts, stories, paid content, memberships, messaging, earnings, and payouts remain unavailable.
+
 ## Current code foundation
 
 - **TOP / EXECUTIVE OS** — `lib/executive/platform-readiness.ts` records evidence gates and evaluates whether a capability has the proof needed for release. Admin, moderation, finance, and audit dashboards remain to be built.
