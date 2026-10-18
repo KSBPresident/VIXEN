@@ -21,11 +21,15 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  // Refresh the session before server-rendering the protected account route.
+  // Refresh Supabase sessions before server-rendering any route that may show
+  // account state. This keeps public app surfaces in sync after sign-in and
+  // avoids rendering a signed-out preview while the account route is signed in.
   await supabase.auth.getClaims();
   return response;
 }
 
 export const config = {
-  matcher: ["/account/:path*"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+  ],
 };
