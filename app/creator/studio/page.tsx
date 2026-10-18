@@ -12,7 +12,7 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 const workspaceAreas = [
-  { icon: "◈", title: "Profile", copy: "Shape your public creator page and tell members what you make.", href: "/sign-up?type=creator", action: "Creator account information" },
+  { icon: "◈", title: "Profile", copy: "Set your public username, display name, bio, profile image, and cover.", href: "/creator/profile", action: "Edit public profile" },
   { icon: "▧", title: "Content & audience", copy: "Choose whether each post or drop is public, or which membership tier unlocks it.", href: "/sign-up?type=creator", action: "Creator access preview" },
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
@@ -22,6 +22,7 @@ const workspaceAreas = [
 
 export default async function CreatorStudioPreviewPage() {
   let isSignedIn = false;
+  let hasCreatorAccess = false;
   const supabaseConfigured = Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
       (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
@@ -31,6 +32,10 @@ export default async function CreatorStudioPreviewPage() {
       const supabase = await createClient();
       const { data: { user } } = await supabase.auth.getUser();
       isSignedIn = Boolean(user);
+      if (user) {
+        const { data: profile } = await supabase.from("profiles").select("is_creator").eq("id", user.id).maybeSingle();
+        hasCreatorAccess = profile?.is_creator === true;
+      }
     } catch {
       isSignedIn = false;
     }
@@ -75,18 +80,18 @@ export default async function CreatorStudioPreviewPage() {
             <div className="studio-welcome-mark" aria-hidden="true"><span>V</span><i>✦</i><b>VIXEN STUDIO</b></div>
           </div>
 
-          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>This workspace is a preview.</strong> Creator sign-up is available, but publishing and creator tools are not active. Profile edits, uploads, memberships, messages, earnings, and payouts are previews and do not save.</p></div>
+          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your public profile tools are active." : "Creator applications are available."}</strong> Approved creators can edit their public profile and upload profile images. Feed posts, stories, paid content, memberships, messages, earnings, and payouts remain previews.</p></div>
 
-          <div className="studio-section-heading"><div><p className="studio-eyebrow">YOUR WORKSPACE</p><h2>Build your presence.</h2></div><span>All features shown are previews</span></div>
+          <div className="studio-section-heading"><div><p className="studio-eyebrow">YOUR WORKSPACE</p><h2>Build your presence.</h2></div><span>{hasCreatorAccess ? "Profile editing active · other tools are previews" : "Creator tools require application approval"}</span></div>
 
           <div className="studio-area-grid">
             {workspaceAreas.map((area) => (
               <article className="studio-area-card" key={area.title}>
                 <span className="studio-area-icon" aria-hidden="true">{area.icon}</span>
-                <p className="studio-area-state">PLANNED</p>
+                <p className="studio-area-state">{area.href === "/creator/profile" && hasCreatorAccess ? "ACTIVE" : "PLANNED"}</p>
                 <h3>{area.title}</h3>
                 <p>{area.copy}</p>
-                <Link href={isSignedIn && area.href === "/sign-up?type=creator" ? accountHref : area.href}>{isSignedIn && area.href === "/sign-up?type=creator" ? "View account status" : area.action} <span aria-hidden="true">→</span></Link>
+                <Link href={!isSignedIn && area.href === "/creator/profile" ? accountHref : area.href}>{!isSignedIn && area.href === "/creator/profile" ? "Creator account information" : area.action} <span aria-hidden="true">→</span></Link>
               </article>
             ))}
           </div>
