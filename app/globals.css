@@ -529,3 +529,6 @@
 .vixen-profile-form-footer button:focus-visible{outline:2px solid #ff69b0;outline-offset:3px}
 .vixen-profile-form-footer button:disabled{opacity:.6;cursor:wait}
 @media(max-width:520px){.vixen-profile-editor{margin-top:21px;padding:18px 15px}.vixen-profile-form-footer{align-items:stretch;flex-direction:column}.vixen-profile-form-footer button{width:100%}}
+
+/* Approved creator profile media controls */
+.creator-profile-image-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}.creator-profile-image-grid>div{display:grid;align-content:start;gap:9px;min-width:0}.creator-profile-image-preview{width:96px;height:96px;border:1px solid rgba(255,61,156,.32);border-radius:50%;object-fit:cover}.creator-profile-cover-preview{width:100%;max-width:320px;height:110px;border:1px solid rgba(255,61,156,.32);border-radius:8px;object-fit:cover}.creator-profile-image-grid input[type=file]{width:100%;min-width:0;color:#d9cfd9;font-size:12px}.creator-profile-editor textarea{resize:vertical}@media(max-width:600px){.creator-profile-image-grid{grid-template-columns:1fr}}
