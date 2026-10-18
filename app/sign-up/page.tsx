@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { SocialSignUp } from "@/components/auth/social-sign-up";
 import { EmailAccountAccess } from "@/components/auth/email-account-access";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "Choose your VIXEN account",
@@ -12,7 +14,7 @@ type SignUpProps = { searchParams: Promise<{ next?: string | string[]; error?: s
 
 function getSafeNextPath(value?: string | string[]) {
   const path = Array.isArray(value) ? value[0] : value;
-  if (!path || !path.startsWith("/") || path.startsWith("//") || path.startsWith("/\\")) return "/account";
+  if (!path || !path.startsWith("/") || path.startsWith("//") || path.startsWith("/\\\\") || path === "/sign-up" || path.startsWith("/sign-up?")) return "/account";
   try {
     const parsed = new URL(path, "https://vixen.invalid");
     return parsed.origin === "https://vixen.invalid" ? `${parsed.pathname}${parsed.search}${parsed.hash}` : "/account";
@@ -35,6 +37,21 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
       (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
   );
+
+  // A stale "Create account" link should never send an authenticated user
+  // back through signup. Recover their session and return them to their
+  // account (or the validated destination requested by the sign-in flow).
+  if (supabaseConfigured) {
+    let isSignedIn = false;
+    try {
+      const supabase = await createClient();
+      const { data: { user }, error } = await supabase.auth.getUser();
+      isSignedIn = Boolean(user && !error);
+    } catch {
+      isSignedIn = false;
+    }
+    if (isSignedIn) redirect(nextPath);
+  }
 
   return (
     <main className="vixen-signup-page">
