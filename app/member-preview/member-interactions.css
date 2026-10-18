@@ -117,3 +117,5 @@
 .creator-profile-toolbar{display:flex;gap:18px;padding:0 0 4px;border-bottom:1px solid var(--member-line)}
 .creator-profile-toolbar a{color:#c8becb;font-size:9px}
 .creator-profile-toolbar a:hover{color:#ff85bd}
+
+.creator-profile-banner{position:relative;isolation:isolate;overflow:hidden}.creator-profile-banner.has-cover{background:#160e19}.creator-profile-cover{z-index:-1;object-fit:cover;object-position:center 40%;opacity:.68}.creator-profile-banner .member-avatar{position:relative;z-index:1}.creator-profile-banner-label{position:relative;z-index:1}.creator-profile-bio{max-width:70ch;color:#e0d7e1;font-size:13px;line-height:1.75;white-space:pre-wrap}
