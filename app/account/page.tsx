@@ -75,6 +75,7 @@ export default async function AccountPage() {
           {applicationStatus === "pending" && <p className="creator-account-status" role="status">Application status: Pending review</p>}
           {applicationStatus === "rejected" && <p className="creator-account-status" role="status">Application status: Not approved</p>}
           <ProfileEditor username={profile?.username ?? ""} displayName={profile?.display_name ?? ""} />
+          {isCreator && <p><Link className="vixen-discover-link" href="/creator/profile">Manage your public creator profile <span aria-hidden="true">→</span></Link></p>}
           {isCreator && <p><Link className="vixen-discover-link" href="/creator/studio">Open creator workspace preview <span aria-hidden="true">→</span></Link></p>}
           <p><Link className="vixen-discover-link" href="/member-preview">Open member app preview <span aria-hidden="true">→</span></Link></p>
           <p className="vixen-auth-caption">Real creator posts, paid memberships, messages, checkout, bookings, video rooms, and payouts are not active yet. VIP/VVIP upgrades and staff access use separate approval and entitlement checks.</p>
