@@ -43,3 +43,8 @@ The email form supports VIXEN-managed registration and sign-in. A Proton Mail ad
 Before activating this flow, provision and verify a VIXEN-specific Supabase Auth project. Do not reuse a Supabase project belonging to another product. Configure its email confirmation and production SMTP, set the VIXEN Site URL and callback redirect above, then add only that project's URL and publishable key to Vercel Preview and Production as `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. The sign-up form remains disabled while these VIXEN-owned values are absent, and displays that account service is not connected. Never expose a service-role key in the browser.
 
 The registration form uses Supabase `signUp` with an email confirmation redirect to `/auth/callback`. Sign-in uses `signInWithPassword`. The existing callback exchanges the confirmation code for a session and redirects to the validated local `next` path.
+
+
+### Password sign-in session handoff
+
+Password sign-in posts to VIXEN's same-origin `/auth/sign-in` route. The route authenticates with the VIXEN Supabase project, writes the SSR cookie updates onto the redirect response, and then redirects to the validated local `next` path. This keeps the browser and server session in sync before the protected account page checks the authenticated user. Authentication errors return to the sign-in form with a generic message; credentials and provider errors are not exposed in the URL or page copy.
