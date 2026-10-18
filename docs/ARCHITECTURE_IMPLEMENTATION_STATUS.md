@@ -4,11 +4,11 @@ The requested TOP / EXECUTIVE OS, MIDDLE OS, BACK OS, WEB3 OS, VIXEN STORE OS, V
 
 ## Current rollout status
 
-The approved-creator profile editor is merged to `main`; its Supabase migration is applied and GitHub CI passed. Vercel production has not deployed that commit because the account build-rate limit is blocking the build. Do not claim the editor is live on the production domain until a deployment for the current main commit is verified.
+The approved-creator profile editor is merged to `main`; its Supabase migration is applied and GitHub CI passed. Vercel production deployment `dpl_9tzXsvC9Mywie2DcDeEJGTpUrtv2` is READY for main commit `f6d4e781438868f51e1ef72e352ac2b80895f3a8` and serves `vixen-production-package.vercel.app`. This production deployment does not include the open creator-feed/onboarding pull request.
 
 This feature branch adds public creator posts and 24-hour stories. It does not enable member-only or paid publishing, subscriptions, messaging, or payouts. Public media can be viewed or saved by anyone with its URL. Publishing requires an approved creator and an attestation that everyone depicted is an adult, consented, and the creator has rights to publish. This attestation does not replace VIXEN's required age, identity, and safety review.
 
-## Current code foundation
+## Creator onboarding requirements\n\nThe creator signup UI explains three stages: email/password account plus public profile; age/identity verification (legal name, date of birth, residential address, valid photo ID front/back, selfie with ID, and live face-to-face check); and country-appropriate payout/tax setup. Signup creates a pending application through the existing auth trigger but does not grant creator publishing or earning rights. Verification and payout providers are not connected, and VIXEN must not collect raw identity/selfie, bank, or tax data until vetted providers and retention/security controls are selected. This checklist does not submit identity verification or payout details. See `docs/CREATOR_ONBOARDING.md`.\n\n## Current code foundation
 
 - **TOP / EXECUTIVE OS** — `lib/executive/platform-readiness.ts` records evidence gates and evaluates whether a capability has the proof needed for release. Admin, moderation, finance, and audit dashboards remain to be built.
 - **MIDDLE OS** — `lib/application/` contains pricing, an audited creator-content access workflow, and a tested private-video join workflow. The join workflow verifies identity and booking, applies the Kernel policy, requires durable audit, and then requests a short-lived participant credential. No video provider is connected.

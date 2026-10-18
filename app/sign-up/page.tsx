@@ -95,7 +95,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
               <h2>Start your creator application</h2>
               <p>Creator applications are for women aged 18 and over who want to publish adult content, set memberships, and earn from their audience. Use this separate signup path to create your VIXEN login and begin the application process.</p>
             </div>
-            <p className="creator-account-status">Creating this login starts your creator account setup; it does not submit an approval application or unlock publishing, paid content, private calls, or payouts. Those privileges require verified age and identity, consent and safety review, and VIXEN approval.</p>
+            <p className="creator-account-status">Creating this login also creates a pending creator application. It does not unlock publishing, paid content, private calls, or payouts. Those privileges require verified age and identity, consent and safety review, and VIXEN approval.</p>
             <section className="creator-onboarding-roadmap" aria-labelledby="creator-onboarding-title">
               <p className="vixen-kicker">CREATOR ONBOARDING</p>
               <h3 id="creator-onboarding-title">What you’ll need before you can earn</h3>
