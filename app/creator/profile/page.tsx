@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+// cspell:ignore Fcreator Fprofile
 import { CreatorProfileEditor } from "@/components/creator/creator-profile-editor";
 import { createClient } from "@/lib/supabase/server";
 
