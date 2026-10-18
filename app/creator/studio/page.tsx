@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 import "./studio.css";
 
 export const metadata = {
@@ -7,6 +8,8 @@ export const metadata = {
   description: "Preview the VIXEN creator workspace for adult women creators.",
   robots: { index: false, follow: false },
 };
+
+export const dynamic = "force-dynamic";
 
 const workspaceAreas = [
   { icon: "◈", title: "Profile", copy: "Shape your public creator page and tell members what you make.", href: "/sign-up?type=creator", action: "Creator account information" },
@@ -17,7 +20,22 @@ const workspaceAreas = [
   { icon: "↗", title: "Earnings & payouts", copy: "Revenue, fees, payout timing, and statements are not available yet.", href: "/pricing", action: "See what is still planned" },
 ];
 
-export default function CreatorStudioPreviewPage() {
+export default async function CreatorStudioPreviewPage() {
+  let isSignedIn = false;
+  const supabaseConfigured = Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+  );
+  if (supabaseConfigured) {
+    try {
+      const supabase = await createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      isSignedIn = Boolean(user);
+    } catch {
+      isSignedIn = false;
+    }
+  }
+  const accountHref = isSignedIn ? "/account" : "/sign-up?type=creator";
   return (
     <main className="creator-studio-app">
       <header className="studio-topbar">
@@ -30,15 +48,15 @@ export default function CreatorStudioPreviewPage() {
           <Link href="/pricing">Memberships</Link>
           <Link href="/store">Store</Link>
         </nav>
-        <div className="studio-account-actions"><span><i /> PREVIEW</span><Link href="/sign-up?type=creator">Creator sign-up info <b aria-hidden="true">↗</b></Link></div>
+        <div className="studio-account-actions"><span><i /> PREVIEW</span><Link href={accountHref}>{isSignedIn ? "My account" : "Creator sign-up info"} <b aria-hidden="true">↗</b></Link></div>
       </header>
 
       <div className="studio-shell">
         <aside className="studio-sidebar" aria-label="Creator workspace navigation">
           <p className="studio-nav-label">CREATOR SPACE</p>
           <Link className="studio-nav-link is-active" href="/creator/studio"><span aria-hidden="true">▦</span> Overview</Link>
-          <Link className="studio-nav-link" href="/sign-up?type=creator"><span aria-hidden="true">◉</span> My profile</Link>
-          <Link className="studio-nav-link" href="/sign-up?type=creator"><span aria-hidden="true">▧</span> Content &amp; audience</Link>
+          <Link className="studio-nav-link" href={accountHref}><span aria-hidden="true">◉</span> {isSignedIn ? "My account" : "My profile"}</Link>
+          <Link className="studio-nav-link" href={accountHref}><span aria-hidden="true">▧</span> {isSignedIn ? "Account status" : "Content &amp; audience"}</Link>
           <Link className="studio-nav-link" href="/pricing"><span aria-hidden="true">◇</span> Memberships</Link>
           <Link className="studio-nav-link" href="/member-preview/messages"><span aria-hidden="true">✉</span> Messages <small>Preview</small></Link>
           <Link className="studio-nav-link" href="/member-preview/sessions"><span aria-hidden="true">◉</span> Private video <small>Preview</small></Link>
@@ -52,7 +70,7 @@ export default function CreatorStudioPreviewPage() {
               <p className="studio-eyebrow"><i /> CREATOR WORKSPACE · PREVIEW</p>
               <h1>Create on<br /><em>your terms.</em></h1>
               <p>A first look at the tools planned for adult women creators: your profile, your content, your memberships, and your audience.</p>
-              <Link className="studio-primary-link" href="/sign-up?type=creator">Creator account details <span aria-hidden="true">↗</span></Link>
+              <Link className="studio-primary-link" href={accountHref}>{isSignedIn ? "Open my account" : "Creator account details"} <span aria-hidden="true">↗</span></Link>
             </div>
             <div className="studio-welcome-mark" aria-hidden="true"><span>V</span><i>✦</i><b>VIXEN STUDIO</b></div>
           </div>
@@ -68,7 +86,7 @@ export default function CreatorStudioPreviewPage() {
                 <p className="studio-area-state">PLANNED</p>
                 <h3>{area.title}</h3>
                 <p>{area.copy}</p>
-                <Link href={area.href}>{area.action} <span aria-hidden="true">→</span></Link>
+                <Link href={isSignedIn && area.href === "/sign-up?type=creator" ? accountHref : area.href}>{isSignedIn && area.href === "/sign-up?type=creator" ? "View account status" : area.action} <span aria-hidden="true">→</span></Link>
               </article>
             ))}
           </div>
@@ -89,7 +107,7 @@ export default function CreatorStudioPreviewPage() {
               <li><span>03</span><div><strong>Set your boundaries</strong><small>Disclose benefits, prices, and paid extras.</small></div></li>
               <li><span>04</span><div><strong>Publish when approved</strong><small>Creator tools and payouts are planned.</small></div></li>
             </ol>
-            <Link href="/sign-up?type=creator">Creator account information <span aria-hidden="true">→</span></Link>
+            <Link href={accountHref}>{isSignedIn ? "Open my account" : "Creator account information"} <span aria-hidden="true">→</span></Link>
           </section>
 
           <section className="studio-rail-card">
@@ -107,7 +125,7 @@ export default function CreatorStudioPreviewPage() {
         </aside>
       </div>
 
-      <nav className="studio-mobile-nav" aria-label="Creator workspace navigation"><Link href="/creator/studio" aria-current="page"><span>▦</span>Home</Link><Link href="/creators"><span>⌕</span>Discover</Link><Link href="/pricing"><span>◇</span>Plans</Link><Link href="/sign-up?type=creator"><span>＋</span>Join</Link></nav>
+      <nav className="studio-mobile-nav" aria-label="Creator workspace navigation"><Link href="/creator/studio" aria-current="page"><span>▦</span>Home</Link><Link href="/creators"><span>⌕</span>Discover</Link><Link href="/pricing"><span>◇</span>Plans</Link><Link href={accountHref}><span>＋</span>{isSignedIn ? "Account" : "Join"}</Link></nav>
     </main>
   );
 }
