@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 import "./app-home.css";
 
 const nav = [
@@ -16,7 +17,22 @@ const tiles = [
   ["◉", "Private video", "Review the planned paid session flow. No calls are active.", "/member-preview/sessions", "PREVIEW"],
 ] as const;
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  let isSignedIn = false;
+  const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
+  if (supabaseConfigured) {
+    try {
+      const supabase = await createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      isSignedIn = Boolean(user);
+    } catch {
+      isSignedIn = false;
+    }
+  }
+  const accountHref = isSignedIn ? "/account" : "/sign-up?type=member";
+
   return (
     <main className="vixen-app">
       <aside className="app-sidebar" aria-label="VIXEN app navigation">
@@ -27,19 +43,19 @@ export default function HomePage() {
       </aside>
 
       <div className="app-main">
-        <header className="app-topbar"><div className="app-crumb"><span>VIXEN</span><b>/</b><strong>Home</strong></div><div className="app-actions"><Link href="/creators" className="app-find"><span>⌕</span> Find creators</Link><Link href="/account">Sign in</Link><Link className="app-create" href="/sign-up?type=member">Create account ↗</Link></div></header>
+        <header className="app-topbar"><div className="app-crumb"><span>VIXEN</span><b>/</b><strong>Home</strong></div><div className="app-actions"><Link href="/creators" className="app-find"><span>⌕</span> Find creators</Link>{isSignedIn ? <Link className="app-create" href="/account">My account ↗</Link> : <><Link href="/account">Sign in</Link><Link className="app-create" href="/sign-up?type=member">Create account ↗</Link></>}</div></header>
         <div className="app-content">
           <div className="app-dashboard">
             <div className="app-primary">
-              <section className="app-hero"><div><p className="app-kicker">YOUR CREATOR + MEMBER SPACE</p><h1>Your VIXEN.<br/><em>Your way.</em></h1><p>Discover creators, explore memberships, and choose the account that fits you. Start free as a member.</p><div className="app-hero-actions"><Link className="app-button" href="/member-preview">Explore the member app →</Link><Link href="/sign-up?type=member">Create free account</Link></div></div><Image src="/assets/vixen-mark-3d.png" alt="" aria-hidden="true" width={180} height={180}/></section>
+              <section className="app-hero"><div><p className="app-kicker">YOUR CREATOR + MEMBER SPACE</p><h1>Your VIXEN.<br/><em>Your way.</em></h1><p>Discover creators, explore memberships, and choose the account that fits you. Start free as a member.</p><div className="app-hero-actions"><Link className="app-button" href="/member-preview">Explore the member app →</Link><Link href={accountHref}>{isSignedIn ? "Open your account" : "Create free account"}</Link></div></div><Image src="/assets/vixen-mark-3d.png" alt="" aria-hidden="true" width={180} height={180}/></section>
               <section className="app-section"><div className="app-section-head"><div><p className="app-kicker">YOUR SPACE</p><h2>Jump back in</h2></div><Link href="/creators">Browse all →</Link></div><div className="app-tiles">{tiles.map(([icon,title,description,href,status])=><Link className="app-tile" href={href} key={title}><span className="app-tile-meta"><i aria-hidden="true">{icon}</i><small>{status}</small></span><strong>{title}</strong><span>{description}</span><b>Open →</b></Link>)}</div></section>
-              <section className="app-section"><div className="app-section-head"><div><p className="app-kicker">TWO SEPARATE ACCOUNT PATHS</p><h2>Choose your account</h2></div><Link href="/sign-up">Account access →</Link></div><div className="app-account-cards">
-                <article><small>MEMBER · FREE · 18+</small><h3>Watch and connect</h3><p>Create a free login to explore VIXEN. Choose paid access only when it is available and you want it.</p><Link href="/sign-up?type=member">Join as a member →</Link></article>
+              <section className="app-section"><div className="app-section-head"><div><p className="app-kicker">TWO SEPARATE ACCOUNT PATHS</p><h2>Choose your account</h2></div><Link href={accountHref}>{isSignedIn ? "Open account →" : "Account access →"}</Link></div><div className="app-account-cards">
+                <article><small>MEMBER · FREE · 18+</small><h3>Watch and connect</h3><p>Create a free login to explore VIXEN. Choose paid access only when it is available and you want it.</p><Link href={accountHref}>{isSignedIn ? "Open member account →" : "Join as a member →"}</Link></article>
                 <article className="creator"><small>CREATOR · APPLICATION</small><h3>Create and earn</h3><p>Adult women can apply for a separate creator account. Publishing and earnings unlock only after review.</p><Link href="/sign-up?type=creator">Creator application →</Link></article>
               </div></section>
             </div>
             <aside className="app-rail" aria-label="Account and feature status">
-              <section className="app-rail-card"><p className="app-kicker">MEMBER ACCESS</p><h2>Start free.</h2><p>A free member login is available. Subscriptions, paid posts, messages, private video, and store checkout are not active yet.</p><Link className="app-rail-cta" href="/sign-up?type=member">Create a free account</Link><Link className="app-rail-link" href="/account">Already a member? Sign in</Link></section>
+              <section className="app-rail-card"><p className="app-kicker">MEMBER ACCESS</p><h2>Start free.</h2><p>A free member login is available. Subscriptions, paid posts, messages, private video, and store checkout are not active yet.</p><Link className="app-rail-cta" href={accountHref}>{isSignedIn ? "Open your account" : "Create a free account"}</Link>{!isSignedIn && <Link className="app-rail-link" href="/account">Already a member? Sign in</Link>}</section>
               <section className="app-rail-card"><p className="app-kicker">MEMBERSHIP LEVELS</p><h2>Know what unlocks.</h2><div className="app-tier"><b>Standard</b><span>Free member account</span></div><div className="app-tier"><b>VIP / VVIP</b><span>Optional paid levels · not active</span></div><p className="app-note">VIP/VVIP club access is 21+ and requires an active membership card. The upgrades and entry checks are not live yet.</p><Link className="app-rail-link" href="/pricing">See access details →</Link></section>
               <section className="app-rail-card app-status"><p className="app-kicker">FEATURE STATUS</p><div><i className="live"/> <span><b>Account signup</b><small>Email/password available</small></span><strong>LIVE</strong></div><div><i/> <span><b>Creator tools</b><small>Application/workspace preview</small></span><strong>PREVIEW</strong></div><div><i/> <span><b>Paid services</b><small>Payments and fulfillment not connected</small></span><strong>NOT LIVE</strong></div></section>
             </aside>

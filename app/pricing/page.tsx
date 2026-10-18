@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getMembershipPricingPreview } from "@/lib/application/pricing/get-membership-pricing-preview";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 import "./pricing-upgrade.css";
 import "./cost-clarity.css";
 
@@ -11,12 +12,25 @@ export const metadata = {
 
 type PricingSearchParams = { creator?: string };
 
+export const dynamic = "force-dynamic";
+
 export default async function PricingPage({
   searchParams,
 }: {
   searchParams: Promise<PricingSearchParams>;
 }) {
   const params = await searchParams;
+  let isSignedIn = false;
+  const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
+  if (supabaseConfigured) {
+    try {
+      const supabase = await createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      isSignedIn = Boolean(user);
+    } catch {
+      isSignedIn = false;
+    }
+  }
   const creatorName = typeof params.creator === "string" ? params.creator.trim().slice(0, 80) : "";
   const plans = getMembershipPricingPreview();
 
@@ -32,7 +46,7 @@ export default async function PricingPage({
           <Link href="/pricing" aria-current="page">Memberships</Link>
         </nav>
         <div className="header-actions">
-          <Link className="button button-small" href="/sign-up">Join free <span aria-hidden="true">↗</span></Link>
+          <Link className="button button-small" href={isSignedIn ? "/account" : "/sign-up?type=member"}>{isSignedIn ? "My account" : "Join free"} <span aria-hidden="true">↗</span></Link>
         </div>
       </header>
 
@@ -73,7 +87,7 @@ export default async function PricingPage({
               </div>
 
               {plan.id === "free" ? (
-                <Link className="button member-plan-cta" href="/sign-up?type=member">Create a free account <span aria-hidden="true">↗</span></Link>
+                <Link className="button member-plan-cta" href={isSignedIn ? "/account" : "/sign-up?type=member"}>{isSignedIn ? "Open your account" : "Create a free account"} <span aria-hidden="true">↗</span></Link>
               ) : (
                 <Link
                   className="button button-outline member-plan-cta"
@@ -113,7 +127,7 @@ export default async function PricingPage({
             </ul>
           </article>
         </div>
-        <p className="cost-clarity-notice"><strong>Still a preview:</strong> account signup, creator onboarding, subscriptions, payouts, and checkout are not active. No one can be charged through this page.</p>
+        <p className="cost-clarity-notice"><strong>Account status:</strong> free email/password member accounts are live. Creator approval and publishing, subscriptions, paid content, checkout, payouts, and payment methods are not active. No one can be charged through this page.</p>
       </section>
 
       <section className="section-wrap pricing-edge" aria-labelledby="pricing-edge-title">
@@ -128,7 +142,7 @@ export default async function PricingPage({
           <article><span className="pricing-edge-number">03</span><h3>Know every boundary</h3><p>Each creator tier should show its price, included posts and drops, paid extras, renewal, and cancellation terms before checkout.</p></article>
           <article><span className="pricing-edge-number">04</span><h3>Plan for the Caribbean</h3><p>Card, bank transfer, WiPay, PayPal, Wise, and crypto are planned. Only payment options actually enabled for your location will appear at checkout.</p></article>
         </div>
-        <p className="pricing-edge-note"><strong>Preview:</strong> VIXEN accounts, paid creator features, checkout, and payment methods are not active yet. These are product goals, not a claim that they are live.</p>
+        <p className="pricing-edge-note"><strong>Current status:</strong> free member accounts are live. Paid creator features, checkout, and payment methods remain previews; these are product goals, not a claim that they are live.</p>
       </section>
 
       <section className="section-wrap nine-offer" aria-labelledby="nine-offer-title">
@@ -227,7 +241,7 @@ export default async function PricingPage({
           <li>Memberships are intended to renew on the billing schedule shown at checkout. Renewal date, cancellation, and refund terms must be shown before payment.</li>
           <li>Membership access does not grant permission to copy, repost, or redistribute creator content.</li>
         </ul>
-        <p className="pricing-preview-notice"><strong>Preview only:</strong> these prices and tiers describe the planned package structure. Account registration, checkout, recurring billing, and tier access are not active yet. No payment is taken from this page.</p>
+        <p className="pricing-preview-notice"><strong>Preview only:</strong> these prices and tiers describe the planned package structure. Account registration is available, but checkout, recurring billing, and paid tier access are not active. No payment is taken from this page.</p>
         <Link className="vixen-discover-link" href="/creators">Browse creator previews <span aria-hidden="true">→</span></Link>
       </section>
 
