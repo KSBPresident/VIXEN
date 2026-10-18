@@ -75,7 +75,7 @@ export default async function CreatorStudioPreviewPage() {
             <div className="studio-welcome-mark" aria-hidden="true"><span>V</span><i>✦</i><b>VIXEN STUDIO</b></div>
           </div>
 
-          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>This workspace is a preview.</strong> No creator accounts, profile edits, uploads, memberships, messages, earnings, or payouts are active. Sample controls do not save or publish information.</p></div>
+          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>This workspace is a preview.</strong> Creator sign-up is available, but publishing and creator tools are not active. Profile edits, uploads, memberships, messages, earnings, and payouts are previews and do not save.</p></div>
 
           <div className="studio-section-heading"><div><p className="studio-eyebrow">YOUR WORKSPACE</p><h2>Build your presence.</h2></div><span>All features shown are previews</span></div>
 
@@ -102,7 +102,7 @@ export default async function CreatorStudioPreviewPage() {
             <p className="studio-eyebrow">GETTING STARTED</p>
             <h2>A clear path to launch.</h2>
             <ol>
-              <li><span>01</span><div><strong>Create a creator account</strong><small>VIXEN account signup is not active yet.</small></div></li>
+              <li><span>01</span><div><strong>Create a creator account</strong><small>Member accounts and creator applications are available; publishing requires approval.</small></div></li>
               <li><span>02</span><div><strong>Verify age and identity</strong><small>Eligibility and creator checks are required.</small></div></li>
               <li><span>03</span><div><strong>Set your boundaries</strong><small>Disclose benefits, prices, and paid extras.</small></div></li>
               <li><span>04</span><div><strong>Publish when approved</strong><small>Creator tools and payouts are planned.</small></div></li>
