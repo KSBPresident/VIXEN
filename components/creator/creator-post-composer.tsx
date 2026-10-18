@@ -3,7 +3,6 @@
 import { useActionState, useRef, useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
 import {
-  creatorPostMaxMediaBytes,
   creatorPostMediaTypes,
   validateCreatorPublication,
 } from "@/lib/kernel/creator-post";
