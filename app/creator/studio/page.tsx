@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 
 const workspaceAreas = [
   { icon: "◈", title: "Profile", copy: "Set your public username, display name, bio, profile image, and cover.", href: "/creator/profile", action: "Edit public profile" },
-  { icon: "▧", title: "Content & audience", copy: "Choose whether each post or drop is public, or which membership tier unlocks it.", href: "/sign-up?type=creator", action: "Creator access preview" },
+  { icon: "▧", title: "Feed & stories", copy: "Publish public profile updates and 24-hour stories with your approved creator account.", href: "/creator/posts", action: "Publish a public update" },
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
   { icon: "◉", title: "Private video", copy: "Preview creator-controlled, paid browser-session flows.", href: "/member-preview/sessions", action: "Open session preview" },
@@ -80,15 +80,15 @@ export default async function CreatorStudioPreviewPage() {
             <div className="studio-welcome-mark" aria-hidden="true"><span>V</span><i>✦</i><b>VIXEN STUDIO</b></div>
           </div>
 
-          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your public profile tools are active." : "Creator applications are available."}</strong> Approved creators can edit their public profile and upload profile images. Feed posts, stories, paid content, memberships, messages, earnings, and payouts remain previews.</p></div>
+          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your public profile tools are active." : "Creator applications are available."}</strong> Approved creators can edit their profile and publish public posts or 24-hour stories. Paid or member-only content, memberships, messages, earnings, and payouts remain previews.</p></div>
 
-          <div className="studio-section-heading"><div><p className="studio-eyebrow">YOUR WORKSPACE</p><h2>Build your presence.</h2></div><span>{hasCreatorAccess ? "Profile editing active · other tools are previews" : "Creator tools require application approval"}</span></div>
+          <div className="studio-section-heading"><div><p className="studio-eyebrow">YOUR WORKSPACE</p><h2>Build your presence.</h2></div><span>{hasCreatorAccess ? "Profile and public publishing active · paid tools are previews" : "Creator tools require application approval"}</span></div>
 
           <div className="studio-area-grid">
             {workspaceAreas.map((area) => (
               <article className="studio-area-card" key={area.title}>
                 <span className="studio-area-icon" aria-hidden="true">{area.icon}</span>
-                <p className="studio-area-state">{area.href === "/creator/profile" && hasCreatorAccess ? "ACTIVE" : "PLANNED"}</p>
+                <p className="studio-area-state">{(area.href === "/creator/profile" || area.href === "/creator/posts") && hasCreatorAccess ? "ACTIVE" : "PLANNED"}</p>
                 <h3>{area.title}</h3>
                 <p>{area.copy}</p>
                 <Link href={!isSignedIn && area.href === "/creator/profile" ? accountHref : area.href}>{!isSignedIn && area.href === "/creator/profile" ? "Creator account information" : area.action} <span aria-hidden="true">→</span></Link>

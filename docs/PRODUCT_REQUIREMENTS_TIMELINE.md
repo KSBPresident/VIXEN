@@ -1,6 +1,6 @@
 # VIXEN canonical implementation sequence
 
-This is the authoritative order for building VIXEN 1.0. Every accepted requirement discussed for the project belongs in this sequence; this is not a conversation log. The current direction is a fresh Next.js implementation in the empty VIXEN repository. Do not claim a feature is live until its implementation and checks pass.
+This is the authoritative order for building VIXEN 1.0. Every accepted requirement discussed for the project belongs in this sequence; this is not a conversation log. Continue the existing VIXEN Next.js App Router codebase and preserve its architecture, documentation, tests, and design system. Do not claim a feature is live until its implementation and checks pass.
 
 ## 1. Application and delivery foundation
 
@@ -40,6 +40,7 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 ## 5. Creator studio and content operations
 
 - Add creator/studio workflows for managing profiles, content, tiers, exclusive drops, and paid-message offerings.
+- The first active publishing milestone is public creator feed posts and 24-hour stories for approved creators. Public media uses direct browser-to-Supabase uploads capped at 45 MiB; clearly disclose that anyone with a public media URL may view or save it. Paid/member-only posts, exclusive drops, and paid-message offerings stay unavailable until the relevant entitlement and payment boundaries are implemented and verified.
 - Provide the verified Head Girl / Creator Manager role with roster-wide creator-management privileges and the least access needed to perform that work.
 - Align every visible button with a real route or API operation and an honest success/error state; do not leave dead controls.
 
@@ -91,4 +92,4 @@ Select a processor/acquirer only after written approval for VIXEN's adult creato
 
 A clean, accessible, responsive public VIXEN web app in Next.js with the supplied visual direction, creator discovery/profile routes, clear member and creator account paths, member browsing, transparent membership boundaries, store, messaging and paid private-video user flows, responsive and accessible states, CI checks, and a reviewable Vercel preview. Keep all sample data and inactive services clearly labelled.
 
-Only after this website-first milestone is complete, notify the owner that it is time to configure Supabase and n8n. At that point, let the owner connect the specific accounts they choose. Do not request account access or connect either service before the milestone is complete.
+Supabase Auth has already been connected to the VIXEN project. Keep additional Supabase application-data services and n8n deferred until the website-first milestone is complete; then coordinate any further account/provider setup with the owner. Do not describe deferred services as live.

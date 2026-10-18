@@ -3,18 +3,18 @@
 Audit date: 2026-10-18  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `12302caade5518eb730435fc0b44ac9b98d320c3`
+Latest inspected main commit: `f6d4e781438868f51e1ef72e352ac2b80895f3a8`
 
 
 ## Current verification · 2026-10-18
 
-- PR #65 is merged to `main` at `12302caade5518eb730435fc0b44ac9b98d320c3`. It makes the app home and pricing actions session-aware and corrects the free-account status copy.
-- GitHub Actions run #176 passed lint, user-facing spell check, kernel policy tests, TypeScript, production build, and production route/link smoke checks for the PR.
-- Vercel preview deployment `dpl_2F4cAVuu5V13iKWPBTJ7EfqCmXVd` for the PR commit is READY. The preview home and pricing routes returned HTTP 200.
-- The current Vercel production deployment is still `dpl_GgDHKfj6J5pEg8RkLjBBKta5u3jd` at commit `da57aaef28f13f3a45592f6050349b7e8701ed8b`; it does not include PR #65. Vercel's production check reports a build-rate limit. A direct deployment request returned HTTP 402 with `api-deployments-free-per-day` and a 24-hour retry window. Promoting the READY preview returned HTTP 422. Production must not be described as containing PR #65 until the production alias and deployed commit are verified.
-- Supabase project `srgoxrwhbsxmsrbruktz` (VIXEN) reports ACTIVE_HEALTHY. Its current public schema contains profiles, creator applications, subscriptions, conversations, messages, message media, blocks, and reports. No creator posts, stories, or creator media tables appeared in the inspected public schema, so those publishing features are not implemented in the connected database yet.
-- The Supabase security advisor currently reports four authenticated-callable `SECURITY DEFINER` chat functions and leaked-password protection disabled. The function bodies inspected apply caller checks, but the advisor findings remain open for a grant/policy review and Auth configuration.
-- Account creation and profile saving are implemented in the codebase. The signed-in homepage and pricing behavior is verified in the preview, but no production deployment of that change or authenticated end-to-end session test is recorded yet.
+- PRs #67–#70 are merged to `main`; current main commit is `f6d4e781438868f51e1ef72e352ac2b80895f3a8`. The changes add broad Supabase session refresh, signed-in signup redirect handling, accurate creator application copy, and an approved-creator public profile editor.
+- GitHub Actions run #187 passed lint, user-facing spelling, Kernel tests, TypeScript, production build, and route/link smoke checks for the final PR #70 head before merge.
+- A fresh production deployment `dpl_9tzXsvC9Mywie2DcDeEJGTpUrtv2` is READY at current main commit `f6d4e781438868f51e1ef72e352ac2b80895f3a8` and is aliased to `vixen-production-package.vercel.app`. Public `/member-preview` returns HTTP 200. Signed-in account handoff still needs verification in the owner’s browser session.
+- A public Vercel preview exists at `vixen-production-package-5zim4xk1f-caribbeanstarstore.vercel.app` from feature commit `bb34f351376dcf1bc0155717212113396998b4fc`; it returned HTTP 200. It predates the final profile CSS/docs changes and is not the production deployment.
+- Supabase project `srgoxrwhbsxmsrbruktz` is VIXEN. Migration `creator_public_profile_media` is applied: the public profile-media bucket accepts JPEG/PNG/WebP files up to 45 MiB; authenticated approved creators can upload/delete only within their user-id path; authenticated users cannot update `profiles.is_creator`, `id`, or `created_at`. Anonymous profile-column access and the new public-feed migration remain to be verified.
+- Public feed and story tables, media storage, and expiring-story workflow are not yet present in the connected database. The active feature branch is preparing this capability; do not apply its migration before its CI/review gate.
+- Account/session fixes and creator profile editing are deployed on production. The owner’s authenticated account-save and account-to-preview handoff has not been verified through an authenticated browser session.
 
 ## Verified
 
@@ -30,8 +30,8 @@ The earlier production checks in this section are historical. Current deployment
 
 The repository still lacks live implementation and verification for:
 
-- Supabase email/password authentication and protected account access are configured. The free member signup is live; the creator signup now creates a pending application and does not grant creator privileges. The connected VIXEN database has RLS on its current tables. Still incomplete: reviewed creator/admin/manager role assignment, production verification of signup confirmation and password recovery emails, adult identity checks, and the wider Supabase application-data layer. n8n remains deferred.
-- Creator studio profile editing, publishing, management workflows, or server-side package ownership and entitlement enforcement. `/creator/studio` is a visual preview with disabled/inactive product behavior.
+- Supabase email/password authentication and protected account access are in production. Signup confirmation/password-recovery delivery, adult identity checks, and the wider application-data layer still need end-to-end verification. Creator signup creates an account, but does not yet submit an application record or verify identity. The signup checklist now explains profile setup, identity/age verification, and payout/tax requirements; provider integrations are not connected and publishing/earning stay unavailable. n8n remains deferred.
+- Public creator feed/story publishing, creator-to-member feed rendering, and creator-media migration are still in an unmerged review branch. Member-only content, creator-wide manager tools, and moderation still require separate implementation and security review.
 - Checkout, signed payment webhooks, idempotency, payout/ledger rules, refunds, or end-to-end payment verification. VIXEN must first obtain explicit written approval from a processor/acquirer for its adult content, adult live-video services, storefront, company, and target markets; Stripe's current rules prohibit adult content and adult live-chat services.
 - Private video provider implementation, booking persistence, signaling, browser camera/microphone consent flow, and iPhone/Android/Windows device verification.
 - Wallet, purchases, real message delivery and notifications, rewards, journey rules, moderation, or audited administration. The message composer is only a client-side preview.

@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { PublicCreatorEntry } from "@/components/creator/public-creator-entry";
+import type { CreatorPublicFeedEntry } from "@/lib/kernel/creator-post";
 import "../../member-preview/member-preview.css";
 import "../../member-preview/member-interactions.css";
 import "../../member-preview/member-search.css";
@@ -34,6 +36,20 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
   }
   if (!sampleCreator && !liveCreator) notFound();
 
+  let liveEntries: CreatorPublicFeedEntry[] = [];
+  if (liveCreator && !sampleCreator) {
+    try {
+      const supabase = await createClient();
+      const { data } = await supabase.rpc("get_public_creator_feed", {
+        p_creator_username: liveCreator.username,
+        p_query: null,
+      });
+      liveEntries = (data ?? []) as CreatorPublicFeedEntry[];
+    } catch {
+      liveEntries = [];
+    }
+  }
+
   if (liveCreator && !sampleCreator) {
     const name = liveCreator.display_name?.trim() || liveCreator.username;
     const avatar = liveCreator.avatar_url && /^https:\/\//i.test(liveCreator.avatar_url) ? liveCreator.avatar_url : null;
@@ -55,7 +71,8 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
             <div className="creator-profile-heading"><div><p className="member-eyebrow"><span /> CREATOR PROFILE</p><h1 id="creator-name">{name}</h1><p className="creator-profile-category">@{liveCreator.username}</p></div><Link className="session-request-button session-preview-open creator-profile-primary" href="/pricing">View membership options <span aria-hidden="true">→</span></Link></div>
             {liveCreator.bio?.trim() && <p className="creator-profile-bio">{liveCreator.bio}</p>}
             <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Creator profile.</strong> This page shows approved public profile details only. No private account information is exposed.</span></div>
-            <section className="creator-profile-feed-empty"><p className="member-eyebrow">CREATOR FEED</p><h2>Updates will appear here.</h2><p>This creator has not published a public feed post yet.</p><Link href="/member-preview">Explore the VIXEN member experience <span aria-hidden="true">→</span></Link></section>
+            {liveEntries.some((entry) => entry.kind === "story") && <section id="creator-stories" className="creator-public-stories" aria-labelledby="creator-stories-heading"><p className="member-eyebrow">STORIES · 24 HOURS</p><h2 id="creator-stories-heading">Recent stories</h2>{liveEntries.filter((entry) => entry.kind === "story").map((entry) => <PublicCreatorEntry key={entry.id} entry={entry} />)}</section>}
+            <section className="creator-profile-feed-empty" id="creator-feed"><p className="member-eyebrow">PUBLIC CREATOR FEED</p>{liveEntries.some((entry) => entry.kind === "post") ? <>{liveEntries.filter((entry) => entry.kind === "post").map((entry) => <PublicCreatorEntry key={entry.id} entry={entry} />)}</> : <><h2>Updates will appear here.</h2><p>This creator has not published a public feed post yet.</p><Link href="/member-preview">Explore the VIXEN member experience <span aria-hidden="true">→</span></Link></>}</section>
           </section>
           <aside className="member-right-rail" aria-label="Creator membership"><section className="member-rail-card member-join-card"><p className="member-eyebrow">MEMBER ACCESS</p><h2>Get to know<br /><em>@{liveCreator.username}</em></h2><p>Check the listed price, access, and limits before choosing any creator membership.</p><Link href="/pricing">Review membership options <span aria-hidden="true">→</span></Link></section><section className="member-rail-card member-tier-card"><p className="member-eyebrow">vMESSAGE</p><h2>Creator messaging.</h2><p>Private messaging is a planned VIXEN feature; this preview does not send or save messages.</p><Link href="/member-preview/messages">Explore vMessage <span aria-hidden="true">→</span></Link></section><p className="member-rail-foot">Public profile fields only. Membership and messaging actions are preview links.</p></aside>
         </div>
@@ -89,7 +106,7 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
           <p className="creator-profile-bio">{creator.bio}</p>
           <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Sample profile.</strong> Posts, availability, prices, messaging, membership, and creator identity are not live or verified on this preview.</span></div>
           <section className="creator-profile-actions" aria-label="Creator options"><div><p className="member-eyebrow">FOLLOW THEIR WORK</p><h2>Choose how you connect.</h2><p>Creator memberships provide the listed access for that creator. Private video calls are a separate, one-time purchase when available.</p></div><div className="creator-profile-action-buttons"><Link className="session-request-button session-preview-open" href={pricingHref}>View membership options <span aria-hidden="true">→</span></Link><Link className="session-flow-back" href="/member-preview/messages">Open vMessage preview</Link></div></section>
-          <section className="creator-profile-feed-empty"><p className="member-eyebrow">CREATOR FEED</p><h2>Updates will appear here.</h2><p>This preview does not contain real creator posts. Explore the VIXEN member app layout.</p><Link href="/member-preview">Explore the member feed <span aria-hidden="true">→</span></Link></section>
+          <section className="creator-profile-feed-empty"><p className="member-eyebrow">CREATOR FEED · SAMPLE</p><h2>Updates will appear here.</h2><p>This sample profile does not represent a real creator account.</p><Link href="/member-preview">Explore the member feed <span aria-hidden="true">→</span></Link></section>
         </section>
         <aside className="member-right-rail" aria-label="Membership and private video">
           <section className="member-rail-card member-join-card"><p className="member-eyebrow">MEMBER ACCESS</p><h2>Join for free.<br /><em>Choose what’s next.</em></h2><p>Preview this creator, then review memberships or a private call before making a choice.</p><Link href="/sign-up?type=member">Create a free account <span aria-hidden="true">→</span></Link></section>

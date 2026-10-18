@@ -2,9 +2,11 @@
 
 The requested TOP / EXECUTIVE OS, MIDDLE OS, BACK OS, WEB3 OS, VIXEN STORE OS, VIXEN KERNEL, and FRONT OS model is the internal architecture for this VIXEN project. It is not visitor-facing navigation.
 
-## Creator public profile editor (feature branch)
+## Current rollout status
 
-The feature branch now adds an approved-creator-only profile editor for username, display name, 500-character bio, profile image, and cover image. Images upload directly from the browser to the public Supabase Storage bucket, capped at 45 MiB and restricted to JPEG, PNG, and WebP. Storage insert/delete policies require an authenticated approved creator and a path under that creator's user ID; profile column grants prevent changing creator status. Public creator pages render only the approved public fields. This capability is not active until the additive migration is applied, CI passes, and a deployment is verified. Feed posts, stories, paid content, memberships, messaging, earnings, and payouts remain unavailable.
+The approved-creator profile editor is merged to `main`; its Supabase migration is applied and GitHub CI passed. Vercel production has not deployed that commit because the account build-rate limit is blocking the build. Do not claim the editor is live on the production domain until a deployment for the current main commit is verified.
+
+This feature branch adds public creator posts and 24-hour stories. It does not enable member-only or paid publishing, subscriptions, messaging, or payouts. Public media can be viewed or saved by anyone with its URL. Publishing requires an approved creator and an attestation that everyone depicted is an adult, consented, and the creator has rights to publish. This attestation does not replace VIXEN's required age, identity, and safety review.
 
 ## Current code foundation
 
