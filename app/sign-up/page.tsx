@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { SocialSignUp } from "@/components/auth/social-sign-up";
 import { EmailAccountAccess } from "@/components/auth/email-account-access";
 import { createClient } from "@/lib/supabase/server";
+import "./signup.css";
 
 export const metadata = {
   title: "Choose your VIXEN account",
@@ -94,7 +95,17 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
               <h2>Start your creator application</h2>
               <p>Creator applications are for women aged 18 and over who want to publish adult content, set memberships, and earn from their audience. Use this separate signup path to create your VIXEN login and begin the application process.</p>
             </div>
-            <p className="creator-account-status">Your application will be marked pending review. This does not grant publishing, messaging, paid-call, or payout privileges. Those require verified age and identity, consent and safety review, and approval by VIXEN. Do not upload identity documents here; verification is not connected yet.</p>
+            <p className="creator-account-status">Creating this login also creates a pending creator application. It does not unlock publishing, paid content, private calls, or payouts. Those privileges require verified age and identity, consent and safety review, and VIXEN approval.</p>
+            <section className="creator-onboarding-roadmap" aria-labelledby="creator-onboarding-title">
+              <p className="vixen-kicker">CREATOR ONBOARDING</p>
+              <h3 id="creator-onboarding-title">What you’ll need before you can earn</h3>
+              <ol>
+                <li><strong>Set up your VIXEN profile.</strong><span>Confirm your email, choose a username and display name, then prepare a profile photo, cover image, and bio. These details go public only after approval.</span></li>
+                <li><strong>Complete age and identity verification.</strong><span>Be ready to provide your legal name, date of birth, residential address, a valid government photo ID (front and back), a selfie with your ID, and a live face-to-face check through the verification process.</span></li>
+                <li><strong>Complete payout and tax setup.</strong><span>After identity approval, provide payout details and the tax identification information required for your country before withdrawing earnings.</span></li>
+              </ol>
+              <p className="creator-onboarding-notice">VIXEN’s identity-check and payout providers are not connected yet. Do not email or upload identity documents, selfies, bank details, or tax IDs to VIXEN at this stage. Until secure verification and payout flows are available and your application is approved, you can create your login but cannot publish or earn.</p>
+            </section>
             <EmailAccountAccess configured={supabaseConfigured} nextPath="/account" accountType="creator" initialMode={initialMode} initialError={signInFailed} />
           </section>
         )}

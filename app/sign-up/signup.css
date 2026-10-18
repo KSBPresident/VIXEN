@@ -1,0 +1,9 @@
+.creator-onboarding-roadmap{margin:18px 0 20px;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:linear-gradient(145deg,rgba(25,17,27,.92),rgba(12,9,14,.96))}
+.creator-onboarding-roadmap h3{margin:4px 0 14px;color:#fbf6fb;font:650 20px/1.25 var(--display);letter-spacing:-.03em}
+.creator-onboarding-roadmap ol{display:grid;gap:11px;margin:0;padding:0;list-style:none;counter-reset:creator-step}
+.creator-onboarding-roadmap li{position:relative;display:grid;gap:4px;padding:12px 12px 12px 42px;border:1px solid rgba(255,255,255,.09);border-radius:6px;background:rgba(255,255,255,.025);counter-increment:creator-step}
+.creator-onboarding-roadmap li::before{content:counter(creator-step,decimal-leading-zero);position:absolute;left:12px;top:12px;color:var(--pink-bright);font-size:10px;font-weight:700;letter-spacing:.1em}
+.creator-onboarding-roadmap li strong{color:#f5eef6;font-size:12px}
+.creator-onboarding-roadmap li span{color:#aaa1ad;font-size:11px;line-height:1.65}
+.creator-onboarding-notice{margin:13px 0 0;padding-top:12px;border-top:1px solid rgba(255,255,255,.09);color:#d6cbd7;font-size:10px;line-height:1.7}
+@media(max-width:520px){.creator-onboarding-roadmap{padding:14px}.creator-onboarding-roadmap h3{font-size:18px}.creator-onboarding-roadmap li{padding-left:38px}}
