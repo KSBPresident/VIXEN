@@ -1,9 +1,20 @@
 # Production Readiness Audit
 
-Audit date: 2026-10-07  
+Audit date: 2026-10-18  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `eb0d0ca43979c16764ca4843cdcfba13073d44b0`
+Latest inspected main commit: `12302caade5518eb730435fc0b44ac9b98d320c3`
+
+
+## Current verification · 2026-10-18
+
+- PR #65 is merged to `main` at `12302caade5518eb730435fc0b44ac9b98d320c3`. It makes the app home and pricing actions session-aware and corrects the free-account status copy.
+- GitHub Actions run #176 passed lint, user-facing spell check, kernel policy tests, TypeScript, production build, and production route/link smoke checks for the PR.
+- Vercel preview deployment `dpl_2F4cAVuu5V13iKWPBTJ7EfqCmXVd` for the PR commit is READY. The preview home and pricing routes returned HTTP 200.
+- The current Vercel production deployment is still `dpl_GgDHKfj6J5pEg8RkLjBBKta5u3jd` at commit `da57aaef28f13f3a45592f6050349b7e8701ed8b`; it does not include PR #65. Vercel's production check reports a build-rate limit. A direct deployment request returned HTTP 402 with `api-deployments-free-per-day` and a 24-hour retry window. Promoting the READY preview returned HTTP 422. Production must not be described as containing PR #65 until the production alias and deployed commit are verified.
+- Supabase project `srgoxrwhbsxmsrbruktz` (VIXEN) reports ACTIVE_HEALTHY. Its current public schema contains profiles, creator applications, subscriptions, conversations, messages, message media, blocks, and reports. No creator posts, stories, or creator media tables appeared in the inspected public schema, so those publishing features are not implemented in the connected database yet.
+- The Supabase security advisor currently reports four authenticated-callable `SECURITY DEFINER` chat functions and leaked-password protection disabled. The function bodies inspected apply caller checks, but the advisor findings remain open for a grant/policy review and Auth configuration.
+- Account creation and profile saving are implemented in the codebase. The signed-in homepage and pricing behavior is verified in the preview, but no production deployment of that change or authenticated end-to-end session test is recorded yet.
 
 ## Verified
 
@@ -15,7 +26,7 @@ Latest inspected main commit: `eb0d0ca43979c16764ca4843cdcfba13073d44b0`
 
 ## Not yet production-ready
 
-Vercel reports production deployment `dpl_GzCRQMh5HU7L8uuBEWY8jXc7F2UB` for main commit `eb0d0ca43979c16764ca4843cdcfba13073d44b0` as READY, with the Vercel production check passing. The production alias returned HTTP 200 for `/creators/nova-luxe`, `/pricing?creator=Nova%20Luxe`, and `/membership-preview/checkout?plan=bronze&creator=Nova%20Luxe`. The returned checkout HTML showed Nova Luxe, the illustrative $3.99 Bronze price, $1.33 planned NINE savings, $2.66 example total, tier inclusions/exclusions, and a clear no-payment notice. The production session walkthrough and store bag were previously checked as previews; neither creates bookings, charges, or orders. PR #39's preview composer was verified as a local, removable draft. These checks establish route responses and displayed content, not a fresh visual browser session, mobile rendering, or a full accessibility audit.
+The earlier production checks in this section are historical. Current deployment status and release blockers are recorded under Current verification above.
 
 The repository still lacks live implementation and verification for:
 
