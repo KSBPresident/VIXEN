@@ -36,11 +36,12 @@ export function validateCreatorPublication(input: CreatorPublicationInput): stri
   const caption = input.caption.trim();
   if (input.kind !== "post" && input.kind !== "story") return "Choose a post or a 24-hour story.";
   if (caption.length > 2000) return "Captions can be up to 2,000 characters.";
-  if (input.kind === "story" && (!input.mediaType || !input.mediaSize)) return "Stories need an image or video.";
-  if (!caption && (!input.mediaType || !input.mediaSize)) return "Add a caption or a media file before publishing.";
-  if (!input.mediaType && !input.mediaSize) return null;
-  if (!input.mediaType || !input.mediaSize || input.mediaSize <= 0) return "Choose a valid image or video file.";
-  if (!(input.mediaType in creatorPostMediaTypes)) return "Choose a JPEG, PNG, WebP, MP4, or WebM file.";
-  if (input.mediaSize > creatorPostMaxMediaBytes) return "Media must be 45 MiB or smaller.";
+  const hasMediaType = Boolean(input.mediaType);
+  const hasMediaSize = input.mediaSize !== null;
+  if (input.kind === "story" && (!hasMediaType || !hasMediaSize || !input.mediaSize)) return "Stories need an image or video.";
+  if (hasMediaType !== hasMediaSize || (hasMediaSize && (!input.mediaSize || input.mediaSize <= 0))) return "Choose a valid image or video file.";
+  if (input.mediaType && !(input.mediaType in creatorPostMediaTypes)) return "Choose a JPEG, PNG, WebP, MP4, or WebM file.";
+  if (input.mediaSize !== null && input.mediaSize > creatorPostMaxMediaBytes) return "Media must be 45 MiB or smaller.";
+  if (!caption && !hasMediaType) return "Add a caption or a media file before publishing.";
   return null;
 }
