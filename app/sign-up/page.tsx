@@ -100,7 +100,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
               <p className="vixen-kicker">CREATOR ONBOARDING</p>
               <h3 id="creator-onboarding-title">What you’ll need before you can earn</h3>
               <ol>
-                <li><strong>Set up your VIXEN profile.</strong><span>Confirm your email, choose a username and display name, then add a profile photo, cover image, and bio before your creator page launches.</span></li>
+                <li><strong>Set up your VIXEN profile.</strong><span>Confirm your email, choose a username and display name, then prepare a profile photo, cover image, and bio. These details go public only after approval.</span></li>
                 <li><strong>Complete age and identity verification.</strong><span>Be ready to provide your legal name, date of birth, residential address, a valid government photo ID (front and back), a selfie with your ID, and a live face-to-face check through the verification process.</span></li>
                 <li><strong>Complete payout and tax setup.</strong><span>After identity approval, provide payout details and the tax identification information required for your country before withdrawing earnings.</span></li>
               </ol>
