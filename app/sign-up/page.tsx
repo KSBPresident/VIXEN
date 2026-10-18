@@ -8,7 +8,7 @@ export const metadata = {
   description: "Create a free member login or apply for a separate creator account.",
 };
 
-type SignUpProps = { searchParams: Promise<{ next?: string | string[]; error?: string | string[]; type?: string | string[] }> };
+type SignUpProps = { searchParams: Promise<{ next?: string | string[]; error?: string | string[]; mode?: string | string[]; type?: string | string[] }> };
 
 function getSafeNextPath(value?: string | string[]) {
   const path = Array.isArray(value) ? value[0] : value;
@@ -25,6 +25,8 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
   const params = await searchParams;
   const nextPath = getSafeNextPath(params.next);
   const callbackFailed = params.error === "oauth";
+  const signInFailed = params.error === "signin";
+  const initialMode = params.mode === "signin" ? "sign-in" : "create";
   const accountType = params.type === "creator" ? "creator" : "member";
   const nextQuery = Array.isArray(params.next) ? params.next[0] : params.next;
   const accountHref = (type: "member" | "creator") =>
@@ -62,7 +64,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
               <h2>Create a free account to watch</h2>
               <p>Member accounts are for adults 18 and over of any gender. Creating an account is free; subscriptions, paid content, messages, and checkout are separate features and are not active yet.</p>
             </div>
-            <EmailAccountAccess configured={supabaseConfigured} nextPath={nextPath} accountType="member" />
+            <EmailAccountAccess configured={supabaseConfigured} nextPath={nextPath} accountType="member" initialMode={initialMode} initialError={signInFailed} />
             <div className="vixen-auth-divider"><span>OR USE A CONNECTED ACCOUNT</span></div>
             <SocialSignUp configured={supabaseConfigured} nextPath={nextPath} />
             <p className="vixen-auth-caption">Proton Mail addresses are welcome. Use a separate VIXEN password; Proton OAuth is not connected.</p>
@@ -76,7 +78,7 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
               <p>Creator applications are for women aged 18 and over who want to publish adult content, set memberships, and earn from their audience. Use this separate signup path to create your VIXEN login and begin the application process.</p>
             </div>
             <p className="creator-account-status">Your application will be marked pending review. This does not grant publishing, messaging, paid-call, or payout privileges. Those require verified age and identity, consent and safety review, and approval by VIXEN. Do not upload identity documents here; verification is not connected yet.</p>
-            <EmailAccountAccess configured={supabaseConfigured} nextPath="/account" accountType="creator" />
+            <EmailAccountAccess configured={supabaseConfigured} nextPath="/account" accountType="creator" initialMode={initialMode} initialError={signInFailed} />
           </section>
         )}
 

@@ -7,6 +7,8 @@ type EmailAccountAccessProps = {
   configured: boolean;
   nextPath?: string;
   accountType?: "member" | "creator";
+  initialMode?: "create" | "sign-in";
+  initialError?: boolean;
 };
 
 type AccessMode = "create" | "sign-in" | "reset";
@@ -15,16 +17,21 @@ export function EmailAccountAccess({
   configured,
   nextPath = "/account",
   accountType = "member",
+  initialMode = "create",
+  initialError = false,
 }: EmailAccountAccessProps) {
-  const [mode, setMode] = useState<AccessMode>("create");
+  const [mode, setMode] = useState<AccessMode>(initialMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [adultConfirmed, setAdultConfirmed] = useState(false);
   const [pending, setPending] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState(false);
+  const [message, setMessage] = useState(initialError ? "We couldn’t sign you in. Check your email and password, then try again." : "");
+  const [error, setError] = useState(initialError);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
+    // Password sign-in posts to the same-origin route so the server can set
+    // the Supabase session cookies on the redirect to the protected account.
+    if (mode === "sign-in") return;
     event.preventDefault();
     setMessage("");
     setError(false);
@@ -72,14 +79,6 @@ export function EmailAccountAccess({
         setMessage(accountType === "creator"
           ? "Check your inbox to confirm your login. Your creator application will then appear in your account as pending review."
           : "Check your inbox to confirm your VIXEN account, then sign in.");
-      } else {
-        const { error: authError } = await supabase.auth.signInWithPassword({
-          email: email.trim(),
-          password,
-        });
-        if (authError) throw authError;
-        window.location.assign(nextPath);
-        return;
       }
     } catch {
       setError(true);
@@ -111,7 +110,16 @@ export function EmailAccountAccess({
           </button>
         </div>
       )}
-      <form className="vixen-email-form" onSubmit={submit}>
+      <form
+        className="vixen-email-form"
+        action={mode === "sign-in" ? "/auth/sign-in" : undefined}
+        method={mode === "sign-in" ? "post" : undefined}
+        onSubmit={submit}
+      >
+        {mode === "sign-in" && <>
+          <input type="hidden" name="next" value={nextPath} />
+          <input type="hidden" name="type" value={accountType} />
+        </>}
         <label htmlFor="vixen-email">Email address</label>
         <input id="vixen-email" name="email" type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@proton.me" />
         {mode !== "reset" && (
