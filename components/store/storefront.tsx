@@ -139,7 +139,7 @@ export function Storefront() {
         <div>
           <p className="eyebrow">PAY YOUR WAY</p>
           <h2 id="store-payment-title">More ways to pay are planned.</h2>
-          <p>Card, bank transfer, cryptocurrency, Wise, and Endcash QR for Trinidad and Tobago are planned options. WiPay remains conditional on written merchant approval for VIXEN's adult content and private-member events. PayPal is not offered for VIXEN's adult digital content, subscriptions, or webcam/video-call services under its current policy.</p>
+          <p>Card, bank transfer, cryptocurrency, Wise, and Endcash QR for Trinidad and Tobago are planned options. WiPay remains conditional on written merchant approval for VIXEN's adult content and private-member events. PayPal is not supported for VIXEN adult digital content, subscriptions, or webcam/video-call services under its current policy.</p>
         </div>
         <p className="payment-method-note">Checkout is not active in this preview. No orders or payments are processed.</p>
         <EndcashPaymentPreview />
