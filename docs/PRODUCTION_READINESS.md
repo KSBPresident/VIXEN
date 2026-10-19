@@ -1,20 +1,22 @@
 # Production Readiness Audit
 
-Audit date: 2026-10-18  
+Audit date: 2026-10-18 (America/Port_of_Spain)  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `12302caade5518eb730435fc0b44ac9b98d320c3`
-
+Latest inspected main commit: `f1a007908d128aa7c666d0f8e80bd4d0b8513783`
 
 ## Current verification · 2026-10-18
 
-- PR #65 is merged to `main` at `12302caade5518eb730435fc0b44ac9b98d320c3`. It makes the app home and pricing actions session-aware and corrects the free-account status copy.
-- GitHub Actions run #176 passed lint, user-facing spell check, kernel policy tests, TypeScript, production build, and production route/link smoke checks for the PR.
-- Vercel preview deployment `dpl_2F4cAVuu5V13iKWPBTJ7EfqCmXVd` for the PR commit is READY. The preview home and pricing routes returned HTTP 200.
-- The current Vercel production deployment is still `dpl_GgDHKfj6J5pEg8RkLjBBKta5u3jd` at commit `da57aaef28f13f3a45592f6050349b7e8701ed8b`; it does not include PR #65. Vercel's production check reports a build-rate limit. A direct deployment request returned HTTP 402 with `api-deployments-free-per-day` and a 24-hour retry window. Promoting the READY preview returned HTTP 422. Production must not be described as containing PR #65 until the production alias and deployed commit are verified.
-- Supabase project `srgoxrwhbsxmsrbruktz` (VIXEN) reports ACTIVE_HEALTHY. Its current public schema contains profiles, creator applications, subscriptions, conversations, messages, message media, blocks, and reports. No creator posts, stories, or creator media tables appeared in the inspected public schema, so those publishing features are not implemented in the connected database yet.
-- The Supabase security advisor currently reports four authenticated-callable `SECURITY DEFINER` chat functions and leaked-password protection disabled. The function bodies inspected apply caller checks, but the advisor findings remain open for a grant/policy review and Auth configuration.
-- Account creation and profile saving are implemented in the codebase. The signed-in homepage and pricing behavior is verified in the preview, but no production deployment of that change or authenticated end-to-end session test is recorded yet.
+- PR #73 (“Make creator profile uploads resumable”) is merged to `main` at `f1a007908d128aa7c666d0f8e80bd4d0b8513783`.
+- GitHub Actions run #193 passed lint, spelling, Kernel policy tests, TypeScript, production build, and route/link smoke checks for the creator feed/story implementation in PR #71. GitHub Actions run ID 39196653064 for PR #73 passed lint, spelling, Kernel policy tests, TypeScript, production build, and route/link smoke checks.
+- Vercel production deployment `dpl_65x1GssVUqzjMKHG7QCeTBFDGeYi` for the merged main commit is READY and owns the public aliases `https://vixen-production-package.vercel.app`, `https://vixen-production-package-caribbeanstarstore.vercel.app`, and `https://vixen-production-package-git-main-caribbeanstarstore.vercel.app`. A fetch of the production creator signup route returned HTTP 200.
+- The public creator signup page displays all three planned stages: account/profile, age and identity verification, and payout/tax setup. This is disclosure of requirements, not a connected identity-proofing or payout flow. Raw identity, biometric, bank, or tax data must not be submitted until vetted providers and their privacy/security controls are selected.
+- The approved-creator profile editor and direct Supabase Storage TUS upload path are in main and deployed. Uploads are capped at 45 MiB with progress, retries, and browser-session resume support. CI/build and deployment passed; an authenticated approved-creator file upload has not been exercised end to end, so successful real-media transfer is not yet verified.
+- Supabase project `srgoxrwhbsxmsrbruktz` (VIXEN) is ACTIVE_HEALTHY. The connected public schema has RLS on profiles, creator applications, subscriptions, conversations, messages, message media, blocks, and reports. The production migration list includes chat migrations that are not present in the repository migration directory; reconcile this source/remote drift before future schema changes.
+- The profile media migration (`20261018192111`) is applied. The feed/story migration in PR #71 is not applied and its tables are absent from the production schema. Its current public-feed access design needs a reviewed age/access gate for adult media before release.
+- Supabase security advisors report four authenticated-callable `SECURITY DEFINER` chat functions and leaked-password protection disabled. The functions inspected check the caller and scope updates to the caller's conversation; these warnings still require an explicit grants/policy review and Auth setting change.
+- Public routes are reachable without a Vercel login. Auth signup/session behavior is in the product, but a fresh signup-confirmation and authenticated recovery round trip have not been verified in production.
+- Creator profile editing is deployed. Creator post/story publishing, paid content, memberships, messaging delivery, checkout, payouts, private video, and events are not production capabilities unless separately listed as verified below; visual previews are not live integrations.
 
 ## Verified
 
@@ -31,7 +33,7 @@ The earlier production checks in this section are historical. Current deployment
 The repository still lacks live implementation and verification for:
 
 - Supabase email/password authentication and protected account access are configured. The free member signup is live; the creator signup now creates a pending application and does not grant creator privileges. The connected VIXEN database has RLS on its current tables. Still incomplete: reviewed creator/admin/manager role assignment, production verification of signup confirmation and password recovery emails, adult identity checks, and the wider Supabase application-data layer. n8n remains deferred.
-- Creator studio profile editing, publishing, management workflows, or server-side package ownership and entitlement enforcement. `/creator/studio` is a visual preview with disabled/inactive product behavior.
+- Creator content publishing, story management, memberships, and server-side package ownership or entitlement enforcement. The approved-creator public-profile editor is deployed, but profile media upload still needs authenticated end-to-end verification. `/creator/studio` remains a preview for all other creator tools.
 - Checkout, signed payment webhooks, idempotency, payout/ledger rules, refunds, or end-to-end payment verification. VIXEN must first obtain explicit written approval from a processor/acquirer for its adult content, adult live-video services, storefront, company, and target markets; Stripe's current rules prohibit adult content and adult live-chat services.
 - Private video provider implementation, booking persistence, signaling, browser camera/microphone consent flow, and iPhone/Android/Windows device verification.
 - Wallet, purchases, real message delivery and notifications, rewards, journey rules, moderation, or audited administration. The message composer is only a client-side preview.
@@ -39,7 +41,7 @@ The repository still lacks live implementation and verification for:
 - n8n automation manifest and trigger mapping. This remains deferred until the website experience is complete.
 - Cross-device visual checks and a full keyboard, contrast, and screen-reader review remain outstanding. Only desktop browser route and interaction checks have been recorded; a successful CI/deployment does not prove that all device layouts or assistive-technology paths are ready.
 
-No payment, account, CRM, AI, automation, or video capability should be represented as live until it is implemented, configured, and verified.
+Account signup and profile access are implemented; do not describe identity verification, creator publishing beyond profile edits, CRM, AI, n8n automation, payment, paid content, or video as live until each capability is implemented, configured, and verified.
 
 ## Website-first release gates
 
