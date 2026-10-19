@@ -14,6 +14,10 @@ Adult women can use the separate creator signup path. Supabase creates a normal 
 
 When active, creators are the administrators of their own creator content. They choose whether each post or drop is public or which membership tier unlocks it. The platform enforces that choice; creators cannot change another creator's content or account.
 
+## Creator pricing and platform commission
+
+Creators set their own prices and describe included access before a member pays. VIXEN plans an 18% platform commission on paid creator transactions. Processor fees, taxes, refunds, and chargebacks are separate and may affect a creator’s final payout; 18% is not a promise of an 82% net payout. Checkout and payout processing are not active, and final fees must be disclosed before monetization opens.
+
 The current public signup records an age affirmation only. That is not identity or age verification. Adult media, creator publishing, paid messaging, payments, payouts, and video calls remain unavailable until their separate server-side boundaries and end-to-end checks are complete.
 
 ## Entitlements and staff access
