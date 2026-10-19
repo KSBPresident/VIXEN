@@ -140,7 +140,7 @@ export default async function PricingPage({
           <article><span className="pricing-edge-number">01</span><h3>Start free</h3><p>Make a free member account and explore public profiles before choosing a paid creator membership.</p></article>
           <article><span className="pricing-edge-number">02</span><h3>Step in from $3.99</h3><p>Our proposed Bronze example is $3.99 per month for one creator. Prices shown are illustrative; creators choose their actual prices.</p></article>
           <article><span className="pricing-edge-number">03</span><h3>Know every boundary</h3><p>Each creator tier should show its price, included posts and drops, paid extras, renewal, and cancellation terms before checkout.</p></article>
-          <article><span className="pricing-edge-number">04</span><h3>Plan for the Caribbean</h3><p>Card, bank transfer, WiPay, PayPal, Wise, and crypto are planned. Only payment options actually enabled for your location will appear at checkout.</p></article>
+          <article><span className="pricing-edge-number">04</span><h3>Plan for the Caribbean</h3><p>Card, bank transfer, Wise, crypto, and Endcash QR for Trinidad and Tobago are planned. WiPay requires written merchant approval for VIXEN adult content and private-member events. PayPal is not supported for VIXEN adult digital content, subscriptions, or webcam/video-call services under its current policy.</p></article>
         </div>
         <p className="pricing-edge-note"><strong>Current status:</strong> free member accounts are live. Paid creator features, checkout, and payment methods remain previews; these are product goals, not a claim that they are live.</p>
       </section>
@@ -165,11 +165,12 @@ export default async function PricingPage({
           <li>Card payments</li>
           <li>Bank transfer</li>
           <li>Cryptocurrency</li>
-          <li>WiPay</li>
-          <li>PayPal</li>
+          <li>WiPay (pending written merchant approval for VIXEN)</li>
           <li>Wise</li>
+          <li>Endcash QR (Trinidad and Tobago, preview only)</li>
+          <li>PayPal is not available for VIXEN adult digital content or webcam services</li>
         </ul>
-        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. Supported crypto coins and networks, including NINE Coin, will be confirmed before any crypto checkout opens.</p>
+        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. The Endcash QR is for review only and cannot confirm a transfer or unlock access. Supported crypto coins and networks, including NINE Coin, will be confirmed before any crypto checkout opens.</p>
       </section>
 
       <section className="section-wrap plan-section private-club-section" aria-labelledby="private-club-heading">
