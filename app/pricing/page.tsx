@@ -140,7 +140,7 @@ export default async function PricingPage({
           <article><span className="pricing-edge-number">01</span><h3>Start free</h3><p>Make a free member account and explore public profiles before choosing a paid creator membership.</p></article>
           <article><span className="pricing-edge-number">02</span><h3>Step in from $3.99</h3><p>Our proposed Bronze example is $3.99 per month for one creator. Prices shown are illustrative; creators choose their actual prices.</p></article>
           <article><span className="pricing-edge-number">03</span><h3>Know every boundary</h3><p>Each creator tier should show its price, included posts and drops, paid extras, renewal, and cancellation terms before checkout.</p></article>
-          <article><span className="pricing-edge-number">04</span><h3>Plan for the Caribbean</h3><p>Card, bank transfer, WiPay, PayPal, Wise, and crypto are planned. Only payment options actually enabled for your location will appear at checkout.</p></article>
+          <article><span className="pricing-edge-number">04</span><h3>Plan for the Caribbean</h3><p>Card, bank transfer, WiPay, PayPal, Wise, crypto, and Endcash QR for Trinidad and Tobago are planned. Only payment options actually enabled for your location will appear at checkout.</p></article>
         </div>
         <p className="pricing-edge-note"><strong>Current status:</strong> free member accounts are live. Paid creator features, checkout, and payment methods remain previews; these are product goals, not a claim that they are live.</p>
       </section>
