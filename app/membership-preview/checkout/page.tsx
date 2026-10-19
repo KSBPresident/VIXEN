@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { EndcashPaymentPreview } from "@/components/payments/endcash-payment-preview";
 import { getMembershipPricingPreview } from "@/lib/application/pricing/get-membership-pricing-preview";
 import { calculateNineSubscriptionPreview } from "@/lib/kernel/nine-subscription-discount";
 import "./checkout-preview.css";
@@ -52,8 +51,7 @@ export default async function MembershipCheckoutPreview({
               <ul><li>{plan.excluded}</li><li>This subscription applies to {creatorLabel} only; other creators require separate choices.</li></ul>
             </section>
 
-            <p className="checkout-preview-notice"><strong>No payment will be taken.</strong> NINE and Endcash are not accepted yet, and account signup, checkout, renewals, cancellation, refunds, and membership access are not active. NINE savings are a planned subscription-only example, rounded to the nearest cent; they do not apply to store items or private video sessions. Final creator pricing and renewal/cancellation/refund terms must be confirmed before a real checkout exists.</p>
-            <EndcashPaymentPreview />
+            <p className="checkout-preview-notice"><strong>No payment will be taken.</strong> NINE is not accepted yet, and account signup, checkout, renewals, cancellation, refunds, and membership access are not active. Endcash is intended only for eligible store and token purchases, pending provider approval and integration checks. NINE savings are a planned subscription-only example, rounded to the nearest cent; they do not apply to store items or private video sessions. Final creator pricing and renewal/cancellation/refund terms must be confirmed before a real checkout exists.</p>
           </>
         ) : (
           <>
