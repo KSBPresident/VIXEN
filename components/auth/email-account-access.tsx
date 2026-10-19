@@ -80,13 +80,19 @@ export function EmailAccountAccess({
           ? "Check your inbox to confirm your login. Your creator application will then appear in your account as pending review."
           : "Check your inbox to confirm your VIXEN account, then sign in.");
       }
-    } catch {
+    } catch (authError) {
       setError(true);
-      setMessage(mode === "create"
-        ? "We couldn’t create that account. Check the details or try signing in if you already registered."
-        : mode === "reset"
-          ? "We couldn’t send a reset email. Check the address and try again."
-          : "We couldn’t sign you in with those details. Check your email and password and try again.");
+      const errorDetails = authError && typeof authError === "object"
+        ? authError as { status?: number; code?: string }
+        : {};
+      const emailRateLimited = errorDetails.status === 429 || errorDetails.code === "over_email_send_rate_limit";
+      setMessage(emailRateLimited
+        ? "Too many VIXEN emails were requested recently. Wait before trying again. If you already requested a link, check your inbox and spam folder; if you already have an account, switch to Sign in."
+        : mode === "create"
+          ? "We couldn’t create that account. Check the details or try signing in if you already registered."
+          : mode === "reset"
+            ? "We couldn’t send a reset email. Check the address and try again."
+            : "We couldn’t sign you in with those details. Check your email and password and try again.");
     } finally {
       setPending(false);
     }
