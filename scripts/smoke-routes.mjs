@@ -22,6 +22,7 @@ const startPaths = [
   "/member-preview/messages",
   "/member-preview/sessions",
   "/creator/studio",
+  "/creator/posts",
   "/membership-preview/checkout?plan=bronze",
   "/discover",
   "/profile",

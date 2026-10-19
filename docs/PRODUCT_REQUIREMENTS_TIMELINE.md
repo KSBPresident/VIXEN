@@ -35,11 +35,12 @@ This is the authoritative order for building VIXEN 1.0. Every accepted requireme
 - Publish a clear entitlement matrix for each membership tier. A membership applies to one creator; exact included content, exclusions, renewal, cancellation, and refund terms must be disclosed before checkout.
 - Jo-Lene Kennedy is the Head Girl / Creator Manager responsible for managing all creator profiles. Link this role only to her verified account, enforce it server-side, and audit management actions; it does not grant platform-wide finance or administrator privileges by default.
 - Enforce authorization on server/API routes as well as in the interface.
-- Use Supabase schema, migrations, and policies as the source of truth when configuring data and access. Supabase Auth is already connected for email/password access; do not imply the wider application-data layer is complete.\n- Creator signup has three stages: (1) email/password account and public profile, (2) adult age/identity verification with legal name, date of birth, residential address, a valid government photo ID (front and back), a selfie with the ID, and a live face-to-face check, and (3) payout details plus tax identification information required by the creator's country. An account/application alone never grants publishing, monetization, or payout privileges.\n- Do not collect or store raw ID documents, selfie/biometric captures, bank details, or tax IDs in VIXEN until vetted identity and payout providers and their privacy, security, and retention controls are selected. Keep publishing and earning locked until identity review and platform approval; withdrawals also require payout/tax setup. See `docs/CREATOR_ONBOARDING.md`.
+- Use Supabase schema, migrations, and policies as the source of truth when configuring data and access.
 
 ## 5. Creator studio and content operations
 
 - Add creator/studio workflows for managing profiles, content, tiers, exclusive drops, and paid-message offerings.
+- The first active publishing milestone is public creator feed posts and 24-hour stories for approved creators. Public media uses direct browser-to-Supabase uploads capped at 45 MiB; clearly disclose that anyone with a public media URL may view or save it. Paid/member-only posts, exclusive drops, and paid-message offerings stay unavailable until the relevant entitlement and payment boundaries are implemented and verified.
 - Provide the verified Head Girl / Creator Manager role with roster-wide creator-management privileges and the least access needed to perform that work.
 - Align every visible button with a real route or API operation and an honest success/error state; do not leave dead controls.
 
@@ -91,4 +92,4 @@ Select a processor/acquirer only after written approval for VIXEN's adult creato
 
 A clean, accessible, responsive public VIXEN web app in Next.js with the supplied visual direction, creator discovery/profile routes, clear member and creator account paths, member browsing, transparent membership boundaries, store, messaging and paid private-video user flows, responsive and accessible states, CI checks, and a reviewable Vercel preview. Keep all sample data and inactive services clearly labelled.
 
-Supabase Auth is already connected to VIXEN. Keep additional Supabase application-data services and n8n deferred until the website-first milestone is complete; coordinate any further setup with the owner and do not represent deferred services as live.
+Supabase Auth has already been connected to the VIXEN project. Keep additional Supabase application-data services and n8n deferred until the website-first milestone is complete; then coordinate any further account/provider setup with the owner. Do not describe deferred services as live.

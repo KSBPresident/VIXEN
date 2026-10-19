@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useActionState, useRef, useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { createResumableUploadPath, uploadSupabaseResumable } from "@/lib/adapters/supabase-resumable-upload";
 import { updateCreatorProfile, type CreatorProfileActionState } from "@/app/creator/profile/actions";
 
 const initialState: CreatorProfileActionState = { status: "idle", message: "" };
@@ -32,6 +33,7 @@ export function CreatorProfileEditor({
   const [state, dispatch, pending] = useActionState(updateCreatorProfile, initialState);
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   async function submitProfile(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -76,24 +78,31 @@ export function CreatorProfileEditor({
         return;
       }
 
-      for (const task of uploadTasks) {
+      for (const [taskIndex, task] of uploadTasks.entries()) {
         if (!task.file) continue;
         const extension = supportedImageTypes[task.file.type];
-        const path = `${user.id}/${task.kind}-${crypto.randomUUID()}.${extension}`;
-        const { error } = await client.storage
-          .from("creator-profile-media")
-          .upload(path, task.file, {
-            cacheControl: "3600",
-            contentType: task.file.type,
-            upsert: false,
+        const { path, resumeKey } = createResumableUploadPath({
+          userId: user.id,
+          bucket: "creator-profile-media",
+          kind: task.kind,
+          extension,
+          file: task.file,
+        });
+        try {
+          await uploadSupabaseResumable({
+            client,
+            bucket: "creator-profile-media",
+            path,
+            file: task.file,
+            onProgress: (percentage) => setUploadProgress(Math.round(((taskIndex + percentage / 100) / uploadTasks.length) * 100)),
           });
-        if (error) {
-          if (uploadedPaths.length) {
-            await client.storage.from("creator-profile-media").remove(uploadedPaths);
-          }
-          setUploadMessage(error.message.includes("row-level security")
+          window.localStorage.removeItem(resumeKey);
+        } catch (error) {
+          if (uploadedPaths.length) await client.storage.from("creator-profile-media").remove(uploadedPaths);
+          const message = error instanceof Error ? error.message : "";
+          setUploadMessage(message.includes("403") || message.includes("row-level security")
             ? "Only approved creator accounts can upload profile images."
-            : "The image upload failed. Please try a smaller image or try again.");
+            : message || "The image upload was interrupted. Your progress is saved; select the same file again to resume.");
           setUploading(false);
           return;
         }
@@ -146,9 +155,9 @@ export function CreatorProfileEditor({
 
         <div className="vixen-profile-form-footer">
           <p className={uploadMessage || state.status === "error" ? "is-error" : state.status === "success" ? "is-success" : ""} role={uploadMessage || state.status === "error" ? "alert" : "status"} aria-live="polite">
-            {uploadMessage || (uploading ? "Uploading directly to VIXEN storage…" : pending ? "Saving your profile…" : state.message)}
+            {uploadMessage || (uploading ? `Uploading directly to VIXEN storage… ${uploadProgress}%` : pending ? "Saving your profile…" : state.message)}
           </p>
-          <button type="submit" disabled={busy}>{uploading ? "Uploading…" : pending ? "Saving…" : "Save public profile"}</button>
+          <button type="submit" disabled={busy}>{uploading ? `Uploading ${uploadProgress}%` : pending ? "Saving…" : "Save public profile"}</button>
         </div>
       </form>
     </section>

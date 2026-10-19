@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { PublicCreatorEntry } from "@/components/creator/public-creator-entry";
+import type { CreatorPublicFeedEntry } from "@/lib/kernel/creator-post";
 import "./member-preview.css";
 import "./member-interactions.css";
 import "./member-search.css";
@@ -22,6 +24,10 @@ const creators = [
 type MemberPreviewPageProps = { searchParams: Promise<{ q?: string | string[] }> };
 
 export default async function MemberPreviewPage({ searchParams }: MemberPreviewPageProps) {
+  const params = await searchParams;
+  const query = (Array.isArray(params.q) ? params.q[0] : params.q)?.trim() ?? "";
+  const feedQuery = query.replace(/^@/, "");
+  let publishedEntries: CreatorPublicFeedEntry[] = [];
   let isSignedIn = false;
   const supabaseConfigured = Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -32,18 +38,24 @@ export default async function MemberPreviewPage({ searchParams }: MemberPreviewP
       const supabase = await createClient();
       const { data: { user } } = await supabase.auth.getUser();
       isSignedIn = Boolean(user);
+      const { data: feedRows } = await supabase.rpc("get_public_creator_feed", {
+        p_creator_username: null,
+        p_query: feedQuery || null,
+      });
+      publishedEntries = (feedRows ?? []) as CreatorPublicFeedEntry[];
     } catch {
       isSignedIn = false;
     }
   }
   const accountHref = isSignedIn ? "/account" : "/sign-up?type=member";
   const accountLabel = isSignedIn ? "My account" : "Create free account";
-  const params = await searchParams;
-  const query = (Array.isArray(params.q) ? params.q[0] : params.q)?.trim() ?? "";
   const normalizedQuery = query.toLocaleLowerCase();
   const visibleCreators = normalizedQuery
     ? creators.filter((creator) => [creator.name, creator.handle, creator.category, creator.title, creator.detail].some((value) => value.toLocaleLowerCase().includes(normalizedQuery)))
     : creators;
+
+  const publishedStories = publishedEntries.filter((entry) => entry.kind === "story");
+  const publishedPosts = publishedEntries.filter((entry) => entry.kind === "post");
 
   return (
     <main className="member-app">
@@ -78,11 +90,14 @@ export default async function MemberPreviewPage({ searchParams }: MemberPreviewP
             <div className="member-welcome-art" aria-hidden="true"><span>V</span><i>✦</i><b>VIXEN</b></div>
           </div>
 
-          <div className="member-notice"><span aria-hidden="true">ⓘ</span><p><strong>This is a visual preview.</strong> These sample profiles and posts are illustrative. VIXEN accounts and profiles work; creator publishing, paid content, messages, subscriptions, and checkout are not active yet.</p><Link href={accountHref}>{isSignedIn ? "Open your account" : "About sign-up"} <span aria-hidden="true">→</span></Link></div>
+          <div className="member-notice"><span aria-hidden="true">ⓘ</span><p><strong>Free accounts and public creator updates are live.</strong> Public posts and 24-hour stories appear here when approved creators publish them. Paid content, messages, subscriptions, and checkout are not active.</p><Link href={accountHref}>{isSignedIn ? "Open your account" : "About sign-up"} <span aria-hidden="true">→</span></Link></div>
 
-          <div className="member-feed-heading"><div><p className="member-eyebrow">A FIRST LOOK</p><h2>Creator updates</h2></div><Link href="/creators">Discover all <span aria-hidden="true">→</span></Link></div>
+          {publishedStories.length > 0 && <section className="public-story-strip" aria-labelledby="public-stories-heading"><h2 id="public-stories-heading">Stories · disappear after 24 hours</h2><div>{publishedStories.map((story) => <Link href={"/creators/" + encodeURIComponent(story.username) + "#creator-stories"} key={story.id}><span aria-hidden="true">{story.display_name?.slice(0, 1) || story.username.slice(0, 1)}</span><strong>@{story.username}</strong></Link>)}</div></section>}
+          {publishedPosts.length > 0 && <section className="member-published-updates" aria-labelledby="published-updates-heading"><h2 id="published-updates-heading">{query ? "Public updates matching “" + query + "”" : "Latest public creator posts"}</h2>{publishedPosts.map((entry) => <PublicCreatorEntry key={entry.id} entry={entry} />)}</section>}
 
-          <p className="member-results-count" aria-live="polite">{query ? `${visibleCreators.length} sample update${visibleCreators.length === 1 ? "" : "s"} for “${query}”` : "Sample creator updates"}</p>
+          <div className="member-feed-heading"><div><p className="member-eyebrow">SAMPLE PROFILES</p><h2>Creator updates</h2></div><Link href="/creators">Discover all <span aria-hidden="true">→</span></Link></div>
+
+          <p className="member-results-count" aria-live="polite">{query ? `${visibleCreators.length} sample profile update${visibleCreators.length === 1 ? "" : "s"} for “${query}”` : "Sample profile previews"}</p>
           {visibleCreators.length > 0 ? (
           <div className="member-post-list">
             {visibleCreators.map((creator, index) => (
@@ -98,7 +113,7 @@ export default async function MemberPreviewPage({ searchParams }: MemberPreviewP
             <div className="member-search-empty"><span aria-hidden="true">⌕</span><h3>No sample updates found</h3><p>Try a creator name or interest such as music, style, or art.</p><Link href="/member-preview">Clear search</Link></div>
           )}
 
-          <div className="member-bottom-cta"><div><p className="member-eyebrow">{isSignedIn ? "YOU’RE SIGNED IN" : "READY WHEN YOU ARE"}</p><h2>{isSignedIn ? "Your VIXEN account is ready." : "Start with a free member account."}</h2><p>{isSignedIn ? "Open your profile and account settings here. The creator updates above are sample preview content." : "Members are adults 18+ of any gender. Creator accounts are separate and intended for adult women creators."}</p></div><Link className="member-primary-button" href={accountHref}>{isSignedIn ? "Open your account" : "Create a free account"} <span aria-hidden="true">↗</span></Link></div>
+          <div className="member-bottom-cta"><div><p className="member-eyebrow">{isSignedIn ? "YOU’RE SIGNED IN" : "READY WHEN YOU ARE"}</p><h2>{isSignedIn ? "Your VIXEN account is ready." : "Start with a free member account."}</h2><p>{isSignedIn ? "Open your profile and account settings here. The public creator updates above are live; sample profiles are labeled." : "Members are adults 18+ of any gender. Creator accounts are separate and intended for adult women creators."}</p></div><Link className="member-primary-button" href={accountHref}>{isSignedIn ? "Open your account" : "Create a free account"} <span aria-hidden="true">↗</span></Link></div>
         </section>
 
         <aside className="member-right-rail" aria-label="Membership and discovery">
