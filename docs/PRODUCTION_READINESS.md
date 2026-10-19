@@ -41,7 +41,7 @@ The repository still lacks live implementation and verification for:
 - n8n automation manifest and trigger mapping. This remains deferred until the website experience is complete.
 - Cross-device visual checks and a full keyboard, contrast, and screen-reader review remain outstanding. Only desktop browser route and interaction checks have been recorded; a successful CI/deployment does not prove that all device layouts or assistive-technology paths are ready.
 
-No payment, account, CRM, AI, automation, or video capability should be represented as live until it is implemented, configured, and verified.
+Account signup and profile access are implemented; do not describe identity verification, creator publishing beyond profile edits, CRM, AI, n8n automation, payment, paid content, or video as live until each capability is implemented, configured, and verified.
 
 ## Website-first release gates
 
