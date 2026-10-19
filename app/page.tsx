@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LaunchCountdown } from "@/components/launch-countdown";
 import { createClient } from "@/lib/supabase/server";
 import "./app-home.css";
 
