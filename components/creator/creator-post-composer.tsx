@@ -2,6 +2,7 @@
 
 import { useActionState, useRef, useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { createResumableUploadPath, uploadSupabaseResumable } from "@/lib/adapters/supabase-resumable-upload";
 import {
   creatorPostMediaTypes,
   validateCreatorPublication,
@@ -15,6 +16,7 @@ export function CreatorPostComposer() {
   const [state, dispatch, pending] = useActionState(publishCreatorPost, initialState);
   const [uploading, setUploading] = useState(false);
   const [localMessage, setLocalMessage] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   async function submitPublication(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -57,16 +59,28 @@ export function CreatorPostComposer() {
         setUploading(false);
         return;
       }
-      mediaPath = user.id + "/" + crypto.randomUUID() + "." + extension;
-      const { error } = await client.storage.from("creator-post-media").upload(mediaPath, selectedFile, {
-        cacheControl: "3600",
-        contentType: selectedFile.type,
-        upsert: false,
+      const uploadLocation = createResumableUploadPath({
+        userId: user.id,
+        bucket: "creator-post-media",
+        kind: kind === "story" ? "story" : "post",
+        extension,
+        file: selectedFile,
       });
-      if (error) {
-        setLocalMessage(error.message.includes("row-level security")
+      mediaPath = uploadLocation.path;
+      try {
+        await uploadSupabaseResumable({
+          client,
+          bucket: "creator-post-media",
+          path: mediaPath,
+          file: selectedFile,
+          onProgress: setUploadProgress,
+        });
+        window.localStorage.removeItem(uploadLocation.resumeKey);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "";
+        setLocalMessage(message.includes("403") || message.includes("row-level security")
           ? "Only approved creators can upload. Confirm that your creator account is approved."
-          : "The media upload failed. Try a smaller file or try again.");
+          : message || "The upload was interrupted. Your progress is saved; select the same file again to resume.");
         setUploading(false);
         return;
       }
@@ -103,9 +117,9 @@ export function CreatorPostComposer() {
           <span>I confirm everyone shown is 18 or older, has consented to publication, and I have the right to share this media.</span>
         </label>
         <p className={localMessage || state.status === "error" ? "is-error" : state.status === "success" ? "is-success" : ""} role={localMessage || state.status === "error" ? "alert" : "status"} aria-live="polite">
-          {localMessage || (uploading ? "Uploading directly to VIXEN storage…" : pending ? "Publishing your update…" : state.message)}
+          {localMessage || (uploading ? `Uploading directly to VIXEN storage… ${uploadProgress}%` : pending ? "Publishing your update…" : state.message)}
         </p>
-        <button type="submit" disabled={busy}>{uploading ? "Uploading…" : pending ? "Publishing…" : "Publish publicly"}</button>
+        <button type="submit" disabled={busy}>{uploading ? `Uploading ${uploadProgress}%` : pending ? "Publishing…" : "Publish publicly"}</button>
       </form>
     </section>
   );
