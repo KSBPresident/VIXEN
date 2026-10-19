@@ -5,14 +5,14 @@ export function EndcashPaymentPreview() {
   return (
     <section className={styles.card} aria-labelledby="endcash-payment-title">
       <div className={styles.copy}>
-        <p className={styles.kicker}>TRINIDAD &amp; TOBAGO · PLANNED LOCAL PAYMENT</p>
+        <p className={styles.kicker}>TRINIDAD &amp; TOBAGO · PLANNED STORE/TOKEN PAYMENT</p>
         <h2 id="endcash-payment-title">Endcash QR</h2>
-        <p>This local payment option is being prepared for VIXEN members in Trinidad and Tobago.</p>
-        <p className={styles.warning}><strong>Preview only — do not send payment.</strong> VIXEN cannot create an order, confirm an Endcash transfer, or unlock access yet. The QR is shown for setup review only.</p>
+        <p>Endcash is a candidate for eligible VIXEN store and token purchases only, pending provider approval.</p>
+        <p className={styles.warning}><strong>Preview only — do not send payment.</strong> VIXEN has no Endcash checkout or verified transfer confirmation. This QR cannot confirm a store order or token purchase. Do not send funds.</p>
       </div>
       <figure className={styles.figure}>
-        <Image className={styles.qr} src="/assets/endcash-payment-qr.png" alt="Endcash QR code supplied for the planned Trinidad and Tobago payment option" width={315} height={315} />
-        <figcaption className={styles.caption}>VIXEN checkout does not process or reconcile this QR yet.</figcaption>
+        <Image className={styles.qr} src="/assets/endcash-payment-qr.png" alt="Endcash QR code for a potential VIXEN store and token payment option; preview only" width={315} height={315} />
+        <figcaption className={styles.caption}>No VIXEN checkout or payment reconciliation is active.</figcaption>
       </figure>
     </section>
   );
