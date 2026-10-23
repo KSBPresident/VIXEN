@@ -75,6 +75,7 @@ export default async function PricingPage({
                 <p>{plan.summary}</p>
                 <p className="member-plan-price"><strong>{plan.price}</strong><span>{plan.billing}</span></p>
               </header>
+              {plan.id !== "free" && <p className="member-plan-status" role="status"><strong>Coming soon</strong> · paid memberships are not available yet.</p>}
 
               <div className="member-plan-includes">
                 <h4>Included</h4>
@@ -89,12 +90,9 @@ export default async function PricingPage({
               {plan.id === "free" ? (
                 <Link className="button member-plan-cta" href={isSignedIn ? "/account" : "/sign-up?type=member"}>{isSignedIn ? "Open your account" : "Create a free account"} <span aria-hidden="true">↗</span></Link>
               ) : (
-                <Link
-                  className="button button-outline member-plan-cta"
-                  href={`/membership-preview/checkout?plan=${plan.id}${creatorName ? `&creator=${encodeURIComponent(creatorName)}` : ""}`}
-                >
-                  Review example checkout <span aria-hidden="true">→</span>
-                </Link>
+                <button className="button button-outline member-plan-cta" type="button" disabled>
+                  Coming soon
+                </button>
               )}
             </article>
           ))}
@@ -139,20 +137,29 @@ export default async function PricingPage({
         </div>
         <div className="pricing-edge-grid">
           <article><span className="pricing-edge-number">01</span><h3>Start free</h3><p>Make a free member account and explore public profiles before choosing a paid creator membership.</p></article>
-          <article><span className="pricing-edge-number">02</span><h3>Step in from $3.99</h3><p>Our proposed Bronze example is $3.99 per month for one creator. Prices shown are illustrative; creators choose their actual prices.</p></article>
+          <article><span className="pricing-edge-number">02</span><p className="pricing-edge-status" role="status">Coming soon</p><h3>Step in from $3.99</h3><p>Our proposed Bronze example is $3.99 per month for one creator. Prices shown are illustrative; creators choose their actual prices.</p></article>
           <article><span className="pricing-edge-number">03</span><h3>Know every boundary</h3><p>Each creator tier should show its price, included posts and drops, paid extras, renewal, and cancellation terms before checkout.</p></article>
-          <article><span className="pricing-edge-number">04</span><h3>Plan for the Caribbean</h3><p>Card, bank transfer, Wise, crypto, and Endcash QR for Trinidad and Tobago are planned. WiPay requires written merchant approval for VIXEN adult content and private-member events. PayPal is not supported for VIXEN adult digital content, subscriptions, or webcam/video-call services under its current policy.</p></article>
+          <article><span className="pricing-edge-number">04</span><p className="pricing-edge-status" role="status">Coming soon</p><h3>Plan for the Caribbean</h3><p>Card, bank transfer, Wise, crypto, and Endcash QR for Trinidad and Tobago are planned. WiPay requires written merchant approval for VIXEN adult content and private-member events. PayPal is not supported for VIXEN adult digital content, subscriptions, or webcam/video-call services under its current policy.</p></article>
         </div>
         <p className="pricing-edge-note"><strong>Current status:</strong> free member accounts are live. Paid creator features, checkout, and payment methods remain previews; these are product goals, not a claim that they are live.</p>
+      </section>
+
+      <section className="section-wrap nine-offer" aria-labelledby="vixen-coin-title">
+        <div className="nine-offer-copy">
+          <p className="eyebrow">TEMPORARY PLATFORM CREDIT · NOT A CRYPTO TOKEN</p>
+          <h2 id="vixen-coin-title">VIXEN Coins <span>Coming soon.</span></h2>
+          <p>Until the VIXEN and NINE crypto coins are finished, VIXEN Coins are planned as an internal account balance only. Planned value: 1 VIXEN Coin = $1 USD in VIXEN purchase credit. Members will be able to add balance using supported USDT or USDC, see it in their account wallet, and spend it on creator tips and listed creator offers. Only approved creators will be able to request payout of their creator earnings in USDT or USDC.</p>
+          <p className="nine-offer-status"><strong>Coming soon · Not available now.</strong> No coin purchases, transfers, or creator cashouts are enabled. VIXEN Coins are not the VIXEN or NINE blockchain tokens, cannot be transferred outside VIXEN, and will have no payment discount. Wallet funding, payment verification, creator settlement, and payout controls must be completed before launch.</p>
+        </div>
       </section>
 
       <section className="section-wrap nine-offer" aria-labelledby="nine-offer-title">
         <div className="nine-offer-mark" aria-hidden="true">NINE</div>
         <div className="nine-offer-copy">
-          <p className="eyebrow">PLANNED PAYMENT BENEFIT</p>
+          <p className="eyebrow">COMING SOON · PAYMENT BENEFIT</p>
           <h2 id="nine-offer-title">Pay with NINE. <span>Save 10%.</span></h2>
           <p>When NINE Coin payments are supported, get 10% off a VIXEN creator subscription paid with NINE. Paying with other cryptocurrencies will not receive a discount.</p>
-          <p className="nine-offer-status">Coming later · This offer is not redeemable today. VIXEN does not currently accept NINE Coin. Supported networks, payment verification, and purchase sources will be confirmed before launch.</p>
+          <p className="nine-offer-status"><strong>Coming soon · Not available today.</strong> VIXEN does not currently accept NINE Coin. Supported networks, payment verification, and purchase sources will be confirmed before launch.</p>
         </div>
       </section>
 
@@ -200,10 +207,10 @@ export default async function PricingPage({
           </article>
           <article className="member-plan-card" aria-labelledby="private-vip">
             <header className="member-plan-header">
-              <p className="member-plan-kind">PRIVATE MEMBERSHIP · PLANNED</p>
+              <p className="member-plan-kind">PRIVATE MEMBERSHIP · COMING SOON</p>
               <h3 id="private-vip">VIP</h3>
               <p>A planned membership level for eligible private VIXEN events.</p>
-              <p className="member-plan-price"><strong>Coming later</strong><span>price not set</span></p>
+              <p className="member-plan-price"><strong>Coming soon</strong><span>price not set</span></p>
             </header>
             <div className="member-plan-includes">
               <h4>Planned access</h4>
@@ -216,10 +223,10 @@ export default async function PricingPage({
           </article>
           <article className="member-plan-card" aria-labelledby="private-vvip">
             <header className="member-plan-header">
-              <p className="member-plan-kind">PRIVATE MEMBERSHIP · PLANNED</p>
+              <p className="member-plan-kind">PRIVATE MEMBERSHIP · COMING SOON</p>
               <h3 id="private-vvip">VVIP</h3>
               <p>A higher private membership level; final benefits are still being defined.</p>
-              <p className="member-plan-price"><strong>Coming later</strong><span>price not set</span></p>
+              <p className="member-plan-price"><strong>Coming soon</strong><span>price not set</span></p>
             </header>
             <div className="member-plan-includes">
               <h4>Before enrollment</h4>
