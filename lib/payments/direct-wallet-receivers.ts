@@ -16,7 +16,7 @@ const solanaAddress = "72jittFfSyu7cPSPMEhSv83qXG8TBTt3GERdSxyFp56Rg";
 export const directWalletRoutes: readonly DirectWalletRoute[] = [
   { asset: "USDT", network: "Solana", address: solanaAddress, status: "manual_review" },
   { asset: "USDC", network: "Solana", address: solanaAddress, status: "manual_review" },
-  { asset: "TRX", network: "Tron", address: "TYMeD5NpSEShWuJyMDwopwaEHGnvrbw82c", status: "coming_soon" },
+  { asset: "TRX", network: "Tron", address: "TYMeD5NpSEShWuJyMDwopwaEHGnvrbw82c", status: "manual_review" },
   { asset: "USDT", network: "Tron", address: "TYMeD5NpSEShWuJyMDwopwaEHGnvrbw82c", status: "manual_review" },
   { asset: "USDT", network: "BNB Smart Chain", address: evmAddress, status: "manual_review" },
   { asset: "USDC", network: "BNB Smart Chain", address: evmAddress, status: "manual_review" },

@@ -4,7 +4,7 @@ import { DirectWalletOptions } from "@/components/payments/direct-wallet-options
 
 export const metadata = {
   title: "Crypto receive options · VIXEN",
-  description: "VIXEN direct wallet receive routes for USDT and USDC; other crypto assets are coming soon.",
+  description: "VIXEN manual-review crypto receive routes for USDT, USDC, and TRX.",
   robots: { index: false, follow: false },
 };
 
@@ -24,13 +24,13 @@ export default function CryptoPaymentsPage() {
       <section className="subpage-hero">
         <p className="eyebrow">DIRECT WALLET · CRYPTO</p>
         <h1>Pay with <span>crypto.</span></h1>
-        <p>Choose an available stablecoin route and use its exact asset and network. Other wallet assets are shown as coming soon until the payment flow supports them.</p>
+        <p>Choose an available wallet route and use its exact asset and network. Other assets are shown as coming soon until their complete payment and payout flows are ready.</p>
       </section>
 
       <section className="section-wrap subpage-content">
         <div className="crypto-payment-callout" role="note">
-          <strong>USDT and USDC transfers are available for manual review.</strong>
-          <p>Ask VIXEN for an exact order total and confirm the selected asset/network before sending. Only USDT and USDC routes can currently be submitted as payment proof. Other assets are coming soon while exact-amount quoting and balance accounting are prepared. Transfers are not matched automatically; VIXEN must verify the transaction and manually provide the purchase. Keep your transaction ID.</p>
+          <strong>USDT, USDC, and TRX transfers are available for manual review.</strong>
+          <p>Ask VIXEN for an exact order total and confirm the selected asset/network before sending. USDT, USDC, and TRX routes can currently be submitted as payment proof. Other assets remain coming soon while their proof, balance-accounting, and payout flows are prepared. Transfers are not matched automatically; VIXEN must verify the transaction and manually provide the purchase. Keep your transaction ID.</p>
         </div>
         <DirectWalletOptions routes={directWalletRoutes} />
         <p className="center-action"><Link className="button" href="/crypto-payments/proof">Submit payment proof</Link></p>
