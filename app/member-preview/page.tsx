@@ -24,7 +24,7 @@ export default async function MemberPreviewPage({ searchParams }: MemberPreviewP
   let isSignedIn = false;
   let directoryUnavailable = false;
   let creators: PublicCreator[] = [];
-  let supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
+  const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
   if (supabaseConfigured) {
     try {
       const supabase = await createClient();
