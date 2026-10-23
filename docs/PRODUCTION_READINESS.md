@@ -1,5 +1,14 @@
 # Production Readiness Audit
 
+## Crypto payment readiness addendum · 2026-10-23
+
+- The requested future offer is 10% off eligible creator subscriptions paid with NINE Coin. NINE Coin is still in development and is not accepted; other supported cryptocurrencies, once enabled, carry no discount. No crypto checkout, wallet payment, or order fulfillment is live.
+- NOWPayments is a candidate to evaluate because it publishes an adult-platform offering and documents invoice creation plus signed IPN callbacks. This is not proof that VIXEN has been accepted as a merchant. Obtain written approval for VIXEN's exact company, adult creator content, live-video offering, store catalog, and settlement countries before selecting or enabling it. Its API and IPN secret must remain server-only; fulfill an order only from a verified, idempotent server callback, never from a browser return page.
+- Trinidad and Tobago's securities regulator states that the Virtual Assets and Virtual Asset Service Providers Act, 2025 took effect on December 23, 2025, with virtual-asset activities conducted as a business temporarily prohibited through December 31, 2026 unless authorized under its regulatory sandbox. The public notice also distinguishes personal purchases of goods and services from business activity. Get a written local legal/regulatory determination on whether VIXEN's merchant checkout and processor flow fall within the Act and what authorization applies before taking crypto payments in or from Trinidad and Tobago. This readiness note is not a legal conclusion.
+- Coinbase Commerce is unsuitable without a policy exception: its current prohibited-business policy includes adult content, pay-per-view, and adult live-chat services.
+- Until provider acceptance and legal clearance are documented, keep every crypto payment method labelled planned and checkout disabled. Do not request or put API keys, IPN secrets, wallet seed phrases, or private keys in chat or source control.
+
+
 Audit date: 2026-10-18 (America/Port_of_Spain)  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
