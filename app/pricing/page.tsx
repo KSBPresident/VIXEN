@@ -10,16 +10,9 @@ export const metadata = {
   description: "Compare free VIXEN accounts with creator-specific membership access.",
 };
 
-type PricingSearchParams = { creator?: string };
-
 export const dynamic = "force-dynamic";
 
-export default async function PricingPage({
-  searchParams,
-}: {
-  searchParams: Promise<PricingSearchParams>;
-}) {
-  const params = await searchParams;
+export default async function PricingPage() {
   let isSignedIn = false;
   const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
   if (supabaseConfigured) {
@@ -31,7 +24,6 @@ export default async function PricingPage({
       isSignedIn = false;
     }
   }
-  const creatorName = typeof params.creator === "string" ? params.creator.trim().slice(0, 80) : "";
   const plans = getMembershipPricingPreview();
 
   return (
@@ -149,7 +141,7 @@ export default async function PricingPage({
           <p className="eyebrow">TEMPORARY PLATFORM CREDIT · NOT A CRYPTO TOKEN</p>
           <h2 id="vixen-coin-title">VIXEN Coins <span>Coming soon.</span></h2>
           <p>Until the VIXEN and NINE crypto coins are finished, VIXEN Coins are planned as an internal account balance only. Planned value: 1 VIXEN Coin = $1 USD in VIXEN purchase credit. Members will be able to add balance using supported USDT or USDC, see it in their account wallet, and spend it on creator tips and listed creator offers. Only approved creators will be able to request payout of their creator earnings in USDT or USDC.</p>
-          <p className="nine-offer-status"><strong>Coming soon · Not available now.</strong> No coin purchases, transfers, or creator cashouts are enabled. VIXEN Coins are not the VIXEN or NINE blockchain tokens, cannot be transferred outside VIXEN, and will have no payment discount. Wallet funding, payment verification, creator settlement, and payout controls must be completed before launch.</p>
+          <p className="nine-offer-status"><strong>Coming soon · Not available now.</strong> No coin purchases, transfers, or creator payouts are enabled. VIXEN Coins are not the VIXEN or NINE blockchain tokens, cannot be transferred outside VIXEN, and will have no payment discount. Wallet funding, payment verification, creator settlement, and payout controls must be completed before launch.</p>
         </div>
       </section>
 
