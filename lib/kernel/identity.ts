@@ -30,3 +30,15 @@ export function isConfiguredPlatformOwner(
   const ownerEmail = configuredOwnerEmail?.trim().toLowerCase();
   return Boolean(email && ownerEmail && identity.emailConfirmedAt && email === ownerEmail);
 }
+
+export interface ConfiguredPlatformAdminIdentity extends AuthenticatedEmailIdentity {
+  trustedAdminFlag: unknown;
+}
+
+/** Require both the trusted Auth flag and the confirmed, configured owner email. */
+export function isConfiguredPlatformAdmin(
+  identity: ConfiguredPlatformAdminIdentity,
+  configuredOwnerEmail: string | undefined,
+): boolean {
+  return identity.trustedAdminFlag === true && isConfiguredPlatformOwner(identity, configuredOwnerEmail);
+}

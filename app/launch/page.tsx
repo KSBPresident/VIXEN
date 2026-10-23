@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LaunchCountdown } from "@/components/launch-countdown";
 
 const launchPrinciples = [
   { number: "01", title: "Your access. Your tiers.", body: "Shape memberships around the work you make and the community you lead." },
@@ -9,8 +10,8 @@ const launchPrinciples = [
 ];
 
 export const metadata = {
-  title: "VIXEN preview is live",
-  description: "Explore VIXEN's public web app preview. Paid content, creator publishing, memberships, and messaging are not active yet.",
+  title: "VIXEN official launch",
+  description: "VIXEN beta ends Monday night, November 2. Official launch begins Tuesday, November 3, 2026 at 12:00 a.m. Trinidad and Tobago time.",
 };
 
 export default function LaunchPage() {
@@ -27,11 +28,15 @@ export default function LaunchPage() {
         <div className="header-actions"><Link className="button button-small" href="/#experience">Explore VIXEN <span aria-hidden="true">↗</span></Link></div>
       </header>
 
+      <section className="section-wrap" style={{ paddingTop: 22, paddingBottom: 0 }}>
+        <LaunchCountdown />
+      </section>
+
       <section className="subpage-hero">
         <div className="section-wrap">
-          <p className="eyebrow">VIXEN IS LIVE · PUBLIC WEB APP PREVIEW</p>
+          <p className="eyebrow">BETA SOFT LAUNCH · OFFICIAL LAUNCH NOVEMBER 3</p>
           <h1>Control your <span>power.</span></h1>
-          <p>Explore VIXEN&apos;s public web app preview. Browse sample creator profiles and example membership tiers, and see the member experience taking shape.</p>
+          <p>Explore the VIXEN browser app during beta. Free member accounts and creator applications are available; paid services and creator publishing remain marked Coming soon until fully ready.</p>
           <div className="hero-actions" style={{ justifyContent: "center", marginTop: 28 }}>
             <Link className="button" href="/creators">Browse sample creators <span aria-hidden="true">↗</span></Link>
             <Link className="button button-outline" href="/#experience">See the experience</Link>
@@ -73,7 +78,7 @@ export default function LaunchPage() {
         <div className="join-inner">
           <p className="eyebrow">BUILT FOR CREATORS. DESIGNED FOR FREEDOM.</p>
           <h2>Your next chapter <span>starts here.</span></h2>
-          <p>The VIXEN web app preview is open to explore. Sample profiles, paid content, memberships, creator publishing, and messaging are not live services.</p>
+          <p>The beta ends Monday night, November 2. Official launch begins Tuesday, November 3 at midnight AST, with a one-week creator commission discount. Paid memberships, publishing, messaging, private video, coins, store checkout, and VIP/VVIP entry remain Coming soon until complete.</p>
           <Link className="button button-light" href="/creators">Explore sample creators <span aria-hidden="true">↗</span></Link>
           <p style={{ fontSize: 11, marginTop: 20 }}>Explore the VIXEN experience and see how creator communities, memberships, and exclusive content can come together.</p>
         </div>
