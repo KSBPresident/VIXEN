@@ -29,17 +29,17 @@ export default function CryptoPaymentsPage() {
 
       <section className="section-wrap subpage-content">
         <div className="crypto-payment-callout" role="note">
-          <strong>Manual payment setup — no automatic checkout yet.</strong>
-          <p>Only send funds after VIXEN gives you an exact order total and confirms this payment method for that order. Payments are not matched to orders, credited, or fulfilled automatically by this page. Keep your transaction ID and wait for manual confirmation before expecting delivery or access.</p>
+          <strong>Crypto transfers are available for manual settlement.</strong>
+          <p>Ask VIXEN for an exact order total and confirm the selected asset/network before sending. This page does not create an order or match transfers automatically; VIXEN must verify the transaction and manually provide the purchase. Keep your transaction ID.</p>
         </div>
         <DirectWalletOptions routes={directWalletRoutes} />
         <p className="crypto-payment-footnote">Wallet transfers are generally irreversible. Verify the asset, network, address, and amount in your wallet before sending. VIXEN never needs your wallet password, recovery phrase, or private key.</p>
-        <p className="center-action"><Link className="button button-outline" href="/pricing">Review memberships</Link></p>
+        <p className="center-action"><Link className="button button-outline" href="/pricing">Review memberships</Link> <Link className="button" href="/donate">Donate to VIXEN</Link></p>
       </section>
 
       <footer className="site-footer"><div className="section-wrap footer-inner">
         <p>© VIXEN · Verified Interactive Xperience &amp; Entertainment Network</p>
-        <div className="footer-links"><Link href="/about">About</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div>
+        <div className="footer-links"><Link href="/donate">Donate</Link><Link href="/about">About</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div>
         <small>Website Designed &amp; Developed by Nebula Interstellar Networking Economy LLC.</small>
       </div></footer>
       <style>{`.crypto-payment-callout{max-width:850px;margin:0 auto 24px;padding:20px 22px;border:1px solid rgba(255,184,84,.32);background:linear-gradient(110deg,rgba(88,53,14,.18),#100d12);color:#c9c0ca}.crypto-payment-callout strong{color:#ffd888;font:700 14px var(--display)}.crypto-payment-callout p{margin:7px 0 0;font-size:12px;line-height:1.75}.crypto-payment-footnote{max-width:740px;margin:24px auto 0;color:#928994;font-size:11px;line-height:1.7;text-align:center}.crypto-payment-footnote+.center-action{margin-top:22px}`}</style>
