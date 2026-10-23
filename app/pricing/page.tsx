@@ -164,13 +164,13 @@ export default async function PricingPage({
         <ul className="payment-method-list" aria-label="Planned payment methods">
           <li>Card payments</li>
           <li>Bank transfer</li>
-          <li>Cryptocurrency</li>
+          <li>USDT and USDC for U.S. and U.K. customers (planned; networks pending)</li>
           <li>WiPay (pending written merchant approval for VIXEN)</li>
           <li>Wise</li>
           <li>Endcash QR (Trinidad and Tobago, preview only)</li>
           <li>PayPal is not available for VIXEN adult digital content or webcam services</li>
         </ul>
-        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. The Endcash QR is for review only and cannot confirm a transfer or unlock access. Supported cryptocurrencies and networks will be confirmed before crypto checkout opens. Other crypto payments will have no discount; the separate 10% NINE subscription offer is planned for when NINE Coin and its checkout are available.</p>
+        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. The Endcash QR is for review only and cannot confirm a transfer or unlock access. USDT and USDC are planned for U.S. and U.K. customers. Accepted networks, receiving wallet, provider approval, regulatory clearance, and payment confirmation must be finalized before crypto checkout opens. Other crypto payments will have no discount; the separate 10% NINE subscription offer is planned for when NINE Coin and its checkout are available.</p>
       </section>
 
       <section className="section-wrap plan-section private-club-section" aria-labelledby="private-club-heading">
