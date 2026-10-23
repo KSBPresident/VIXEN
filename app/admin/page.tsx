@@ -9,7 +9,7 @@ export const metadata = { title: "VIXEN admin", robots: { index: false, follow: 
 export default async function AdminPage() {
   const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
-  if (error || !isVixenPlatformAdmin(user)) redirect("/account");
+  if (error || !user || !isVixenPlatformAdmin(user)) redirect("/account");
 
   const [profiles, creators, applications, payments, withdrawals, reports] = await Promise.all([
     supabase.from("profiles").select("id", { count: "exact", head: true }),
