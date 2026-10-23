@@ -17,7 +17,7 @@ const workspaceAreas = [
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
   { icon: "◉", title: "Private video", copy: "Preview creator-controlled, paid browser-session flows.", href: "/member-preview/sessions", action: "Open session preview" },
-  { icon: "↗", title: "Earnings & payouts", copy: "VIXEN’s standard commission is 15%; creators keep 85%. The November 3–9 launch-week commission discount is 5%, so creators keep 95%. Verified payments and manual withdrawals appear in your earnings area.", href: "/creator/earnings", action: "View earnings and request a withdrawal" },
+  { icon: "↗", title: "Earnings & payouts", copy: "VIXEN’s standard commission is 15%; creators keep 85%. First official week discount (November 3–9, 2026) only: commission is reduced to 5%, so creators keep 95%. The standard split resumes November 10. Verified payments and manual withdrawals appear in your earnings area.", href: "/creator/earnings", action: "View earnings and request a withdrawal" },
 ];
 
 export default async function CreatorStudioPreviewPage() {
