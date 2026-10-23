@@ -33,6 +33,7 @@ export default function CryptoPaymentsPage() {
           <p>Ask VIXEN for an exact order total and confirm the selected asset/network before sending. This page does not create an order or match transfers automatically; VIXEN must verify the transaction and manually provide the purchase. Keep your transaction ID.</p>
         </div>
         <DirectWalletOptions routes={directWalletRoutes} />
+        <p className="center-action"><Link className="button" href="/crypto-payments/proof">Submit payment proof</Link></p>
         <p className="crypto-payment-footnote">Wallet transfers are generally irreversible. Verify the asset, network, address, and amount in your wallet before sending. VIXEN never needs your wallet password, recovery phrase, or private key.</p>
         <p className="center-action"><Link className="button button-outline" href="/pricing">Review memberships</Link> <Link className="button" href="/donate">Donate to VIXEN</Link></p>
       </section>
