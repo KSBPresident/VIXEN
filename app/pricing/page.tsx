@@ -118,7 +118,7 @@ export default async function PricingPage() {
             </ul>
           </article>
         </div>
-        <p className="cost-clarity-notice"><strong>Account status:</strong> free email/password member accounts are live. Creator approval and publishing, subscriptions, paid content, checkout, payouts, and payment methods are not active. No one can be charged through this page.</p>
+        <p className="cost-clarity-notice"><strong>Account status:</strong> free email/password member accounts are live. Creator approval and publishing, subscriptions, paid content, and checkout are not active. Listed wallet routes allow manual proof submission and review; no one is charged through this pricing page.</p>
       </section>
 
       <section className="section-wrap pricing-edge" aria-labelledby="pricing-edge-title">
@@ -133,7 +133,7 @@ export default async function PricingPage() {
           <article><span className="pricing-edge-number">03</span><h3>Know every boundary</h3><p>Each creator tier should show its price, included posts and drops, paid extras, renewal, and cancellation terms before checkout.</p></article>
           <article><span className="pricing-edge-number">04</span><p className="pricing-edge-status" role="status">Coming soon</p><h3>Plan for the Caribbean</h3><p>Card, bank transfer, Wise, crypto, and Endcash QR for Trinidad and Tobago are planned. WiPay requires written merchant approval for VIXEN adult content and private-member events. PayPal is not supported for VIXEN adult digital content, subscriptions, or webcam/video-call services under its current policy.</p></article>
         </div>
-        <p className="pricing-edge-note"><strong>Current status:</strong> free member accounts are live. Paid creator features, checkout, and payment methods remain previews; these are product goals, not a claim that they are live.</p>
+        <p className="pricing-edge-note"><strong>Current status:</strong> free member accounts are live. Paid creator features and checkout remain previews. Listed crypto routes accept payment proof for manual review; they do not automatically unlock purchases.</p>
       </section>
 
       <section className="section-wrap nine-offer" aria-labelledby="vixen-coin-title">
@@ -159,12 +159,13 @@ export default async function PricingPage() {
         <div>
           <p className="eyebrow">PAYMENT AVAILABILITY</p>
           <h2 id="payment-methods-title">Wallet payments with manual review.</h2>
-          <p>VIXEN currently accepts payment proof for selected USDT and USDC wallet routes. Get an exact total and order reference from VIXEN before sending funds, then submit your transaction ID and screenshot for admin review.</p>
+          <p>VIXEN currently accepts payment proof for selected USDT, USDC, and TRX wallet routes. Get an exact total and order reference from VIXEN before sending funds, then submit your transaction ID and screenshot for admin review.</p>
         </div>
         <ul className="payment-method-list" aria-label="Payment method availability">
           <li><strong>Available · manual review:</strong> USDT on Tron, Solana, BNB Smart Chain, Polygon, and Ethereum.</li>
           <li><strong>Available · manual review:</strong> USDC on Solana, BNB Smart Chain, Polygon, and Ethereum.</li>
-          <li><strong>Coming soon:</strong> TRX, BNB, SOL, ETH, MATIC, card payments, bank transfer, Wise, WiPay, and Endcash order checkout.</li>
+          <li><strong>Available · manual review:</strong> TRX on Tron.</li>
+          <li><strong>Coming soon:</strong> BNB, SOL, ETH, MATIC, card payments, bank transfer, Wise, WiPay, and Endcash order checkout.</li>
           <li><strong>Not offered:</strong> PayPal for VIXEN adult digital content, subscriptions, or webcam/video-call services.</li>
         </ul>
         <p className="payment-method-note">A screenshot is not proof of settlement. VIXEN independently checks the transaction before manually reviewing the payment. Proof approval does not automatically unlock a subscription, creator content, or store order; those fulfillment flows are not active. Do not send funds until VIXEN confirms the amount, asset, network, and order reference. Never share wallet passwords, recovery phrases, or private keys.</p>
