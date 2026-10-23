@@ -11,6 +11,9 @@ function amount(value: number | string, asset: string) {
 }
 
 export default async function CreatorEarningsPage() {
+  const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
+  if (!supabaseConfigured) redirect("/sign-up?type=creator");
+
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) redirect(`/sign-up?type=creator&next=${encodeURIComponent("/creator/earnings")}`);
