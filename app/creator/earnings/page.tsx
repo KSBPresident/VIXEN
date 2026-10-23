@@ -31,7 +31,7 @@ export default async function CreatorEarningsPage() {
           <p className="vixen-kicker">CREATOR EARNINGS · MANUAL PAYOUT</p>
           <h1>Your earnings</h1>
           <p>Verified creator payments are credited after VIXEN reviews the transaction. VIXEN handles creator withdrawals manually.</p>
-          <div className="creator-commission-notice"><strong>Launch-week commission discount</strong><p>For payment proofs submitted November 3–9, 2026, VIXEN’s commission is 5% and creators keep 95%. The standard split starts November 10: VIXEN 15%, creator 85%.</p></div>
+          <div className="creator-commission-notice"><strong>First official week discount</strong><p>For payment proofs submitted November 3–9, 2026 only, VIXEN’s commission is discounted to 5% and creators keep 95%. The standard split resumes November 10: VIXEN 15%, creator 85%.</p></div>
           {balanceResult.error ? <p className="creator-earnings-error">Earnings are not available yet. Please refresh after the VIXEN payment system is connected.</p> : (balanceResult.data ?? []).length === 0 ? <p className="creator-earnings-empty">No verified creator payments have been credited to your balance yet.</p> : <div className="creator-balance-grid">{balanceResult.data?.map((balance) => (
             <article className="creator-balance-card" key={balance.asset + balance.network}>
               <h2>{balance.asset} · {balance.network}</h2>
