@@ -1,0 +1,78 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { assessDirectWalletPayment } from "../.test-build/lib/kernel/direct-wallet-payment.js";
+import { directWalletRoutes, getDirectWalletRoutes } from "../.test-build/lib/payments/direct-wallet-receivers.js";
+
+const intent = {
+  id: "intent-1",
+  orderId: "order-1",
+  network: "ethereum",
+  asset: "USDT",
+  tokenContract: "usdt-contract",
+  recipient: "merchant-wallet",
+  amountBaseUnits: "1000000",
+  expiresAtMs: 2_000,
+};
+const transfer = {
+  transactionId: "tx-1",
+  network: "ethereum",
+  asset: "USDT",
+  tokenContract: "usdt-contract",
+  recipient: "merchant-wallet",
+  amountBaseUnits: "1000000",
+  blockTimestampMs: 1_000,
+  confirmations: 12,
+};
+
+test("exact, confirmed transfer is eligible for fulfillment", () => {
+  assert.deepEqual(assessDirectWalletPayment({
+    intent, transfer, requiredConfirmations: 12, nowMs: 1_500,
+  }), { status: "confirmed", fulfillmentEligible: true, transactionId: "tx-1" });
+});
+
+test("never fulfills an unobserved, underpaid, unconfirmed, or expired order", () => {
+  assert.equal(assessDirectWalletPayment({ intent, transfer: null, requiredConfirmations: 12, nowMs: 1_500 }).fulfillmentEligible, false);
+  assert.equal(assessDirectWalletPayment({
+    intent, transfer: { ...transfer, amountBaseUnits: "999999" }, requiredConfirmations: 12, nowMs: 1_500,
+  }).status, "underpaid");
+  assert.equal(assessDirectWalletPayment({
+    intent, transfer: { ...transfer, confirmations: 1 }, requiredConfirmations: 12, nowMs: 1_500,
+  }).status, "confirming");
+  assert.equal(assessDirectWalletPayment({ intent, transfer: null, requiredConfirmations: 12, nowMs: 2_000 }).status, "expired");
+});
+
+test("mismatched, late, overpaid, and duplicate transfers require review", () => {
+  for (const changed of [
+    { network: "polygon" },
+    { asset: "USDC" },
+    { tokenContract: "other-token" },
+    { recipient: "other-wallet" },
+    { blockTimestampMs: 2_001 },
+    { amountBaseUnits: "1000001" },
+  ]) {
+    const result = assessDirectWalletPayment({
+      intent, transfer: { ...transfer, ...changed }, requiredConfirmations: 12, nowMs: 1_500,
+    });
+    assert.equal(result.fulfillmentEligible, false);
+    assert.equal(result.status, "review_required");
+  }
+  assert.deepEqual(assessDirectWalletPayment({
+    intent, transfer, requiredConfirmations: 12, alreadyAppliedTransactionIds: ["tx-1"], nowMs: 1_500,
+  }), { status: "review_required", fulfillmentEligible: false, reason: "duplicate_transfer" });
+});
+
+test("USDT and USDC receive addresses match the supplied screenshots", () => {
+  for (const asset of ["USDT", "USDC"]) {
+    assert.deepEqual(getDirectWalletRoutes(asset).map(({ network }) => network), [
+      "Solana", "BNB Smart Chain", "Polygon", "Ethereum",
+    ]);
+  }
+  assert.equal(getDirectWalletRoutes("TRX")[0].network, "Tron");
+  assert.equal(getDirectWalletRoutes("USDT")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBt3GERdSxyFp56Rg");
+  assert.equal(getDirectWalletRoutes("USDC")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBt3GERdSxyFp56Rg");
+  assert.equal(getDirectWalletRoutes("TRX")[0].address, "TYMeD5NpSEShWuJyMDwopwaEHGnvrbw82c");
+  assert.equal(getDirectWalletRoutes("USDT")[1].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
+  assert.equal(getDirectWalletRoutes("USDC")[1].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
+  assert.equal(directWalletRoutes.length, 9);
+  assert.equal(directWalletRoutes.every((route) => route.status === "manual_review"), true);
+});

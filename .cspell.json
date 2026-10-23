@@ -25,7 +25,12 @@
     "Faccount",
     "Endcash",
     "NOWPayments",
-    "chargebacks"
+    "chargebacks",
+    "USDC",
+    "USDT",
+    "TRX",
+    "BNB",
+    "Solana"
   ],
   "flagWords": [
     "teh",

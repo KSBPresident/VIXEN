@@ -123,7 +123,8 @@ export default async function PricingPage({
             <ul>
               <li>The membership prices above are paid by members to access a creator’s offerings; creators do not buy those plans.</li>
               <li>Creators should be able to set up a creator account without paying upfront before they can earn.</li>
-              <li>VIXEN plans an 18% platform commission on paid creator transactions. Processor fees, taxes, refunds, and chargebacks are separate and may affect final payouts; complete terms will be disclosed before monetization opens.</li>
+              <li>VIXEN’s planned standard platform commission is 15%; creators keep 85% before any separately disclosed processing fees, taxes, refunds, or chargebacks.</li>
+              <li><strong>First official week discount · November 3–9, 2026:</strong> For this first official week only, VIXEN’s commission is discounted from 15% to 5%, so creators keep 95% before other applicable deductions. The standard 15% commission resumes November 10, 2026.</li>
             </ul>
           </article>
         </div>

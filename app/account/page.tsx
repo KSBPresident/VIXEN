@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ProfileEditor } from "@/components/account/profile-editor";
 import { createClient } from "@/lib/supabase/server";
-import { isConfiguredPlatformOwner } from "@/lib/kernel/identity";
+import { isVixenPlatformAdmin } from "@/lib/server/platform-admin";
 import { signOut } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -40,10 +40,7 @@ export default async function AccountPage() {
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) redirect("/sign-up?next=%2Faccount");
 
-  const isPlatformOwner = isConfiguredPlatformOwner({
-    email: user.email,
-    emailConfirmedAt: user.email_confirmed_at ?? null,
-  }, process.env.VIXEN_PLATFORM_ADMIN_EMAIL);
+  const isPlatformOwner = isVixenPlatformAdmin(user);
 
   const [{ data: profile }, { data: creatorApplication }] = await Promise.all([
     supabase.from("profiles").select("is_creator, username, display_name").eq("id", user.id).maybeSingle(),
@@ -75,10 +72,12 @@ export default async function AccountPage() {
           {applicationStatus === "pending" && <p className="creator-account-status" role="status">Application status: Pending review</p>}
           {applicationStatus === "rejected" && <p className="creator-account-status" role="status">Application status: Not approved</p>}
           <ProfileEditor username={profile?.username ?? ""} displayName={profile?.display_name ?? ""} />
+          {isPlatformOwner && <p><Link className="vixen-discover-link" href="/admin">Open administrator console <span aria-hidden="true">→</span></Link></p>}
+          {isCreator && <p><Link className="vixen-discover-link" href="/creator/earnings">View earnings and request a withdrawal <span aria-hidden="true">→</span></Link></p>}
           {isCreator && <p><Link className="vixen-discover-link" href="/creator/profile">Manage your public creator profile <span aria-hidden="true">→</span></Link></p>}
           {isCreator && <p><Link className="vixen-discover-link" href="/creator/studio">Open creator workspace preview <span aria-hidden="true">→</span></Link></p>}
           <p><Link className="vixen-discover-link" href="/member-preview">Open member app preview <span aria-hidden="true">→</span></Link></p>
-          <p className="vixen-auth-caption">Real creator posts, paid memberships, messages, checkout, bookings, video rooms, and payouts are not active yet. VIP/VVIP upgrades and staff access use separate approval and entitlement checks.</p>
+          <p className="vixen-auth-caption">Creator payment proofs, earnings, and withdrawal requests use manual administrator review. Creator content, paid memberships, messages, checkout, bookings, and video rooms remain separate features with their own launch status.</p>
         </div>
       </section>
     </main>
