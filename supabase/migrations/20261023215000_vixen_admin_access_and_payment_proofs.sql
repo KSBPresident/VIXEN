@@ -96,7 +96,10 @@ create table public.creator_earning_ledger (
   ),
   constraint creator_earning_split_check check (
     gross_amount = platform_fee_amount + creator_net_amount
-    and platform_fee_amount = round(gross_amount * 0.18, 8)
+    and platform_fee_amount in (
+      round(gross_amount * 0.05, 8),
+      round(gross_amount * 0.15, 8)
+    )
   )
 );
 alter table public.creator_earning_ledger enable row level security;
@@ -158,7 +161,14 @@ begin
     ) then
       raise exception 'Only an approved creator profile can receive credited earnings.';
     end if;
-    v_fee := round(new.amount * 0.18, 8);
+    -- Launch-week commission discount: 5% from Nov 3 through Nov 9, 2026
+    -- in Trinidad & Tobago time; standard 15% applies outside that window.
+    v_fee := round(new.amount * case
+      when new.created_at >= timestamptz '2026-11-03 00:00:00-04'
+       and new.created_at < timestamptz '2026-11-10 00:00:00-04'
+      then 0.05
+      else 0.15
+    end, 8);
     insert into public.creator_earning_ledger
       (creator_id, payment_proof_id, asset, network, gross_amount, platform_fee_amount, creator_net_amount)
     values
