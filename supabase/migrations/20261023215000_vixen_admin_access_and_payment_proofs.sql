@@ -161,8 +161,8 @@ begin
     ) then
       raise exception 'Only an approved creator profile can receive credited earnings.';
     end if;
-    -- Launch-week commission discount: 5% from Nov 3 through Nov 9, 2026
-    -- in Trinidad & Tobago time; standard 15% applies outside that window.
+    -- First official week discount only: VIXEN commission is 5% from Nov 3
+    -- through Nov 9, 2026 in Trinidad & Tobago time; standard 15% applies outside it.
     v_fee := round(new.amount * case
       when new.created_at >= timestamptz '2026-11-03 00:00:00-04'
        and new.created_at < timestamptz '2026-11-10 00:00:00-04'
