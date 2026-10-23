@@ -12,7 +12,7 @@ const nav = [
 ] as const;
 
 const tiles = [
-  ["▦", "Your feed", "Explore sample creator updates in the member app.", "/member-preview", "PREVIEW"],
+  ["▦", "Your feed", "Browse approved creator profiles; posts appear here after publishing is available.", "/member-preview", "PREVIEW"],
   ["⌕", "Discover creators", "Browse profiles and find your people.", "/creators", "EXPLORE"],
   ["✉", "Messages", "See the conversation experience. Sending is not active yet.", "/member-preview/messages", "PREVIEW"],
   ["◉", "Private video", "Review the planned paid session flow. No calls are active.", "/member-preview/sessions", "PREVIEW"],
