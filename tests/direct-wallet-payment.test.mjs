@@ -41,7 +41,7 @@ test("never fulfills an unobserved, underpaid, unconfirmed, or expired order", (
   assert.equal(assessDirectWalletPayment({ intent, transfer: null, requiredConfirmations: 12, nowMs: 2_000 }).status, "expired");
 });
 
-test("routes require review on mismatches, late transfers, overpayments, and duplicate transaction IDs", () => {
+test("mismatched, late, overpaid, and duplicate transfers require review", () => {
   for (const changed of [
     { network: "polygon" },
     { asset: "USDC" },
@@ -61,15 +61,18 @@ test("routes require review on mismatches, late transfers, overpayments, and dup
   }), { status: "review_required", fulfillmentEligible: false, reason: "duplicate_transfer" });
 });
 
-test("only wallet receive routes shown in the supplied screenshots are configured", () => {
-  assert.equal(directWalletRoutes.length, 5);
-  assert.deepEqual(getDirectWalletRoutes("USDT").map(({ network }) => network), [
-    "Solana", "BNB Smart Chain", "Polygon", "Ethereum",
-  ]);
-  assert.deepEqual(getDirectWalletRoutes("TRX").map(({ network }) => network), ["Tron"]);
-  assert.equal(getDirectWalletRoutes("USDC").length, 0);
+test("USDT and USDC receive addresses match the supplied screenshots", () => {
+  for (const asset of ["USDT", "USDC"]) {
+    assert.deepEqual(getDirectWalletRoutes(asset).map(({ network }) => network), [
+      "Solana", "BNB Smart Chain", "Polygon", "Ethereum",
+    ]);
+  }
+  assert.equal(getDirectWalletRoutes("TRX")[0].network, "Tron");
+  assert.equal(getDirectWalletRoutes("USDT")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBt3GERdSxyFp56Rg");
+  assert.equal(getDirectWalletRoutes("USDC")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBt3GERdSxyFp56Rg");
+  assert.equal(getDirectWalletRoutes("TRX")[0].address, "TYMeD5NpSEShWuJyMDwopwaEHGnvrbw82c");
+  assert.equal(getDirectWalletRoutes("USDT")[1].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
+  assert.equal(getDirectWalletRoutes("USDC")[1].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
+  assert.equal(directWalletRoutes.length, 9);
   assert.equal(directWalletRoutes.every((route) => route.status === "manual_review"), true);
-  assert.equal(directWalletRoutes[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBt3GERdSxyFp56Rg");
-  assert.equal(directWalletRoutes[1].address, "TYMeD5NpSEShWuJyMDwopwaEHGnvrbw82c");
-  assert.equal(directWalletRoutes[2].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
 });
