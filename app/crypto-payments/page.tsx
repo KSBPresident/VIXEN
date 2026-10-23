@@ -4,7 +4,7 @@ import { DirectWalletOptions } from "@/components/payments/direct-wallet-options
 
 export const metadata = {
   title: "Crypto receive options · VIXEN",
-  description: "VIXEN direct wallet receive addresses for USDT, USDC, and TRX.",
+  description: "VIXEN direct wallet receive routes for USDT and USDC; other crypto assets are coming soon.",
   robots: { index: false, follow: false },
 };
 
@@ -24,13 +24,13 @@ export default function CryptoPaymentsPage() {
       <section className="subpage-hero">
         <p className="eyebrow">DIRECT WALLET · CRYPTO</p>
         <h1>Pay with <span>crypto.</span></h1>
-        <p>Choose the exact asset and network from the receive options provided by VIXEN.</p>
+        <p>Choose an available stablecoin route and use its exact asset and network. Other wallet assets are shown as coming soon until the payment flow supports them.</p>
       </section>
 
       <section className="section-wrap subpage-content">
         <div className="crypto-payment-callout" role="note">
-          <strong>Crypto transfers are available for manual settlement.</strong>
-          <p>Ask VIXEN for an exact order total and confirm the selected asset/network before sending. This page does not create an order or match transfers automatically; VIXEN must verify the transaction and manually provide the purchase. Keep your transaction ID.</p>
+          <strong>USDT and USDC transfers are available for manual review.</strong>
+          <p>Ask VIXEN for an exact order total and confirm the selected asset/network before sending. Only USDT and USDC routes can currently be submitted as payment proof. Other assets are coming soon while exact-amount quoting and balance accounting are prepared. Transfers are not matched automatically; VIXEN must verify the transaction and manually provide the purchase. Keep your transaction ID.</p>
         </div>
         <DirectWalletOptions routes={directWalletRoutes} />
         <p className="center-action"><Link className="button" href="/crypto-payments/proof">Submit payment proof</Link></p>
