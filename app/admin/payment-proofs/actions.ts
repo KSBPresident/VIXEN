@@ -8,7 +8,7 @@ import { isVixenPlatformAdmin } from "@/lib/server/platform-admin";
 export async function reviewCryptoPaymentProof(formData: FormData) {
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
-  if (authError || !isVixenPlatformAdmin(user)) redirect("/account");
+  if (authError || !user || !isVixenPlatformAdmin(user)) redirect("/account");
 
   const id = String(formData.get("proofId") ?? "");
   const status = String(formData.get("decision") ?? "");
