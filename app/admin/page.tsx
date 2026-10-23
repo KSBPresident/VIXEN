@@ -11,13 +11,14 @@ export default async function AdminPage() {
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user || !isVixenPlatformAdmin(user)) redirect("/account");
 
-  const [profiles, creators, applications, payments, withdrawals, reports] = await Promise.all([
+  const [profiles, creators, applications, payments, withdrawals, reports, storeProducts] = await Promise.all([
     supabase.from("profiles").select("id", { count: "exact", head: true }),
     supabase.from("profiles").select("id", { count: "exact", head: true }).eq("is_creator", true),
     supabase.from("creator_applications").select("user_id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("crypto_payment_proofs").select("id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("creator_withdrawal_requests").select("id", { count: "exact", head: true }).in("status", ["pending", "approved"]),
     supabase.from("reports").select("id", { count: "exact", head: true }),
+    supabase.from("store_products").select("id", { count: "exact", head: true }).eq("status", "published"),
   ]);
 
   const stats = [
@@ -27,6 +28,7 @@ export default async function AdminPage() {
     ["Crypto proofs to review", payments.count ?? 0],
     ["Creator withdrawals to process", withdrawals.count ?? 0],
     ["Safety reports", reports.count ?? 0],
+    ["Published store listings", storeProducts.count ?? 0],
   ];
 
   return (
@@ -42,6 +44,7 @@ export default async function AdminPage() {
           <nav className="admin-links" aria-label="Administrator tools">
             <Link className="vixen-discover-link" href="/admin/payment-proofs">Review crypto payment proofs →</Link>
             <Link className="vixen-discover-link" href="/admin/withdrawals">Manage creator withdrawals →</Link>
+            <Link className="vixen-discover-link" href="/admin/store">Manage store listings →</Link>
             <Link className="vixen-discover-link" href="/creators">Open creator directory →</Link>
             <Link className="vixen-discover-link" href="/store">Open store →</Link>
             <Link className="vixen-discover-link" href="/account">Open my account →</Link>
