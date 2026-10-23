@@ -88,7 +88,7 @@ export default async function CreatorStudioPreviewPage() {
             {workspaceAreas.map((area) => (
               <article className="studio-area-card" key={area.title}>
                 <span className="studio-area-icon" aria-hidden="true">{area.icon}</span>
-                <p className="studio-area-state">{area.href === "/creator/profile" && hasCreatorAccess ? "ACTIVE" : "PLANNED"}</p>
+                <p className="studio-area-state">{hasCreatorAccess && ["/creator/profile", "/creator/earnings"].includes(area.href) ? "ACTIVE" : "PLANNED"}</p>
                 <h3>{area.title}</h3>
                 <p>{area.copy}</p>
                 <Link href={!isSignedIn && area.href === "/creator/profile" ? accountHref : area.href}>{!isSignedIn && area.href === "/creator/profile" ? "Creator account information" : area.action} <span aria-hidden="true">→</span></Link>
