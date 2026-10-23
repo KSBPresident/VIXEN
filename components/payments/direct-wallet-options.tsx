@@ -46,7 +46,7 @@ export function DirectWalletOptions({ routes }: { routes: readonly DirectWalletR
                   <span className={styles.kicker}>{route.asset} · NETWORK</span>
                   <h2>{route.network}</h2>
                 </div>
-                <span className={styles.review}>Manual review</span>
+                <span className={styles.review}>Available · manual</span>
               </div>
               <p className={styles.warning}>Send {route.asset} on {route.network} only. Using another asset or network may permanently lose your funds.</p>
               <code className={styles.address}>{route.address}</code>
