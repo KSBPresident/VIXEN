@@ -149,8 +149,8 @@ export default async function PricingPage({
         <div className="nine-offer-mark" aria-hidden="true">NINE</div>
         <div className="nine-offer-copy">
           <p className="eyebrow">PLANNED PAYMENT BENEFIT</p>
-          <h2 id="nine-offer-title">Pay with NINE. <span>Save 33⅓%.</span></h2>
-          <p>When NINE Coin payments are supported, get 33⅓% off any VIXEN creator subscription paid with NINE.</p>
+          <h2 id="nine-offer-title">Pay with NINE. <span>Save 10%.</span></h2>
+          <p>When NINE Coin payments are supported, get 10% off a VIXEN creator subscription paid with NINE. Paying with other cryptocurrencies will not receive a discount.</p>
           <p className="nine-offer-status">Coming later · This offer is not redeemable today. VIXEN does not currently accept NINE Coin. Supported networks, payment verification, and purchase sources will be confirmed before launch.</p>
         </div>
       </section>
@@ -170,7 +170,7 @@ export default async function PricingPage({
           <li>Endcash QR (Trinidad and Tobago, preview only)</li>
           <li>PayPal is not available for VIXEN adult digital content or webcam services</li>
         </ul>
-        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. The Endcash QR is for review only and cannot confirm a transfer or unlock access. Supported crypto coins and networks, including NINE Coin, will be confirmed before any crypto checkout opens.</p>
+        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. The Endcash QR is for review only and cannot confirm a transfer or unlock access. Supported cryptocurrencies and networks will be confirmed before crypto checkout opens. Other crypto payments will have no discount; the separate 10% NINE subscription offer is planned for when NINE Coin and its checkout are available.</p>
       </section>
 
       <section className="section-wrap plan-section private-club-section" aria-labelledby="private-club-heading">
