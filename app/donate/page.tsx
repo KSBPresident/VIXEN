@@ -11,7 +11,7 @@ export default function DonatePage() {
   return (
     <main>
       <header className="site-header">
-        <Link className="wordmark" href="/" aria-label="VIXEN home"><span className="wordmark-v">V</span>IXEN<span className="wordmark-dot">.</span></Link>
+        <Link className="brand" href="/" aria-label="VIXEN home">VIXEN<span aria-hidden="true">.</span></Link>
         <nav className="main-nav" aria-label="Main navigation">
           <Link href="/creators">Discover</Link>
           <Link href="/store">Store</Link>
@@ -40,7 +40,7 @@ export default function DonatePage() {
         <div className="footer-links"><Link href="/crypto-payments">Crypto payments</Link><Link href="/about">About</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div>
         <small>Website Designed &amp; Developed by Nebula Interstellar Networking Economy LLC.</small>
       </div></footer>
-      <style>{`.crypto-payment-callout{max-width:850px;margin:0 auto 24px;padding:20px 22px;border:1px solid rgba(255,184,84,.32);background:linear-gradient(110deg,rgba(88,53,14,.18),#100d12);color:#c9c0ca}.crypto-payment-callout strong{color:#ffd888;font:700 14px var(--display)}.crypto-payment-callout p{margin:7px 0 0;font-size:12px;line-height:1.75}.crypto-payment-footnote{max-width:740px;margin:24px auto 0;color:#928994;font-size:11px;line-height:1.7;text-align:center}`}</style>
+      <style>{`.brand{font:800 24px var(--display);letter-spacing:.16em;color:#f5eff6}.brand span{color:var(--pink);text-shadow:0 0 16px rgba(255,22,136,.7)}.crypto-payment-callout{max-width:850px;margin:0 auto 24px;padding:20px 22px;border:1px solid rgba(255,184,84,.32);background:linear-gradient(110deg,rgba(88,53,14,.18),#100d12);color:#c9c0ca}.crypto-payment-callout strong{color:#ffd888;font:700 14px var(--display)}.crypto-payment-callout p{margin:7px 0 0;font-size:12px;line-height:1.75}.crypto-payment-footnote{max-width:740px;margin:24px auto 0;color:#928994;font-size:11px;line-height:1.7;text-align:center}`}</style>
     </main>
   );
 }
