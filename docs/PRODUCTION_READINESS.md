@@ -12,19 +12,19 @@
 Audit date: 2026-10-23 (America/Port_of_Spain)  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `b1de11bc35756be34cc5448f571a469b4e30b934`
+Latest inspected main commit: `33c36d8a802a229a06b9cd9f2527c9534a0431af`
 
-## Current verification · 2026-10-23 19:44 AST
+## Current verification · 2026-10-23 19:53 AST
 
-- Repository main is at `b1de11bc35756be34cc5448f571a469b4e30b934`. Admin-only store publishing is merged. PR #100 reconciled the store migration filename with the version already recorded in Supabase.
-- Supabase project `srgoxrwhbsxmsrbruktz` is ACTIVE_HEALTHY. The `public.store_products` catalog has RLS enabled and zero rows. Anonymous and signed-in users can read published rows only; the all-commands policy requires both the trusted `vixen_admin` Auth app-metadata flag and the configured owner email. The confirmed configured owner account has that flag.
+- Repository main is at `33c36d8a802a229a06b9cd9f2527c9534a0431af`. The admin-only store workflow and manual crypto-proof, earnings, and payout surfaces are present in source; PR #102's documentation check passed lint, spelling, policy tests, typecheck, production build, and route/link smoke.
+- Supabase project `srgoxrwhbsxmsrbruktz` is ACTIVE_HEALTHY. The store catalog currently has zero rows. The live database has zero approved creator profiles/applications. `/creators` and `/member-preview` load only real approved Supabase profiles and explicitly show empty states instead of sample accounts; `/store` reads only published catalog rows and shows no placeholder products.
 - The applied store migration is recorded remotely as version `20261023233001`, matching `supabase/migrations/20261023233001_admin_only_store_products.sql` on main.
-- The latest main commit has a failed Vercel status with a `build-rate-limit` target and a failed deployment status. The connected Vercel API returns 403 for team scope `caribbeanstarstore`; the latest main commit is not verified as deployed, and the READY deployment documented below is historical.
-- The public store was verified empty at 19:33 AST on 2026-10-23; the administrator-only catalog exists, but no live checkout or fulfillment is connected.
+- The latest main commit has a failed Vercel status with a `build-rate-limit` target. The connected Vercel API returns 403 for team scope `caribbeanstarstore`; the latest main commit is not verified as deployed, and the READY deployment documented below is historical.
+- The public store catalog and creator directory were rechecked at 19:53 AST on 2026-10-23: zero products of any status and zero approved creator profiles. Only the administrator can publish products; checkout and fulfillment are not connected.
 - Supabase security advisors currently report five authenticated-callable `SECURITY DEFINER` functions and leaked-password protection disabled. Review these before launch. Performance advisors report eight unindexed foreign keys and twelve unused indexes; assess before adding significant production traffic.
 - Signup, creator verification, creator content publishing, subscriptions, paid messaging, private video, automated crypto settlement, and creator payouts are not verified as production-ready end to end. Keep their UI states honest and do not claim they are live based on previews or schema alone.
 
-Audit timestamp: 2026-10-23 19:44 AST (23:44 UTC)
+Audit timestamp: 2026-10-23 19:53 AST (23:53 UTC)
 
 ## Historical verification snapshot · 2026-10-23 (superseded by current state below)
 
