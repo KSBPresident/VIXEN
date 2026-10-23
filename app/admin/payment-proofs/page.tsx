@@ -57,6 +57,7 @@ export default async function AdminPaymentProofsPage() {
         </div>
       </section>
       <style>{".admin-review-list{display:grid;gap:16px;margin-top:20px}.admin-review-card{padding:18px;border:1px solid rgba(255,255,255,.14);background:#100d12}.admin-review-heading{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.admin-review-heading h2{margin:6px 0;font-size:19px}.admin-review-heading time,.admin-empty-state{color:#aaa2ad;font-size:12px}.admin-proof-details{display:grid;gap:9px;margin:16px 0}.admin-proof-details div{display:grid;grid-template-columns:minmax(110px,160px) 1fr;gap:12px}.admin-proof-details dt{color:#aaa2ad}.admin-proof-details dd{margin:0}.admin-break{overflow-wrap:anywhere}.admin-review-form{display:grid;gap:12px;margin-top:18px}.admin-review-form label{display:grid;gap:6px;color:#d7ceda;font-size:12px}.admin-review-form textarea{min-height:70px;padding:10px;color:#fff;background:#09070a;border:1px solid rgba(255,255,255,.16)}.admin-review-form div{display:flex;gap:10px;flex-wrap:wrap}.admin-review-form button{min-height:42px;padding:0 16px;border:1px solid #ff1688;background:#bd0c68;color:#fff;cursor:pointer}.admin-review-form .admin-reject-button{border-color:rgba(255,255,255,.24);background:#17131a}.admin-review-note{color:#f6ca78;font-size:12px}@media(max-width:600px){.admin-review-heading{display:grid}.admin-proof-details div{grid-template-columns:1fr;gap:3px}}"}
+      </style>
     </main>
   );
 }
