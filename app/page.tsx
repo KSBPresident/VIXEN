@@ -7,7 +7,7 @@ import "./app-home.css";
 const nav = [
   ["⌂", "Home", "/", false], ["▦", "For you", "/member-preview", false],
   ["⌕", "Discover", "/creators", false], ["◇", "Memberships", "/pricing", false],
-  ["▣", "Store", "/store", false], ["✉", "Messages", "/member-preview/messages", true],
+  ["▣", "Store", "/store", false], ["₿", "Crypto payments", "/crypto-payments", false], ["✉", "Messages", "/member-preview/messages", true],
   ["◉", "Private video", "/member-preview/sessions", true],
 ] as const;
 
@@ -16,6 +16,7 @@ const tiles = [
   ["⌕", "Discover creators", "Browse profiles and find your people.", "/creators", "EXPLORE"],
   ["✉", "Messages", "See the conversation experience. Sending is not active yet.", "/member-preview/messages", "PREVIEW"],
   ["◉", "Private video", "Review the planned paid session flow. No calls are active.", "/member-preview/sessions", "PREVIEW"],
+  ["₿", "Crypto payments", "USDT, USDC, and TRX wallet transfers are available for manually arranged orders.", "/crypto-payments", "MANUAL"],
 ] as const;
 
 export const dynamic = "force-dynamic";
@@ -57,7 +58,7 @@ export default async function HomePage() {
               </div></section>
             </div>
             <aside className="app-rail" aria-label="Account and feature status">
-              <section className="app-rail-card"><p className="app-kicker">MEMBER ACCESS</p><h2>Start free.</h2><p>A free member login is available. Subscriptions, paid posts, messages, private video, and store checkout are not active yet.</p><Link className="app-rail-cta" href={accountHref}>{isSignedIn ? "Open your account" : "Create a free account"}</Link>{!isSignedIn && <Link className="app-rail-link" href="/account">Already a member? Sign in</Link>}</section>
+              <section className="app-rail-card"><p className="app-kicker">MEMBER ACCESS</p><h2>Start free.</h2><p>A free member login is available. Crypto wallet transfers are available by manual arrangement. Membership checkout, paid posts, messages, private video, and store checkout are not active yet.</p><Link className="app-rail-cta" href={accountHref}>{isSignedIn ? "Open your account" : "Create a free account"}</Link>{!isSignedIn && <Link className="app-rail-link" href="/account">Already a member? Sign in</Link>}</section>
               <section className="app-rail-card"><p className="app-kicker">MEMBERSHIP LEVELS</p><h2>Know what unlocks.</h2><div className="app-tier"><b>Standard</b><span>Free member account</span></div><div className="app-tier"><b>VIP / VVIP</b><span>Optional paid levels · not active</span></div><p className="app-note">VIP/VVIP club access is 21+ and requires an active membership card. The upgrades and entry checks are not live yet.</p><Link className="app-rail-link" href="/pricing">See access details →</Link></section>
               <section className="app-rail-card app-status"><p className="app-kicker">FEATURE STATUS</p><div><i className="live"/> <span><b>Account signup</b><small>Email/password available</small></span><strong>LIVE</strong></div><div><i/> <span><b>Creator tools</b><small>Application/workspace preview</small></span><strong>PREVIEW</strong></div><div><i/> <span><b>Paid services</b><small>Payments and fulfillment not connected</small></span><strong>NOT LIVE</strong></div></section>
             </aside>
