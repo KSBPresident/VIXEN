@@ -7,6 +7,9 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Submit crypto payment proof", robots: { index: false, follow: false } };
 
 export default async function PaymentProofPage() {
+  const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
+  if (!supabaseConfigured) redirect("/sign-up?type=member&next=" + encodeURIComponent("/crypto-payments/proof"));
+
   const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) {
