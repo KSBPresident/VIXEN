@@ -16,13 +16,14 @@ export function WithdrawalRequestForm({ balances }: { balances: CreatorBalance[]
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     const balance = options[selected];
     if (!balance) {
       setMessage("There is no available balance to withdraw yet.");
       setIsError(true);
       return;
     }
-    const data = new FormData(event.currentTarget);
+    const data = new FormData(formElement);
     const amount = Number(data.get("amount"));
     const address = String(data.get("destinationAddress") ?? "").trim();
     const note = String(data.get("creatorNote") ?? "").trim();
@@ -48,7 +49,7 @@ export function WithdrawalRequestForm({ balances }: { balances: CreatorBalance[]
         p_creator_note: note || null,
       });
       if (error) throw new Error(error.message);
-      (event.currentTarget as HTMLFormElement).reset();
+      formElement.reset();
       setMessage("Your withdrawal request was sent. VIXEN will review and pay it manually.");
       setIsError(false);
       router.refresh();
