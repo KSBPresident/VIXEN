@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 
 type CreatorChoice = { id: string; username: string; display_name: string | null };
 const networks = {
-  USDT: ["Solana", "BNB Smart Chain", "Polygon", "Ethereum"],
+  USDT: ["Solana", "BNB Smart Chain", "Polygon", "Ethereum", "Tron"],
   USDC: ["Solana", "BNB Smart Chain", "Polygon", "Ethereum"],
   TRX: ["Tron"],
 } as const;

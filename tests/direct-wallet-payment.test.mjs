@@ -62,17 +62,22 @@ test("mismatched, late, overpaid, and duplicate transfers require review", () =>
 });
 
 test("USDT and USDC receive addresses match the supplied screenshots", () => {
-  for (const asset of ["USDT", "USDC"]) {
-    assert.deepEqual(getDirectWalletRoutes(asset).map(({ network }) => network), [
-      "Solana", "BNB Smart Chain", "Polygon", "Ethereum",
-    ]);
-  }
+  assert.deepEqual(getDirectWalletRoutes("USDT").map(({ network }) => network), [
+    "Solana", "Tron", "BNB Smart Chain", "Polygon", "Ethereum",
+  ]);
+  assert.deepEqual(getDirectWalletRoutes("USDC").map(({ network }) => network), [
+    "Solana", "BNB Smart Chain", "Polygon", "Ethereum",
+  ]);
   assert.equal(getDirectWalletRoutes("TRX")[0].network, "Tron");
-  assert.equal(getDirectWalletRoutes("USDT")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBt3GERdSxyFp56Rg");
-  assert.equal(getDirectWalletRoutes("USDC")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBt3GERdSxyFp56Rg");
+  assert.equal(getDirectWalletRoutes("USDT")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBTt3GERdSxyFp56Rg");
+  assert.equal(getDirectWalletRoutes("USDC")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBTt3GERdSxyFp56Rg");
   assert.equal(getDirectWalletRoutes("TRX")[0].address, "TYMeD5NpSEShWuJyMDwopwaEHGnvrbw82c");
-  assert.equal(getDirectWalletRoutes("USDT")[1].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
-  assert.equal(getDirectWalletRoutes("USDC")[1].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
-  assert.equal(directWalletRoutes.length, 9);
-  assert.equal(directWalletRoutes.every((route) => route.status === "manual_review"), true);
+  assert.equal(getDirectWalletRoutes("USDT").find((route) => route.network === "BNB Smart Chain")?.address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
+  assert.equal(getDirectWalletRoutes("USDC").find((route) => route.network === "BNB Smart Chain")?.address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
+  assert.equal(directWalletRoutes.length, 14);
+  assert.equal(getDirectWalletRoutes("USDT").find((route) => route.network === "Tron")?.status, "manual_review");
+  assert.equal(getDirectWalletRoutes("TRX")[0].status, "coming_soon");
+  for (const asset of ["BNB", "SOL", "ETH", "MATIC"]) {
+    assert.equal(getDirectWalletRoutes(asset)[0].status, "coming_soon");
+  }
 });
