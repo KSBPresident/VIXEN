@@ -5,7 +5,7 @@ import identity from "../.test-build/lib/kernel/identity.js";
 import executive from "../.test-build/lib/executive/platform-readiness.js";
 
 const { authorizeCreatorContent } = contentAccess;
-const { isConfiguredPlatformOwner } = identity;
+const { isConfiguredPlatformOwner, isConfiguredPlatformAdmin } = identity;
 const { evaluateCapabilityActivation } = executive;
 
 const member = (overrides = {}) => ({
@@ -43,6 +43,19 @@ test("only the confirmed configured email resolves as the platform owner", () =>
     email: "admin@vixenvortex.com",
     emailConfirmedAt: "2026-10-13T00:00:00Z",
   }, undefined), false);
+});
+
+test("allows only the confirmed configured owner with the trusted admin flag", () => {
+  const owner = {
+    email: "IshmealReyes@Proton.me",
+    emailConfirmedAt: "2026-10-07T19:59:39Z",
+    trustedAdminFlag: true,
+  };
+  assert.equal(isConfiguredPlatformAdmin(owner, "ishmealreyes@proton.me"), true);
+  assert.equal(isConfiguredPlatformAdmin({ ...owner, trustedAdminFlag: false }, "ishmealreyes@proton.me"), false);
+  assert.equal(isConfiguredPlatformAdmin({ ...owner, trustedAdminFlag: "true" }, "ishmealreyes@proton.me"), false);
+  assert.equal(isConfiguredPlatformAdmin({ ...owner, email: "other@example.com" }, "ishmealreyes@proton.me"), false);
+  assert.equal(isConfiguredPlatformAdmin({ ...owner, emailConfirmedAt: null }, "ishmealreyes@proton.me"), false);
 });
 
 test("allows public member previews after adult verification without a paid tier", () => {
