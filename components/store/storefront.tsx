@@ -6,13 +6,33 @@ function formatPrice(currency: string, minorUnits: number) {
   return new Intl.NumberFormat("en-TT", { style: "currency", currency }).format(minorUnits / 100);
 }
 
+type StoreProductListing = {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  price_minor_units: number;
+  currency: string;
+  stock_quantity: number;
+  fulfillment_details: string;
+  return_policy: string;
+};
+
 export async function Storefront() {
-  const supabase = await createClient();
-  const { data: products, error } = await supabase
-    .from("store_products")
-    .select("id, name, category, description, price_minor_units, currency, stock_quantity, fulfillment_details, return_policy")
-    .eq("status", "published")
-    .order("updated_at", { ascending: false });
+  let products: StoreProductListing[] = [];
+  let catalogUnavailable = false;
+  try {
+    const supabase = await createClient();
+    const result = await supabase
+      .from("store_products")
+      .select("id, name, category, description, price_minor_units, currency, stock_quantity, fulfillment_details, return_policy")
+      .eq("status", "published")
+      .order("updated_at", { ascending: false });
+    products = result.data ?? [];
+    catalogUnavailable = Boolean(result.error);
+  } catch {
+    catalogUnavailable = true;
+  }
 
   return (
     <main className="store-app">
@@ -24,13 +44,13 @@ export async function Storefront() {
 
       <section className="store-welcome section-wrap">
         <div><p className="eyebrow"><span className="store-age-mark">18+</span> VIXEN STORE</p><h1>Your space for <span>discovery.</span></h1><p>Store listings are published by VIXEN administrators after inventory, price, shipping, and return details are confirmed.</p></div>
-        <aside className="store-promise"><span aria-hidden="true">✦</span><strong>{error ? "Catalog unavailable" : products?.length ? "Verified listings" : "Coming soon"}</strong><small>{error ? "Please check back later" : products?.length ? `${products.length} item${products.length === 1 ? "" : "s"} currently listed` : "No products are listed for sale yet"}</small></aside>
+        <aside className="store-promise"><span aria-hidden="true">✦</span><strong>{catalogUnavailable ? "Catalog unavailable" : products.length ? "Verified listings" : "Coming soon"}</strong><small>{catalogUnavailable ? "Please check back later" : products.length ? `${products.length} item${products.length === 1 ? "" : "s"} currently listed` : "No products are listed for sale yet"}</small></aside>
       </section>
 
       <section className="store-catalog section-wrap" aria-labelledby="store-catalog-title">
         <div className="store-toolbar"><div><p className="eyebrow">THE VIXEN STORE</p><h2 id="store-catalog-title">Verified listings</h2></div></div>
-        {error ? <div className="store-empty"><h3>Store listings could not load.</h3><p>The catalog is temporarily unavailable. Try again later.</p></div>
-          : products?.length ? <div className="store-product-grid">{products.map((product) => (
+        {catalogUnavailable ? <div className="store-empty"><h3>Store listings could not load.</h3><p>The catalog is temporarily unavailable. Try again later.</p></div>
+          : products.length ? <div className="store-product-grid">{products.map((product) => (
             <article className="store-product-card" key={product.id}>
               <p className="eyebrow">{product.category}</p>
               <h3>{product.name}</h3>
