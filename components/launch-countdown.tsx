@@ -13,7 +13,7 @@ function getRemainingSeconds() {
 const launchDetails = [
   {
     title: "Launch-week creator discount",
-    copy: "November 3–9 only: VIXEN’s fee is 5%, so creators keep 95%. The standard 15% / 85% split returns November 10.",
+    copy: "November 3–9 only: the platform commission is discounted to 5%, leaving 95% of the creator share before any separately disclosed processing fees, taxes, refunds, or chargebacks. The standard 15% commission / 85% creator share returns November 10.",
   },
   {
     title: "Available account paths",
@@ -21,7 +21,7 @@ const launchDetails = [
   },
   {
     title: "Wallet routes · manual review",
-    copy: "USDT, USDC, and TRX proof submissions are reviewed manually. Sending a screenshot does not automatically fulfill a purchase.",
+    copy: "Available routes: USDT on Solana, Tron, BNB Smart Chain, Polygon, or Ethereum; USDC on Solana, BNB Smart Chain, Polygon, or Ethereum; TRX on Tron. Payments require screenshot proof and manual admin review; there is no automatic payment matching or fulfillment.",
   },
   {
     title: "Still coming soon",
