@@ -115,6 +115,14 @@ export default async function CreatorStudioPreviewPage() {
             <Link href={accountHref}>{isSignedIn ? "Open my account" : "Creator account information"} <span aria-hidden="true">→</span></Link>
           </section>
 
+          <section className="studio-rail-card bixpay-invitation-card">
+            <p className="studio-eyebrow">CREATOR PAYOUTS</p>
+            <h2>Set up BixPay for withdrawals.</h2>
+            <p>VIXEN plans to send approved creator withdrawals to your BixPay account. Open an account now, then provide the correct receiving address and network when you request a payout.</p>
+            <Link href="https://bix.fi/r?code=E9XNZGES" target="_blank" rel="noopener noreferrer">Open BixPay <span aria-hidden="true">↗</span></Link>
+            <small>Never share your recovery phrase or private keys. Payouts are reviewed and sent manually.</small>
+          </section>
+
           <section className="studio-rail-card">
             <p className="studio-eyebrow">CREATOR CONTROL</p>
             <h2>You set the access boundary.</h2>
