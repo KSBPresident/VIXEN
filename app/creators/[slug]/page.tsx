@@ -14,8 +14,11 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
   if (!/^[a-z0-9._]{3,30}$/i.test(slug)) notFound();
 
   let creator: { username: string; display_name: string | null; avatar_url: string | null; cover_url: string | null; bio: string | null } | null = null;
+  let isSignedIn = false;
   try {
     const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    isSignedIn = Boolean(user);
     const { data } = await supabase.from("profiles")
       .select("username, display_name, avatar_url, cover_url, bio")
       .eq("is_creator", true)
@@ -28,6 +31,8 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
   if (!creator) notFound();
 
   const name = creator.display_name?.trim() || creator.username;
+  const accountHref = isSignedIn ? "/account" : "/sign-up?type=member";
+  const accountLabel = isSignedIn ? "My account" : "Create free account";
   const avatar = creator.avatar_url && /^https:\/\//i.test(creator.avatar_url) ? creator.avatar_url : null;
   const cover = creator.cover_url && /^https:\/\//i.test(creator.cover_url) ? creator.cover_url : null;
 
@@ -36,12 +41,12 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
       <header className="member-topbar">
         <Link href="/" className="member-brand" aria-label="VIXEN home"><Image src="/assets/vixen-mark-3d.png" alt="" width={62} height={62} priority /><span>VIXEN</span></Link>
         <form className="member-search" action="/creators" role="search" aria-label="Search creators"><span aria-hidden="true">⌕</span><label className="visually-hidden" htmlFor="creator-profile-search">Search by @username</label><input id="creator-profile-search" type="search" name="q" placeholder="Search by @username" /><button type="submit" aria-label="Search creators">↵</button></form>
-        <div className="member-top-actions"><span className="member-preview-pill"><i /> APPROVED CREATOR</span><Link href="/sign-up?type=member">Create free account <b aria-hidden="true">↗</b></Link></div>
+        <div className="member-top-actions"><span className="member-preview-pill"><i /> APPROVED CREATOR</span><Link href={accountHref}>{accountLabel} <b aria-hidden="true">↗</b></Link></div>
       </header>
       <div className="member-shell">
         <aside className="member-sidebar"><p className="member-sidebar-label">YOUR VIXEN</p><nav className="member-sidebar-navigation" aria-label="Member app navigation">
           <Link className="member-nav-item" href="/member-preview"><span>▦</span> For you</Link><Link className="member-nav-item is-active" href="/creators"><span>⌕</span> Discover creators</Link><Link className="member-nav-item" href="/pricing"><span>◇</span> Memberships</Link><Link className="member-nav-item" href="/member-preview/sessions"><span>◉</span> Private video</Link><Link className="member-nav-item" href="/member-preview/messages"><span>✉</span> vMessage</Link><Link className="member-nav-item" href="/store"><span>⌑</span> Store</Link>
-        </nav><div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Explore on VIXEN</strong><p>Review available membership details before joining.</p><Link href="/sign-up?type=member">Join free <span aria-hidden="true">→</span></Link></div><div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div></aside>
+        </nav><div className="member-sidebar-card"><span className="member-sidebar-spark">✦</span><strong>Explore on VIXEN</strong><p>Review available membership details before joining.</p><Link href={accountHref}>{isSignedIn ? "Open your account" : "Join free"} <span aria-hidden="true">→</span></Link></div><div className="member-sidebar-foot"><span>Adults 18+ only</span><span>Verified Interactive Xperience &amp; Entertainment Network</span></div></aside>
         <section className="member-main interaction-workspace creator-app-profile" aria-labelledby="creator-name">
           <nav className="creator-profile-toolbar" aria-label="Main navigation"><Link href="/creators">Discover</Link><Link href="/pricing">Memberships</Link><Link href="/member-preview/sessions">Private video</Link></nav>
           <div className={"creator-profile-banner" + (cover ? " has-cover" : "")}>{cover && <Image className="creator-profile-cover" src={cover} alt="" fill sizes="(max-width: 760px) 100vw, 760px" unoptimized />}{avatar ? <Image className="member-avatar" src={avatar} alt="" width={96} height={96} unoptimized /> : <span className="member-avatar portrait-violet">{name.slice(0, 2).toLocaleUpperCase()}</span>}<span className="creator-profile-banner-label">VIXEN CREATOR PROFILE</span></div>
