@@ -9,14 +9,14 @@
 - Until provider acceptance and legal clearance are documented, keep every crypto payment method labelled planned and checkout disabled. Do not request or put API keys, IPN secrets, wallet seed phrases, or private keys in chat or source control.
 
 
-Audit date: 2026-10-18 (America/Port_of_Spain)  
+Audit date: 2026-10-23 (America/Port_of_Spain)  
 Repository: `KSBPresident/VIXEN`, branch `main`  
 Production deployment: Vercel project `vixen-production-package`  
-Latest inspected main commit: `f1a007908d128aa7c666d0f8e80bd4d0b8513783`
+Latest inspected main commit: `0cb98998ec648520b11bba2132728009788cbe35`
 
-## Current verification · 2026-10-18
+## Current verification · 2026-10-23
 
-- PR #73 (“Make creator profile uploads resumable”) is merged to `main` at `f1a007908d128aa7c666d0f8e80bd4d0b8513783`.
+- PR #73 (“Make creator profile uploads resumable”) is merged to `main`. PR #82 (“Document planned USDT and USDC checkout scope”) is also merged to `main` at `0cb98998ec648520b11bba2132728009788cbe35`; its CI passed lint, spelling, kernel tests, typecheck, production build, and route/link smoke checks. GitHub reports the Vercel status check succeeded for this commit, but a direct fetch of public pricing/store routes was unavailable during this audit.
 - GitHub Actions run #193 passed lint, spelling, Kernel policy tests, TypeScript, production build, and route/link smoke checks for the creator feed/story implementation in PR #71. GitHub Actions run ID 39196653064 for PR #73 passed lint, spelling, Kernel policy tests, TypeScript, production build, and route/link smoke checks.
 - Vercel production deployment `dpl_65x1GssVUqzjMKHG7QCeTBFDGeYi` for the merged main commit is READY and owns the public aliases `https://vixen-production-package.vercel.app`, `https://vixen-production-package-caribbeanstarstore.vercel.app`, and `https://vixen-production-package-git-main-caribbeanstarstore.vercel.app`. A fetch of the production creator signup route returned HTTP 200.
 - The public creator signup page displays all three planned stages: account/profile, age and identity verification, and payout/tax setup. This is disclosure of requirements, not a connected identity-proofing or payout flow. Raw identity, biometric, bank, or tax data must not be submitted until vetted providers and their privacy/security controls are selected.
