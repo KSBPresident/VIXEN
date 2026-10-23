@@ -17,7 +17,7 @@ const workspaceAreas = [
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
   { icon: "◉", title: "Private video", copy: "Preview creator-controlled, paid browser-session flows.", href: "/member-preview/sessions", action: "Open session preview" },
-  { icon: "↗", title: "Earnings & payouts", copy: "Planned platform commission: 18% of paid creator transactions. Processor fees, taxes, refunds, and chargebacks are separate; earnings and payouts are not available yet.", href: "/pricing", action: "See what is still planned" },
+  { icon: "↗", title: "Earnings & payouts", copy: "VIXEN’s standard commission is 15%; creators keep 85%. The November 3–9 launch-week commission discount is 5%, so creators keep 95%. Verified payments and manual withdrawals appear in your earnings area.", href: "/creator/earnings", action: "View earnings and request a withdrawal" },
 ];
 
 export default async function CreatorStudioPreviewPage() {
@@ -80,7 +80,7 @@ export default async function CreatorStudioPreviewPage() {
             <div className="studio-welcome-mark" aria-hidden="true"><span>V</span><i>✦</i><b>VIXEN STUDIO</b></div>
           </div>
 
-          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your public profile tools are active." : "Creator applications are available."}</strong> Approved creators can edit their public profile and upload profile images. Feed posts, stories, paid content, memberships, messages, earnings, and payouts remain previews.</p></div>
+          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your public profile tools are active." : "Creator applications are available."}</strong> Approved creators can edit their public profile and upload profile images. Feed posts, stories, paid content, memberships, and messages remain previews. Verified creator earnings and manual withdrawal requests have a separate account area.</p></div>
 
           <div className="studio-section-heading"><div><p className="studio-eyebrow">YOUR WORKSPACE</p><h2>Build your presence.</h2></div><span>{hasCreatorAccess ? "Profile editing active · other tools are previews" : "Creator tools require application approval"}</span></div>
 
