@@ -74,6 +74,7 @@ export function WithdrawalRequestForm({ balances }: { balances: CreatorBalance[]
       </>}
       <p className={isError ? "creator-withdrawal-error" : "creator-withdrawal-status"} role={isError ? "alert" : "status"} aria-live="polite">{message}</p>
       <style>{".creator-withdrawal-form{display:grid;gap:12px;margin-top:22px;padding:20px;border:1px solid rgba(255,255,255,.14);background:#100d12}.creator-withdrawal-form h2,.creator-withdrawal-form p{margin:0}.creator-withdrawal-form p{color:#aaa2ad;font-size:12px;line-height:1.6}.creator-withdrawal-form label{display:grid;gap:6px;color:#ddd5e0;font-size:12px}.creator-withdrawal-form input,.creator-withdrawal-form select,.creator-withdrawal-form textarea{width:100%;min-height:44px;padding:10px;color:#fff;background:#09070a;border:1px solid rgba(255,255,255,.16)}.creator-withdrawal-form textarea{min-height:70px}.creator-withdrawal-form button{min-height:44px;border:1px solid #ff1688;background:#bd0c68;color:#fff;cursor:pointer}.creator-withdrawal-form button:disabled{opacity:.6;cursor:wait}.creator-withdrawal-status{color:#91e9b3!important}.creator-withdrawal-error{color:#ff78b8!important}"}
+      </style>
     </form>
   );
 }
