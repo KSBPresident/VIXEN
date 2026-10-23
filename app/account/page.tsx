@@ -74,7 +74,7 @@ export default async function AccountPage() {
           <ProfileEditor username={profile?.username ?? ""} displayName={profile?.display_name ?? ""} />
           {isPlatformOwner && <p><Link className="vixen-discover-link" href="/admin">Open administrator console <span aria-hidden="true">→</span></Link></p>}
           {isCreator && <p><Link className="vixen-discover-link" href="/creator/earnings">View earnings and request a withdrawal <span aria-hidden="true">→</span></Link></p>}
-          {isCreator && <p><Link className="vixen-discover-link" href="/creator/profile">Manage your public creator profile <span aria-hidden="true">→</span></Link></p>
+          {isCreator && <p><Link className="vixen-discover-link" href="/creator/profile">Manage your public creator profile <span aria-hidden="true">→</span></Link></p>;
           {isCreator && <p><Link className="vixen-discover-link" href="/creator/studio">Open creator workspace preview <span aria-hidden="true">→</span></Link></p>}
           <p><Link className="vixen-discover-link" href="/member-preview">Open member app preview <span aria-hidden="true">→</span></Link></p>
           <p className="vixen-auth-caption">Creator payment proofs, earnings, and withdrawal requests use manual administrator review. Creator content, paid memberships, messages, checkout, bookings, and video rooms remain separate features with their own launch status.</p>
