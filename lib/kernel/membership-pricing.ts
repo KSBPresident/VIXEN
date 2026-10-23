@@ -21,7 +21,7 @@ export const membershipPricingExamples = [
     monthlyPriceMinorUnits: 0,
     billing: "No payment or renewal",
     summary: "A free adult member account to explore public creator previews.",
-    included: ["Browse creator profiles", "View public posts and previews", "No card and no recurring charge"],
+    included: ["Browse creator profiles", "Browse public creator profile previews", "No card and no recurring charge"],
     excluded: "Member-only posts and drops, paid messages, tips, creator publishing, payouts, and management tools.",
     free: true,
   },

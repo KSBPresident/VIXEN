@@ -12,3 +12,8 @@
 .pricing-edge-note strong{color:var(--pink-bright)}
 @media(max-width:850px){.pricing-edge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.pricing-edge{padding-top:48px}.pricing-edge-grid{grid-template-columns:1fr}.pricing-edge-grid article{min-height:0}.pricing-edge-heading{text-align:left}.pricing-edge-heading>p:last-child{font-size:12px}}
+
+.member-plan-status{display:flex;align-items:center;gap:7px;margin:0 24px 16px;padding:9px 12px;border:1px solid rgba(255,22,136,.35);background:rgba(255,22,136,.08);color:#f4a4ce;font-size:11px;line-height:1.5;letter-spacing:.02em}
+.member-plan-status strong,.pricing-edge-status{color:var(--pink-bright)}
+.member-plan-cta:disabled{cursor:not-allowed;opacity:.62}
+.pricing-edge-status{margin:8px 0 0!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
