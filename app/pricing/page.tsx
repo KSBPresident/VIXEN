@@ -157,20 +157,18 @@ export default async function PricingPage() {
 
       <section className="section-wrap payment-methods" aria-labelledby="payment-methods-title">
         <div>
-          <p className="eyebrow">FLEXIBLE WAYS TO PAY</p>
-          <h2 id="payment-methods-title">Payment options are being prepared.</h2>
-          <p>VIXEN plans to support the methods below. The options available will depend on your location and what you’re buying, and will be confirmed before checkout.</p>
+          <p className="eyebrow">PAYMENT AVAILABILITY</p>
+          <h2 id="payment-methods-title">Wallet payments with manual review.</h2>
+          <p>VIXEN currently accepts payment proof for selected USDT and USDC wallet routes. Get an exact total and order reference from VIXEN before sending funds, then submit your transaction ID and screenshot for admin review.</p>
         </div>
-        <ul className="payment-method-list" aria-label="Planned payment methods">
-          <li>Card payments</li>
-          <li>Bank transfer</li>
-          <li>USDT and USDC for U.S. and U.K. customers (planned; networks pending)</li>
-          <li>WiPay (pending written merchant approval for VIXEN)</li>
-          <li>Wise</li>
-          <li>Endcash QR (Trinidad and Tobago, preview only)</li>
-          <li>PayPal is not available for VIXEN adult digital content or webcam services</li>
+        <ul className="payment-method-list" aria-label="Payment method availability">
+          <li><strong>Available · manual review:</strong> USDT on Tron, Solana, BNB Smart Chain, Polygon, and Ethereum.</li>
+          <li><strong>Available · manual review:</strong> USDC on Solana, BNB Smart Chain, Polygon, and Ethereum.</li>
+          <li><strong>Coming soon:</strong> TRX, BNB, SOL, ETH, MATIC, card payments, bank transfer, Wise, WiPay, and Endcash order checkout.</li>
+          <li><strong>Not offered:</strong> PayPal for VIXEN adult digital content, subscriptions, or webcam/video-call services.</li>
         </ul>
-        <p className="payment-method-note">These payment methods are not active yet. No payment is taken from this preview. The Endcash QR is for review only and cannot confirm a transfer or unlock access. USDT and USDC are planned for U.S. and U.K. customers. Accepted networks, receiving wallet, provider approval, regulatory clearance, and payment confirmation must be finalized before crypto checkout opens. Other crypto payments will have no discount; the separate 10% NINE subscription offer is planned for when NINE Coin and its checkout are available.</p>
+        <p className="payment-method-note">A screenshot is not proof of settlement. VIXEN independently checks the transaction before manually reviewing the payment. Proof approval does not automatically unlock a subscription, creator content, or store order; those fulfillment flows are not active. Do not send funds until VIXEN confirms the amount, asset, network, and order reference. Never share wallet passwords, recovery phrases, or private keys.</p>
+        <p className="center-action"><Link className="button button-outline" href="/crypto-payments">View wallet routes</Link> <Link className="button" href="/crypto-payments/proof">Submit payment proof</Link></p>
       </section>
 
       <section className="section-wrap plan-section private-club-section" aria-labelledby="private-club-heading">
