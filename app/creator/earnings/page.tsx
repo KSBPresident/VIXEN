@@ -13,7 +13,7 @@ function amount(value: number | string, asset: string) {
 export default async function CreatorEarningsPage() {
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
-  if (authError || !user) redirect("/sign-up?type=creator&next=%2Fcreator%2Fearnings");
+  if (authError || !user) redirect(`/sign-up?type=creator&next=${encodeURIComponent("/creator/earnings")}`);
 
   const { data: profile } = await supabase.from("profiles").select("is_creator").eq("id", user.id).maybeSingle();
   if (profile?.is_creator !== true) redirect("/account");
