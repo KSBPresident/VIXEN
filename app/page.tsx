@@ -7,7 +7,7 @@ import "./app-home.css";
 const nav = [
   ["⌂", "Home", "/", false], ["▦", "For you", "/member-preview", false],
   ["⌕", "Discover", "/creators", false], ["◇", "Memberships", "/pricing", false],
-  ["▣", "Store", "/store", false], ["₿", "Crypto payments", "/crypto-payments", false], ["✉", "Messages", "/member-preview/messages", true],
+  ["▣", "Store", "/store", false], ["₿", "Crypto payments", "/crypto-payments", false], ["♡", "Donate", "/donate", false], ["✉", "Messages", "/member-preview/messages", true],
   ["◉", "Private video", "/member-preview/sessions", true],
 ] as const;
 
@@ -17,6 +17,7 @@ const tiles = [
   ["✉", "Messages", "See the conversation experience. Sending is not active yet.", "/member-preview/messages", "PREVIEW"],
   ["◉", "Private video", "Review the planned paid session flow. No calls are active.", "/member-preview/sessions", "PREVIEW"],
   ["₿", "Crypto payments", "USDT, USDC, and TRX wallet transfers are available for manually arranged orders.", "/crypto-payments", "MANUAL"],
+  ["♡", "Support VIXEN", "Make a voluntary wallet contribution. Donations do not unlock paid access.", "/donate", "DONATE"],
 ] as const;
 
 export const dynamic = "force-dynamic";
@@ -64,7 +65,7 @@ export default async function HomePage() {
             </aside>
           </div>
         </div>
-        <footer className="app-footer"><span>© {new Date().getFullYear()} VIXEN</span><span>Website Designed &amp; Developed by <strong>Nebula Interstellar Networking Economy LLC.</strong></span><Link href="/about">About VIXEN</Link></footer>
+        <footer className="app-footer"><span>© {new Date().getFullYear()} VIXEN</span><span>Website Designed &amp; Developed by <strong>Nebula Interstellar Networking Economy LLC.</strong></span><Link href="/donate">Donate</Link><Link href="/about">About VIXEN</Link></footer>
         <nav className="app-mobile-nav" aria-label="Mobile app navigation"><Link href="/member-preview"><span>▦</span><small>Feed</small></Link><Link href="/creators"><span>⌕</span><small>Discover</small></Link><Link href="/member-preview/messages"><span>✉</span><small>Inbox</small></Link><Link href="/member-preview/sessions"><span>◉</span><small>Video</small></Link><Link href="/account"><span>◌</span><small>Account</small></Link></nav>
       </div>
     </main>
