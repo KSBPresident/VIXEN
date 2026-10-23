@@ -38,7 +38,7 @@ export default async function AccountPage() {
 
   const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
-  if (error || !user) redirect("/sign-up?next=%2Faccount");
+  if (error || !user) redirect("/sign-up?type=member&mode=signin&next=%2Faccount");
 
   const isPlatformOwner = isVixenPlatformAdmin(user);
 
