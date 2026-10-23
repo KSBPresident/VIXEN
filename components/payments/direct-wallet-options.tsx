@@ -43,7 +43,7 @@ export function DirectWalletOptions({ routes }: { routes: readonly DirectWalletR
           {visibleRoutes.map((route) => {
             const available = route.status === "manual_review";
             return (
-              <article className={styles.card} key={\`\${route.asset}-\${route.network}\`}>
+              <article className={styles.card} key={route.asset + "-" + route.network}>
                 <div className={styles.cardTop}>
                   <div>
                     <span className={styles.kicker}>{route.asset} · NETWORK</span>
