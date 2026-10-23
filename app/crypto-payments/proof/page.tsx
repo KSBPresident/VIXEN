@@ -9,7 +9,10 @@ export const metadata = { title: "Submit crypto payment proof", robots: { index:
 export default async function PaymentProofPage() {
   const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
-  if (error || !user) redirect("/sign-up?type=member&next=%2Fcrypto-payments%2Fproof");
+  if (error || !user) {
+    const nextPath = "/crypto-payments/proof";
+    redirect("/sign-up?type=member&next=" + encodeURIComponent(nextPath));
+  }
 
   const { data } = await supabase.from("profiles")
     .select("id, username, display_name")
