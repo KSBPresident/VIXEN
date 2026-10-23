@@ -4,26 +4,26 @@ import pricing from "../.test-build/lib/kernel/nine-subscription-discount.js";
 
 const { calculateNineSubscriptionPreview } = pricing;
 
-test("shows one-third savings rounded to cents for illustrative subscription prices", () => {
+test("shows 10 percent savings rounded to cents for illustrative subscription prices", () => {
   assert.deepEqual(calculateNineSubscriptionPreview(399), {
     originalMinorUnits: 399,
-    savingsMinorUnits: 133,
-    discountedMinorUnits: 266,
+    savingsMinorUnits: 40,
+    discountedMinorUnits: 359,
   });
   assert.deepEqual(calculateNineSubscriptionPreview(899), {
     originalMinorUnits: 899,
-    savingsMinorUnits: 300,
-    discountedMinorUnits: 599,
+    savingsMinorUnits: 90,
+    discountedMinorUnits: 809,
   });
   assert.deepEqual(calculateNineSubscriptionPreview(1499), {
     originalMinorUnits: 1499,
-    savingsMinorUnits: 500,
-    discountedMinorUnits: 999,
+    savingsMinorUnits: 150,
+    discountedMinorUnits: 1349,
   });
   assert.deepEqual(calculateNineSubscriptionPreview(2499), {
     originalMinorUnits: 2499,
-    savingsMinorUnits: 833,
-    discountedMinorUnits: 1666,
+    savingsMinorUnits: 250,
+    discountedMinorUnits: 2249,
   });
 });
 
