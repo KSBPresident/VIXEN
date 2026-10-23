@@ -72,8 +72,8 @@ test("USDT and USDC receive addresses match the supplied screenshots", () => {
   assert.equal(getDirectWalletRoutes("USDT")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBTt3GERdSxyFp56Rg");
   assert.equal(getDirectWalletRoutes("USDC")[0].address, "72jittFfSyu7cPSPMEhSv83qXG8TBTt3GERdSxyFp56Rg");
   assert.equal(getDirectWalletRoutes("TRX")[0].address, "TYMeD5NpSEShWuJyMDwopwaEHGnvrbw82c");
-  assert.equal(getDirectWalletRoutes("USDT")[1].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
-  assert.equal(getDirectWalletRoutes("USDC")[1].address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
+  assert.equal(getDirectWalletRoutes("USDT").find((route) => route.network === "BNB Smart Chain")?.address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
+  assert.equal(getDirectWalletRoutes("USDC").find((route) => route.network === "BNB Smart Chain")?.address, "0xE51A7Ca633e27a1e369A9480BAC69cA64e48dE75");
   assert.equal(directWalletRoutes.length, 14);
   assert.equal(getDirectWalletRoutes("USDT").find((route) => route.network === "Tron")?.status, "manual_review");
   assert.equal(getDirectWalletRoutes("TRX")[0].status, "coming_soon");
