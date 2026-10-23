@@ -34,7 +34,7 @@ export default async function AdminPaymentProofsPage() {
         <div className="vixen-account-panel">
           <p className="vixen-kicker">PRIVATE EVIDENCE · ADMIN ONLY</p>
           <h1>Crypto payment review</h1>
-          <p>Check each transaction independently on the selected network before approving it. A screenshot by itself does not confirm settlement. Creator balances update only after an approved creator payment; store access is still fulfilled manually.</p>
+          <p>Check each transaction independently on the selected network before approving it. A screenshot by itself does not confirm settlement. Creator balances update only after an approved creator payment or tip; store access is still fulfilled manually.</p>
           <p className="vixen-auth-caption">{rows.filter((row) => row.status === "pending").length} awaiting review · newest 100 submissions</p>
           {rows.length === 0 ? <p className="admin-empty-state">No payment proofs have been submitted.</p> : <div className="admin-review-list">{rows.map((proof) => (
             <article className="admin-review-card" key={proof.id}>
