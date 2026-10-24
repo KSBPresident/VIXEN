@@ -6,13 +6,18 @@ import { createClient } from "@/lib/supabase/client";
 
 type CreatorBalance = { asset: string; network: string; available_balance: number | string };
 
-function toAtomicUnits(value: string | number): bigint | null {
+function toAtomicUnits(value: string | number): string | null {
   const decimal = typeof value === "number"
     ? Number.isFinite(value) ? value.toFixed(8) : ""
     : value.trim();
-  const match = /^(\d+)(?:\.(\d{0,8}))?$/.exec(decimal);
+  const match = /^(\\d+)(?:\\.(\\d{0,8}))?$/.exec(decimal);
   if (!match) return null;
-  return BigInt(match[1]) * 100_000_000n + BigInt((match[2] ?? "").padEnd(8, "0"));
+  return (match[1] + (match[2] ?? "").padEnd(8, "0")).replace(/^0+(?=\\d)/, "");
+}
+
+function compareAtomicUnits(left: string, right: string) {
+  if (left.length !== right.length) return left.length < right.length ? -1 : 1;
+  return left === right ? 0 : left < right ? -1 : 1;
 }
 
 function formatBalance(value: number | string) {
@@ -21,7 +26,7 @@ function formatBalance(value: number | string) {
 
 export function WithdrawalRequestForm({ balances }: { balances: CreatorBalance[] }) {
   const router = useRouter();
-  const options = balances.filter((balance) => (toAtomicUnits(balance.available_balance) ?? 0n) > 0n);
+  const options = balances.filter((balance) => (toAtomicUnits(balance.available_balance) ?? "0") !== "0");
   const [selected, setSelected] = useState(0);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
@@ -42,7 +47,7 @@ export function WithdrawalRequestForm({ balances }: { balances: CreatorBalance[]
     const balanceUnits = toAtomicUnits(balance.available_balance);
     const address = String(data.get("destinationAddress") ?? "").trim();
     const note = String(data.get("creatorNote") ?? "").trim();
-    if (amountUnits === null || amountUnits <= 0n || balanceUnits === null || amountUnits > balanceUnits) {
+    if (amountUnits === null || amountUnits === "0" || balanceUnits === null || compareAtomicUnits(amountUnits, balanceUnits) > 0) {
       setMessage("Enter an amount within your available balance.");
       setIsError(true);
       return;
