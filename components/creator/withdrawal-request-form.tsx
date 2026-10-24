@@ -6,9 +6,22 @@ import { createClient } from "@/lib/supabase/client";
 
 type CreatorBalance = { asset: string; network: string; available_balance: number | string };
 
+function toAtomicUnits(value: string | number): bigint | null {
+  const decimal = typeof value === "number"
+    ? Number.isFinite(value) ? value.toFixed(8) : ""
+    : value.trim();
+  const match = /^(\d+)(?:\.(\d{0,8}))?$/.exec(decimal);
+  if (!match) return null;
+  return BigInt(match[1]) * 100_000_000n + BigInt((match[2] ?? "").padEnd(8, "0"));
+}
+
+function formatBalance(value: number | string) {
+  return typeof value === "number" ? value.toFixed(8) : value;
+}
+
 export function WithdrawalRequestForm({ balances }: { balances: CreatorBalance[] }) {
   const router = useRouter();
-  const options = balances.filter((balance) => Number(balance.available_balance) > 0);
+  const options = balances.filter((balance) => (toAtomicUnits(balance.available_balance) ?? 0n) > 0n);
   const [selected, setSelected] = useState(0);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
@@ -24,10 +37,12 @@ export function WithdrawalRequestForm({ balances }: { balances: CreatorBalance[]
       return;
     }
     const data = new FormData(formElement);
-    const amount = Number(data.get("amount"));
+    const amount = String(data.get("amount") ?? "").trim();
+    const amountUnits = toAtomicUnits(amount);
+    const balanceUnits = toAtomicUnits(balance.available_balance);
     const address = String(data.get("destinationAddress") ?? "").trim();
     const note = String(data.get("creatorNote") ?? "").trim();
-    if (!Number.isFinite(amount) || amount <= 0 || amount > Number(balance.available_balance)) {
+    if (amountUnits === null || amountUnits <= 0n || balanceUnits === null || amountUnits > balanceUnits) {
       setMessage("Enter an amount within your available balance.");
       setIsError(true);
       return;
@@ -66,7 +81,7 @@ export function WithdrawalRequestForm({ balances }: { balances: CreatorBalance[]
       <h2>Request a withdrawal</h2>
       <p>Choose the matching asset and network. VIXEN sends approved payouts manually.</p>
       {options.length === 0 ? <p>Your available balance will appear here after a verified creator payment is approved.</p> : <>
-        <label>Balance<select value={selected} onChange={(event) => setSelected(Number(event.target.value))}>{options.map((option, index) => <option value={index} key={option.asset + option.network}>{option.asset} · {option.network} · available {Number(option.available_balance).toFixed(8)}</option>)}</select></label>
+        <label>Balance<select value={selected} onChange={(event) => setSelected(Number(event.target.value))}>{options.map((option, index) => <option value={index} key={option.asset + option.network}>{option.asset} · {option.network} · available {formatBalance(option.available_balance)}</option>)}</select></label>
         <label>Amount<input name="amount" type="number" min="0.00000001" step="0.00000001" max={Number(options[selected]?.available_balance ?? 0)} required /></label>
         <label>Destination wallet address<input name="destinationAddress" required maxLength={180} autoComplete="off" /></label>
         <label>Note for VIXEN (optional)<textarea name="creatorNote" maxLength={500} /></label>
