@@ -42,6 +42,7 @@ export default async function AdminPage() {
           <p className="vixen-account-email">{user.email}</p>
           <div className="admin-overview-grid">{stats.map(([label, count]) => <article key={label}><strong>{count}</strong><span>{label}</span></article>)}</div>
           <nav className="admin-links" aria-label="Administrator tools">
+            <Link className="vixen-discover-link" href="/admin/creator-applications">Review creator applications →</Link>
             <Link className="vixen-discover-link" href="/admin/payment-proofs">Review crypto payment proofs →</Link>
             <Link className="vixen-discover-link" href="/admin/withdrawals">Manage creator withdrawals →</Link>
             <Link className="vixen-discover-link" href="/admin/store">Manage store listings →</Link>
