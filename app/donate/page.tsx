@@ -32,7 +32,7 @@ export default function DonatePage() {
           <p>Choose the exact asset and network, then copy its receive address. Donations are separate from purchases and do not unlock memberships, store items, creator content, or other paid access. This page does not issue an automatic receipt or payment confirmation.</p>
         </div>
         <DirectWalletOptions routes={directWalletRoutes} />
-        <p className="center-action"><Link className="button button-outline" href="/crypto-payments/proof">Submit donation proof</Link></p>
+        <p className="center-action"><Link className="button button-outline" href="/crypto-payments/proof?type=donation">Submit donation proof</Link></p>
         <p className="crypto-payment-footnote">Wallet transfers are generally irreversible. Verify the asset, network, and address in your wallet before sending. Never share your recovery phrase or private key.</p>
       </section>
 
