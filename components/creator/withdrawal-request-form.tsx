@@ -10,9 +10,9 @@ function toAtomicUnits(value: string | number): string | null {
   const decimal = typeof value === "number"
     ? Number.isFinite(value) ? value.toFixed(8) : ""
     : value.trim();
-  const match = /^(\\d+)(?:\\.(\\d{0,8}))?$/.exec(decimal);
+  const match = /^(\d+)(?:\.(\d{0,8}))?$/.exec(decimal);
   if (!match) return null;
-  return (match[1] + (match[2] ?? "").padEnd(8, "0")).replace(/^0+(?=\\d)/, "");
+  return (match[1] + (match[2] ?? "").padEnd(8, "0")).replace(/^0+(?=\d)/, "");
 }
 
 function compareAtomicUnits(left: string, right: string) {
