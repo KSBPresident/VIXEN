@@ -77,7 +77,11 @@ test("USDT and USDC receive addresses match the supplied screenshots", () => {
   assert.equal(directWalletRoutes.length, 14);
   assert.equal(getDirectWalletRoutes("USDT").find((route) => route.network === "Tron")?.status, "manual_review");
   assert.equal(getDirectWalletRoutes("TRX")[0].status, "manual_review");
+  assert.equal(getDirectWalletRoutes("BNB")[0].network, "BNB Smart Chain");
+  assert.equal(getDirectWalletRoutes("SOL")[0].network, "Solana");
+  assert.equal(getDirectWalletRoutes("ETH")[0].network, "Ethereum");
+  assert.equal(getDirectWalletRoutes("MATIC")[0].network, "Ethereum");
   for (const asset of ["BNB", "SOL", "ETH", "MATIC"]) {
-    assert.equal(getDirectWalletRoutes(asset)[0].status, "coming_soon");
+    assert.equal(getDirectWalletRoutes(asset)[0].status, "manual_review");
   }
 });
