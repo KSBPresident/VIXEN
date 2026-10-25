@@ -38,7 +38,7 @@ export default function LaunchPage() {
           <h1>Control your <span>power.</span></h1>
           <p>Explore the VIXEN browser app during beta. Free member accounts and creator applications are available; paid services and creator publishing remain marked Coming soon until fully ready.</p>
           <div className="hero-actions" style={{ justifyContent: "center", marginTop: 28 }}>
-            <Link className="button" href="/creators">Browse sample creators <span aria-hidden="true">↗</span></Link>
+            <Link className="button" href="/creators">Open creator directory <span aria-hidden="true">↗</span></Link>
             <Link className="button button-outline" href="/#experience">See the experience</Link>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function LaunchPage() {
           <p className="eyebrow">BUILT FOR CREATORS. DESIGNED FOR FREEDOM.</p>
           <h2>Your next chapter <span>starts here.</span></h2>
           <p>The beta ends Monday night, November 2. Official launch begins Tuesday, November 3 at midnight AST, with a one-week creator commission discount. Paid memberships, publishing, messaging, private video, coins, store checkout, and VIP/VVIP entry remain Coming soon until complete.</p>
-          <Link className="button button-light" href="/creators">Explore sample creators <span aria-hidden="true">↗</span></Link>
+          <Link className="button button-light" href="/creators">Browse creator directory <span aria-hidden="true">↗</span></Link>
           <p style={{ fontSize: 11, marginTop: 20 }}>Explore the VIXEN experience and see how creator communities, memberships, and exclusive content can come together.</p>
         </div>
       </section>
