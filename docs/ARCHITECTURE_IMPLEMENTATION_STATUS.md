@@ -1,34 +1,51 @@
 # VIXEN seven-layer implementation status
 
-The requested TOP / EXECUTIVE OS, MIDDLE OS, BACK OS, WEB3 OS, VIXEN STORE OS, VIXEN KERNEL, and FRONT OS model is the internal architecture for this VIXEN project. It is not visitor-facing navigation.
+The TOP / EXECUTIVE OS, MIDDLE OS, BACK OS, WEB3 OS, VIXEN STORE OS, VIXEN KERNEL, and FRONT OS names describe internal system responsibilities, not visitor-facing navigation.
 
-## Latest verified repository status · 2026-10-23
+## Latest verified status · 2026-10-25 15:27 AST
 
-PR #73 is merged and deployed to production. Approved creators can edit their public username, display name, bio, profile image, and cover image. The profile media path uses direct browser-to-Supabase Storage TUS uploads, capped at 45 MiB, with progress, retry, and browser-session resume support. Storage policies restrict profile media writes to the authenticated approved creator's own path; profile-column grants prevent changing creator status. Public creator pages render approved public fields. CI and deployment are verified, but a real authenticated media upload has not been exercised end to end.
+Main is commit `449dde8776ce6126c6de8047d3a9d7a21bbd44a4`. PR #113 is merged. GitHub CI passed lint, spelling, Kernel tests, TypeScript, production build, and route/link smoke checks. Vercel production deployment `dpl_3193P7315LDduEjXEqEzhS4esZry` is READY for the main commit. The public `vixen-production-package.vercel.app` home, health endpoint, signup paths, creator directory, store, pricing, and crypto payment page returned HTTP 200 without a Vercel sign-in wall. The crypto page was checked for all seven configured routes and matching receive addresses. Vercel reported no runtime errors in the 30-minute window inspected.
 
-Feed posts and stories remain unmerged and are not deployed. The current PR #71 draft exposes feed/story media through public storage and anonymous discovery without adequate age, membership, or per-post access enforcement. Do not merge that migration or expose adult creator media publicly until the database policies and product access model are redesigned and reviewed.
+Supabase project `srgoxrwhbsxmsrbruktz` has the manual crypto asset/network migration applied. Live tables contain 8 profiles, 2 pending creator applications, 0 approved creators, 0 store products, 0 payment proofs, 0 creator earning entries, and 0 withdrawal requests. These counts do not identify which profiles are real or fake; no account was deleted. Store products can be published only by platform administrators, and the real store catalog is empty.
 
-## Current code foundation
+## Working now
 
-- **TOP / EXECUTIVE OS** — `lib/executive/platform-readiness.ts` records evidence gates and evaluates whether a capability has the proof needed for release. Admin, moderation, finance, and audit dashboards remain to be built.
-- **MIDDLE OS** — `lib/application/` contains pricing, an audited creator-content access workflow, and a tested private-video join workflow. The join workflow verifies identity and booking, applies the Kernel policy, requires durable audit, and then requests a short-lived participant credential. No video provider is connected.
-- **BACK OS** — `lib/adapters/service-contracts.ts` defines server-side service boundaries. Supabase Auth is connected for VIXEN email/password signup, sign-in, callback/session exchange, protected account access, and password recovery. The password-recovery flow is covered by CI and its public unauthenticated route redirects safely; actual reset-email delivery and a full token-to-password-change cycle still need live end-to-end verification. Proton addresses are accepted as email addresses, not as Proton OAuth. Application data persistence and adapters for payments, commerce, creator storage, n8n, LLMs, and video are not established as active. Payment confirmation and video room credentials must come from trusted server integrations.
-- **WEB3 OS** — the chain/wallet boundary is documented; no blockchain network, NINE token contract, wallet provider, transaction verifier, settlement ledger, or on-chain payment path is connected. Chain balances and browser-submitted hashes do not grant access.
-- **VIXEN STORE OS** — `lib/store-os/quote.ts` provides deterministic store subtotal quotes from trusted catalog IDs, quantities, currency, and integer minor-unit prices. No live catalog, stock, cart persistence, tax/shipping calculation, checkout, payment, order persistence, or fulfillment connection exists.
-- **VIXEN KERNEL** — `lib/kernel/` owns illustrative membership prices, tested NINE subscription-preview cent rounding, verified role types, creator content access decisions, a tested private-video join policy, and audit-event contracts. The private-video policy fails closed unless an active adult-verified member or the booked creator joins the matching creator-accepted, paid booking inside its scheduled window. Ledger, rewards, journey, and further domain rules remain to be built and tested before activation.
-- **FRONT OS** — Current main is commit `0cb98998ec648520b11bba2132728009788cbe35`. GitHub reports the Vercel status check succeeded for this commit; a direct public-route fetch was not available in this verification session, so live page content is not independently confirmed. The approved-creator profile editor was previously deployed, with 45 MiB resumable TUS image uploads. The production creator signup route returns HTTP 200 and describes account/profile, identity, and payout/tax stages, but identity/payout providers are not connected and no raw sensitive documents should be collected. The remaining illustrative flows, sample creators, and preview-only actions described below have not become live merely because this deployment is READY. The member feed/story PR is still unmerged; it is not part of production.
+- Member email/password signup and sign-in use VIXEN Supabase Auth. Free member accounts can edit a username and display name, and account access is on the public VIXEN domain.
+- Creator signup creates a separate pending application; it never grants creator permissions. Creator identity/age verification is not connected, so no creator may publish adult content, earn, or withdraw yet. Raw ID, selfie, biometric, bank, or tax information must not be collected by VIXEN.
+- Approved creators can edit a public profile and upload profile/cover images directly to Supabase Storage, with resumable TUS uploads capped at 45 MiB. A live authenticated upload has not been exercised; there are currently no approved creators.
+- The seven owner-supplied wallet routes accept signed-in payment-proof submissions for manual review: USDT on Solana, Tron, BNB Smart Chain, Polygon, and Ethereum; USDC on Solana, BNB Smart Chain, Polygon, and Ethereum; TRX on Tron; BNB on BNB Smart Chain; SOL on Solana; ETH on Ethereum; MATIC on Ethereum. Proofs require a transaction ID and private screenshot. An administrator must independently verify a transfer before approving it. Creator payments/tips are recorded in the same asset/network balance; creators may request manual same-asset/network withdrawals, which the administrator pays and marks with a transfer reference. This proof-to-payout path has not been exercised end to end in production.
+- The administrator console includes creator-application, private payment-proof, withdrawal, and store-product review surfaces. One confirmed owner admin account exists; a second email is allowlisted, but no account for it exists yet. A confirmed account is required before that person can access admin tools.
+- `/creators` and `/member-preview` use real approved creator rows and show an empty state when none are approved. `/store` shows no placeholder products.
 
-The join workflow does not access camera or microphone devices. Only the browser can request device permission, after the member explicitly continues from a successfully authorized session screen. Provider credentials are participant-bound, short-lived (at most three minutes), and must never be logged or exposed before authorization.
+## Still preview-only or unavailable
+
+- Manual wallet proof is not automatic chain verification, checkout, subscription activation, instant access, refund handling, or automatic payout. Do not treat a browser-submitted hash or screenshot as settled funds. VIXEN and NINE coin purchases and discounts paid in those coins are not available.
+- Creator feed posts, stories, adult media publishing, paid memberships, paid messages, vMessage delivery/encryption, private video calls, and VIP/VVIP event entry are not live. PR #71, “Add creator feed, stories, and staged onboarding requirements,” remains a draft and is not deployed; its public-media access design requires security redesign before it can be used.
+- Store checkout, product/order persistence, inventory, shipping/tax calculation, and fulfillment are not connected. There are no real products to sell.
+- No age/identity-verification provider, payout/tax onboarding provider, card processor, crypto checkout provider, chain indexer, or video provider is connected. No VIXEN/NINE token contract exists.
+- The vMessage surface is a preview, not Proton-style end-to-end encryption. Private-video screens are previews and do not access camera/microphone or create a video room.
+- Password recovery routes are implemented, but live reset-email delivery and a full token-to-password-change cycle have not been verified. No fresh signup and confirmation round trip has been exercised end to end against production.
+- Full cross-device visual, accessibility, privacy, moderation, regulatory, and financial-operations checks remain outstanding.
+
+## Current system layers
+
+- **TOP / EXECUTIVE OS** — `lib/executive/platform-readiness.ts` records release evidence. Admin tools cover current manual review actions; complete moderation, finance oversight, incident response, and audit dashboards remain unbuilt.
+- **MIDDLE OS** — `lib/application/` contains pricing, audited content-access and private-video join workflow foundations. No live paid-content, messaging, booking, or video orchestration is connected.
+- **BACK OS** — Supabase Auth, current application tables, Storage, and RLS are connected. Payment settlement, creator verification, payout/tax onboarding, n8n, email delivery verification, and video adapters are incomplete.
+- **WEB3 OS** — Public receive addresses and manual proof/ledger flows are available for the listed routes. No trusted chain scanner, asset-contract verification, confirmation/finality policy, replay prevention, automatic reconciliation, or NINE contract is connected.
+- **VIXEN STORE OS** — `lib/store-os/quote.ts` supplies deterministic quote rules. The published catalog is empty; cart persistence, taxes/shipping, checkout, order settlement, and fulfillment are not live.
+- **VIXEN KERNEL** — `lib/kernel/` owns roles, access decisions, membership previews, money-split rules, and private-video policy foundations. No purchase or subscription entitlement can be granted by the current wallet-proof flow.
+- **FRONT OS** — The responsive Next.js browser app is deployed publicly on Vercel. Feature labels distinguish live account access and manual wallet-proof intake from preview-only products and workflows.
 
 ## Dependency rules
 
-1. Front OS pages call Middle OS use cases; they do not own prices or entitlements.
-2. Middle OS coordinates VIXEN Store OS for commerce workflows, Web3 OS for chain evidence, VIXEN Kernel for shared policy, and Back OS interfaces for external effects.
-3. Web3 OS verifies settlement through trusted adapters and cannot grant access by itself. Store OS does not trust browser-supplied prices or payment status. Kernel rules decide shared authorization and entitlement.
-4. TOP / Executive OS gates production capabilities and sensitive operations; hiding a control in the UI is not authorization.
-5. No capability is marked active without operational and end-to-end evidence. Private video remains planned until payment, signaling, consent, moderation, and cross-device verification are live.
-6. The browser requests camera and microphone only after an eligible participant explicitly enters a paid session; denying either permission must not silently bypass the prompt or expose private media.
+1. Front OS calls Middle OS workflows and does not own prices or entitlements.
+2. Middle OS coordinates Store OS, WEB3 OS, VIXEN KERNEL, and Back OS interfaces.
+3. WEB3 OS verifies settlement through trusted adapters and cannot grant access by itself. Store OS does not trust browser-supplied prices or payment state.
+4. TOP / EXECUTIVE OS gates sensitive operations; hiding a control in the UI is not authorization.
+5. A capability is marked active only with operational and end-to-end evidence.
+6. The browser requests camera and microphone only after an eligible participant explicitly enters a properly authorized session.
 
 ## Deferred work
 
-Supabase Auth is now connected for email/password account access. The wider Supabase application-data layer and n8n remain unimplemented. Payment processing, creator onboarding and publishing, real messaging, paid content, checkout, bookings, video rooms, and payouts remain previews or planned. Do not advertise them as active until their adapters, authorization policies, operational configuration, and end-to-end checks are in place. This file should be updated as each layer is completed.
+Complete creator verification, post/story access controls, paid checkout, payments and refunds, payout onboarding, real messaging and encryption, private video, moderation, and operational/admin audit surfaces. Keep n8n deferred until the website experience and its APIs are complete. Update this status only after source, database, deployment, and end-to-end evidence agree.
