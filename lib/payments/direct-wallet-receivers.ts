@@ -24,10 +24,10 @@ export const directWalletRoutes: readonly DirectWalletRoute[] = [
   { asset: "USDC", network: "Polygon", address: evmAddress, status: "manual_review" },
   { asset: "USDT", network: "Ethereum", address: evmAddress, status: "manual_review" },
   { asset: "USDC", network: "Ethereum", address: evmAddress, status: "manual_review" },
-  { asset: "BNB", network: "BNB Smart Chain", address: evmAddress, status: "coming_soon" },
-  { asset: "SOL", network: "Solana", address: solanaAddress, status: "coming_soon" },
-  { asset: "ETH", network: "Ethereum", address: evmAddress, status: "coming_soon" },
-  { asset: "MATIC", network: "Ethereum", address: evmAddress, status: "coming_soon" },
+  { asset: "BNB", network: "BNB Smart Chain", address: evmAddress, status: "manual_review" },
+  { asset: "SOL", network: "Solana", address: solanaAddress, status: "manual_review" },
+  { asset: "ETH", network: "Ethereum", address: evmAddress, status: "manual_review" },
+  { asset: "MATIC", network: "Ethereum", address: evmAddress, status: "manual_review" },
 ] as const;
 
 export function getDirectWalletRoutes(asset?: DirectWalletRoute["asset"]) {
