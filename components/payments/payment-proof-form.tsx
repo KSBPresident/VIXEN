@@ -8,6 +8,10 @@ const networks = {
   USDT: ["Solana", "BNB Smart Chain", "Polygon", "Ethereum", "Tron"],
   USDC: ["Solana", "BNB Smart Chain", "Polygon", "Ethereum"],
   TRX: ["Tron"],
+  BNB: ["BNB Smart Chain"],
+  SOL: ["Solana"],
+  ETH: ["Ethereum"],
+  MATIC: ["Ethereum"],
 } as const;
 type PaymentType = "creator_payment" | "creator_tip" | "store_order" | "donation";
 
@@ -112,7 +116,7 @@ export function PaymentProofForm({ userId, creators, initialPaymentType = "creat
       </label>}
       {(paymentType === "creator_payment" || paymentType === "store_order") && <label>Order reference<input name="orderReference" required maxLength={120} placeholder="Ask VIXEN for your reference" /></label>}
       <div className="payment-proof-grid">
-        <label>Asset<select name="asset" value={asset} onChange={(event) => setAsset(event.target.value as keyof typeof networks)}><option>USDT</option><option>USDC</option><option>TRX</option></select></label>
+        <label>Asset<select name="asset" value={asset} onChange={(event) => setAsset(event.target.value as keyof typeof networks)}><option>USDT</option><option>USDC</option><option>TRX</option><option>BNB</option><option>SOL</option><option>ETH</option><option>MATIC</option></select></label>
         <label>Network<select name="network">{networks[asset].map((network) => <option key={network}>{network}</option>)}</select></label>
         <label>Amount sent<input name="amount" type="number" min="0.00000001" max="1000000000" step="0.00000001" required /></label>
       </div>

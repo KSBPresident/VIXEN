@@ -21,11 +21,11 @@ const launchDetails = [
   },
   {
     title: "Wallet routes · manual review",
-    copy: "Available routes: USDT on Solana, Tron, BNB Smart Chain, Polygon, or Ethereum; USDC on Solana, BNB Smart Chain, Polygon, or Ethereum; TRX on Tron. Payments require screenshot proof and manual admin review; there is no automatic payment matching or fulfillment.",
+    copy: "Available routes: USDT on Solana, Tron, BNB Smart Chain, Polygon, or Ethereum; USDC on Solana, BNB Smart Chain, Polygon, or Ethereum; TRX on Tron; BNB on BNB Smart Chain; SOL on Solana; ETH on Ethereum; and MATIC on Ethereum. Payments and creator withdrawals require screenshot proof or request submission and manual admin review; there is no automatic payment matching or fulfillment.",
   },
   {
     title: "Still coming soon",
-    copy: "Creator publishing, paid memberships and messages, private video calls, VIXEN and NINE coin purchases, store checkout, VIP/VVIP entry, and automatic payments or payouts.",
+    copy: "Creator publishing, paid memberships and messages, private video calls, VIXEN and NINE coin purchases, store checkout, VIP/VVIP entry, and automatic chain matching or payouts.",
   },
 ];
 

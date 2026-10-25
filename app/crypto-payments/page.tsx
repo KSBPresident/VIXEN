@@ -4,7 +4,7 @@ import { DirectWalletOptions } from "@/components/payments/direct-wallet-options
 
 export const metadata = {
   title: "Crypto receive options · VIXEN",
-  description: "VIXEN manual-review crypto receive routes for USDT, USDC, and TRX.",
+  description: "VIXEN manual-review crypto receive routes for USDT, USDC, TRX, BNB, SOL, ETH, and MATIC.",
   robots: { index: false, follow: false },
 };
 
@@ -24,13 +24,13 @@ export default function CryptoPaymentsPage() {
       <section className="subpage-hero">
         <p className="eyebrow">DIRECT WALLET · CRYPTO</p>
         <h1>Pay with <span>crypto.</span></h1>
-        <p>Choose an available wallet route and use its exact asset and network. Other assets are shown as coming soon until their complete payment and payout flows are ready.</p>
+        <p>Choose one of the configured wallet routes and use its exact asset and network. Every listed route supports payment-proof submission and manual earnings accounting.</p>
       </section>
 
       <section className="section-wrap subpage-content">
         <div className="crypto-payment-callout" role="note">
-          <strong>USDT, USDC, and TRX transfers are available for manual review.</strong>
-          <p>Ask VIXEN for an exact order total and confirm the selected asset/network before sending. USDT, USDC, and TRX routes can currently be submitted as payment proof. Other assets remain coming soon while their proof, balance-accounting, and payout flows are prepared. Transfers are not matched automatically; VIXEN must verify the transaction and manually provide the purchase. Keep your transaction ID.</p>
+          <strong>All seven configured wallet assets accept payment proofs for manual review.</strong>
+          <p>Ask VIXEN for an exact order total and confirm the selected asset/network before sending. Submit the transaction ID and screenshot here; an administrator must independently verify the on-chain transfer before crediting creator earnings or manually fulfilling an order. Transfers are not matched automatically and payment proof does not unlock access by itself. Creator withdrawals are also reviewed and paid manually in the same asset and network.</p>
         </div>
         <DirectWalletOptions routes={directWalletRoutes} />
         <p className="center-action"><Link className="button" href="/crypto-payments/proof">Submit payment proof</Link></p>

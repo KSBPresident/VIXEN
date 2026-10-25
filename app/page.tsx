@@ -16,7 +16,7 @@ const tiles = [
   ["⌕", "Discover creators", "Browse profiles and find your people.", "/creators", "EXPLORE"],
   ["✉", "Messages", "See the conversation experience. Sending is not active yet.", "/member-preview/messages", "PREVIEW"],
   ["◉", "Private video", "Review the planned paid session flow. No calls are active.", "/member-preview/sessions", "PREVIEW"],
-  ["₿", "Crypto payments", "USDT, USDC, and TRX transfers are available for manual review. BNB, SOL, ETH, and MATIC are coming soon.", "/crypto-payments", "MANUAL"],
+  ["₿", "Crypto payments", "USDT, USDC, TRX, BNB, SOL, ETH, and MATIC accept payment proof for manual review.", "/crypto-payments", "MANUAL"],
   ["♡", "Support VIXEN", "Make a voluntary wallet contribution. Donations do not unlock paid access.", "/donate", "DONATE"],
 ] as const;
 
