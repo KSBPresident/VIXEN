@@ -1,5 +1,4 @@
--- Match database policy checks to the server-side admin allowlist:
--- only the current, email-confirmed account for either configured address is an admin.
+-- Synchronize the confirmed-email admin function already applied to VIXEN.
 CREATE OR REPLACE FUNCTION public.is_vixen_admin()
 RETURNS boolean
 LANGUAGE sql
