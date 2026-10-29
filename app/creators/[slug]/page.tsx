@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { CreatorStoryStrip } from "@/components/creator/creator-story-strip";
 import "../../member-preview/member-preview.css";
 import "../../member-preview/member-interactions.css";
 import "../../member-preview/member-search.css";
@@ -61,6 +62,7 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
           <div className={"creator-profile-banner" + (cover ? " has-cover" : "")}>{cover && <Image className="creator-profile-cover" src={cover} alt="" fill sizes="(max-width: 760px) 100vw, 760px" unoptimized />}{avatar ? <Image className="member-avatar" src={avatar} alt="" width={96} height={96} unoptimized /> : <span className="member-avatar portrait-violet">{name.slice(0, 2).toLocaleUpperCase()}</span>}<span className="creator-profile-banner-label">VIXEN CREATOR PROFILE</span></div>
           <div className="creator-profile-heading"><div><p className="member-eyebrow"><span /> APPROVED CREATOR</p><h1 id="creator-name">{name}</h1><p className="creator-profile-category">@{creator.username}</p></div><div className="creator-profile-action-buttons"><Link className="session-request-button session-preview-open creator-profile-primary" href="/pricing">View membership options <span aria-hidden="true">→</span></Link><Link className="session-request-button creator-profile-tip" href={"/crypto-payments/proof?type=creator_tip&creator=" + encodeURIComponent(creator.username)}>Tip this creator <span aria-hidden="true">↗</span></Link></div></div>
           {creator.bio?.trim() && <p className="creator-profile-bio">{creator.bio}</p>}
+          <CreatorStoryStrip creatorId={creator.id} username={creator.username} isSignedIn={isSignedIn} />
           <div className="interaction-status" role="note"><span className="interaction-status-mark" aria-hidden="true">ⓘ</span><span><strong>Public creator profile.</strong> Only approved public profile details are displayed here.</span></div>
           <section className="creator-profile-feed" aria-labelledby="creator-feed-title"><p className="member-eyebrow">CREATOR FEED</p><h2 id="creator-feed-title">Latest posts</h2>{!feedAvailable ? <p className="creator-profile-feed-empty">Creator posts are being set up. Check back soon.</p> : feedPosts.length === 0 ? <p className="creator-profile-feed-empty">No public posts yet.</p> : <div className="creator-profile-post-list">{feedPosts.map((post) => { const mediaUrl = post.mediaUrl; return <article className="creator-profile-post" key={post.id}><time dateTime={post.created_at}>{new Date(post.created_at).toLocaleString()}</time>{post.caption && <p>{post.caption}</p>}{mediaUrl && post.media_type?.startsWith("video/") && <video controls playsInline preload="metadata" src={mediaUrl}>Your browser cannot play this video.</video>}{mediaUrl && post.media_type?.startsWith("image/") && <Image src={mediaUrl} alt="Creator post" width={960} height={720} unoptimized />}<span>PUBLIC POST</span></article>; })}</div>}</section>
         </section>
