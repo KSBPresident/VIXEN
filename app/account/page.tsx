@@ -4,12 +4,26 @@ import { redirect } from "next/navigation";
 import { ProfileEditor } from "@/components/account/profile-editor";
 import { createClient } from "@/lib/supabase/server";
 import { isVixenPlatformAdmin } from "@/lib/server/platform-admin";
-import { signOut } from "./actions";
+import { applyForCreator, signOut } from "./actions";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Your account", robots: { index: false, follow: false } };
 
-export default async function AccountPage() {
+type AccountPageProps = { searchParams: Promise<{ creatorApplication?: string }> };
+
+const applicationNotices: Record<string, string> = {
+  submitted: "Your creator application is submitted for admin review. Your member profile and login stay the same; creator tools remain locked until approval and verification.",
+  "already-pending": "Your creator application is already waiting for admin review.",
+  "already-approved": "Your creator application is approved. Sign out and back in if creator access is not yet showing.",
+  "already-creator": "Creator access is already enabled for this account.",
+  "already-submitted": "An application already exists for this account. Contact VIXEN support if you need help.",
+  "contact-admin": "This account has a prior decision. Contact VIXEN support to request another review.",
+  "attestation-required": "Confirm the eligibility statement before sending your application.",
+  unavailable: "We couldn't submit your application right now. Please try again.",
+};
+
+export default async function AccountPage({ searchParams }: AccountPageProps) {
+  const params = await searchParams;
   const supabaseConfigured = Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
       (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
@@ -41,13 +55,14 @@ export default async function AccountPage() {
   if (error || !user) redirect("/sign-up?type=member&mode=signin&next=%2Faccount");
 
   const isPlatformOwner = isVixenPlatformAdmin(user);
-
   const [{ data: profile }, { data: creatorApplication }] = await Promise.all([
     supabase.from("profiles").select("is_creator, username, display_name").eq("id", user.id).maybeSingle(),
     supabase.from("creator_applications").select("status").eq("user_id", user.id).maybeSingle(),
   ]);
   const isCreator = profile?.is_creator === true;
   const applicationStatus = creatorApplication?.status;
+  const notice = params.creatorApplication ? applicationNotices[params.creatorApplication] : undefined;
+  const canApply = !isPlatformOwner && !isCreator && !applicationStatus;
 
   return (
     <main className="vixen-home">
@@ -69,9 +84,21 @@ export default async function AccountPage() {
                   ? "Your creator access has been approved. The creator workspace shown below is still a product preview; publishing and payouts are not active."
                   : "Your free member login is active. You can explore the member app preview and choose access levels as they become available."}</p>
           <span className="vixen-account-email">{user.email ?? "VIXEN member"}</span>
+          {notice && <p className="creator-account-status" role="status">{notice}</p>}
           {applicationStatus === "pending" && <p className="creator-account-status" role="status">Application status: Pending review</p>}
           {applicationStatus === "rejected" && <p className="creator-account-status" role="status">Application status: Not approved</p>}
           <ProfileEditor username={profile?.username ?? ""} displayName={profile?.display_name ?? ""} />
+          {canApply && <section className="vixen-creator-apply">
+            <p className="vixen-kicker">CREATOR PROFILE</p>
+            <h2>Apply from this account</h2>
+            <p>Keep your personal member login. Submit a creator application here; an admin will review it before enabling a creator profile or publishing tools.</p>
+            <form action={applyForCreator}>
+              <label><input type="checkbox" name="adultCreatorAttestation" required /> I am an adult woman aged 18 or older, and I agree to complete VIXEN’s age and identity verification before creator access is activated.</label>
+              <button type="submit">Apply for creator access</button>
+            </form>
+          </section>}
+          {applicationStatus === "pending" && <p className="creator-account-status">You can continue using this same account while the admin reviews your application.</p>}
+          {applicationStatus === "rejected" && <p className="vixen-auth-caption">To request another review, contact VIXEN support. You do not need to create a second member account.</p>}
           {isPlatformOwner && <p><Link className="vixen-discover-link" href="/admin">Open administrator console <span aria-hidden="true">→</span></Link></p>}
           {isCreator && <p><Link className="vixen-discover-link" href="/creator/earnings">View earnings and request a withdrawal <span aria-hidden="true">→</span></Link></p>}
           {isCreator && <p><Link className="vixen-discover-link" href="/creator/profile">Manage your public creator profile <span aria-hidden="true">→</span></Link></p>}
@@ -80,6 +107,7 @@ export default async function AccountPage() {
           <p className="vixen-auth-caption">Creator payment proofs, earnings, and withdrawal requests use manual administrator review. Creator content, paid memberships, messages, checkout, bookings, and video rooms remain separate features with their own launch status.</p>
         </div>
       </section>
+      <style>{".vixen-creator-apply{margin:24px 0;padding:20px;border:1px solid rgba(255,63,155,.45);border-radius:16px;background:rgba(255,63,155,.05)}.vixen-creator-apply h2{margin:6px 0 10px}.vixen-creator-apply p:not(.vixen-kicker){color:#c9bdcc;font-size:14px;line-height:1.6}.vixen-creator-apply form{display:grid;gap:16px;margin-top:16px}.vixen-creator-apply label{display:flex;align-items:flex-start;gap:10px;color:#eee;font-size:13px;line-height:1.6}.vixen-creator-apply input{margin-top:4px;accent-color:#f22a91}.vixen-creator-apply button{min-height:48px;border:0;border-radius:9px;background:linear-gradient(110deg,#f22a91,#b90d68);color:white;font-weight:700;cursor:pointer}"}</style>
     </main>
   );
 }
