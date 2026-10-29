@@ -26,6 +26,7 @@ export async function createCreatorPost(_previous: CreatorPostActionState, formD
   }
   if (!mediaPath && mediaType) return { status: "error", message: "Upload a photo or video before publishing." };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { error } = await (supabase as any).from("creator_posts").insert({
     creator_id: user.id,
     caption,
@@ -47,8 +48,10 @@ export async function deleteCreatorPost(formData: FormData) {
   if (authError || !user) redirect("/account");
   const id = String(formData.get("postId") ?? "");
   if (!/^[0-9a-f-]{36}$/i.test(id)) redirect("/creator/posts");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: post } = await (supabase as any).from("creator_posts").select("id,media_path").eq("id", id).eq("creator_id", user.id).maybeSingle();
   if (!post) redirect("/creator/posts?removed=not-found");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { error } = await (supabase as any).from("creator_posts").delete().eq("id", id).eq("creator_id", user.id);
   if (!error && post.media_path) await supabase.storage.from("creator-feed-media").remove([post.media_path]);
   revalidatePath("/creator/posts");
