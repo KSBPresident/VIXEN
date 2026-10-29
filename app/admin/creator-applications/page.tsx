@@ -111,7 +111,7 @@ export default async function AdminCreatorApplicationsPage({ searchParams }: { s
         <section className="creator-queue-section">
           <h2>Existing-account applications</h2>
           <p>These are older applications created after account signup. Review them separately; approving requires the same completed age and identity check.</p>
-          {legacyPending.length === 0 ? <p className="creator-queue-empty">No existing-account applications are waiting.</p> : <div className="creator-review-list">{(legacy ?? []).filter((row: any) => row.status === "pending").map((application) => {
+          {legacyPending.length === 0 ? <p className="creator-queue-empty">No existing-account applications are waiting.</p> : <div className="creator-review-list">{legacyPending.map((application) => {
             return <article className="creator-review-card" key={application.user_id}>
               <div className="creator-review-heading"><div><p className="vixen-kicker">PENDING · ACCOUNT EXISTS</p><h3>{application.display_name || application.username || "Profile details not set"}</h3></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
               <dl><div><dt>Email</dt><dd>{application.email || "Email unavailable"}</dd></div>{application.username && <div><dt>Username</dt><dd>@{application.username}</dd></div></dl>
