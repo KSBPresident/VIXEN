@@ -8,6 +8,8 @@ import { deleteCreatorPost } from "./actions";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Creator posts · VIXEN", robots: { index: false, follow: false } };
 
+type CreatorPostRow = { id: string; caption: string; media_path: string | null; media_type: string | null; status: string; created_at: string };
+
 export default async function CreatorPostsPage({ searchParams }: { searchParams: Promise<{ removed?: string }> }) {
   const params = await searchParams;
   const supabase = await createClient();
@@ -16,9 +18,11 @@ export default async function CreatorPostsPage({ searchParams }: { searchParams:
   const { data: profile } = await supabase.from("profiles").select("is_creator,username").eq("id", user.id).maybeSingle();
   if (profile?.is_creator !== true) redirect("/account");
 
-  const { data: posts, error } = await (supabase as any).from("creator_posts")
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: postData, error } = await (supabase as any).from("creator_posts")
     .select("id,caption,media_path,media_type,status,created_at")
     .eq("creator_id", user.id).order("created_at", { ascending: false }).limit(100);
+  const posts = (postData ?? []) as CreatorPostRow[];
   const publicProfile = profile.username ? "/creators/" + encodeURIComponent(profile.username) : "/creator/profile";
 
   return <main className="vixen-home">
@@ -33,7 +37,7 @@ export default async function CreatorPostsPage({ searchParams }: { searchParams:
       {error ? <section className="creator-post-unavailable" role="alert"><h2>Publishing setup is not active yet.</h2><p>The creator feed database migration has not been applied. Your profile and existing posts are unchanged.</p></section> : <>
         <CreatorPostComposer />
         <section className="creator-own-feed"><h2>Your published posts</h2>
-          {(posts ?? []).length === 0 ? <p className="creator-post-empty">Your feed is empty. Your first published post will appear here and on your public profile.</p> : <div className="creator-own-post-list">{posts?.map((post: any) => {
+          {posts.length === 0 ? <p className="creator-post-empty">Your feed is empty. Your first published post will appear here and on your public profile.</p> : <div className="creator-own-post-list">{posts.map((post) => {
             const mediaUrl = post.media_path ? supabase.storage.from("creator-feed-media").getPublicUrl(post.media_path).data.publicUrl : null;
             return <article className="creator-own-post" key={post.id}>
               <div className="creator-own-post-heading"><span>{new Date(post.created_at).toLocaleString()}</span><form action={deleteCreatorPost}><input type="hidden" name="postId" value={post.id} /><button type="submit" aria-label="Delete this post">Delete</button></form></div>
