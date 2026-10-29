@@ -26,8 +26,6 @@ export function CreatorPostComposer() {
   useEffect(() => {
     if (state.status === "success") {
       formRef.current?.reset();
-      setUploadMessage("");
-      setProgress(0);
     }
   }, [state]);
 
