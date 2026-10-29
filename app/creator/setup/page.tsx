@@ -22,6 +22,7 @@ export default async function CreatorSetupPage({ searchParams }: Props) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (user) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data, error } = await (supabase as any).rpc("claim_creator_invitation", { p_application_id: applicationId, p_token: token });
     if (!error && data === true) redirect("/creator/profile?setup=complete");
     return <main className="vixen-home"><section className="vixen-account-content"><div className="vixen-account-panel"><p className="vixen-kicker">CREATOR INVITATION</p><h1>We couldn’t activate this creator invitation.</h1><p>The confirmation email must match the address approved by VIXEN, and the one-time link must not have expired. Sign out of any other VIXEN account and try again, or contact the administrator who reviewed your application.</p><Link href="/account">Open account</Link></div></section></main>;
