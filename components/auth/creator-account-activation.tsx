@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export function CreatorAccountActivation({ applicationId, token, configured }: { applicationId: string; token: string; configured: boolean }) {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [adultConfirmed, setAdultConfirmed] = useState(false);
@@ -39,7 +41,7 @@ export function CreatorAccountActivation({ applicationId, token, configured }: {
       });
       if (signUpError) throw signUpError;
       if (data.session) {
-        window.location.assign(claimPath);
+        router.push(claimPath);
         return;
       }
       setMessage("Check your email and follow the confirmation link to activate your approved creator account. Use the same email that received the invitation.");
