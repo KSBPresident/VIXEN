@@ -38,6 +38,7 @@ export async function reviewCreatorPreapplication(formData: FormData) {
     reviewed_by: user.id,
     reviewed_at: new Date().toISOString(),
     invite_token_hash: tokenHash,
+    invite_token_expires_at: token ? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() : null,
   }).eq("id", id).eq("status", "pending").select("id").maybeSingle();
 
   if (error || !data) redirect("/admin/creator-applications?review=not-saved");
