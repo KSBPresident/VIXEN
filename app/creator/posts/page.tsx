@@ -44,7 +44,7 @@ export default async function CreatorPostsPage({ searchParams }: { searchParams:
       <nav className="creator-post-nav"><Link href={publicProfile}>View public profile →</Link><Link href="/creator/profile">Edit profile →</Link></nav>
       {params.removed === "yes" && <p role="status">Post removed from your profile.</p>}
       {params.removed === "not-removed" && <p role="alert">The post could not be removed. Refresh and try again.</p>}
-      {error ? <section className="creator-post-unavailable" role="alert"><h2>Publishing setup is not active yet.</h2><p>The creator feed database migration has not been applied. Your profile and existing posts are unchanged.</p></section> : <>
+      {error ? <section className="creator-post-unavailable" role="alert"><h2>Publishing setup is not active yet.</h2><p>We couldn’t load your creator posts just now. Refresh the page and try again; if the issue continues, contact VIXEN support.</p></section> : <>
         <CreatorPostComposer />
         <section className="creator-own-feed"><h2>Your published posts</h2>
           {posts.length === 0 ? <p className="creator-post-empty">Your feed is empty. Your first published post will appear here and on your public profile.</p> : <div className="creator-own-post-list">{posts.map((post) => {
