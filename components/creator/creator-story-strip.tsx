@@ -21,7 +21,10 @@ export async function CreatorStoryStrip({ creatorId, username, isSignedIn }: { c
         return signError || !signed?.signedUrl ? null : { ...story, url: signed.signedUrl };
       }))).filter((story): story is Story => Boolean(story));
     }
-  } catch {}
+  } catch {
+    available = false;
+    stories = [];
+  }
   return <section className="vixen-story-strip" aria-labelledby="vixen-stories-title">
     <div className="vixen-story-heading"><div><p className="member-eyebrow">24-HOUR STORIES</p><h2 id="vixen-stories-title">A closer look, while it lasts.</h2></div><span>BY @{username}</span></div>
     {!available ? <p>Stories are being prepared for this profile.</p> : stories.length === 0 ? <p>No active stories right now. New moments disappear after 24 hours.</p> : <div className="vixen-story-list">{stories.map((story) => <article className="vixen-story-card" key={story.id}>
