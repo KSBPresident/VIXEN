@@ -11,6 +11,7 @@ create table if not exists public.creator_preapplications (
   reviewed_by uuid references auth.users(id) on delete set null,
   reviewed_at timestamptz,
   invite_token_hash text,
+  invite_token_expires_at timestamptz,
   created_at timestamptz not null default now()
 );
 
