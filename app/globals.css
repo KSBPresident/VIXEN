@@ -532,3 +532,89 @@
 
 /* Approved creator profile media controls */
 .creator-profile-image-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}.creator-profile-image-grid>div{display:grid;align-content:start;gap:9px;min-width:0}.creator-profile-image-preview{width:96px;height:96px;border:1px solid rgba(255,61,156,.32);border-radius:50%;object-fit:cover}.creator-profile-cover-preview{width:100%;max-width:320px;height:110px;border:1px solid rgba(255,61,156,.32);border-radius:8px;object-fit:cover}.creator-profile-image-grid input[type=file]{width:100%;min-width:0;color:#d9cfd9;font-size:12px}.creator-profile-editor textarea{resize:vertical}@media(max-width:600px){.creator-profile-image-grid{grid-template-columns:1fr}}
+
+
+/* Use the 3D VIXEN wordmark consistently wherever the brand is the logo. */
+.vixen-account-topbar>a[href="/"],
+.vixen-subpage-logo,
+.vixen-signup-brand,
+.site-header>.brand,
+.member-brand,
+.studio-brand,
+.events-brand,
+.events-footer .section-wrap>a:first-child {
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:none!important;
+  width:150px!important;
+  height:60px!important;
+  min-width:0!important;
+  overflow:hidden!important;
+  color:transparent!important;
+  font-size:0!important;
+  letter-spacing:0!important;
+  text-shadow:none!important;
+}
+.vixen-account-topbar>a[href="/"]::before,
+.vixen-subpage-logo::before,
+.vixen-signup-brand::before,
+.site-header>.brand::before,
+.member-brand::before,
+.studio-brand::before,
+.events-brand::before,
+.events-footer .section-wrap>a:first-child::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("/assets/vixen-logo-3d.png") center/contain no-repeat;
+  mix-blend-mode:screen;
+  filter:drop-shadow(0 0 10px rgb(255 40 145 / 34%));
+}
+.vixen-account-topbar>a[href="/"]>img,
+.vixen-subpage-logo>img,
+.vixen-signup-brand>img,
+.site-header>.brand>span,
+.member-brand>img,
+.member-brand>span,
+.studio-brand>img,
+.studio-brand>span,
+.events-brand>img,
+.events-brand>span {
+  display:none!important;
+}
+.vixen-signup-brand { margin:0 auto 9px!important; }
+.vixen-subpage-logo { flex-basis:150px!important; }
+.footer-inner>.vixen-subpage-logo { width:132px!important;height:54px!important;flex-basis:132px!important; }
+.member-brand { width:154px!important;height:62px!important; }
+.studio-brand,.events-brand { width:154px!important;height:62px!important; }
+.site-header>.brand { font:0/0 var(--display)!important; }
+.events-footer .section-wrap>a:first-child { width:142px!important;height:58px!important; }
+.app-crumb>span:first-child {
+  display:inline-block;
+  width:52px;
+  height:26px;
+  overflow:hidden;
+  color:transparent;
+  font-size:0;
+  background:url("/assets/vixen-logo-3d.png") center/contain no-repeat;
+  mix-blend-mode:screen;
+}
+@media(max-width:760px) {
+  .vixen-account-topbar>a[href="/"],
+  .vixen-subpage-logo,
+  .vixen-signup-brand,
+  .site-header>.brand,
+  .member-brand,
+  .studio-brand,
+  .events-brand,
+  .events-footer .section-wrap>a:first-child {
+    width:128px!important;
+    height:50px!important;
+  }
+  .vixen-subpage-logo { flex-basis:128px!important; }
+  .footer-inner>.vixen-subpage-logo { width:118px!important;height:48px!important;flex-basis:118px!important; }
+  .member-brand,.studio-brand,.events-brand { width:128px!important;height:50px!important; }
+  .events-footer .section-wrap>a:first-child { width:124px!important;height:48px!important; }
+}
