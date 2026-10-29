@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { CreatorStoryComposer } from "@/components/creator/creator-story-composer";
 import { deleteCreatorStory } from "./actions";
+import { secondsUntilStoryExpires } from "@/lib/creator-stories";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Creator stories · VIXEN", robots: { index: false, follow: false } };
@@ -35,7 +36,7 @@ export default async function CreatorStoriesPage({ searchParams }: { searchParam
   } else {
     const rows = (data ?? []) as StoryRow[];
     stories = (await Promise.all(rows.map(async (story) => {
-      const secondsLeft = Math.floor((new Date(story.expires_at).getTime() - Date.now()) / 1000);
+      const secondsLeft = Math.floor(secondsUntilStoryExpires(story.expires_at));
       if (secondsLeft <= 0) return null;
       const ttl = Math.max(1, Math.min(300, secondsLeft - 2));
       const { data: signed, error: signError } = await supabase.storage.from("creator-story-media").createSignedUrl(story.media_path, ttl);
