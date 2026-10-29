@@ -61,6 +61,42 @@ export async function updateProfile(
   return { status: "success", message: "Your profile has been saved." };
 }
 
+export async function applyForCreator(formData: FormData) {
+  if (formData.get("adultCreatorAttestation") !== "on") {
+    redirect("/account?creatorApplication=attestation-required");
+  }
+
+  const supabase = await createClient();
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  if (authError || !user) redirect("/sign-up?type=member&mode=signin&next=%2Faccount");
+
+  const [{ data: profile }, { data: existing, error: applicationError }] = await Promise.all([
+    supabase.from("profiles").select("is_creator").eq("id", user.id).maybeSingle(),
+    supabase.from("creator_applications").select("status").eq("user_id", user.id).maybeSingle(),
+  ]);
+
+  if (profile?.is_creator) redirect("/account?creatorApplication=already-creator");
+  if (applicationError) redirect("/account?creatorApplication=unavailable");
+  if (existing?.status === "pending") redirect("/account?creatorApplication=already-pending");
+  if (existing?.status === "approved") redirect("/account?creatorApplication=already-approved");
+  if (existing?.status === "rejected") redirect("/account?creatorApplication=contact-admin");
+
+  const { error } = await supabase.from("creator_applications").insert({
+    user_id: user.id,
+    adult_creator_attestation: true,
+  });
+
+  if (error) {
+    redirect(error.code === "23505"
+      ? "/account?creatorApplication=already-submitted"
+      : "/account?creatorApplication=unavailable");
+  }
+
+  revalidatePath("/account");
+  revalidatePath("/admin/creator-applications");
+  redirect("/account?creatorApplication=submitted");
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

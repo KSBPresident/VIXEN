@@ -4,7 +4,16 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function proxy(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return NextResponse.next({ request });
+  const pathname = request.nextUrl.pathname;
+  const isPublicAuthRoute = pathname === "/sign-up" || pathname.startsWith("/auth/") || pathname.startsWith("/api/");
+
+  if (!url || !key) {
+    if (isPublicAuthRoute) return NextResponse.next({ request });
+    const destination = request.nextUrl.clone();
+    destination.pathname = "/sign-up";
+    destination.search = new URLSearchParams({ type: "member", next: pathname + request.nextUrl.search }).toString();
+    return NextResponse.redirect(destination);
+  }
 
   let response = NextResponse.next({ request });
   const supabase = createServerClient(url, key, {
@@ -21,15 +30,22 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  // Refresh Supabase sessions before server-rendering any route that may show
-  // account state. This keeps public app surfaces in sync after sign-in and
-  // avoids rendering a signed-out preview while the account route is signed in.
-  await supabase.auth.getClaims();
+  const { data: session } = await supabase.auth.getClaims();
+  if (!session?.claims && !isPublicAuthRoute) {
+    const destination = request.nextUrl.clone();
+    destination.pathname = "/sign-up";
+    destination.search = new URLSearchParams({
+      type: "member",
+      next: pathname + request.nextUrl.search,
+    }).toString();
+    return NextResponse.redirect(destination);
+  }
+
   return response;
 }
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!_next/static|_next/image|assets/|manifest.webmanifest|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
 };
