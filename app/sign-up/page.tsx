@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { SocialSignUp } from "@/components/auth/social-sign-up";
 import { EmailAccountAccess } from "@/components/auth/email-account-access";
+import { CreatorApplicationForm } from "@/components/auth/creator-application-form";
 import { createClient } from "@/lib/supabase/server";
 import "./signup.css";
 
@@ -88,25 +89,18 @@ export default async function SignUpPage({ searchParams }: SignUpProps) {
             <p className="vixen-auth-caption">Proton Mail addresses are welcome. Use a separate VIXEN password; Proton OAuth is not connected.</p>
           </section>
         ) : (
-          <section className="vixen-auth-card creator-account-preview" aria-label="Create a creator applicant account">
+          <section className="vixen-auth-card creator-account-preview" aria-label="Submit a creator application">
             {callbackFailed && <p className="vixen-auth-alert" role="alert">We couldn’t complete sign-up. Please try again.</p>}
             <div className="vixen-auth-card-heading">
-              <p className="vixen-kicker">CREATOR APPLICATION</p>
-              <h2>Start your creator application</h2>
-              <p>Creator applications are for women aged 18 and over who want to publish adult content, set memberships, and earn from their audience. Use this separate signup path to create your VIXEN login and begin the application process.</p>
+              <p className="vixen-kicker">CREATOR APPLICATION · PRIVATE REVIEW</p>
+              <h2>Apply before creating your account.</h2>
+              <p>Creator applicants submit their details for administrator review first. If approved, you’ll receive a one-time account setup link at your email. No VIXEN login is created while your application is waiting.</p>
             </div>
-            <p className="creator-account-status">Creating this login also creates a pending creator application. It does not unlock publishing, paid content, private calls, or payouts. Those privileges require verified age and identity, consent and safety review, and VIXEN approval.</p>
-            <section className="creator-onboarding-roadmap" aria-labelledby="creator-onboarding-title">
-              <p className="vixen-kicker">CREATOR ONBOARDING</p>
-              <h3 id="creator-onboarding-title">What you’ll need before you can earn</h3>
-              <ol>
-                <li><strong>Set up your VIXEN profile.</strong><span>Confirm your email, choose a username and display name, then prepare a profile photo, cover image, and bio. These details go public only after approval.</span></li>
-                <li><strong>Complete age and identity verification.</strong><span>Be ready to provide your legal name, date of birth, residential address, a valid government photo ID (front and back), a selfie with your ID, and a live face-to-face check through the verification process.</span></li>
-                <li><strong>Complete payout and tax setup.</strong><span>After identity approval, provide payout details and the tax identification information required for your country before withdrawing earnings. VIXEN plans to send approved withdrawals manually to creators’ BixPay accounts. <a href="https://bix.fi/r?code=E9XNZGES" target="_blank" rel="noopener noreferrer">Open BixPay with the VIXEN creator link ↗</a> and confirm your receiving asset and network before requesting a payout. A BixPay account alone does not activate earnings or guarantee a withdrawal.</span></li>
-              </ol>
-              <p className="creator-onboarding-notice">VIXEN’s identity-check and payout providers are not connected yet. Do not email or upload identity documents, selfies, bank details, or tax IDs to VIXEN at this stage. Until secure verification and payout flows are available and your application is approved, you can create your login but cannot publish or earn.</p>
-            </section>
-            <EmailAccountAccess configured={supabaseConfigured} nextPath="/account" accountType="creator" initialMode={initialMode} initialError={signInFailed} />
+            <div className="creator-account-status">
+              <strong>Review includes age and identity checks.</strong> An administrator must verify eligibility and identity through VIXEN’s approved review process before approving an application. Do not send identity documents by email or chat.
+            </div>
+            <CreatorApplicationForm configured={supabaseConfigured} />
+            <p className="vixen-auth-caption">After approval, email confirmation activates your creator login. Publishing and earnings unlock only after admin approval and account confirmation. Paid memberships, paid messages, and private video remain separate features.</p>
           </section>
         )}
 
