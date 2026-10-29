@@ -56,16 +56,14 @@ export async function reviewExistingCreatorApplication(formData: FormData) {
   if (!/^[0-9a-f-]{36}$/i.test(id) || !["approved", "rejected"].includes(decision)) redirect("/admin/creator-applications");
   if (decision === "approved" && formData.get("identityVerified") !== "on") redirect("/admin/creator-applications?review=verification-required");
 
+  // The RPC commits the application decision and creator role in one transaction.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: application, error } = await (supabase as any).from("creator_applications").update({
-    status: decision,
-    reviewed_at: new Date().toISOString(),
-  }).eq("user_id", id).eq("status", "pending").select("user_id").maybeSingle();
-  if (error || !application) redirect("/admin/creator-applications?review=not-saved");
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { error: profileError } = await (supabase as any).from("profiles").update({ is_creator: decision === "approved" }).eq("id", id);
-  if (profileError) redirect("/admin/creator-applications?review=profile-not-saved");
+  const { data: reviewed, error } = await (supabase as any).rpc("review_creator_application", {
+    p_user_id: id,
+    p_decision: decision,
+    p_identity_verified: formData.get("identityVerified") === "on",
+  });
+  if (error || reviewed !== true) redirect("/admin/creator-applications?review=not-saved");
 
   revalidatePath("/admin");
   revalidatePath("/admin/creator-applications");
