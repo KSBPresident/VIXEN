@@ -14,7 +14,7 @@ export default async function CreatorPostsPage({ searchParams }: { searchParams:
   const params = await searchParams;
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
-  if (authError || !user) redirect("/sign-up?type=creator&mode=signin&next=%2Fcreator%2Fposts");
+  if (authError || !user) redirect("/sign-up?type=creator&mode=signin&next=/creator/posts");
   const { data: profile } = await supabase.from("profiles").select("is_creator,username").eq("id", user.id).maybeSingle();
   if (profile?.is_creator !== true) redirect("/account");
 
