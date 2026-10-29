@@ -13,7 +13,9 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
   const { slug } = await params;
   if (!/^[a-z0-9._]{3,30}$/i.test(slug)) notFound();
 
-  let creator: { id: string; username: string; display_name: string | null; avatar_url: string | null; cover_url: string | null; bio: string | null } | null = null;\n  let feedPosts: any[] = [];\n  let feedAvailable = false;
+  let creator: { id: string; username: string; display_name: string | null; avatar_url: string | null; cover_url: string | null; bio: string | null } | null = null;
+  let feedPosts: any[] = [];
+  let feedAvailable = false;
   let isSignedIn = false;
   try {
     const supabase = await createClient();
@@ -24,7 +26,12 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
       .eq("is_creator", true)
       .ilike("username", slug)
       .maybeSingle();
-    creator = data;\n    if (data) {\n      const feed = await (supabase as any).from("creator_posts").select("id,caption,media_path,media_type,created_at").eq("creator_id", data.id).eq("status", "published").order("created_at", { ascending: false }).limit(50);\n      feedAvailable = !feed.error;\n      feedPosts = (feed.data ?? []).map((post: any) => ({ ...post, mediaUrl: post.media_path ? supabase.storage.from("creator-feed-media").getPublicUrl(post.media_path).data.publicUrl : null }));\n    }
+    creator = data;
+    if (data) {
+      const feed = await (supabase as any).from("creator_posts").select("id,caption,media_path,media_type,created_at").eq("creator_id", data.id).eq("status", "published").order("created_at", { ascending: false }).limit(50);
+      feedAvailable = !feed.error;
+      feedPosts = (feed.data ?? []).map((post: any) => ({ ...post, mediaUrl: post.media_path ? supabase.storage.from("creator-feed-media").getPublicUrl(post.media_path).data.publicUrl : null }));
+    }
   } catch {
     creator = null;
   }
