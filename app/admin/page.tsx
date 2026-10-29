@@ -11,10 +11,10 @@ export default async function AdminPage() {
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user || !isVixenPlatformAdmin(user)) redirect("/account");
 
-  const [profiles, creators, applications, payments, withdrawals, reports, storeProducts] = await Promise.all([
+  const [profiles, creators, applications, preapplications, payments, withdrawals, reports, storeProducts] = await Promise.all([
     supabase.from("profiles").select("id", { count: "exact", head: true }),
     supabase.from("profiles").select("id", { count: "exact", head: true }).eq("is_creator", true),
-    supabase.from("creator_applications").select("user_id", { count: "exact", head: true }).eq("status", "pending"),
+    supabase.from("creator_applications").select("user_id", { count: "exact", head: true }).eq("status", "pending"),\n    (supabase as any).from("creator_preapplications").select("id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("crypto_payment_proofs").select("id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("creator_withdrawal_requests").select("id", { count: "exact", head: true }).in("status", ["pending", "approved"]),
     supabase.from("reports").select("id", { count: "exact", head: true }),
@@ -24,7 +24,7 @@ export default async function AdminPage() {
   const stats = [
     ["Accounts", profiles.count ?? 0],
     ["Approved creators", creators.count ?? 0],
-    ["Creator applications to review", applications.count ?? 0],
+    ["Creator applications to review", (applications.count ?? 0) + (preapplications.count ?? 0)],
     ["Crypto proofs to review", payments.count ?? 0],
     ["Creator withdrawals to process", withdrawals.count ?? 0],
     ["Safety reports", reports.count ?? 0],
