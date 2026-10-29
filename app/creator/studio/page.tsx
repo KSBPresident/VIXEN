@@ -12,7 +12,7 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 const workspaceAreas = [
-  { icon: "◈", title: "Profile", copy: "Set your public username, display name, bio, profile image, and cover.", href: "/creator/profile", action: "Edit public profile" },
+  { icon: "◈", title: "Profile", copy: "Set your public username, display name, bio, profile image, and cover.", href: "/creator/profile", action: "Edit public profile" },\n  { icon: "▧", title: "Feed posts", copy: "Publish public text, photo, and video updates to your creator profile.", href: "/creator/posts", action: "Create and manage posts" },
   { icon: "▧", title: "Content & audience", copy: "Choose whether each post or drop is public, or which membership tier unlocks it.", href: "/sign-up?type=creator", action: "Creator access preview" },
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
@@ -61,7 +61,7 @@ export default async function CreatorStudioPreviewPage() {
           <p className="studio-nav-label">CREATOR SPACE</p>
           <Link className="studio-nav-link is-active" href="/creator/studio"><span aria-hidden="true">▦</span> Overview</Link>
           <Link className="studio-nav-link" href={accountHref}><span aria-hidden="true">◉</span> {isSignedIn ? "My account" : "My profile"}</Link>
-          <Link className="studio-nav-link" href={accountHref}><span aria-hidden="true">▧</span> {isSignedIn ? "Account status" : "Content &amp; audience"}</Link>
+          <Link className="studio-nav-link" href={hasCreatorAccess ? "/creator/posts" : accountHref}><span aria-hidden="true">▧</span> {hasCreatorAccess ? "Feed posts" : isSignedIn ? "Account status" : "Content &amp; audience"}</Link>
           <Link className="studio-nav-link" href="/pricing"><span aria-hidden="true">◇</span> Memberships</Link>
           <Link className="studio-nav-link" href="/member-preview/messages"><span aria-hidden="true">✉</span> Messages <small>Preview</small></Link>
           <Link className="studio-nav-link" href="/member-preview/sessions"><span aria-hidden="true">◉</span> Private video <small>Preview</small></Link>
@@ -80,7 +80,7 @@ export default async function CreatorStudioPreviewPage() {
             <div className="studio-welcome-mark" aria-hidden="true"><span>V</span><i>✦</i><b>VIXEN STUDIO</b></div>
           </div>
 
-          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your public profile tools are active." : "Creator applications are available."}</strong> Approved creators can edit their public profile and upload profile images. Feed posts, stories, paid content, memberships, and messages remain previews. Verified creator earnings and manual withdrawal requests have a separate account area.</p></div>
+          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your profile and public feed tools are active." : "Creator applications are available."}</strong> Approved creators can edit their profile and publish public text, photo, and video posts. Stories, paid content, paid memberships, paid messages, and private video remain previews. Earnings and manual withdrawals are shown separately.</p></div>
 
           <div className="studio-section-heading"><div><p className="studio-eyebrow">YOUR WORKSPACE</p><h2>Build your presence.</h2></div><span>{hasCreatorAccess ? "Profile editing active · other tools are previews" : "Creator tools require application approval"}</span></div>
 
@@ -88,7 +88,7 @@ export default async function CreatorStudioPreviewPage() {
             {workspaceAreas.map((area) => (
               <article className="studio-area-card" key={area.title}>
                 <span className="studio-area-icon" aria-hidden="true">{area.icon}</span>
-                <p className="studio-area-state">{hasCreatorAccess && ["/creator/profile", "/creator/earnings"].includes(area.href) ? "ACTIVE" : "PLANNED"}</p>
+                <p className="studio-area-state">{hasCreatorAccess && ["/creator/profile", "/creator/posts", "/creator/earnings"].includes(area.href) ? "ACTIVE" : "PLANNED"}</p>
                 <h3>{area.title}</h3>
                 <p>{area.copy}</p>
                 <Link href={!isSignedIn && area.href === "/creator/profile" ? accountHref : area.href}>{!isSignedIn && area.href === "/creator/profile" ? "Creator account information" : area.action} <span aria-hidden="true">→</span></Link>
@@ -98,7 +98,7 @@ export default async function CreatorStudioPreviewPage() {
 
           <section className="studio-activity" aria-labelledby="studio-activity-heading">
             <div><p className="studio-eyebrow">RECENT ACTIVITY</p><h2 id="studio-activity-heading">Your updates will live here.</h2></div>
-            <p>No activity is shown because this is a sample workspace. Connect creator accounts and publishing tools only after VIXEN’s website experience is ready.</p>
+            <p>Published feed posts appear on your public profile. Use the feed tools to create an update or remove an existing one.</p>
           </section>
         </section>
 
@@ -110,7 +110,7 @@ export default async function CreatorStudioPreviewPage() {
               <li><span>01</span><div><strong>Create a creator account</strong><small>Member accounts and creator applications are available; publishing requires approval.</small></div></li>
               <li><span>02</span><div><strong>Verify age and identity</strong><small>Eligibility and creator checks are required.</small></div></li>
               <li><span>03</span><div><strong>Set your boundaries</strong><small>Disclose benefits, prices, and paid extras.</small></div></li>
-              <li><span>04</span><div><strong>Publish when approved</strong><small>Creator tools and payouts are planned.</small></div></li>
+              <li><span>04</span><div><strong>Publish when approved</strong><small>Public feed posting is available after approval. Paid features and payouts have separate launch requirements.</small></div></li>
             </ol>
             <Link href={accountHref}>{isSignedIn ? "Open my account" : "Creator account information"} <span aria-hidden="true">→</span></Link>
           </section>
