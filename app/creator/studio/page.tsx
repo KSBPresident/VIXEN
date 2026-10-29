@@ -12,7 +12,8 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 const workspaceAreas = [
-  { icon: "◈", title: "Profile", copy: "Set your public username, display name, bio, profile image, and cover.", href: "/creator/profile", action: "Edit public profile" },\n  { icon: "▧", title: "Feed posts", copy: "Publish public text, photo, and video updates to your creator profile.", href: "/creator/posts", action: "Create and manage posts" },
+  { icon: "◈", title: "Profile", copy: "Set your public username, display name, bio, profile image, and cover.", href: "/creator/profile", action: "Edit public profile" },
+  { icon: "▧", title: "Feed posts", copy: "Publish public text, photo, and video updates to your creator profile.", href: "/creator/posts", action: "Create and manage posts" },
   { icon: "▧", title: "Content & audience", copy: "Choose whether each post or drop is public, or which membership tier unlocks it.", href: "/sign-up?type=creator", action: "Creator access preview" },
   { icon: "◇", title: "Memberships", copy: "See how creator-set prices and included benefits are explained.", href: "/pricing", action: "Review the pricing model" },
   { icon: "✉", title: "Messages", copy: "Preview member conversations and planned paid-message controls.", href: "/member-preview/messages", action: "Open messages preview" },
