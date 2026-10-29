@@ -138,7 +138,8 @@ begin
   where a.id = p_application_id
     and a.email = account_email
     and a.status = 'approved'
-    and a.invite_token_hash = encode(extensions.digest(p_token, 'sha256'), 'hex')\n    and a.invite_token_expires_at > now()
+    and a.invite_token_hash = encode(extensions.digest(p_token, 'sha256'), 'hex')
+    and a.invite_token_expires_at > now()
   for update;
 
   if not found then
