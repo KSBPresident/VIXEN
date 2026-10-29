@@ -9,8 +9,6 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Creator applications · VIXEN", robots: { index: false, follow: false } };
 
 type SearchParams = Promise<{ invitationId?: string; token?: string; review?: string }>;
-type Profile = { id: string; username: string | null; display_name: string | null; is_creator: boolean };
-
 export default async function AdminCreatorApplicationsPage({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams;
   const supabase = await createClient();
@@ -21,9 +19,7 @@ export default async function AdminCreatorApplicationsPage({ searchParams }: { s
     (supabase as any).from("creator_preapplications")
       .select("id,email,display_name,bio,status,review_note,created_at,reviewed_at,invite_token_expires_at")
       .order("created_at", { ascending: false }).limit(100),
-    (supabase as any).from("creator_applications")
-      .select("user_id,status,created_at,reviewed_at")
-      .order("created_at", { ascending: false }).limit(100),
+    (supabase as any).rpc("admin_creator_application_queue"),
   ]);
 
   let invitation: { email: string; display_name: string } | null = null;
@@ -33,11 +29,6 @@ export default async function AdminCreatorApplicationsPage({ searchParams }: { s
     invitation = data ?? null;
   }
 
-  const userIds = (legacy ?? []).filter((row: any) => row.status === "pending").map((row: any) => row.user_id);
-  const { data: legacyProfiles } = userIds.length
-    ? await supabase.from("profiles").select("id,username,display_name,is_creator").in("id", userIds)
-    : { data: [], error: null };
-  const profilesById = new Map<string, Profile>((legacyProfiles ?? []).map((profile) => [profile.id, profile]));
   const pending = (applications ?? []).filter((row: any) => row.status === "pending");
   const approvedUnclaimed = (applications ?? []).filter((row: any) => row.status === "approved");
 
@@ -102,10 +93,9 @@ export default async function AdminCreatorApplicationsPage({ searchParams }: { s
           <h2>Existing-account applications</h2>
           <p>These are older applications created after account signup. Review them separately; approving requires the same completed age and identity check.</p>
           {(legacy ?? []).filter((row: any) => row.status === "pending").length === 0 ? <p className="creator-queue-empty">No existing-account applications are waiting.</p> : <div className="creator-review-list">{(legacy ?? []).filter((row: any) => row.status === "pending").map((application: any) => {
-            const profile = profilesById.get(application.user_id);
             return <article className="creator-review-card" key={application.user_id}>
-              <div className="creator-review-heading"><div><p className="vixen-kicker">PENDING · ACCOUNT EXISTS</p><h3>{profile?.display_name || profile?.username || "Profile details not set"}</h3></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
-              <dl><div><dt>Account ID</dt><dd>{application.user_id}</dd></div>{profile?.username && <div><dt>Username</dt><dd>@{profile.username}</dd></div></dl>
+              <div className="creator-review-heading"><div><p className="vixen-kicker">PENDING · ACCOUNT EXISTS</p><h3>{application.display_name || application.username || "Profile details not set"}</h3></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
+              <dl><div><dt>Email</dt><dd>{application.email || "Email unavailable"}</dd></div>{application.username && <div><dt>Username</dt><dd>@{application.username}</dd></div></dl>
               <form action={reviewExistingCreatorApplication} className="creator-review-form">
                 <input type="hidden" name="userId" value={application.user_id} />
                 <label className="creator-verification-check"><input type="checkbox" name="identityVerified" required /> I completed the required age and identity check through VIXEN’s approved process.</label>
