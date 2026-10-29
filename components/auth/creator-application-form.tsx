@@ -31,6 +31,7 @@ export function CreatorApplicationForm({ configured }: { configured: boolean }) 
     setPending(true);
     try {
       const supabase = createClient();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error: insertError } = await (supabase as any).from("creator_preapplications").insert({
         email: email.trim().toLowerCase(),
         display_name: displayName.trim(),
