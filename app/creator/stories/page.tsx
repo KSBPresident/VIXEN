@@ -26,6 +26,7 @@ export default async function CreatorStoriesPage({ searchParams }: { searchParam
 
   let stories: SignedStory[] = [];
   let storiesAvailable = true;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, error } = await (supabase as any).from("creator_stories")
     .select("id,caption,media_path,media_type,expires_at,created_at")
     .eq("creator_id", user.id).gt("expires_at", new Date().toISOString()).order("created_at", { ascending: false }).limit(30);
