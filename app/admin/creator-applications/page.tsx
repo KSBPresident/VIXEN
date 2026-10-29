@@ -114,7 +114,10 @@ export default async function AdminCreatorApplicationsPage({ searchParams }: { s
           {legacyPending.length === 0 ? <p className="creator-queue-empty">No existing-account applications are waiting.</p> : <div className="creator-review-list">{legacyPending.map((application) => {
             return <article className="creator-review-card" key={application.user_id}>
               <div className="creator-review-heading"><div><p className="vixen-kicker">PENDING · ACCOUNT EXISTS</p><h3>{application.display_name || application.username || "Profile details not set"}</h3></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
-              <dl><div><dt>Email</dt><dd>{application.email || "Email unavailable"}</dd></div>{application.username && <div><dt>Username</dt><dd>@{application.username}</dd></div></dl>
+              <dl>
+                <div><dt>Email</dt><dd>{application.email || "Email unavailable"}</dd></div>
+                {application.username ? <div><dt>Username</dt><dd>{"@" + application.username}</dd></div> : null}
+              </dl>
               <form action={reviewExistingCreatorApplication} className="creator-review-form">
                 <input type="hidden" name="userId" value={application.user_id} />
                 <label className="creator-verification-check"><input type="checkbox" name="identityVerified" required /> I completed the required age and identity check through VIXEN’s approved process.</label>
