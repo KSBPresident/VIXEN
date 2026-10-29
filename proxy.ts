@@ -30,8 +30,8 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  const { data: { claims } } = await supabase.auth.getClaims();
-  if (!claims && !isPublicAuthRoute) {
+  const { data: session } = await supabase.auth.getClaims();
+  if (!session?.claims && !isPublicAuthRoute) {
     const destination = request.nextUrl.clone();
     destination.pathname = "/sign-up";
     destination.search = new URLSearchParams({
