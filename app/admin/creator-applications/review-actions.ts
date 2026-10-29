@@ -68,3 +68,17 @@ export async function reviewExistingCreatorApplication(formData: FormData) {
   revalidatePath("/creator/studio");
   redirect("/admin/creator-applications?review=" + decision);
 }
+
+export async function renewCreatorInvitation(formData: FormData) {
+  const { supabase } = await requireAdmin();
+  const id = String(formData.get("applicationId") ?? "");
+  if (!/^[0-9a-f-]{36}$/i.test(id)) redirect("/admin/creator-applications");
+  const token = randomBytes(32).toString("base64url");
+  const tokenHash = createHash("sha256").update(token).digest("hex");
+  const { data, error } = await (supabase as any).from("creator_preapplications").update({
+    invite_token_hash: tokenHash,
+    invite_token_expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+  }).eq("id", id).eq("status", "approved").select("id").maybeSingle();
+  if (error || !data) redirect("/admin/creator-applications?review=not-saved");
+  redirect("/admin/creator-applications?invitationId=" + encodeURIComponent(id) + "&token=" + encodeURIComponent(token));
+}
