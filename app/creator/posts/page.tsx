@@ -12,6 +12,16 @@ type CreatorPostRow = { id: string; caption: string; media_path: string | null; 
 
 export default async function CreatorPostsPage({ searchParams }: { searchParams: Promise<{ removed?: string }> }) {
   const params = await searchParams;
+  const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
+  if (!supabaseConfigured) return <main className="vixen-home">
+    <header className="vixen-account-topbar"><Link href="/">VIXEN</Link></header>
+    <section className="vixen-account-content"><div className="vixen-account-panel creator-posts-panel">
+      <p className="vixen-kicker">CREATOR PUBLISHING</p>
+      <h1>Publishing setup is unavailable.</h1>
+      <p>VIXEN’s account service is not configured for this environment. Try again when account setup is available.</p>
+      <Link href="/sign-up?type=creator">Creator application information →</Link>
+    </div></section>
+  </main>;
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) redirect("/sign-up?type=creator&mode=signin&next=/creator/posts");
