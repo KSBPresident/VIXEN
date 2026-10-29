@@ -15,6 +15,7 @@ export default async function AdminPage() {
     supabase.from("profiles").select("id", { count: "exact", head: true }),
     supabase.from("profiles").select("id", { count: "exact", head: true }).eq("is_creator", true),
     supabase.from("creator_applications").select("user_id", { count: "exact", head: true }).eq("status", "pending"),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (supabase as any).from("creator_preapplications").select("id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("crypto_payment_proofs").select("id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("creator_withdrawal_requests").select("id", { count: "exact", head: true }).in("status", ["pending", "approved"]),
