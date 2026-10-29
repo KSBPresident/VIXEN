@@ -4,7 +4,7 @@ import "./about.css";
 
 export const metadata = {
   title: "About VIXEN",
-  description: "Meet VIXEN, the browser-based creator platform built for adult women creators and adult members.",
+  description: "Creator freedom on your terms. Join VIXEN free as a member or apply as an adult woman creator.",
 };
 
 export default function AboutPage() {
@@ -26,12 +26,12 @@ export default function AboutPage() {
         <div className="about-hero-copy">
           <p className="about-kicker">VERIFIED INTERACTIVE XPERIENCE &amp; ENTERTAINMENT NETWORK</p>
           <h1 id="about-title">Creator freedom.<br /><em>On your terms.</em></h1>
-          <p className="about-lede">VIXEN is a browser-based platform where adult women creators can shape their own brand, offer their work, and build direct connections with adult members.</p>
+          <p className="about-lede">VIXEN brings adult women creators and adult members together in one browser-based space. Members can start free. Creators apply for review before account setup, then approved creators can publish public profile posts.</p>
           <div className="about-actions">
             <Link className="about-primary" href="/creators">Explore creator previews <span aria-hidden="true">→</span></Link>
             <Link className="about-secondary" href="/sign-up?type=creator">Creator account information</Link>
           </div>
-          <p className="about-age-note">Adults 18+ only. Creator profiles and account paths are previews; real sign-up and creator onboarding are not active yet.</p>
+          <p className="about-age-note">Adults 18+ only. Free member accounts and creator applications are available. Creator posts are public; paid memberships, stories, paid messages, private video, and payouts are coming soon. Never send identity documents by email or chat.</p>
         </div>
         <figure className="about-mascot">
           <div className="about-mascot-frame">
@@ -45,11 +45,11 @@ export default function AboutPage() {
         <div className="about-section-heading">
           <p className="about-kicker">THE VIXEN EXPERIENCE</p>
           <h2 id="about-values-title">A creator platform with <em>clear choices.</em></h2>
-          <p>Members can explore first. Creators decide what they offer, the boundaries around it, and the price.</p>
+          <p>Members can join free. Public creator posts are available; tiered access, paid messages, and private sessions remain upcoming until the complete experience is ready.</p>
         </div>
         <div className="about-value-grid">
-          <article><span aria-hidden="true">✦</span><h3>Creator-led</h3><p>Creators choose the memberships, content, messages, and private sessions they want to offer.</p></article>
-          <article><span aria-hidden="true">◇</span><h3>Clear before checkout</h3><p>Prices, included access, renewal terms, and creator boundaries should be visible before a member pays.</p></article>
+          <article><span aria-hidden="true">✦</span><h3>Creator-led</h3><p>Approved creators can shape a public profile and publish updates. Memberships, paid content, messages, and private sessions are planned features.</p></article>
+          <article><span aria-hidden="true">◇</span><h3>Clear before checkout</h3><p>When paid access launches, members will see pricing, included access, and boundaries before they choose to pay.</p></article>
           <article><span aria-hidden="true">◉</span><h3>Made for the browser</h3><p>VIXEN is designed to work as a web app on phones and computers, without a separate app-store download.</p></article>
         </div>
       </section>
@@ -66,7 +66,7 @@ export default function AboutPage() {
       <footer className="about-footer">
         <Link className="about-brand" href="/"><Image src="/assets/vixen-mark-3d.png" alt="" width={42} height={42} /><span>VIXEN</span></Link>
         <p>Verified Interactive Xperience &amp; Entertainment Network</p>
-        <small>Sample product experience · Adults 18+ only</small>
+        <small>Browser-based creator + member web app · Adults 18+ only</small>
       </footer>
     </main>
   );
