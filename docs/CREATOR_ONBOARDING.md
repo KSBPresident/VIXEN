@@ -2,37 +2,32 @@
 
 ## Purpose
 
-Creator registration has three distinct stages. A VIXEN login is not creator approval and does not authorize publishing, paid access, video sessions, or withdrawals.
+A VIXEN login or application is not identity approval and does not by itself authorize adult publishing, paid access, video sessions, or withdrawals.
 
-## 1. Account and public profile
+## 1. Pre-account application
 
-The initial creator signup creates a VIXEN login using email and a VIXEN password, with an 18+ confirmation. Creators must confirm their email and complete a public profile with a username, display name, profile image, cover image, and bio before launching a creator page. Profile details are public; legal identity details are not.
+The current creator path asks for an email address, creator/stage name, short bio, an 18+ adult-woman self-attestation, and agreement to publish only authorized content featuring consenting adults. Applications are private and reviewed by a VIXEN administrator before any creator account is created.
 
-## 2. Age and identity verification
+Do not upload or email identity documents, selfies, biometric captures, bank details, tax identifiers, wallet recovery phrases, or private keys. The application form does not request or store those materials.
 
-Before any creator can publish adult content or earn, VIXEN must verify that the person is an adult and matches the submitted identity. The required verification information is:
+## 2. Admin review and account activation
 
-- Legal name and date of birth.
-- Residential address.
-- A current, unexpired government photo ID, front and back.
-- A selfie with the ID.
-- A live facial/live-person verification check.
+An administrator can approve or reject a pending application. Approval requires the admin review form's identity-review confirmation; the action is recorded with reviewer and review timestamp. Approval issues a single-use invitation bound to the application email. It expires after seven days. The invited person must sign up with that email and confirm control of the inbox before creator access is activated.
 
-VIXEN has not selected or connected a verification provider. Until it has, the signup page explains what creators will need and expressly tells them not to send identity documents to VIXEN. Do not add ID/selfie uploads or persist these fields in the VIXEN database. When selecting a provider, review its security, privacy, retention, deletion, supported-country, age-verification, and adult-content requirements first. Store only the minimum provider reference and decision/status needed for access control, with audit history; keep raw identity material with the vetted provider.
+The confirmation checkbox is an administrator attestation, not a connected identity-verification provider or biometric check. No identity provider is currently integrated. Until a secure age/identity process is established and actually performed, do not approve anyone for adult-content publishing or monetization. Never treat a self-attestation or successful email confirmation as identity proof.
 
-## 3. Payout and tax setup
+## 3. Age and identity verification
 
-After identity approval and before enabling withdrawals, collect the payout details required by the selected payout provider and tax identification details applicable to the creator's country. These values must use a vetted, access-controlled provider flow; do not put bank or tax identifiers in profile metadata, application logs, analytics, browser storage, or ordinary VIXEN tables. The provider's supported countries, adult-business eligibility, fees, settlement, tax reporting, and failure/refund handling must be confirmed before activation.
+Before adult publishing or earning, VIXEN needs an appropriate way to verify that the creator is an adult and matches the submitted identity. Identity providers and their privacy, security, retention/deletion, supported-country, age-verification, and adult-content requirements have not been selected or integrated.
 
-## Access gates
+Do not add ID/selfie uploads or raw legal-identity fields to VIXEN until a vetted provider and access/retention controls are selected. If a provider is later connected, store only the minimum provider reference and verification decision/status needed for access control, with auditable review history. Keep raw identity material with that provider.
 
-- A new creator login remains an applicant; a user-selected signup type must never set an approved creator role.
-- Identity/age approval and VIXEN review are required before publishing or monetization.
-- Payout setup and country-specific tax information are required before withdrawals.
-- Keep every gate enforced in server/API and database policies, not only in the UI.
-- Any rejection, pending review, expired/invalid ID, failed live-person verification check, or unavailable provider must fail closed and explain the next safe action.
-- Keep member accounts independent from creator applications. A member can browse with a free account; creator verification requirements do not apply to ordinary member registration.
+## 4. Payout and tax setup
+
+Payout onboarding and country-specific tax information are not connected. Do not collect bank or tax identifiers in profile metadata, logs, analytics, browser storage, or ordinary VIXEN tables. Withdrawals and creator earnings must remain clearly identified as manual or unavailable until the relevant identity, payout, tax, settlement, and reconciliation steps have been implemented and tested.
 
 ## Current implementation state
 
-The signup UI presents these three stages and allows a creator to create a VIXEN login. Verification-provider and payout-provider flows are not connected, and there is no live creator verification, creator approval submission, or payout onboarding yet. Do not describe the creator application or earning capabilities as active until the provider integrations, server-side gates, database policies, and end-to-end checks are in place.
+Creator pre-applications, admin review, expiring invitation links, email confirmation, approved creator profiles, and public creator feed publishing are implemented in the web app. The Supabase migration is applied. The production routes were checked, but no real creator has completed the application-to-account-to-upload flow yet. Feed posts are public; do not upload private or paid material there.
+
+Creator stories, paid memberships, paid messages, private video, integrated age/identity verification, payout/tax onboarding, automatic settlement, and end-to-end monetization are not active. Keep those surfaces marked as previews or coming soon until each full flow is secured and verified.
