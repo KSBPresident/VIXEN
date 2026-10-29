@@ -8,13 +8,14 @@ import "../../member-preview/member-search.css";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Creator profile · VIXEN", robots: { index: false, follow: false } };
+type CreatorFeedPost = { id: string; caption: string; media_path: string | null; media_type: string | null; created_at: string; mediaUrl: string | null };
 
 export default async function CreatorProfile({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   if (!/^[a-z0-9._]{3,30}$/i.test(slug)) notFound();
 
   let creator: { id: string; username: string; display_name: string | null; avatar_url: string | null; cover_url: string | null; bio: string | null } | null = null;
-  let feedPosts: any[] = [];
+  let feedPosts: CreatorFeedPost[] = [];
   let feedAvailable = false;
   let isSignedIn = false;
   try {
@@ -28,9 +29,10 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
       .maybeSingle();
     creator = data;
     if (data) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const feed = await (supabase as any).from("creator_posts").select("id,caption,media_path,media_type,created_at").eq("creator_id", data.id).eq("status", "published").order("created_at", { ascending: false }).limit(50);
       feedAvailable = !feed.error;
-      feedPosts = (feed.data ?? []).map((post: any) => ({ ...post, mediaUrl: post.media_path ? supabase.storage.from("creator-feed-media").getPublicUrl(post.media_path).data.publicUrl : null }));
+      feedPosts = ((feed.data ?? []) as Omit<CreatorFeedPost, "mediaUrl">[]).map((post) => ({ ...post, mediaUrl: post.media_path ? supabase.storage.from("creator-feed-media").getPublicUrl(post.media_path).data.publicUrl : null }));
     }
   } catch {
     creator = null;
