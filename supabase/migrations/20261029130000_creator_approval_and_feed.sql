@@ -32,6 +32,8 @@ create policy "creator applicants may submit applications"
     and reviewed_by is null
     and reviewed_at is null
     and invite_token_hash is null
+    and invite_token_expires_at is null
+    and review_note is null
     and applicant_is_adult_woman
     and accepts_creator_terms
   );
