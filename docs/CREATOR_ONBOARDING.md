@@ -12,7 +12,7 @@ Do not upload or email identity documents, selfies, biometric captures, bank det
 
 ## 2. Admin review and account activation
 
-An administrator can approve or reject a pending application. Approval requires the admin review form's identity-review confirmation; the action is recorded with reviewer and review timestamp. Approval issues a single-use invitation bound to the application email. It expires after seven days. The invited person must sign up with that email and confirm control of the inbox before creator access is activated.
+An administrator can approve or reject a pending application. Approval requires the admin review form's identity-review confirmation. The application row records the decision, reviewer, and timestamp, but does not separately store the checkbox value or an external provider's evidence. Approval issues a single-use invitation bound to the application email. It expires after seven days. The invited person must sign up with that email and confirm control of the inbox before creator access is activated.
 
 The confirmation checkbox is an administrator attestation, not a connected identity-verification provider or biometric check. No identity provider is currently integrated. Until a secure age/identity process is established and actually performed, do not approve anyone for adult-content publishing or monetization. Never treat a self-attestation or successful email confirmation as identity proof.
 
