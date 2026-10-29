@@ -86,7 +86,7 @@ create policy "approved creators upload own feed media"
   with check (
     bucket_id = 'creator-feed-media'
     and (storage.foldername(name))[1] = (select auth.uid())::text
-    and (storage.foldername(name))[2] like 'post-%'
+    and storage.filename(name) like 'post-%'
     and exists (select 1 from public.profiles p where p.id = (select auth.uid()) and p.is_creator = true)
   );
 create policy "approved creators replace own feed media"
