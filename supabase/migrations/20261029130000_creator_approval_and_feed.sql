@@ -135,7 +135,7 @@ begin
   where a.id = p_application_id
     and a.email = account_email
     and a.status = 'approved'
-    and a.invite_token_hash = encode(extensions.digest(p_token, 'sha256'), 'hex')
+    and a.invite_token_hash = encode(extensions.digest(p_token, 'sha256'), 'hex')\n    and a.invite_token_expires_at > now()
   for update;
 
   if not found then
@@ -154,7 +154,7 @@ begin
     set status = 'approved', reviewed_at = excluded.reviewed_at;
 
   update public.creator_preapplications
-    set status = 'claimed', invite_token_hash = null
+    set status = 'claimed', invite_token_hash = null, invite_token_expires_at = null
   where id = app.id;
 
   return true;
@@ -162,3 +162,31 @@ end;
 $$;
 revoke all on function public.claim_creator_invitation(uuid,text) from public, anon;
 grant execute on function public.claim_creator_invitation(uuid,text) to authenticated;
+
+create or replace function public.admin_creator_application_queue()
+returns table (
+  user_id uuid,
+  email text,
+  status text,
+  created_at timestamptz,
+  reviewed_at timestamptz,
+  username text,
+  display_name text,
+  is_creator boolean
+)
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select a.user_id, u.email, a.status, a.created_at, a.reviewed_at,
+         p.username, p.display_name, p.is_creator
+  from public.creator_applications a
+  join auth.users u on u.id = a.user_id
+  left join public.profiles p on p.id = a.user_id
+  where public.is_vixen_admin()
+  order by a.created_at desc
+  limit 100;
+$$;
+revoke all on function public.admin_creator_application_queue() from public, anon;
+grant execute on function public.admin_creator_application_queue() to authenticated;
