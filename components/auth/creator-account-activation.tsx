@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 
 export function CreatorAccountActivation({ applicationId, token, configured }: { applicationId: string; token: string; configured: boolean }) {
   const router = useRouter();
+  const claimPath = "/creator/setup?application=" + encodeURIComponent(applicationId) + "&token=" + encodeURIComponent(token);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [adultConfirmed, setAdultConfirmed] = useState(false);
@@ -29,7 +30,6 @@ export function CreatorAccountActivation({ applicationId, token, configured }: {
     }
 
     setPending(true);
-    const claimPath = "/creator/setup?application=" + encodeURIComponent(applicationId) + "&token=" + encodeURIComponent(token);
     try {
       const supabase = createClient();
       const callback = new URL("/auth/callback", window.location.origin);
