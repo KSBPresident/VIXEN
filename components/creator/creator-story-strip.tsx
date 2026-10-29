@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { secondsUntilStoryExpires } from "@/lib/creator-stories";
 
 type Story = { id: string; caption: string; media_path: string; media_type: string; expires_at: string; url: string };
 
@@ -15,7 +16,7 @@ export async function CreatorStoryStrip({ creatorId, username, isSignedIn }: { c
     if (!error) {
       available = true;
       stories = (await Promise.all(((data ?? []) as Omit<Story, "url">[]).map(async (story) => {
-        const remaining = Math.floor((new Date(story.expires_at).getTime() - Date.now()) / 1000);
+        const remaining = Math.floor(secondsUntilStoryExpires(story.expires_at));
         if (remaining <= 0) return null;
         const { data: signed, error: signError } = await supabase.storage.from("creator-story-media").createSignedUrl(story.media_path, Math.max(1, Math.min(300, remaining - 2)));
         return signError || !signed?.signedUrl ? null : { ...story, url: signed.signedUrl };
