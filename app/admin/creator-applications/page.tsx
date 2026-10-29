@@ -2,73 +2,109 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { isVixenPlatformAdmin } from "@/lib/server/platform-admin";
+import { reviewCreatorPreapplication, reviewExistingCreatorApplication } from "./review-actions";
+import { CopyCreatorInvite } from "@/components/admin/copy-creator-invite";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Creator applications · VIXEN", robots: { index: false, follow: false } };
 
-type CreatorProfile = {
-  id: string;
-  username: string | null;
-  display_name: string | null;
-  is_creator: boolean;
-};
+type SearchParams = Promise<{ invitationId?: string; token?: string; review?: string }>;
+type Profile = { id: string; username: string | null; display_name: string | null; is_creator: boolean };
 
-export default async function AdminCreatorApplicationsPage() {
+export default async function AdminCreatorApplicationsPage({ searchParams }: { searchParams: SearchParams }) {
+  const params = await searchParams;
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !isVixenPlatformAdmin(user)) redirect("/account");
 
-  const { data: applications, error } = await supabase
-    .from("creator_applications")
-    .select("user_id, status, created_at, reviewed_at")
-    .order("created_at", { ascending: false })
-    .limit(100);
+  const [{ data: applications, error: applicationError }, { data: legacy, error: legacyError }] = await Promise.all([
+    (supabase as any).from("creator_preapplications")
+      .select("id,email,display_name,bio,status,review_note,created_at,reviewed_at")
+      .order("created_at", { ascending: false }).limit(100),
+    (supabase as any).from("creator_applications")
+      .select("user_id,status,created_at,reviewed_at")
+      .order("created_at", { ascending: false }).limit(100),
+  ]);
 
-  if (error) {
-    return <main className="vixen-home"><section className="vixen-account-content"><div className="vixen-account-panel"><h1>Creator applications are unavailable.</h1><p>Confirm that the creator signup migration is installed, then refresh this page.</p><Link href="/admin">Back to administrator console</Link></div></section></main>;
+  let invitation: { email: string; display_name: string } | null = null;
+  if (params.invitationId && params.token && /^[0-9a-f-]{36}$/i.test(params.invitationId)) {
+    const { data } = await (supabase as any).from("creator_preapplications")
+      .select("email,display_name").eq("id", params.invitationId).eq("status", "approved").maybeSingle();
+    invitation = data ?? null;
   }
 
-  const userIds = (applications ?? []).map((application) => application.user_id);
-  const { data: profiles, error: profileError } = userIds.length
-    ? await supabase.from("profiles").select("id, username, display_name, is_creator").in("id", userIds)
+  const userIds = (legacy ?? []).filter((row: any) => row.status === "pending").map((row: any) => row.user_id);
+  const { data: legacyProfiles } = userIds.length
+    ? await supabase.from("profiles").select("id,username,display_name,is_creator").in("id", userIds)
     : { data: [], error: null };
-  const profilesById = new Map<string, CreatorProfile>((profiles ?? []).map((profile) => [profile.id, profile]));
-  const pendingCount = (applications ?? []).filter((application) => application.status === "pending").length;
+  const profilesById = new Map<string, Profile>((legacyProfiles ?? []).map((profile) => [profile.id, profile]));
+  const pending = (applications ?? []).filter((row: any) => row.status === "pending");
+
+  const inviteUrl = invitation
+    ? "https://vixen-production-package.vercel.app/creator/setup?application=" + encodeURIComponent(params.invitationId!) + "&token=" + encodeURIComponent(params.token!)
+    : null;
+  const emailBody = inviteUrl
+    ? encodeURIComponent("Your VIXEN creator application was approved. Use this one-time link to set up your creator account. Confirm your email to activate it: " + inviteUrl)
+    : "";
 
   return (
     <main className="vixen-home">
       <header className="vixen-account-topbar"><Link href="/">VIXEN</Link><nav><Link href="/admin">Admin console</Link><Link href="/admin/payment-proofs">Payment reviews</Link><Link href="/admin/withdrawals">Withdrawals</Link></nav></header>
-      <section className="vixen-account-content">
-        <div className="vixen-account-panel">
-          <p className="vixen-kicker">PRIVATE · ADMIN ONLY</p>
-          <h1>Creator applications</h1>
-          <p>Review application status and the public profile details available so far. {pendingCount} pending · newest 100 applications.</p>
-          <aside className="creator-review-gate" role="note">
-            <strong>Creator approval is not available here.</strong>
-            <p>VIXEN has no connected age and identity verification provider and these application records do not contain verification evidence. Do not approve creator access based on this queue alone. Do not ask applicants to send government ID, selfies, bank details, or tax IDs by email or chat.</p>
-          </aside>
-          {profileError && <p role="alert" className="creator-review-error">Application statuses are available, but public profile details could not be loaded.</p>}
-          {(applications ?? []).length === 0 ? <p className="creator-review-empty">No creator applications have been submitted.</p> : (
-            <div className="creator-review-list">{applications?.map((application) => {
-              const profile = profilesById.get(application.user_id);
-              return (
-                <article className="creator-review-card" key={application.user_id}>
-                  <div className="creator-review-heading"><div><p className="vixen-kicker">{application.status.replaceAll("_", " ").toUpperCase()}</p><h2>{profile?.display_name || profile?.username || "Profile details not set"}</h2></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
-                  <dl>
-                    <div><dt>Account ID</dt><dd>{application.user_id}</dd></div>
-                    {profile?.username && <div><dt>Username</dt><dd>@{profile.username}</dd></div>}
-                    <div><dt>Creator access</dt><dd>{profile?.is_creator ? "Enabled" : "Not enabled"}</dd></div>
-                    {application.reviewed_at && <div><dt>Last reviewed</dt><dd>{new Date(application.reviewed_at).toLocaleString()}</dd></div>}
-                  </dl>
-                  {application.status === "pending" && <p className="creator-review-pending">Pending · age and identity review still required</p>}
-                </article>
-              );
-            })}</div>
-          )}
-          <p><Link href="/admin">← Back to administrator console</Link></p>
-        </div>
-      </section>
-      <style>{".creator-review-gate{margin:20px 0;padding:16px;border:1px solid rgba(255,190,94,.42);background:rgba(118,71,12,.13);color:#f5d8a6}.creator-review-gate p{margin:8px 0 0;color:#d2c3ae}.creator-review-error{color:#ff9bbf}.creator-review-empty{color:#aaa2ad}.creator-review-list{display:grid;gap:14px;margin:20px 0}.creator-review-card{padding:18px;border:1px solid rgba(255,255,255,.14);background:#100d12}.creator-review-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.creator-review-heading h2{margin:6px 0;font-size:19px}.creator-review-heading time{color:#aaa2ad;font-size:12px}.creator-review-card dl{display:grid;gap:8px;margin:14px 0}.creator-review-card dl div{display:grid;grid-template-columns:minmax(125px,170px) 1fr;gap:12px}.creator-review-card dt{color:#aaa2ad}.creator-review-card dd{margin:0;overflow-wrap:anywhere}.creator-review-pending{color:#f5c36a;font-size:13px}@media(max-width:600px){.creator-review-heading{display:grid}.creator-review-card dl div{grid-template-columns:1fr;gap:3px}}"}</style>
+      <section className="vixen-account-content"><div className="vixen-account-panel">
+        <p className="vixen-kicker">PRIVATE · ADMIN ONLY</p>
+        <h1>Creator approval queue</h1>
+        <p>Review creators before they create an account. Confirm age and identity using VIXEN’s approved review process before approving. Do not collect identity documents in email or chat.</p>
+        {params.review === "verification-required" && <p className="creator-queue-alert" role="alert">Confirm the identity review before approval.</p>}
+        {params.review === "not-saved" && <p className="creator-queue-alert" role="alert">The review could not be saved. Refresh and try again.</p>}
+        {params.review === "profile-not-saved" && <p className="creator-queue-alert" role="alert">The application changed, but creator access could not be updated. Contact support before retrying.</p>}
+        {applicationError && <p className="creator-queue-alert" role="alert">Pre-account applications could not be loaded. Confirm the creator approval migration is installed.</p>}
+        {legacyError && <p className="creator-queue-alert" role="alert">Existing creator applications could not be loaded.</p>}
+
+        {invitation && inviteUrl && <aside className="creator-invite-ready" role="status">
+          <p className="vixen-kicker">APPROVED · ACCOUNT LINK READY</p>
+          <h2>{invitation.display_name} · {invitation.email}</h2>
+          <p>Send this one-time link to the applicant at the reviewed email address. They must confirm control of that inbox before creator access is activated. This link is shown only on this admin page; keep it private.</p>
+          <CopyCreatorInvite href={inviteUrl} />
+          <a href={"mailto:" + encodeURIComponent(invitation.email) + "?subject=" + encodeURIComponent("VIXEN creator application approved") + "&body=" + emailBody}>Open email to applicant ↗</a>
+        </aside>}
+
+        <section className="creator-queue-section">
+          <h2>Pre-account applications <span>{pending.length} pending</span></h2>
+          <p>These applicants do not have VIXEN logins. Approval creates a one-time account setup link.</p>
+          {pending.length === 0 ? <p className="creator-queue-empty">No pre-account applications are waiting.</p> : <div className="creator-review-list">{pending.map((application: any) => (
+            <article className="creator-review-card" key={application.id}>
+              <div className="creator-review-heading"><div><p className="vixen-kicker">PENDING · NO ACCOUNT</p><h3>{application.display_name}</h3></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
+              <dl><div><dt>Email</dt><dd>{application.email}</dd></div>{application.bio && <div><dt>Creator plans</dt><dd>{application.bio}</dd></div><div><dt>Applicant confirms</dt><dd>Adult woman · creator terms accepted</dd></div></dl>
+              <form action={reviewCreatorPreapplication} className="creator-review-form">
+                <input type="hidden" name="applicationId" value={application.id} />
+                <label>Internal review note<textarea name="reviewNote" maxLength={500} defaultValue={application.review_note ?? ""} placeholder="Optional admin-only note" /></label>
+                <label className="creator-verification-check"><input type="checkbox" name="identityVerified" required /> I completed the required age and identity check through VIXEN’s approved process.</label>
+                <div><button name="decision" value="approved" type="submit">Approve and prepare account link</button><button className="creator-reject-button" name="decision" value="rejected" type="submit">Reject application</button></div>
+              </form>
+            </article>
+          ))}</div>}
+        </section>
+
+        <section className="creator-queue-section">
+          <h2>Existing-account applications</h2>
+          <p>These are older applications created after account signup. Review them separately; approving requires the same completed age and identity check.</p>
+          {(legacy ?? []).filter((row: any) => row.status === "pending").length === 0 ? <p className="creator-queue-empty">No existing-account applications are waiting.</p> : <div className="creator-review-list">{(legacy ?? []).filter((row: any) => row.status === "pending").map((application: any) => {
+            const profile = profilesById.get(application.user_id);
+            return <article className="creator-review-card" key={application.user_id}>
+              <div className="creator-review-heading"><div><p className="vixen-kicker">PENDING · ACCOUNT EXISTS</p><h3>{profile?.display_name || profile?.username || "Profile details not set"}</h3></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
+              <dl><div><dt>Account ID</dt><dd>{application.user_id}</dd></div>{profile?.username && <div><dt>Username</dt><dd>@{profile.username}</dd></div></dl>
+              <form action={reviewExistingCreatorApplication} className="creator-review-form">
+                <input type="hidden" name="userId" value={application.user_id} />
+                <label className="creator-verification-check"><input type="checkbox" name="identityVerified" required /> I completed the required age and identity check through VIXEN’s approved process.</label>
+                <div><button name="decision" value="approved" type="submit">Approve creator access</button><button className="creator-reject-button" name="decision" value="rejected" type="submit">Reject application</button></div>
+              </form>
+            </article>;
+          })}</div>}
+        </section>
+        <p><Link href="/admin">← Back to administrator console</Link></p>
+      </div></section>
+      <style>{".creator-queue-section{margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14)}.creator-queue-section h2{display:flex;justify-content:space-between;gap:12px}.creator-queue-section h2 span{color:#ff75b8;font-size:13px}.creator-queue-section>p,.creator-queue-empty{color:#aaa2ad;font-size:13px}.creator-queue-alert{padding:12px;color:#ffd0df;background:#44152c}.creator-invite-ready{display:grid;gap:12px;margin:20px 0;padding:18px;border:1px solid #ff3f9b;background:#190d16}.creator-invite-ready h2{margin:0;font-size:18px}.creator-invite-ready>p:not(.vixen-kicker){color:#c9bdcc;font-size:13px;line-height:1.6}.creator-invite-ready>a{color:#ff75b8;font-size:13px}.creator-invite-copy{display:flex;gap:8px}.creator-invite-copy input{flex:1;min-width:0;padding:10px;background:#09070a;color:white;border:1px solid rgba(255,255,255,.18)}.creator-invite-copy button,.creator-review-form button{min-height:42px;padding:0 14px;border:1px solid #ff1688;background:#bd0c68;color:#fff;cursor:pointer}.creator-review-list{display:grid;gap:14px;margin:18px 0}.creator-review-card{padding:18px;border:1px solid rgba(255,255,255,.14);background:#100d12}.creator-review-heading{display:flex;justify-content:space-between;gap:12px}.creator-review-heading h3{margin:5px 0}.creator-review-heading time{color:#aaa2ad;font-size:12px}.creator-review-card dl{display:grid;gap:9px;margin:15px 0}.creator-review-card dl div{display:grid;grid-template-columns:130px 1fr;gap:12px}.creator-review-card dt{color:#aaa2ad}.creator-review-card dd{margin:0;overflow-wrap:anywhere}.creator-review-form{display:grid;gap:12px}.creator-review-form label{display:grid;gap:6px;font-size:13px}.creator-review-form textarea{min-height:65px;padding:10px;color:white;background:#09070a;border:1px solid rgba(255,255,255,.16)}.creator-review-form .creator-verification-check{display:flex;align-items:flex-start;gap:9px;color:#f0d6e1}.creator-review-form .creator-verification-check input{margin-top:3px}.creator-review-form div{display:flex;gap:9px;flex-wrap:wrap}.creator-review-form .creator-reject-button{border-color:rgba(255,255,255,.2);background:#17131a}@media(max-width:600px){.creator-review-heading{display:grid}.creator-review-card dl div{grid-template-columns:1fr;gap:3px}.creator-invite-copy{flex-direction:column}}"}
+      </style>
     </main>
   );
 }
