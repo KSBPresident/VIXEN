@@ -12,8 +12,9 @@ export default function AboutPage() {
     <main className="about-vixen">
       <header className="about-header">
         <Link className="about-brand" href="/" aria-label="VIXEN home">
-          <Image src="/assets/vixen-mark-3d.png" alt="" width={52} height={52} priority />
-          <span>VIXEN</span>
+          <span className="about-brand-logo">
+            <Image src="/assets/vixen-logo-3d.png" alt="VIXEN" width={420} height={210} priority />
+          </span>
         </Link>
         <nav aria-label="About navigation">
           <Link href="/creators">Discover creators</Link>
@@ -64,7 +65,11 @@ export default function AboutPage() {
       </section>
 
       <footer className="about-footer">
-        <Link className="about-brand" href="/"><Image src="/assets/vixen-mark-3d.png" alt="" width={42} height={42} /><span>VIXEN</span></Link>
+        <Link className="about-brand" href="/" aria-label="VIXEN home">
+          <span className="about-brand-logo about-brand-logo-footer">
+            <Image src="/assets/vixen-logo-3d.png" alt="VIXEN" width={360} height={180} />
+          </span>
+        </Link>
         <p>Verified Interactive Xperience &amp; Entertainment Network</p>
         <small>Browser-based creator + member web app · Adults 18+ only</small>
       </footer>
