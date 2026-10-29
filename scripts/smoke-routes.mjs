@@ -81,8 +81,9 @@ async function verifyRoute(path) {
     assert.ok(location, `${path} did not include an authentication redirect`);
     const destination = new URL(location, origin);
     assert.equal(destination.pathname, "/sign-up", `${path} did not redirect to the sign-up screen`);
-    const expectedPath = url.pathname + (url.search ? new URLSearchParams(url.search).toString().replace(/^/, "?") : "");
-    assert.equal(destination.pathname + destination.search, expectedPath === url.pathname ? url.pathname : expectedPath, `${path} did not preserve the requested destination`);
+    const requested = new URL(destination.searchParams.get("next") || "/", origin);
+    assert.equal(requested.pathname, url.pathname, `${path} did not preserve the requested destination path`);
+    assert.equal(requested.searchParams.toString(), url.searchParams.toString(), `${path} did not preserve the requested destination query`);
     return "";
   }
 
