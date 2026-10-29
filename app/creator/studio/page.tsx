@@ -82,7 +82,7 @@ export default async function CreatorStudioPreviewPage() {
             <div className="studio-welcome-mark" aria-hidden="true"><span>V</span><i>✦</i><b>VIXEN STUDIO</b></div>
           </div>
 
-          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your profile and public feed tools are active." : "Creator applications are available."}</strong> Approved creators can edit their profile, publish public posts, and share 24-hour stories with signed-in members. Paid content, paid memberships, paid messages, and private video remain previews. Stories are visible to signed-in members for 24 hours. Earnings and manual withdrawals are shown separately.</p></div>
+          <div className="studio-preview-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>{hasCreatorAccess ? "Your profile, public feed, and Stories tools are active." : "Creator applications are available."}</strong> Approved creators can edit their profile, publish public posts, and share 24-hour stories with signed-in members. Paid content, paid memberships, paid messages, and private video remain previews. Earnings and manual withdrawals are shown separately.</p></div>
 
           <div className="studio-section-heading"><div><p className="studio-eyebrow">YOUR WORKSPACE</p><h2>Build your presence.</h2></div><span>{hasCreatorAccess ? "Profile editing active · other tools are previews" : "Creator tools require application approval"}</span></div>
 
