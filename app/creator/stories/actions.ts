@@ -40,6 +40,7 @@ export async function publishCreatorStory(_previous: CreatorStoryActionState, fo
   }
 
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: saved, error } = await (supabase as any).from("creator_stories").insert({
     creator_id: user.id,
     caption,
@@ -66,12 +67,14 @@ export async function deleteCreatorStory(formData: FormData) {
   const id = String(formData.get("storyId") ?? "");
   if (!/^[0-9a-f-]{36}$/i.test(id)) redirect("/creator/stories");
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: story } = await (supabase as any).from("creator_stories")
     .select("id,media_path").eq("id", id).eq("creator_id", user.id).maybeSingle();
   if (!story) redirect("/creator/stories?removed=not-found");
 
   const { error: mediaError } = await supabase.storage.from("creator-story-media").remove([story.media_path]);
   if (mediaError) redirect("/creator/stories?removed=not-removed");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { error } = await (supabase as any).from("creator_stories").delete().eq("id", id).eq("creator_id", user.id);
   if (error) redirect("/creator/stories?removed=not-removed");
 
