@@ -9,28 +9,36 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Creator applications · VIXEN", robots: { index: false, follow: false } };
 
 type SearchParams = Promise<{ invitationId?: string; token?: string; review?: string }>;
+type PreapplicationRow = { id: string; email: string; display_name: string; bio: string; status: string; review_note: string | null; created_at: string; reviewed_at: string | null; invite_token_expires_at: string | null };
+type LegacyApplicationRow = { user_id: string; email: string | null; status: string; created_at: string; reviewed_at: string | null; username: string | null; display_name: string | null; is_creator: boolean };
 export default async function AdminCreatorApplicationsPage({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams;
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !isVixenPlatformAdmin(user)) redirect("/account");
 
-  const [{ data: applications, error: applicationError }, { data: legacy, error: legacyError }] = await Promise.all([
-    (supabase as any).from("creator_preapplications")
-      .select("id,email,display_name,bio,status,review_note,created_at,reviewed_at,invite_token_expires_at")
-      .order("created_at", { ascending: false }).limit(100),
-    (supabase as any).rpc("admin_creator_application_queue"),
-  ]);
+  // The new table type will be generated after this migration is installed.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const preapplicationQuery = (supabase as any).from("creator_preapplications")
+    .select("id,email,display_name,bio,status,review_note,created_at,reviewed_at,invite_token_expires_at")
+    .order("created_at", { ascending: false }).limit(100);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const legacyQuery = (supabase as any).rpc("admin_creator_application_queue");
+  const [{ data: applicationData, error: applicationError }, { data: legacyData, error: legacyError }] = await Promise.all([preapplicationQuery, legacyQuery]);
+  const applications = (applicationData ?? []) as PreapplicationRow[];
+  const legacy = (legacyData ?? []) as LegacyApplicationRow[];
 
   let invitation: { email: string; display_name: string } | null = null;
   if (params.invitationId && params.token && /^[0-9a-f-]{36}$/i.test(params.invitationId)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data } = await (supabase as any).from("creator_preapplications")
       .select("email,display_name").eq("id", params.invitationId).eq("status", "approved").maybeSingle();
     invitation = data ?? null;
   }
 
-  const pending = (applications ?? []).filter((row: any) => row.status === "pending");
-  const approvedUnclaimed = (applications ?? []).filter((row: any) => row.status === "approved");
+  const pending = applications.filter((row) => row.status === "pending");
+  const approvedUnclaimed = applications.filter((row) => row.status === "approved");
+  const legacyPending = legacy.filter((row) => row.status === "pending");
 
   const inviteUrl = invitation
     ? "https://vixen-production-package.vercel.app/creator/setup?application=" + encodeURIComponent(params.invitationId!) + "&token=" + encodeURIComponent(params.token!)
@@ -62,7 +70,7 @@ export default async function AdminCreatorApplicationsPage({ searchParams }: { s
 
         <section className="creator-queue-section">
           <h2>Approved · awaiting account setup <span>{approvedUnclaimed.length}</span></h2>
-          {approvedUnclaimed.length === 0 ? <p className="creator-queue-empty">No approved applicants are waiting to set up accounts.</p> : <div className="creator-review-list">{approvedUnclaimed.map((application: any) => (
+          {approvedUnclaimed.length === 0 ? <p className="creator-queue-empty">No approved applicants are waiting to set up accounts.</p> : <div className="creator-review-list">{approvedUnclaimed.map((application) => (
             <article className="creator-review-card" key={application.id}>
               <p className="vixen-kicker">APPROVED · NO ACCOUNT YET</p><h3>{application.display_name}</h3>
               <p>{application.email} · Approved {application.reviewed_at ? new Date(application.reviewed_at).toLocaleString() : "date unavailable"}</p>
@@ -75,24 +83,35 @@ export default async function AdminCreatorApplicationsPage({ searchParams }: { s
         <section className="creator-queue-section">
           <h2>Pre-account applications <span>{pending.length} pending</span></h2>
           <p>These applicants do not have VIXEN logins. Approval creates a one-time account setup link.</p>
-          {pending.length === 0 ? <p className="creator-queue-empty">No pre-account applications are waiting.</p> : <div className="creator-review-list">{pending.map((application: any) => (
-            <article className="creator-review-card" key={application.id}>
-              <div className="creator-review-heading"><div><p className="vixen-kicker">PENDING · NO ACCOUNT</p><h3>{application.display_name}</h3></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
-              <dl><div><dt>Email</dt><dd>{application.email}</dd></div>{application.bio && <div><dt>Creator plans</dt><dd>{application.bio}</dd></div><div><dt>Applicant confirms</dt><dd>Adult woman · creator terms accepted</dd></div></dl>
-              <form action={reviewCreatorPreapplication} className="creator-review-form">
-                <input type="hidden" name="applicationId" value={application.id} />
-                <label>Internal review note<textarea name="reviewNote" maxLength={500} defaultValue={application.review_note ?? ""} placeholder="Optional admin-only note" /></label>
-                <label className="creator-verification-check"><input type="checkbox" name="identityVerified" required /> I completed the required age and identity check through VIXEN’s approved process.</label>
-                <div><button name="decision" value="approved" type="submit">Approve and prepare account link</button><button className="creator-reject-button" name="decision" value="rejected" type="submit">Reject application</button></div>
-              </form>
-            </article>
-          ))}</div>}
+          {pending.length === 0 ? <p className="creator-queue-empty">No pre-account applications are waiting.</p> : (
+            <div className="creator-review-list">
+              {pending.map((application) => (
+                <article className="creator-review-card" key={application.id}>
+                  <div className="creator-review-heading">
+                    <div><p className="vixen-kicker">PENDING · NO ACCOUNT</p><h3>{application.display_name}</h3></div>
+                    <time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time>
+                  </div>
+                  <dl>
+                    <div><dt>Email</dt><dd>{application.email}</dd></div>
+                    {application.bio ? <div><dt>Creator plans</dt><dd>{application.bio}</dd></div> : null}
+                    <div><dt>Applicant confirms</dt><dd>Adult woman · creator terms accepted</dd></div>
+                  </dl>
+                  <form action={reviewCreatorPreapplication} className="creator-review-form">
+                    <input type="hidden" name="applicationId" value={application.id} />
+                    <label>Internal review note<textarea name="reviewNote" maxLength={500} defaultValue={application.review_note ?? ""} placeholder="Optional admin-only note" /></label>
+                    <label className="creator-verification-check"><input type="checkbox" name="identityVerified" required /> I completed the required age and identity check through VIXEN’s approved process.</label>
+                    <div><button name="decision" value="approved" type="submit">Approve and prepare account link</button><button className="creator-reject-button" name="decision" value="rejected" type="submit">Reject application</button></div>
+                  </form>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
 
         <section className="creator-queue-section">
           <h2>Existing-account applications</h2>
           <p>These are older applications created after account signup. Review them separately; approving requires the same completed age and identity check.</p>
-          {(legacy ?? []).filter((row: any) => row.status === "pending").length === 0 ? <p className="creator-queue-empty">No existing-account applications are waiting.</p> : <div className="creator-review-list">{(legacy ?? []).filter((row: any) => row.status === "pending").map((application: any) => {
+          {legacyPending.length === 0 ? <p className="creator-queue-empty">No existing-account applications are waiting.</p> : <div className="creator-review-list">{(legacy ?? []).filter((row: any) => row.status === "pending").map((application) => {
             return <article className="creator-review-card" key={application.user_id}>
               <div className="creator-review-heading"><div><p className="vixen-kicker">PENDING · ACCOUNT EXISTS</p><h3>{application.display_name || application.username || "Profile details not set"}</h3></div><time dateTime={application.created_at}>{new Date(application.created_at).toLocaleString()}</time></div>
               <dl><div><dt>Email</dt><dd>{application.email || "Email unavailable"}</dd></div>{application.username && <div><dt>Username</dt><dd>@{application.username}</dd></div></dl>
