@@ -21,10 +21,20 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  // Refresh Supabase sessions before server-rendering any route that may show
-  // account state. This keeps public app surfaces in sync after sign-in and
-  // avoids rendering a signed-out preview while the account route is signed in.
-  await supabase.auth.getClaims();
+  const { data: { claims } } = await supabase.auth.getClaims();
+  const pathname = request.nextUrl.pathname;
+  const isPublicAuthRoute = pathname === "/sign-up" || pathname.startsWith("/auth/") || pathname.startsWith("/api/");
+  if (!claims && !isPublicAuthRoute) {
+    const destination = request.nextUrl.clone();
+    const requestedPath = pathname + request.nextUrl.search;
+    destination.pathname = "/sign-up";
+    destination.search = new URLSearchParams({
+      type: "member",
+      next: requestedPath,
+    }).toString();
+    return NextResponse.redirect(destination);
+  }
+
   return response;
 }
 
