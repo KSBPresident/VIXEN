@@ -62,5 +62,6 @@ export function CreatorAccountActivation({ applicationId, token, configured }: {
     <label className="vixen-age-confirmation"><input type="checkbox" required checked={adultConfirmed} onChange={(event) => setAdultConfirmed(event.target.checked)} /><span>I confirm I am 18 or older.</span></label>
     <button className="vixen-email-submit" disabled={!configured || pending}>{pending ? "Creating account…" : "Create approved creator account"}</button>
     <p className={error ? "vixen-email-feedback is-error" : "vixen-email-feedback"} role={error ? "alert" : "status"} aria-live="polite">{message || (!configured ? "Creator account activation is unavailable." : "Your email must match the application approved by VIXEN.")}</p>
+    <p className="vixen-auth-caption">Already have a VIXEN account? <a href={"/sign-up?type=member&mode=signin&next=" + encodeURIComponent(claimPath)}>Sign in with the invited email to activate this approval.</a></p>
   </form>;
 }
